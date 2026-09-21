@@ -110,8 +110,10 @@ check("T3 重跑失败 → 该模型状态不变（fail-closed）", snap == snap
 # ── T4 调度决策 ──
 ts = server._next_run_ts()
 dt = datetime.fromtimestamp(ts)
-wd_ok = dt.weekday() < 5 and dt.hour == 17 and dt.minute == 5 and ts > time.time()
-check("T4 _next_run_ts → 未来工作日 17:05", wd_ok, str(dt))
+wd_ok = (dt.weekday() < 5 and dt.hour == server.SCHEDULE_HOUR
+         and dt.minute == server.SCHEDULE_MIN and ts > time.time())
+check(f"T4 _next_run_ts → 未来工作日 {server.SCHEDULE_HOUR:02d}:{server.SCHEDULE_MIN:02d}",
+      wd_ok, str(dt))
 
 # ── T5 手动更新 API ──
 req = urllib.request.Request("http://127.0.0.1:8000/api/daily/run", method="POST",

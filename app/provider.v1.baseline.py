@@ -26,16 +26,6 @@ EM_KLINE = ("https://push2his.eastmoney.com/api/qt/stock/kline/get?"
             "secid={secid}&fields1=f1,f2,f3,f4,f5,f6"
             "&fields2=f51,f52,f53,f54,f55,f56,f57&klt=101&fqt=0&beg={beg}&end=20500101")
 EM_INDEX = "1.000001"  # 上证指数 → 交易日历
-# 全A批量快照（收盘后）：一次请求 100 只，约 56 页拉完 5560 只。
-# 用于「单日增量」快速路径：收盘后当日日线定型，无需逐只 kline（5544 请求，
-# 东财限流下可达数小时）。fs 覆盖沪深主板/创业板/科创板，与 STOCK_PREFIXES 同一股票池。
-EM_CLIST = ("https://push2.eastmoney.com/api/qt/clist/get?"
-            "pn={pn}&pz=100&po=0&np=1&fltt=2&invt=2&fid=f12"
-            "&fs=m:0+t:6,m:0+t:80,m:1+t:2,m:1+t:23"
-            "&fields=f12,f13,f2,f5,f6,f15,f16,f17")
-# 快照口径：f2=最新价(收盘) f5=成交量(手) f6=成交额(元) f15/f16/f17=高/低/开，单位与
-# kline 主源一致（价格元、量手、额元）→ 复用 kline 的换算（×100 分、量×100 股）。
-SNAPSHOT_EARLIEST = (15, 5)  # 快照仅收盘后可信：最早 15:05 才允许走快速路径
 UA = {"User-Agent": "Mozilla/5.0 (Windows NT 10.0; Win64; x64)"}
 
 # 仅覆盖股票（Skill 回测 universe 均为股票）；基金/债券/北交所不在标准行情范围
@@ -223,119 +213,6 @@ def _last_date_of(path):
         return struct.unpack("<i", f.read(4))[0]
 
 
-def fetch_snapshot_day(trade_date, progress_cb=None):
-    """收盘后全A当日快照 → {(market, code6): (date,o分,h分,l分,c分,amount元,vol股)}。
-
-    停牌/无成交（f2='-'）标的自动缺失——与 kline 路径「当日无 bar 则不写」语义一致。
-    任一页拉取失败抛异常，由调用方回退逐只 kline 路径。
-    """
-    out = {}
-    pn, total = 1, None
-    while True:
-        d = _http_json(EM_CLIST.format(pn=pn), timeout=10, tries=3)
-        data = d.get("data") or {}
-        diff = data.get("diff") or []
-        if total is None:
-            total = int(data.get("total") or 0)
-        if not diff:
-            break
-        for it in diff:
-            if it.get("f2") in ("-", None) or it.get("f5") in ("-", None):
-                continue
-            mkt = "sh" if it.get("f13") == 1 else "sz"
-            code6 = str(it.get("f12", "")).zfill(6)
-            o, h, low, c = (float(it["f17"]), float(it["f15"]),
-                            float(it["f16"]), float(it["f2"]))
-            vol, amt = float(it["f5"]), float(it["f6"])
-            out[(mkt, code6)] = (
-                trade_date,
-                int(round(o * 100)), int(round(h * 100)),
-                int(round(low * 100)), int(round(c * 100)),
-                amt, int(round(vol * 100)))  # 量 手→股
-        if progress_cb and pn % 10 == 0:
-            progress_cb(f"快照进度 {len(out)}/{total}")
-        if total and len(out) >= total and pn * 100 >= total:
-            break
-        pn += 1
-        if pn > 200:  # 防御：分页异常终止
-            raise RuntimeError(f"快照分页异常：pn={pn} total={total}")
-    return out
-
-
-def _snapshot_eligible(missing_days):
-    """单日增量且该日=今天且已过收盘定型时间 → 可走快照快速路径。"""
-    if len(missing_days) != 1:
-        return False
-    from datetime import datetime
-    now = datetime.now()
-    today = int(now.strftime("%Y%m%d"))
-    if missing_days[0] != today:
-        return False
-    return (now.hour, now.minute) >= SNAPSHOT_EARLIEST
-
-
-def _kline_plan(files, own_last_of, missing_days, src, force_beg=None,
-                max_workers=6, progress_cb=None):
-    """逐只 kline 抓取路径（多日缺口/盘中；旧实现抽离）。返回 (plan, errors)。"""
-    plan, errors = {}, []
-    done = [0]
-
-    def work(f):
-        market = f.parent.parent.name  # .../vipdoc/sh/lday
-        code6 = f.stem[2:]
-        own_last = own_last_of(f)
-        beg_own = max(own_last + 1, 19901219)  # 个股自身水位，自愈历史漏补
-        recs = fetch_daily(market, code6, beg_own, source=src)
-        return f, recs, own_last
-
-    with ThreadPoolExecutor(max_workers=max_workers) as ex:
-        futs = {ex.submit(work, f): f for f in files}
-        for fut in as_completed(futs):
-            f = futs[fut]
-            try:
-                _f, recs, own_last = fut.result()
-                recs = [r for r in recs if r[0] >= max(own_last + 1,
-                                                       force_beg or 0)]
-                ok, probs = validate_records(recs, own_last)
-                if probs:
-                    errors.append({"file": f.name, "skipped": True,
-                                   "problems": probs[:3]})
-                elif ok:
-                    plan[f] = b"".join(encode_record(r) for r in ok)
-            except Exception as exc:
-                errors.append({"file": f.name, "skipped": True,
-                               "problems": [f"抓取失败: {exc}"]})
-            done[0] += 1
-            if progress_cb and done[0] % 500 == 0:
-                progress_cb(f"抓取进度 {done[0]}/{len(files)}")
-    return plan, errors
-
-
-def _snapshot_plan(files, own_last_of, trade_date, progress_cb=None):
-    """快照快速路径：单日增量（约 56 页请求）。返回 (plan, errors)。"""
-    snap = fetch_snapshot_day(trade_date, progress_cb=progress_cb)
-    plan, errors, skipped = {}, [], 0
-    for f in files:
-        market = f.parent.parent.name
-        code6 = f.stem[2:]
-        rec = snap.get((market, code6))
-        if rec is None:
-            skipped += 1          # 停牌/当日无成交：与 kline 路径语义一致
-            continue
-        own_last = own_last_of(f)
-        if rec[0] <= own_last:
-            continue              # 已有该日数据（不应发生，防御）
-        ok, probs = validate_records([rec], own_last)
-        if probs:
-            errors.append({"file": f.name, "skipped": True,
-                           "problems": probs[:3]})
-        elif ok:
-            plan[f] = b"".join(encode_record(r) for r in ok)
-    if progress_cb:
-        progress_cb(f"快照完成：有效 {len(plan)}，停牌/缺失 {skipped}")
-    return plan, errors
-
-
 def update(day_dirs, universe_filter=True, max_workers=6, progress_cb=None,
            force_beg=None):
     """检查本地最新交易日 → 抓缺失交易日 → 校验 → 追加（带回滚）。
@@ -379,24 +256,39 @@ def update(day_dirs, universe_filter=True, max_workers=6, progress_cb=None,
     if progress_cb:
         progress_cb(f"缺失 {len(missing_days)} 个交易日，抓取 {len(files)} 个标的…")
 
-    # 2) 抓取 + 校验（失败个股跳过，不入库；下次运行按个股自身 beg 自愈补齐）
-    #    快速路径：单日增量 + 该日=今天 + 已收盘定型 → 全A批量快照（约 56 请求），
-    #    替代逐只 kline（5544 请求，东财限流下可达数小时）。快照失败自动回退旧路径。
-    own_last_of = _last_date_of
-    plan, errors, used_snapshot = None, [], False
-    if not force_beg and src == "em" and _snapshot_eligible(missing_days):
-        try:
-            plan, errors = _snapshot_plan(files, own_last_of, missing_days[0],
-                                          progress_cb=progress_cb)
-            used_snapshot = True
-        except Exception as exc:
-            logger.warning("快照快速路径失败(%s)，回退逐只 kline", exc)
-            plan = None
-    if plan is None:
-        plan, errors = _kline_plan(files, own_last_of, missing_days, src,
-                                   force_beg=force_beg,
-                                   max_workers=max_workers,
-                                   progress_cb=progress_cb)
+    # 2) 并发抓取 + 校验（失败个股跳过，不入库；下次运行按个股自身 beg 自愈补齐）
+    plan = {}      # file -> bytes to append
+    errors = []
+    done = [0]
+
+    def work(f):
+        market = f.parent.parent.name  # .../vipdoc/sh/lday
+        code6 = f.stem[2:]
+        own_last = _last_date_of(f)
+        beg_own = max(own_last + 1, 19901219)  # 个股自身水位，自愈历史漏补
+        recs = fetch_daily(market, code6, beg_own, source=src)
+        return f, recs, own_last
+
+    with ThreadPoolExecutor(max_workers=max_workers) as ex:
+        futs = {ex.submit(work, f): f for f in files}
+        for fut in as_completed(futs):
+            f = futs[fut]
+            try:
+                _f, recs, own_last = fut.result()
+                recs = [r for r in recs if r[0] >= max(own_last + 1,
+                                                       force_beg or 0)]
+                ok, probs = validate_records(recs, own_last)
+                if probs:
+                    errors.append({"file": f.name, "skipped": True,
+                                   "problems": probs[:3]})
+                elif ok:
+                    plan[f] = b"".join(encode_record(r) for r in ok)
+            except Exception as exc:
+                errors.append({"file": f.name, "skipped": True,
+                               "problems": [f"抓取失败: {exc}"]})
+            done[0] += 1
+            if progress_cb and done[0] % 500 == 0:
+                progress_cb(f"抓取进度 {done[0]}/{len(files)}")
 
     # 3) 追加（回滚日志保护）
     journal = []
@@ -421,8 +313,7 @@ def update(day_dirs, universe_filter=True, max_workers=6, progress_cb=None,
     new_last = max(_last_date_of(f) for f in plan) if plan else local_last
     return {"status": "OK", "local_last_before": local_last,
             "appended_days": missing_days, "new_last": new_last,
-            "updated_files": len(plan),
-            "source": ("em_snapshot" if used_snapshot else src),
+            "updated_files": len(plan), "source": src,
             "skipped": len(errors), "errors": errors[:50]}
 
 

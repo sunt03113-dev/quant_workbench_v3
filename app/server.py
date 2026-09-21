@@ -226,7 +226,7 @@ def daily_run():
 def _daily_pipeline(progress_cb):
     """每日管线：增量行情 → 重跑全部模型（失败保护逐模型生效）→ 状态。
 
-    供 手动更新(/api/daily/run) 与 定时调度(17:05) 共用；pipeline_lock 防重入。
+    供 手动更新(/api/daily/run) 与 定时调度(工作日 15:45) 共用；pipeline_lock 防重入。
     """
     with _pipeline_lock:
         msgs = []
@@ -301,14 +301,16 @@ def _run_daily_job(job_id):
         setj(status="failed", error=str(exc))
 
 
-# ───────────────────────── 轻量调度（工作日 17:05 + 启动补偿） ─────────────────────────
+# ───────────────────────── 轻量调度（工作日 15:45 + 启动补偿） ─────────────────────────
+# 15:45：主源东财日线收盘（15:00）后即定型，不依赖 tushare 的 15~16 点入库窗口；
+# 快照快速路径（provider.SNAPSHOT_EARLIEST=15:05）与单模型重跑均在几分钟内完成。
 
 _pipeline_lock = threading.Lock()
-SCHEDULE_HOUR, SCHEDULE_MIN = 17, 5
+SCHEDULE_HOUR, SCHEDULE_MIN = 15, 45
 
 
 def _next_run_ts():
-    """下一个工作日 17:05 的时间戳。"""
+    """下一个工作日 15:45 的时间戳。"""
     from datetime import datetime, timedelta
     now = datetime.now()
     cand = now.replace(hour=SCHEDULE_HOUR, minute=SCHEDULE_MIN,
@@ -321,7 +323,7 @@ def _next_run_ts():
 
 
 def _scheduler_loop():
-    # 启动补偿：若已过当日 17:05 且有模型结果落后于最新行情 → 补跑一次
+    # 启动补偿：若已过当日 15:45 且有模型结果落后于最新行情 → 补跑一次
     from datetime import datetime
     time.sleep(20)
     try:

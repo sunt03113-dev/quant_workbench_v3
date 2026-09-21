@@ -1375,7 +1375,7 @@ universePicker.addEventListener('click', (e) => {
 //   该 strategy 存在「D-0 日期 == 全局最新交易日」的命中，即最新交易日当天
 //   新触发的信号（day_new_hits，后端 store.day_new_hits 计算）。
 // 不是「历史有结果 / candidate_count>0 / 本次-上次 diff / 手动重跑差异」。
-// 数据源：后端 /api/daily/state（工作日 15:45 每日管线或手动更新后刷新）。
+// 数据源：后端 /api/daily/state（17:05 每日管线或手动更新后刷新）。
 async function loadCardStocks() {
   let state = null;
   try {
@@ -1436,13 +1436,7 @@ updateDataBtn.addEventListener('click', async () => {
           showToast(job.error || '更新失败', 4000);
           setTimeout(() => { updateDataBtn.textContent = '↻ 更新数据'; }, 3000);
         }
-        } catch {
-          // 轮询失败（后端重启/网络中断）：必须恢复按钮，否则永远卡在「正在更新…」
-          clearInterval(poll);
-          updateDataBtn.classList.remove('updating');
-          updateDataBtn.textContent = '↻ 更新数据';
-          showToast('更新任务状态查询失败（后端可能已重启或网络中断），请重新点击更新', 4000);
-        }
+      } catch { clearInterval(poll); }
     }, 2000);
   } catch (e) {
     updateDataBtn.classList.remove('updating');
