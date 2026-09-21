@@ -67,21 +67,33 @@ def _collect_stock_files(universe):
 
 
 def _col_day_name(o):
-    """输出列的日锚点名：固定日 D-5 / 变量日 D(x+2)、Dx。"""
+    """输出列的日锚点名：固定日 D-5 / 变量日 D-x、D-(x+2)、D-(x-1)。
+
+    记号对齐用户基准（0921A_backtest.xlsx）：D-(x+k) 括号记号；
+    k=0 即 D-x 本身；k<0 表示比 D-x 更近 |k| 天。
+    """
     if "day_var" in o:
         k = o["day_var"]
-        return "Dx" if k == 0 else f"D(x+{k})"
+        if k == 0:
+            return "D-x"
+        if k > 0:
+            return f"D-(x+{k})"
+        return f"D-(x-{-k})"
     return f"D-{abs(o['day'])}"
 
 
-def _col_range_name(days):
+def _col_range_name(days, sep="/"):
     """区间输出列的区间名：两端可为固定偏移或变量日。"""
     def one(d):
         if isinstance(d, dict):
             k = d["var"]
-            return "Dx" if k == 0 else f"D(x+{k})"
+            if k == 0:
+                return "D-x"
+            if k > 0:
+                return f"D-(x+{k})"
+            return f"D-(x-{-k})"
         return f"D+{d}" if d > 0 else f"D-{abs(d)}"
-    return f"{one(days[0])}/{one(days[1])}"
+    return f"{one(days[0])}{sep}{one(days[1])}"
 
 
 def _compute_columns(outputs):
@@ -103,13 +115,19 @@ def _compute_columns(outputs):
         elif a in ("range_change", "range_amplitude", "range_max_amplitude"):
             name = {"range_change": "区间涨幅", "range_amplitude": "区间振幅",
                     "range_max_amplitude": "区间最大振幅"}[a]
-            cols.append(f"{_col_range_name(o['days'])}{name}")
+            cols.append(f"{_col_range_name(o['days'], o.get('sep', '/'))}{name}")
         elif a == "amount_pct":
-            cols.append(f"{_col_range_name(o['days'])}成交额百分比")
+            cols.append(f"{_col_range_name(o['days'], o.get('sep', '/'))}成交额百分比")
         elif a == "t_walk":
             n = o["t1"] - o["t0"] + 1
-            cols.append("T+0(低/高)")
-            cols.extend(f"T+{k}最高价" for k in range(1, n))
+            base = o.get("day_base")
+            if base is None:
+                cols.append("T+0(低/高)")
+                cols.extend(f"T+{k}最高价" for k in range(1, n))
+            else:
+                # D+1~D+8 价格走势：第 k 步（0 起）对应 D+(base+k)
+                cols.append(f"D+{base}(低/高)")
+                cols.extend(f"D+{base + k}最高价" for k in range(1, n))
     return cols
 
 
@@ -474,12 +492,18 @@ def run_plan(plan, start_date=None, end_date=None, data_end=None, progress_cb=No
                 i = int(i)
                 if closes[i - 1] <= 0 or closes[i] <= 0:
                     continue
+                # 出行口径（2026-09-21 kk，0921A 基准实证 299/299）：
+                # 每个 D-0 命中日只出一行，x 取最小满足值；
+                # plan 里 quantifier.mode="all" 可切回「每个满足的 x 各出一行」。
+                q_mode = (quant or {}).get("mode", "min")
                 for xv, _dc, cand_x in per_x:
                     if not cand_x[i]:
                         continue
                     rows.append(_build_row(code, dates, opens, highs, lows, closes,
                                            amounts, limits, i, _make_jget(i, xv, n),
                                            outputs, t_count, x=xv))
+                    if q_mode == "min":
+                        break
             continue
 
         cand = np.ones(n, dtype=bool)
@@ -614,7 +638,7 @@ def _build_row(code, dates, opens, highs, lows, closes, amounts, limits,
             base = float(closes[ja - 1]) if ja is not None and ja >= 1 else None
             name = {"range_change": "区间涨幅", "range_amplitude": "区间振幅",
                     "range_max_amplitude": "区间最大振幅"}[a]
-            col = f"{_col_range_name(o['days'])}{name}"
+            col = f"{_col_range_name(o['days'], o.get('sep', '/'))}{name}"
             if base is None or base <= 0 or jb is None or jb < ja:
                 row[col] = "N/A"
             elif a == "range_change":
@@ -628,7 +652,7 @@ def _build_row(code, dates, opens, highs, lows, closes, amounts, limits,
         elif a == "amount_pct":
             da, db = o["days"]
             ja, jb = jget(_dkey(da)), jget(_dkey(db))
-            col = f"{_col_range_name(o['days'])}成交额百分比"
+            col = f"{_col_range_name(o['days'], o.get('sep', '/'))}成交额百分比"
             if ja is None or jb is None or jb < 0:
                 row[col] = "N/A"
             else:
@@ -638,9 +662,15 @@ def _build_row(code, dates, opens, highs, lows, closes, amounts, limits,
             t_raw = generate_t_fields(opens, highs, lows, closes, limits,
                                       base_idx=i, n=len(dates), t_count=t_count or 7)
             n_fields = t_count or 7
-            row["T+0(低/高)"] = t_raw.get("T+0(低/高)", "N/A")
-            for kk in range(1, n_fields):
-                row[f"T+{kk}最高价"] = t_raw.get(f"T+{kk}最高价", "N/A")
+            base = o.get("day_base")
+            if base is None:
+                row["T+0(低/高)"] = t_raw.get("T+0(低/高)", "N/A")
+                for kk in range(1, n_fields):
+                    row[f"T+{kk}最高价"] = t_raw.get(f"T+{kk}最高价", "N/A")
+            else:
+                row[f"D+{base}(低/高)"] = t_raw.get("T+0(低/高)", "N/A")
+                for kk in range(1, n_fields):
+                    row[f"D+{base + kk}最高价"] = t_raw.get(f"T+{kk}最高价", "N/A")
     return row
 
 

@@ -744,9 +744,12 @@ async function loadCandidates(stem) {
   candTbody.innerHTML = '';
   try {
     const d = await apiFetch(`/api/backtest/${stem}/candidates?limit=10000`);
-    // 按日期降序，只取最近 10 条
-    const rows = [...d.rows].sort((a, b) =>
-      String(b['D-0日期'] ?? '').localeCompare(String(a['D-0日期'] ?? ''))).slice(0, 10);
+    // 按日期列降序（时间倒序），只取最近 10 条；日期列动态识别（D-0日期 / T_2日期 / …）
+    const dateCol = d.columns.find(c => String(c).includes('日期'));
+    const rows = [...d.rows].sort((a, b) => {
+      if (!dateCol) return 0;
+      return String(b[dateCol] ?? '').localeCompare(String(a[dateCol] ?? ''));
+    }).slice(0, 10);
     candThead.innerHTML = '<tr>' +
       d.columns.map(c => `<th>${esc(c)}</th>`).join('') + '</tr>';
     candTbody.innerHTML = rows.map(r => '<tr>' +
@@ -1287,6 +1290,12 @@ async function _submitGenericPlan(plan, ruleText, stem, persistStem = true) {
 function _renderGenericHits(rows) {
   if (!rows || !rows.length) return;
   const keys = Object.keys(rows[0]).filter(k => k !== 'event_rows');
+  // 时间倒序：按首个「日期」列降序（D-0日期 / T_2日期 / …）
+  const dateKey = keys.find(k => k.includes('日期'));
+  if (dateKey) {
+    rows = [...rows].sort((a, b) =>
+      String(b[dateKey] ?? '').localeCompare(String(a[dateKey] ?? '')));
+  }
   const head = keys.map(k => `<th style="padding:4px 8px;text-align:left">${esc(k)}</th>`).join('');
   const body = rows.slice(0, 20).map(r =>
     `<tr>${keys.map(k => `<td style="padding:4px 8px">${esc(String(r[k]))}</td>`).join('')}</tr>`).join('');

@@ -43,7 +43,7 @@ _RE_OUT_KEY = re.compile(
     r"|x)\s*[：:]\s*(.*)$"
 )
 _RE_OUT_DAY = re.compile(r"^D-?(\d+)$")
-_RE_OUT_RANGE = re.compile(r"^D-?(\d+)\s*/\s*D-?(\d+)$")
+_RE_OUT_RANGE = re.compile(r"^D-?(\d+)\s*[/~～]\s*D-?(\d+)$")
 _RE_OUT_T = re.compile(r"^T\+(\d+)\s*/\s*T\+(\d+)$")
 # 组合规则（变量日）输出键：
 #   Dx-2  -> D-(x+2)（kk 确认：减号表示比 D-x 更远 k 天）
@@ -70,9 +70,11 @@ def _norm(s):
 
 def _day_offset(tok, m):
     t = _norm(tok).lower()
-    if t.startswith("d-x"):                      # 变量日（读法1 kk 已确认）
-        # D-x   -> 深度 x
-        # D-x+k -> D-(x+k)，比 D-x 更远 k 天
+    if t.startswith(("d-x", "d-(")):             # 变量日（读法1 kk 已确认）
+        # D-x     -> 深度 x
+        # D-x+k / D-(x+k) -> D-(x+k)，比 D-x 更远 k 天
+        # 注意：D-(x+2) 这类括号记号必须走此分支；
+        # 否则下方 d- 兜底会抓括号里的第一个数字，把变量日错解成固定日 D-k！
         k = 0
         if m and m.group(6):
             k = int(m.group(7)) * (1 if m.group(6) == "+" else -1)
@@ -82,7 +84,12 @@ def _day_offset(tok, m):
     if t.startswith("前") or t.startswith("d-"):
         digits = m and (m.group(2) or m.group(3) or m.group(4))
         if digits is None:
-            digits = re.search(r"\d+", t).group()
+            # 兜底仅允许「token 本身含数字」的情形；变量日 token（d-(x+2)）
+            # 已在上方分支消费，不会落到这里。
+            fm = re.search(r"\d+", t)
+            if fm is None:
+                return None
+            digits = fm.group()
         return -int(digits)
     if t.startswith("d+"):
         return int(m.group(5))
@@ -159,8 +166,9 @@ def _parse_outputs(out_text):
     err_fragment 非空 = 存在无法映射的输出（fail-closed，由调用方转为 problems）。
     """
     out_text = _strip_annotations(out_text)
-    # 「T+0~T+6」等波浪号区间写法归一为「/」（Skill 词汇表口径为斜杠区间）
-    out_text = out_text.replace("～", "/").replace("~", "/")
+    # 波浪号写法归一：全角 ～ → 半角 ~；「~」与「/」均为合法区间分隔符
+    # （2026-09-21 kk 口径：分隔符保留原样进入列名，不再统一改写为 /）
+    out_text = out_text.replace("～", "~")
     outputs = []
     err = None
     cur = None  # (kind, params) 当前输出键上下文
@@ -204,13 +212,17 @@ def _parse_outputs(out_text):
                     k = int(mvr.group(2)) * (1 if (mvr.group(1) or "+") == "+" else -1) \
                         if mvr.group(1) else 0
                     end = int(mvr.group(4)) * (1 if mvr.group(3) == "+" else -1)
-                    cur = ("varrange", (k, end))
+                    sep = "~" if ("~" in key or "～" in key) else "/"
+                    cur = ("varrange", (k, end, sep))
                 elif mv:
                     # kk 确认：Dx-2 = D-(x+2)，减号 = 比 D-x 更远 k 天
                     cur = ("var", int(mv.group(1)) if mv.group(1) else 0)
                 elif mr:
                     a, b = -int(mr.group(1)), -int(mr.group(2))
-                    cur = ("range", (a, b))
+                    # 分隔符语义归一：「/」与「~」均表示区间（用户口径），
+                    # 列名保留用户书写习惯
+                    sep = "~" if ("~" in key or "～" in key) else "/"
+                    cur = ("range", (a, b, sep))
                 elif mt:
                     cur = ("t", (0, int(mt.group(2))))
                 elif md:
@@ -227,20 +239,22 @@ def _parse_outputs(out_text):
                     break
             elif kind == "fwdt":
                 if "走势" in itn:
-                    outputs.append({"atom": "t_walk", "t0": 0, "t1": params[1] - 1})
+                    # D+1~D+8 价格走势：T+0..T+7 对应 D+1..D+8，输出列用 D+ 记号
+                    outputs.append({"atom": "t_walk", "t0": 0, "t1": params[1] - 1,
+                                    "day_base": params[0]})
                 else:
                     err = clause
                     break
             elif kind == "varrange":
-                k, b = params
+                k, b, sep = params
                 if "区间涨幅" in itn:
-                    outputs.append({"atom": "range_change", "days": [{"var": k}, b]})
+                    outputs.append({"atom": "range_change", "days": [{"var": k}, b], "sep": sep})
                 elif "区间最大振幅" in itn:
-                    outputs.append({"atom": "range_max_amplitude", "days": [{"var": k}, b]})
+                    outputs.append({"atom": "range_max_amplitude", "days": [{"var": k}, b], "sep": sep})
                 elif "区间振幅" in itn:
-                    outputs.append({"atom": "range_amplitude", "days": [{"var": k}, b]})
+                    outputs.append({"atom": "range_amplitude", "days": [{"var": k}, b], "sep": sep})
                 elif "成交额百分比" in itn:
-                    outputs.append({"atom": "amount_pct", "days": [{"var": k}, b]})
+                    outputs.append({"atom": "amount_pct", "days": [{"var": k}, b], "sep": sep})
                 else:
                     err = clause
                     break
@@ -260,15 +274,15 @@ def _parse_outputs(out_text):
                     err = clause
                     break
             elif kind == "range":
-                a, b = params
+                a, b, sep = params
                 if "区间涨幅" in itn:
-                    outputs.append({"atom": "range_change", "days": [a, b]})
+                    outputs.append({"atom": "range_change", "days": [a, b], "sep": sep})
                 elif "区间最大振幅" in itn:
-                    outputs.append({"atom": "range_max_amplitude", "days": [a, b]})
+                    outputs.append({"atom": "range_max_amplitude", "days": [a, b], "sep": sep})
                 elif "区间振幅" in itn:
-                    outputs.append({"atom": "range_amplitude", "days": [a, b]})
+                    outputs.append({"atom": "range_amplitude", "days": [a, b], "sep": sep})
                 elif "成交额百分比" in itn:
-                    outputs.append({"atom": "amount_pct", "days": [a, b]})
+                    outputs.append({"atom": "amount_pct", "days": [a, b], "sep": sep})
                 else:
                     err = clause
                     break
@@ -310,7 +324,7 @@ def _parse_outputs(out_text):
 # 111A3 类形态：锚点日 T_0..T_m 依次相邻排布，相邻锚点间隔 N_i 为变量（存在量词），
 # 每个满足的 (N1..Nm) 组合各出一行（kk 口径，2026-09-21 确认：间隔N=相差N个交易日）。
 
-_RE_CHAIN_TRIGGER = re.compile(r"T_?0")
+_RE_CHAIN_TRIGGER = re.compile(r"T[-_]?0")   # T0 / T_0 / T-0 均为链式锚点起点
 _RE_CHAIN_GAP = re.compile(
     r"T_(\d+)\s*[-—～~至]{1,2}\s*T_(\d+)(?:间隔|隔)N(\d+)∈\[\s*(-?\d+)\s*,\s*(-?\d+)\s*\]")
 _RE_CHAIN_PREV = re.compile(r"T_(\d+)前(\d+)日无涨停")
@@ -326,6 +340,10 @@ _RE_CHAIN_OUT_GAPVAL = re.compile(r"(?:间隔的?交易?日?天数|间隔的?天
 def _parse_chain_rule(text, cond_text, out_text, universe_hint):
     """解析间隔链规则 -> parse_single_rule 兼容的三元组。解析不了 -> fail-closed problems。"""
     problems = []
+    # T 标记体系中「-」仅是标识符（kk 口径）：T-0 / T_0 / T0 等价，统一归一为 T_0。
+    # 只归一 T-数字 / T_数字，不触碰 T+0（前向日记号）。
+    _tnorm = lambda s: re.sub(r"[Tt][-_](\d+)", r"T_\1", s)
+    text, cond_text, out_text = _tnorm(text), _tnorm(cond_text), _tnorm(out_text)
     mu = _RE_UNIVERSE.search(text)
     universe = (mu.group(1) + "cm") if mu else (universe_hint or None)
 
