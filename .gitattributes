@@ -1,0 +1,5 @@
+# macOS / Unix 脚本必须保持 LF：
+# 若在 Windows 上用 autocrlf 检出成 CRLF，拷到 mac 上会直接报 bad interpreter。
+# 注意：此处只约束脚本，不改 *.py / *.bat 的既有检出行为。
+*.sh      text eol=lf
+*.command text eol=lf
