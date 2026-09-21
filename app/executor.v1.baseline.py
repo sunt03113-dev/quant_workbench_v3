@@ -263,8 +263,7 @@ def _build_chain_row(code, dates, highs, lows, closes, amounts,
             else:
                 amps = [(highs[j2] - lows[j2]) / (closes[j2 - 1] if closes[j2 - 1] > 0 else 1) * 100.0
                         for j2 in range(ja, jb + 1)]
-                # 区间最大振幅 = 区间内逐日「单日」振幅取最大 -> 单日口径，不带 %（Skill 输出规范）
-                row[col] = round(max(amps), 2)
+                row[col] = f"{round(max(amps), 2)}%"
     return row
 
 
@@ -649,10 +648,7 @@ def _build_row(code, dates, opens, highs, lows, closes, amounts, limits,
             else:
                 amps = [(highs[j] - lows[j]) / (closes[j - 1] if closes[j - 1] > 0 else 1) * 100.0
                         for j in range(ja, jb + 1)]
-                # 区间最大振幅 = 区间内逐日「单日」振幅取最大 -> 单日口径，不带 %（Skill 输出规范：
-                # 0908_backtest.py L25 / B9 L9 / 0803 L12「单日涨幅/振幅数值不带 %」；
-                # 老 Skill 0908 脚本 L312 自身带 % 属格式化瑕疵，golden 继承，裁定按规范修正）
-                row[col] = round(max(amps), 2)
+                row[col] = f"{round(max(amps), 2)}%"
         elif a == "amount_pct":
             da, db = o["days"]
             ja, jb = jget(_dkey(da)), jget(_dkey(db))

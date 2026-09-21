@@ -217,3 +217,24 @@ INFO:     127.0.0.1:60449 - "GET /api/backtest/strategy_111b_r1_v1/candidates?li
 INFO:     127.0.0.1:64188 - "GET /api/daily/state HTTP/1.1" 200 OK
 INFO:     127.0.0.1:50243 - "GET /api/data/latest HTTP/1.1" 200 OK
 INFO:     127.0.0.1:50243 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     Started server process [13260]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:55699 - "GET /api/health HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55700 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53496 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62342 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62342 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62342 - "GET /api/rules/strategy_111a_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56616 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50713 - "GET /api/rules/strategy_111b_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50713 - "GET /api/backtest/strategy_111b_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56616 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62342 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55171 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62342 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55171 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55171 - "GET /api/backtest/strategy_111b_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55171 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55171 - "GET /api/backtest/strategy_111b_r1_v1/candidates/export?model_name=111B HTTP/1.1" 200 OK
