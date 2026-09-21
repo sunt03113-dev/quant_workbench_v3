@@ -5,10 +5,13 @@
 `ui/ui_v2.html` 的任何内容**——它们是冻结基线。
 
 ## 包内容（两个包必须配套使用，勿混用旧包）
-| 包 | 大小 | sha256（前 16 位） | 内容 |
+| 包 | 大小 | sha256 | 内容 |
 |---|---|---|---|
-| `qwb_m4_deploy_20260921.zip` | 4.8 MB / 294 文件 | `ae210c6cfc396fca` | 代码 + Skill + UI + Golden 结果表 + 部署脚本（不含 `app/config.yaml`，不含任何 `.day`） |
-| `qwb_market_pack_20260921.zip` | 889.5 MB / 11705 文件 | `e4ac139e0c6bcf8f` | 标准本地行情 `appdata/market` + `stock_names.csv` |
+| `qwb_m4_deploy_20260921.zip` | 5.0 MB / 299 文件 | 见 `dist/SHA256SUMS_20260921.txt` | 代码 + Skill + UI + Golden 结果表 + 部署脚本 + **mac 双击启动器**（不含 `app/config.yaml`，不含任何 `.day`） |
+| `qwb_market_pack_20260921.zip` | 889.5 MB / 11705 文件 | `e4ac139e0c6bcf8f…`（全量见 SHA256SUMS） | 标准本地行情 `appdata/market` + `stock_names.csv` |
+
+> 代码包已在本轮追加 `deploy/mac/`（macOS 双击启动器），**请用新一版代码包**；
+> 行情包未变，可继续用上一版。以 `sha256` 全量校验为准。
 
 **行情数据截止 2026-09-21**（5197 只个股当日有成交；其余为退市/停牌标的）。
 两端行情必须**完全一致**，否则 P9 第一道关（输入资产哈希）会直接 ABORT —— 因此请使用本页
@@ -33,6 +36,9 @@ chmod +x deploy/bootstrap.sh
 # 4. 启动后端（前台即可；Ctrl+C 停止）
 ./deploy/bootstrap.sh serve
 #   浏览器打开 http://127.0.0.1:8000
+
+# 5. 装「双击即用」入口（见下方第 5 节；让用户以后不碰终端）
+bash deploy/mac/install_mac_launcher.sh --login
 ```
 
 ## 部署后验收（依次执行，全部留证）
@@ -55,13 +61,40 @@ export QWB_UI_FILE="$PWD/ui/ui_v2.html"
   kline（约 5544 请求，最慢）。任一环节失败自动降级，**不会破坏既有历史**（追加带回滚日志）。
 - 只有当日收盘定型后（`SNAPSHOT_EARLIEST = 15:05`）才允许走快照路径；多日缺口/盘中走逐只路径。
 - **后端内置调度：工作日 15:45**（另有启动补偿：过 15:45 且模型结果落后于行情时补跑一次）。
-  无需额外自动化。建议部署后 `nohup ./deploy/bootstrap.sh serve &` 或加入登录项。
+  无需额外自动化。**用第 5 节的启动器 `--login` 装成登录自启即可**（不要再用裸 `nohup`）。
 - M4 上若东财接口正常（不被限流），主源快照会生效，行情阶段通常 <1 分钟。
+
+## 5. 让最终用户「双击即用」（本步骤必做，别让用户碰终端）
+
+Mac 上没有 `.bat`。工作台是「本机后端 + 浏览器界面」，所以**必须有人把后端起起来**——
+本轮的解法是给用户装一个双击入口，用户全程不接触命令行：
+
+```bash
+cd ~/quant_workbench_package
+bash deploy/mac/install_mac_launcher.sh            # 生成 ~/Applications/QuantWorkbench.app + 桌面快捷方式
+bash deploy/mac/install_mac_launcher.sh --login    # 额外：登录自启（开机后台就绪，用户连双击都不用）
+```
+
+产出与行为：
+
+| 产物 | 作用 |
+|---|---|
+| `~/Applications/QuantWorkbench.app` | 双击 → 后台起后端 → 自动打开 `http://127.0.0.1:8000`；**不弹终端窗口**；后端已在跑则只开浏览器 |
+| `~/Desktop/量化工作台.app` | 上述 .app 的桌面快捷方式 |
+| `~/Library/LaunchAgents/com.qwb.workbench.server.plist` | `--login` 时生成：登录即起后端，由 launchd 守护 |
+
+细节与排障见 `deploy/mac/README_MAC_LAUNCHER.md`（已随包）。
+请把该文件**要点转述给最终用户**：日常只有两件事——开机（自启）或双击图标；要补当日数据就在首页点「一键更新」。
+
+命令行兜底（无图形界面时）：
+```bash
+bash deploy/mac/qwb_launch.sh open | status | stop
+```
 
 ## 故障排查
 见 `deploy/README_DEPLOY.md`（含 akshare 硬依赖、行情目录缺失、P9 ABORT/FAIL 的处置）。
 
 ## 版本
-- 代码版本：git `main`（含 2026-09-21 三批修复：区间最大振幅不带 % / 每日增量快照快速路径 /
-  雪球备源快照 + 水位落后防空洞 + 成交额 f32 口径归一）。
+- 代码版本：git `main`（含 2026-09-21 四批改动：区间最大振幅不带 % / 每日增量快照快速路径 /
+  雪球备源快照 + 水位落后防空洞 + 成交额 f32 口径归一 / **macOS 双击启动器 `deploy/mac/`**）。
 - 行情包 tree_hash 以包内 `appdata/market` 实测为准；两端必须一致（P9 第一道关）。

@@ -147,3 +147,23 @@ python app/p9_compare.py --left win --right win_selfcheck
 产品日常使用**不应**需要：安装 Windows 通达信、手工维护 vipdoc、改源码、
 配 Python 开发环境、每天复制行情、手工启动多个终端服务。
 `bootstrap.sh setup/serve` 与后端内置的轻量调度（`/api/daily/run`）即为此设计。
+
+---
+
+## 7. 最终用户的「双击即用」入口（macOS）
+
+后端必须有人启动，所以给最终用户提供**双击入口**，用户不接触命令行：
+
+```bash
+bash deploy/mac/install_mac_launcher.sh            # ~/Applications/QuantWorkbench.app + 桌面快捷方式
+bash deploy/mac/install_mac_launcher.sh --login    # 另加 LaunchAgent 登录自启
+bash deploy/mac/install_mac_launcher.sh --dock     # 另加 Dock 图标
+```
+
+- `.app` 双击 → 后台起后端（无终端窗口）→ 自动打开 `http://127.0.0.1:8000`；
+  后端已在跑则只开浏览器（不会起第二个进程）。首次双击若缺 venv，会自弹提示并自动
+  `bootstrap.sh setup`。
+- `--login` 生成 `~/Library/LaunchAgents/com.qwb.workbench.server.plist`，登录即起、由 launchd 守护；
+  配合后端内置的 15:45 调度，用户第二天看到的已经是齐的数据。
+- 手工兜底：`bash deploy/mac/qwb_launch.sh open | status | stop`。
+- 详细说明与排障：`deploy/mac/README_MAC_LAUNCHER.md`。
