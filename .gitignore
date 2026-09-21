@@ -1,0 +1,15 @@
+# 行情数据（TDX .day 二进制，与程序分离，不入 Git）
+appdata/
+golden/vipdoc/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# 工作区本地记忆
+.workbuddy/
+
+# 临时
+*.log.orig
+Thumbs.db

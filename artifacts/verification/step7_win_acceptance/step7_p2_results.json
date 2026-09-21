@@ -1,0 +1,15 @@
+{
+ "stage": "p2",
+ "results": [
+  {
+   "check": "P2c UI模型结构化结果可取回",
+   "ok": true,
+   "detail": "rows=1 n_hits=1"
+  },
+  {
+   "check": "P2d UI模型Excel可打开且行数一致",
+   "ok": true,
+   "detail": "rows=1 n_hits=1"
+  }
+ ]
+}

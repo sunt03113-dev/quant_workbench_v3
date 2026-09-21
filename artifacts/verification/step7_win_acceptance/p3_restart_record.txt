@@ -1,0 +1,8 @@
+﻿BEFORE_RESTART:
+PID 17504 | C:\Users\21412\.workbuddy\binaries\python\envs\qwb\Scripts\python.exe server.py
+PID 30848 | C:\Users\21412\.workbuddy\binaries\python\envs\qwb\Scripts\python.exe server.py
+AFTER_KILL alive: 0
+RESTART_AT: 2026-09-20T16:53:55
+AFTER_RESTART:
+PID 28132
+PID 29328

@@ -1,0 +1,10 @@
+server up
+========================= 0921A
+recognize: READY
+backtest: status=OK n_hits=405 elapsed=4.8s total=6.3s
+validation: {"valid": true, "violations": []}
+========================= 111A3
+recognize: NEED_CONFIRMATION
+resolve: READY
+backtest: status=OK n_hits=3840 elapsed=13.8s total=15.2s
+validation: {"valid": true, "violations": []}

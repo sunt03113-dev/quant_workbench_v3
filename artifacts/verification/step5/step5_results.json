@@ -1,0 +1,69 @@
+{
+ "results": [
+  {
+   "check": "T0 雪球源 vs TDX .day 逐字段一致",
+   "ok": true,
+   "detail": "sh600519: 比对 14 个交易日; sz300010: 比对 14 个交易日"
+  },
+  {
+   "check": "T1a 增量执行 OK",
+   "ok": true,
+   "detail": "days=[20260917, 20260918] files=5 skipped=0"
+  },
+  {
+   "check": "T1b 业务字段与 TDX 基线逐字段一致（OHLC/amount/保留位精确；volume ±100股容差）",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T2 复跑 UP_TO_DATE",
+   "ok": true,
+   "detail": "local_last=20260918"
+  },
+  {
+   "check": "T3a 写失败触发回滚",
+   "ok": true,
+   "detail": "写入失败，已回滚全部追加（历史行情未破坏）: [Errno 13] Permission denied: 'D:\\\\09work\\\\quant_workbenc"
+  },
+  {
+   "check": "T3b 回滚后全部文件恢复原尺寸（历史零破坏）",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T4a 坏数据被校验拦截",
+   "ok": true,
+   "detail": "skipped=['sh600519.day']"
+  },
+  {
+   "check": "T4b 其余标的正常入库",
+   "ok": true,
+   "detail": "updated=4"
+  },
+  {
+   "check": "T4c 600519 未被写入坏数据（保持回滚后原状）",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T5 新股补建",
+   "ok": null,
+   "detail": "东财清单被限流，跳过（不影响核心增量链路）: Remote end closed connection without response"
+  },
+  {
+   "check": "T6a 线上更新任务完成",
+   "ok": true,
+   "detail": "行情截至 2026-09-18；重跑 0 个模型，1 个模型存在新增命中"
+  },
+  {
+   "check": "T6b 线上行情文件未变（周末 no-op）",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T6c data_date 保持 2026-09-18",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

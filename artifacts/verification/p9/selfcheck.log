@@ -1,0 +1,5 @@
+[selfcheck] T1 expect=PASS actual=PASS ok=True
+[selfcheck] T2 expect=FAIL actual=FAIL ok=True located={'rule': '0818A', 'n_only_left': 1, 'n_only_right': 0}
+[selfcheck] T3 expect=ABORT actual=ABORT ok=True
+[selfcheck] ALL_OK=True
+[selfcheck] -> D:\09work\quant_workbench_v3\quant_workbench_package\artifacts\verification\p9\P9_SELFCHECK.json

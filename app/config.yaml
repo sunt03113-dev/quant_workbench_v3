@@ -1,0 +1,9 @@
+# Quant Workbench 应用配置（程序与数据分离；所有路径可配置，无硬编码盘符）
+# appdata_dir: 产品数据根目录（标准行情、状态、结果）
+appdata_dir: "D:/09work/quant_workbench_v3/quant_workbench_package/appdata"
+# skill_dir: tdx-stock-backtest Skill 目录（业务定义唯一权威来源，不改代码）
+skill_dir: "D:/09work/quant_workbench_v3/quant_workbench_package/skill/tdx-stock-backtest-master"
+# ui_file: 冻结 UI
+ui_file: "D:/09work/quant_workbench_v3/quant_workbench_package/ui/ui_v2.html"
+host: "127.0.0.1"
+port: 8000

@@ -1,0 +1,9 @@
+PASS T0 测试模型回测落库 | n_hits=1
+PASS T1 数据未变 → 模型 kept 不轮换 | reran=0 kept=3
+PASS T2a 落后模型被重跑 | reran=1
+PASS T2b 轮换正确（previous=旧 current） | prev_n=1 旧current=1
+PASS T3 重跑失败 → 该模型状态不变（fail-closed） | kept=3
+PASS T4 _next_run_ts → 未来工作日 17:05 | 2026-09-21 17:05:00
+PASS T5 手动更新 API done | 行情截至 2026-09-18；重跑 1 个模型，1 个模型存在新增命中
+
+TOTAL: 7 checks, 0 FAIL

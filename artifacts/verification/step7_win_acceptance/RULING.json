@@ -1,0 +1,142 @@
+{
+ "generated_at": "2026-09-20T17:38:08",
+ "decided_by": "kk",
+ "decision_mode": "按 pp 建议一次性定稿",
+ "scope": "STEP7 P0 的 3 条 CONFLICT（0824/0827A/0909A）及 C5、C6 两条附带项",
+ "principle": "任一裁定项均未修改 Golden 结果表、行情快照、Skill 源码或比较器代码；全部为口径登记。",
+ "rulings": [
+  {
+   "id": "C1",
+   "title": "T+0(低/高) 最高价取整方向",
+   "affected_rules": [
+    "0818A",
+    "0818B",
+    "0822",
+    "0827B",
+    "0908",
+    "0908B",
+    "0908C",
+    "0910A"
+   ],
+   "golden_side": "最高价向上取整（fmt_tn 修改前），例：-1%/9%(阳)",
+   "skill_side": "最高价向下取整（现行 fmt_tn，注释自述『均变小』），例：-1%/8%(阳)",
+   "ruling": "以现行 Skill 为准（向下取整）",
+   "rationale": "最低价方向双方已一致（均为向上取整）说明差异源于最高价单侧规则演进，非计算错误。Skill 注释明示有意为之；Golden 为更早生成的快照。",
+   "impact": "8 条规则的 T+0 列约 1140 行显示值差 1 个百分点，命中名单（股票×日期）零差异。",
+   "action": "登记为已知口径差异；T+0 列判定基线切换为 Skill 口径。原始 diff 全量保留在 p0_golden_results.json。",
+   "no_file_change": true
+  },
+  {
+   "id": "C2",
+   "title": "涨停判定 >= vs 严格 ==",
+   "affected_rules": [
+    "0824",
+    "0827A"
+   ],
+   "golden_side": "收盘>=涨停价 即计涨停",
+   "skill_side": "收盘==涨停价 且 最高==涨停价（compute_limit_flags docstring 明确『严格 ==（不是 >=）』）",
+   "ruling": "以现行 Skill 为准（严格 ==）",
+   "rationale": "涨停价是精确价格，真实盘面无法成交在『涨停价+1分』。超出的 bar 集中在 1997/2006 年，高度疑似早期行情数据精度脏点。用 >= 等于把脏数据当信号。",
+   "impact": "0824：1997 年 4 缺 2 多（000539/000602/000663/000673 缺，000019/000021 多）；0827A：1997 年 1 缺（000618）；另有 sz000612 2006-05-30 的 (板) 标注 1 处。合计 7 行命中 + 1 标注。",
+   "evidence_bars": [
+    {
+     "code": "sz000539",
+     "date": "1997-04-28",
+     "close": 1981,
+     "high": 1981,
+     "pre_close": 1800,
+     "limit_price": 1980,
+     "over_by": 1,
+     "golden": "计为 D-1 涨停",
+     "ours": "排除"
+    },
+    {
+     "code": "sz000618",
+     "date": "1997-09-10",
+     "close": 1048,
+     "limit_price": 1047,
+     "over_by": 1,
+     "golden": "计入 0827A",
+     "ours": "排除"
+    },
+    {
+     "code": "sz000019",
+     "date": "1997-10-24",
+     "close": 1142,
+     "limit_price": 1141,
+     "over_by": 1,
+     "golden": "排除（D-2 需非涨停）",
+     "ours": "计入"
+    },
+    {
+     "code": "sz000612",
+     "date": "2006-05-30",
+     "close": 905,
+     "limit_price": 902,
+     "over_by": 3,
+     "golden": "T+2 标 (板)",
+     "ours": "不标"
+    }
+   ],
+   "action": "登记为已裁定口径差异；边界 bar 清单固化，后续如行情源修正数据需重跑本清单。",
+   "no_file_change": true
+  },
+  {
+   "id": "C3",
+   "title": "0909A 股票池范围",
+   "affected_rules": [
+    "0909A"
+   ],
+   "golden_side": "10 条命中，全部为沪市 600xxx",
+   "skill_side": "130 条命中 = Golden 的 10 条（缺失 0）+ 120 条深市",
+   "ruling": "以沪深两市为准（规则文本【10cm】+ Skill collect_stock_files 实现）",
+   "rationale": "Golden 命中集为我们结果的真子集（golden ⊂ ours），我方无遗漏；判定 Golden 生成时未扫深市，属生成范围缺陷，非引擎假阳性。",
+   "impact": "0909A 的 120 条『多出』命中不计为误差。",
+   "action": "登记为 Golden 侧生成范围问题；0909A 的权威结果以沪深两市口径为准。",
+   "no_file_change": true
+  },
+  {
+   "id": "C4",
+   "title": "000995@2020-12-18 Golden 排除，快照下成立",
+   "affected_rules": [
+    "0824"
+   ],
+   "golden_side": "未计入 000995 的 2020-12-18",
+   "skill_side": "计入（在打包快照上满足 0824 全部条件，D-1=2020-12-17 涨停在 == 与 >= 下均成立）",
+   "ruling": "豁免：登记为 Golden 生成时行情数据版本不一致",
+   "rationale": "sz000995 于 2020-12-16 重组复牌（+315%，前一根 bar 为 2019-04-25）。Golden 生成时所持行情与打包快照不同（推测生成后通达信补/修过数据），当前快照无法复现该排除。",
+   "impact": "0824 多出 1 行（000995 2020-12-18）。",
+   "action": "从冲突清单豁免，登记为数据版本差异。若将来锁定 Golden 生成时的行情快照，应重跑本行复核。",
+   "no_file_change": true
+  },
+  {
+   "id": "C5",
+   "title": "rule.txt 输出段遗漏（Golden 有列、规则文本未写）",
+   "affected_rules": [
+    "0818B",
+    "0908"
+   ],
+   "golden_side": "0818B 结果表含 D-2涨幅、D-2振幅；0908 结果表含 D-4~D-1区间最大振幅",
+   "skill_side": "rule.txt 输出段未写这三列，自然语言路径按 rule.txt 产出，故缺列",
+   "ruling": "以 Golden 结果表的列为准（完整列）；rule.txt 本次不改，差异登记备案",
+   "rationale": "rule.txt 位于 golden/ 目录内，属冻结基线。按 fail-closed 协议不得修改任何 Golden 资产，故仅登记、不动文件，避免破坏『Golden 未被篡改』的可验证性。",
+   "impact": "自然语言路径下 0818B 少 2 列、0908 少 1 列；168 列基准口径为 Golden 结果表。",
+   "action": "登记为已知差异并给出后续建议：下一版本在 rule.txt 补写这三列（届时须同步登记 sha256 变更）。",
+   "no_file_change": true
+  },
+  {
+   "id": "C6",
+   "title": "0814 前向窗口 + 可变间隔窗口能力缺口",
+   "affected_rules": [
+    "0814"
+   ],
+   "golden_side": "Golden 含 0814 的完整结果表",
+   "skill_side": "plan schema v1（以 D-0 为基准日、向后回看）无法表达 D+1/D+2 前向条件与 D+3~D+14 可变间隔窗口",
+   "ruling": "排入后续版本，作为独立 plan kind（forward_window）；当前 fail-closed 拦截行为判定为正确",
+   "rationale": "识别器未静默降级、未给出错误结果，而是返回 MISSING_BUSINESS_ATOM 并逐片段说明不支持原因，符合 fail-closed 要求。",
+   "impact": "26 条中 1 条当前不可自动执行，需人工用 Skill 侧脚本执行。",
+   "action": "登记为能力边界；待你确认开发优先级后排期。",
+   "no_file_change": true
+  }
+ ]
+}

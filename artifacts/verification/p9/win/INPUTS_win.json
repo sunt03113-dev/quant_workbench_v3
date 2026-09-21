@@ -1,0 +1,69 @@
+{
+ "schema": "p9-evidence/1",
+ "label": "win",
+ "collected_at": "2026-09-20T17:50:47",
+ "assets": {
+  "skill": {
+   "label": "tdx-stock-backtest Skill（冻结业务定义）",
+   "role": "business-authority",
+   "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\skill\\tdx-stock-backtest-master",
+   "exists": true,
+   "n_files": 53,
+   "total_bytes": 543797,
+   "tree_hash": "96892acb3b63447bfe24b33934e9bf8e5ce109eabc19beb91911b6809c5996c5",
+   "manifest_file": "INPUT_win_skill.manifest.txt",
+   "n_files_scanned": 53,
+   "elapsed_sec": 0.0
+  },
+  "golden": {
+   "label": "Golden：固定自然语言规则 + 期望结果表",
+   "role": "expected-output",
+   "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\golden",
+   "exists": true,
+   "n_files": 56,
+   "total_bytes": 2107499,
+   "tree_hash": "347fcb1ef0a7dc440294724a0bdacb71e5a97f96576c46caa25b59da560af15f",
+   "manifest_file": "INPUT_win_golden.manifest.txt",
+   "n_files_scanned": 56,
+   "elapsed_sec": 0.8
+  },
+  "market_pack": {
+   "label": "固定测试行情包（标准本地行情，TDX .day 兼容）",
+   "role": "input-market",
+   "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc",
+   "exists": true,
+   "n_files": 11704,
+   "total_bytes": 930491840,
+   "tree_hash": "792ba13f1de359b79c652bb1df939cedc47725dc086b00cd4f51d78354e26e59",
+   "manifest_file": "INPUT_win_market_pack.manifest.txt",
+   "n_files_scanned": 11704,
+   "elapsed_sec": 9.6,
+   "by_market": {
+    "sh": 5900,
+    "sz": 5804
+   },
+   "index_last_trade_date": "2026-07-16",
+   "schema_version": 1,
+   "schema_fields": [
+    "symbol",
+    "trade_date",
+    "open",
+    "high",
+    "low",
+    "close",
+    "pre_close",
+    "volume",
+    "amount"
+   ],
+   "physical_format": "tdx-day-compat-32B"
+  },
+  "stock_names": {
+   "label": "股票名称缓存（输出列「股票名称」来源）",
+   "role": "input-names",
+   "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\stock_names.csv",
+   "exists": true,
+   "sha256": "aa21e8ef9140efeedbcda33180ca492688c2ee5a1b24984558b892350d269b10",
+   "size": 171943
+  }
+ }
+}

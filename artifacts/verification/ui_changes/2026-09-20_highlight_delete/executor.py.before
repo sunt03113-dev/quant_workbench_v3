@@ -1,0 +1,395 @@
+# -*- coding: utf-8 -*-
+"""Strategy Plan 执行器 —— 全部业务公式来自 tdx-stock-backtest Skill，本模块零公式。
+
+组合逻辑：
+  1. 读 .day（Skill backtest_common.read_day_file）
+  2. 涨停标记（Skill compute_limit_flags）
+  3. 20日窗口最大（Skill 0814_backtest.rolling_max20 + 相等比较，口径与 Skill 规则脚本一致）
+  4. 输出原子（Skill fmt_date / daily_amplitude / calc_range_increase / calc_range_amplitude /
+     generate_t_fields / is_strong_limit_up）
+复核（fail-closed）：用 Skill 标量权威口径 is_strong_limit_up 逐行重验涨停条件，
+窗口最大用独立 Python max() 重验。任何不一致 -> 结果不可信、不落库。
+"""
+import logging
+import time
+from pathlib import Path
+
+import numpy as np
+import pandas as pd
+
+from paths import load_skill_modules, DAY_DIRS
+
+logger = logging.getLogger("qwb.executor")
+
+_START_INT = 19901219
+
+_bc, _sbt, _r0814 = load_skill_modules()
+
+compute_limit_flags = _bc.compute_limit_flags
+read_day_file = _bc.read_day_file
+fmt_date = _bc.fmt_date
+daily_amplitude = _bc.daily_amplitude
+calc_range_increase = _sbt.calc_range_increase
+calc_range_amplitude = _sbt.calc_range_amplitude
+generate_t_fields = _bc.generate_t_fields
+is_strong_limit_up = _sbt.is_strong_limit_up
+rolling_max20 = _r0814.rolling_max20
+
+# 20cm 板块涨跌幅生效日（Skill backtest_common 常量）
+GEM_20CM_DATE = _bc.GEM_20CM_DATE
+STAR_20CM_DATE = _r0814.STAR_20CM_DATE
+
+
+def _collect_stock_files(universe):
+    """按板块收集 A 股个股 .day 文件（市场前缀感知，剔除指数/ETF/B股）。"""
+    out = []
+    for d in DAY_DIRS:
+        p = Path(d)
+        if not p.exists():
+            continue
+        for f in sorted(p.glob("*.day")):
+            stem = f.stem.lower()
+            if not (stem.startswith("sh") or stem.startswith("sz")):
+                continue
+            code = stem[2:].zfill(6)
+            sh = stem.startswith("sh")
+            is20 = code.startswith("688") if sh else code.startswith(("300", "301"))
+            is10 = code.startswith(("600", "601", "603", "605")) if sh else \
+                code.startswith(("000", "001", "002", "003"))
+            if universe == "20cm" and is20:
+                out.append((code, f))
+            elif universe == "10cm" and is10:
+                out.append((code, f))
+            elif universe == "both" and (is20 or is10):
+                out.append((code, f))
+    return out
+
+
+def _compute_columns(outputs):
+    cols = []
+    for o in outputs:
+        a = o["atom"]
+        if a == "date":
+            cols.append(f"D-{abs(o['day'])}日期" if o["day"] != 0 else "D-0日期")
+        elif a == "amplitude":
+            cols.append(f"D-{abs(o['day'])}振幅")
+        elif a == "change":
+            cols.append(f"D-{abs(o['day'])}涨幅")
+        elif a == "rel_low":
+            cols.append(f"D-{abs(o['day'])}最低价")
+        elif a == "rel_high":
+            cols.append(f"D-{abs(o['day'])}最高价")
+        elif a in ("range_change", "range_amplitude", "range_max_amplitude"):
+            a1, b1 = o["days"]
+            name = {"range_change": "区间涨幅", "range_amplitude": "区间振幅",
+                    "range_max_amplitude": "区间最大振幅"}[a]
+            cols.append(f"D-{abs(a1)}/D-{abs(b1)}{name}")
+        elif a == "amount_pct":
+            a1, b1 = o["days"]
+            cols.append(f"D-{abs(a1)}/D-{abs(b1)}成交额百分比")
+        elif a == "t_walk":
+            n = o["t1"] - o["t0"] + 1
+            cols.append("T+0(低/高)")
+            cols.extend(f"T+{k}最高价" for k in range(1, n))
+    return cols
+
+
+def _day_index(n, i, off):
+    j = i + off
+    return j if 0 <= j < n else None
+
+
+def run_plan(plan, start_date=None, end_date=None, data_end=None, progress_cb=None):
+    """执行 day_pattern_backward 计划，返回 (rows, columns, meta)。
+
+    data_end: 数据截断日（YYYY-MM-DD）。截断后行情数组不包含晚于该日的数据，
+    用于 Golden 历史时点复现（生成时点之后的数据不得参与 T 字段计算）。
+    """
+    sp = plan["strategy_plan"]
+    universe = sp["universe"] or "both"
+    days = sp["days"]
+    outputs = sp["outputs"]
+    start_int = int(start_date.replace("-", "")) if start_date else _START_INT
+    end_int = int(end_date.replace("-", "")) if end_date else 20991231
+    data_end_int = int(data_end.replace("-", "")) if data_end else 20991231
+
+    min_off = min(d["offset"] for d in days)          # 最深回看（负数）
+    max_off = max(d["offset"] for d in days)
+    need_window = any(d.get("amount_max20") is not None or d.get("high_max20") is not None
+                      for d in days)
+    t_count = 0
+    for o in outputs:
+        if o["atom"] == "t_walk":
+            t_count = max(t_count, o["t1"] - o["t0"] + 1)
+
+    stock_files = _collect_stock_files(universe)
+    logger.info("回测开始: universe=%s 标的=%d outputs=%d", universe, len(stock_files), len(outputs))
+    t0 = time.time()
+    rows = []
+    for k, (code, f) in enumerate(stock_files):
+        if progress_cb and k % 500 == 0:
+            progress_cb(k, len(stock_files))
+        res = read_day_file(f)
+        if res is None:
+            continue
+        dates, opens, highs, lows, closes, amounts, volumes = res
+        if data_end_int < 20991231:
+            k = int(np.searchsorted(dates, data_end_int, side="right"))
+            dates, opens, highs, lows, closes, amounts, volumes = (
+                a[:k] for a in (dates, opens, highs, lows, closes, amounts, volumes))
+        # Skill 规则脚本（0909A/0824 等）内部将成交额 astype(float64) 后计算，
+        # read_day_file 原始返回 float32；这里对齐 Skill 自身的读取口径。
+        amounts = amounts.astype(np.float64, copy=False)
+        n = len(dates)
+        if n < 21:
+            continue
+        close_c = np.round(closes * 100).astype(np.int64)
+        high_c = np.round(highs * 100).astype(np.int64)
+        limits = compute_limit_flags(dates, close_c, high_c, code)
+        amt_max20 = rolling_max20(amounts)
+        high_max20 = rolling_max20(highs)
+        with np.errstate(invalid="ignore"):
+            is_amtmax = np.zeros(n, dtype=bool)
+            is_highmax = np.zeros(n, dtype=bool)
+            is_amtmax[19:] = amounts[19:] == amt_max20[19:]
+            is_highmax[19:] = highs[19:] == high_max20[19:]
+
+        # 候选掩码（对齐 D-0 = i）
+        cand = np.ones(n, dtype=bool)
+        for d in days:
+            # 每日条件掩码 ok[i] 对应「第 i 日」；随后按偏移对齐到 D-0
+            ok = np.ones(n, dtype=bool)
+            if "limit_up" in d:
+                ok &= limits if d["limit_up"] else ~limits
+            if d.get("amount_max20") is not None:
+                ok &= is_amtmax if d["amount_max20"] else ~is_amtmax
+            if d.get("high_max20") is not None:
+                ok &= is_highmax if d["high_max20"] else ~is_highmax
+            if d.get("candle"):
+                form_ok = (closes > opens) if d["candle"] == "阳" else (closes <= opens)
+                # 板优先：涨停日形态为「板」，不参与阳/阴判定（Skill candle_form 口径）
+                form_ok = form_ok & ~limits
+                ok &= form_ok
+            # 对齐: sh2[i] = ok[i + off]
+            off = d["offset"]
+            sh2 = np.zeros(n, dtype=bool)
+            if off <= 0:
+                dst = -off                      # sh2[i] = ok[i - |off|]
+                sh2[dst:] = ok[: n - dst]
+            else:
+                sh2[: n - off] = ok[off:]       # sh2[i] = ok[i + off]
+            cand &= sh2
+
+        # 窗口有效性：使用窗口原子的最深日 j = i + min_off 需 >= 19
+        if need_window:
+            i_min = -min_off + 19
+            if i_min > 0:
+                cand[:i_min] = False
+        # 前向日（t_walk 不受限；仅当 days 含前向时已 fail-closed）
+        if max_off > 0:
+            cand[n - max_off:] = False
+        # 板块涨跌幅生效日过滤（按 D-0 日期，Skill 口径）
+        if universe in ("20cm", "both"):
+            code6 = code
+            if code6.startswith("688"):
+                cand &= dates >= STAR_20CM_DATE
+            elif code6.startswith(("300", "301")):
+                cand &= dates >= GEM_20CM_DATE
+        cand &= (dates >= start_int) & (dates <= end_int)
+
+        idxs = np.nonzero(cand)[0]
+        for i in idxs:
+            i = int(i)
+            jmap = {}
+            valid = True
+            for d in days:
+                j = _day_index(n, i, d["offset"])
+                if j is None or j < 1:
+                    valid = False
+                    break
+                jmap[d["offset"]] = j
+            if not valid:
+                continue
+            if closes[i - 1] <= 0 or closes[i] <= 0:
+                continue
+            row = _build_row(code, dates, opens, highs, lows, closes, amounts, limits,
+                             i, jmap, outputs, t_count)
+            rows.append(row)
+    logger.info("回测完成: %d 条, 耗时 %.1fs", len(rows), time.time() - t0)
+    if rows:
+        df = pd.DataFrame(rows)
+        _bc.match_stock_names(df)  # Skill 本地名称缓存（stock_names.csv）
+        rows = df.to_dict("records")
+    columns = ["股票代码", "股票名称"] + _compute_columns(outputs)
+    meta = {"universe": universe, "n_stocks": len(stock_files),
+            "start_date": fmt_date(start_int), "end_date": fmt_date(end_int)}
+    return rows, columns, meta
+
+
+def _build_row(code, dates, opens, highs, lows, closes, amounts, limits,
+               i, jmap, outputs, t_count):
+    row = {"股票代码": code, "股票名称": ""}
+    for o in outputs:
+        a = o["atom"]
+        if a == "date":
+            row[f"D-{abs(o['day'])}日期"] = fmt_date(dates[jmap[o["day"]]])
+        elif a == "amplitude":
+            j = jmap[o["day"]]
+            row[f"D-{abs(o['day'])}振幅"] = round(float(daily_amplitude(highs[j], lows[j], closes[j - 1])), 2)
+        elif a == "change":
+            j = jmap[o["day"]]
+            row[f"D-{abs(o['day'])}涨幅"] = calc_range_increase(float(closes[j]), float(closes[j - 1]))
+        elif a == "rel_low":
+            j = jmap[o["day"]]
+            v = (lows[j] - closes[j - 1]) / closes[j - 1] * 100.0
+            row[f"D-{abs(o['day'])}最低价"] = f"{round(float(v), 2):+.2f}"
+        elif a == "rel_high":
+            j = jmap[o["day"]]
+            v = (highs[j] - closes[j - 1]) / closes[j - 1] * 100.0
+            row[f"D-{abs(o['day'])}最高价"] = f"{round(float(v), 2):+.2f}"
+        elif a in ("range_change", "range_amplitude", "range_max_amplitude"):
+            a1, b1 = o["days"]  # a1 早, b1 晚（负偏移）
+            ja, jb = jmap[a1] if a1 in jmap else (i + a1), (jmap[b1] if b1 in jmap else i + b1)
+            base = float(closes[ja - 1])
+            name = {"range_change": "区间涨幅", "range_amplitude": "区间振幅",
+                    "range_max_amplitude": "区间最大振幅"}[a]
+            col = f"D-{abs(a1)}/D-{abs(b1)}{name}"
+            if base <= 0:
+                row[col] = "N/A"
+            elif a == "range_change":
+                row[col] = f"{calc_range_increase(float(closes[jb]), base)}%"
+            elif a == "range_amplitude":
+                row[col] = f"{calc_range_amplitude(highs[ja:jb + 1].tolist(), lows[ja:jb + 1].tolist(), base)}%"
+            else:
+                amps = [(highs[j] - lows[j]) / (closes[j - 1] if closes[j - 1] > 0 else 1) * 100.0
+                        for j in range(ja, jb + 1)]
+                row[col] = f"{round(max(amps), 2)}%"
+        elif a == "amount_pct":
+            a1, b1 = o["days"]
+            ja = jmap.get(a1, i + a1)
+            jb = jmap.get(b1, i + b1)
+            den = amounts[jb]
+            col = f"D-{abs(a1)}/D-{abs(b1)}成交额百分比"
+            row[col] = f"{round(float(amounts[ja] / den * 100.0), 2)}%" if den > 0 else "N/A"
+        elif a == "t_walk":
+            t_raw = generate_t_fields(opens, highs, lows, closes, limits,
+                                      base_idx=i, n=len(dates), t_count=t_count or 7)
+            n_fields = t_count or 7
+            row["T+0(低/高)"] = t_raw.get("T+0(低/高)", "N/A")
+            for kk in range(1, n_fields):
+                row[f"T+{kk}最高价"] = t_raw.get(f"T+{kk}最高价", "N/A")
+    return row
+
+
+# ===================== 确定性复核（fail-closed） =====================
+
+def validate_rows(plan, rows, columns):
+    """独立重验：每行每个日条件的原子用 Skill 标量口径重算。
+
+    返回 violations 列表（空 = 通过）。样本全量复核（命中行数量级 ~1e3-1e4，可接受）。
+    """
+    sp = plan["strategy_plan"]
+    universe = sp["universe"] or "both"
+    days = sp["days"]
+    violations = []
+    if not rows:
+        return violations
+    by_code = {}
+    for r in rows:
+        by_code.setdefault(r["股票代码"], []).append(r)
+    for code, rws in by_code.items():
+        f = None
+        for d in DAY_DIRS:
+            p = Path(d) / (("sh" if code.startswith(("6",)) else "sz") + code + ".day")
+            if p.exists():
+                f = p
+                break
+        if f is None:
+            for d in DAY_DIRS:
+                p = Path(d) / ("sz" + code + ".day")
+                if p.exists():
+                    f = p
+                    break
+        if f is None:
+            violations.append({"code": "DATA_MISSING", "detail": f"{code}: 数据文件缺失"})
+            continue
+        res = read_day_file(f)
+        dates, opens, highs, lows, closes, amounts, _v = res
+        n = len(dates)
+        date_pos = {int(dt): k for k, dt in enumerate(dates)}
+        dates_pd = pd.to_datetime(pd.Series(dates).astype(str), format="%Y%m%d")
+        for r in rws:
+            d0_col = next((c for c in r if c.endswith("日期")), None)
+            if d0_col is None:
+                violations.append({"code": "ROW_INVALID", "detail": f"{code}: 缺少日期列"})
+                continue
+            d0 = int(r[d0_col].replace("-", ""))
+            i = date_pos.get(d0)
+            if i is None:
+                violations.append({"code": "DATE_MISSING", "detail": f"{code}@{r[d0_col]}: 日期不在行情中"})
+                continue
+            for dspec in days:
+                j = i + dspec["offset"]
+                if j < 1 or j >= n:
+                    violations.append({"code": "INDEX_OUT_OF_RANGE", "detail": f"{code}@{r[d0_col]}"})
+                    continue
+                if "limit_up" in dspec:
+                    expect = dspec["limit_up"]
+                    actual = is_strong_limit_up(float(closes[j]), float(highs[j]),
+                                                float(closes[j - 1]), dates_pd.iloc[j], code)
+                    if actual != expect:
+                        violations.append({
+                            "code": "LIMIT_UP_MISMATCH",
+                            "detail": f"{code}@{r[d0_col]} D{dspec['offset']}: 期望{'涨停' if expect else '非涨停'}, 复核={'涨停' if actual else '非涨停'}"})
+                if dspec.get("amount_max20") is not None and j >= 19:
+                    wmax = float(np.max(amounts[j - 19: j + 1]))
+                    actual = abs(float(amounts[j]) - wmax) < 1e-6 * max(1.0, wmax)
+                    if actual != dspec["amount_max20"]:
+                        violations.append({
+                            "code": "AMOUNT_MAX20_MISMATCH",
+                            "detail": f"{code}@{r[d0_col]} D{dspec['offset']}: 期望成交额{'为' if dspec['amount_max20'] else '非'}20日最大, 复核={'为' if actual else '非'}"})
+                if dspec.get("high_max20") is not None and j >= 19:
+                    wmax = float(np.max(highs[j - 19: j + 1]))
+                    actual = abs(float(highs[j]) - wmax) < 1e-9
+                    if actual != dspec["high_max20"]:
+                        violations.append({
+                            "code": "HIGH_MAX20_MISMATCH",
+                            "detail": f"{code}@{r[d0_col]} D{dspec['offset']}: 期望最高价{'为' if dspec['high_max20'] else '非'}20日最高, 复核={'为' if actual else '非'}"})
+            # 涨跌幅生效日抽验（20cm 板块前置过滤）
+            if universe in ("20cm",):
+                if code.startswith(("300", "301")) and dates[i] < GEM_20CM_DATE:
+                    violations.append({"code": "BOARD_DATE_FILTER", "detail": f"{code}@{r[d0_col]}"})
+                if code.startswith("688") and dates[i] < STAR_20CM_DATE:
+                    violations.append({"code": "BOARD_DATE_FILTER", "detail": f"{code}@{r[d0_col]}"})
+        if len(violations) > 50:
+            break
+    return violations
+
+
+def latest_market_date():
+    """扫描标准行情最新交易日（含文件数）。"""
+    latest = 0
+    count = 0
+    for d in DAY_DIRS:
+        p = Path(d)
+        if not p.exists():
+            continue
+        for f in p.glob("*.day"):
+            count += 1
+            try:
+                with open(f, "rb") as fh:
+                    fh.seek(-32, 2)
+                    import struct
+                    dt = struct.unpack("<I", fh.read(4))[0]
+                    latest = max(latest, int(dt))
+            except Exception:
+                continue
+    return (fmt_date(latest) if latest else None), count
+
+
+def data_latest_payload():
+    latest, count = latest_market_date()
+    import datetime
+    today = datetime.date.today().strftime("%Y-%m-%d")
+    stale = bool(latest and latest < today)
+    return {"latest_date": latest, "today": today, "stale": stale, "file_count": count}

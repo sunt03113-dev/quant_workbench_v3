@@ -1,0 +1,35 @@
+{
+ "stage": "p6p7",
+ "results": [
+  {
+   "check": "P7a 行情新鲜度端点可用",
+   "ok": true,
+   "detail": "latest_date=2026-09-18"
+  },
+  {
+   "check": "P7b 手动更新任务已受理",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "P7c 手动更新完成",
+   "ok": true,
+   "detail": "行情截至 2026-09-18；重跑 0 个模型，1 个模型存在新增命中"
+  },
+  {
+   "check": "P7d 周末/无新交易日不产生伪最新",
+   "ok": true,
+   "detail": "data_date=2026-09-18（周日调用保持不变）"
+  },
+  {
+   "check": "P7e 真实行情校验和不变",
+   "ok": true,
+   "detail": "24 个样本文件 sha256 全部一致"
+  },
+  {
+   "check": "P7f 模型结果保持",
+   "ok": true,
+   "detail": "models=['strategy_e2etest_v1', 'strategy_c1789894283086_r1_v1']"
+  }
+ ]
+}

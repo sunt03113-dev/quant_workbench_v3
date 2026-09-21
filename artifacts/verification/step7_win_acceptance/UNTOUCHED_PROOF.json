@@ -1,0 +1,105 @@
+{
+ "generated_at": "2026-09-20T17:40:20",
+ "manifest_generated_at": "2026-09-20T17:23:49",
+ "manifest_n_files_before": 24444,
+ "registered_additions": {
+  "skill/dev/": "STEP1 Provider 实测探针脚本（本项目新增，不在 SKILL 冻结基线内）",
+  "ui/ui_v2.baseline.html": "冻结 UI 原文备份（6f4dc5fa…，回滚用，见 UI_BASELINE_CHANGE.json）",
+  "ui/ui_v2.html": "见 UI_BASELINE_CHANGE.json（回测成功后回写 stem）"
+ },
+ "scopes": {
+  "golden": {
+   "desc": "Golden 结果表 + 固定测试行情（24329 .day）",
+   "n_current": 24385,
+   "n_in_manifest": 24385,
+   "n_changed": 0,
+   "n_added": 0,
+   "n_added_registered": 0,
+   "n_added_unregistered": 0,
+   "n_missing": 0,
+   "changed": [],
+   "added": [],
+   "unregistered_added": [],
+   "missing_sample": [],
+   "mtime_min": "2026-03-23T10:17:29",
+   "mtime_max": "2026-09-20T13:10:36",
+   "verdict": "UNCHANGED"
+  },
+  "skill": {
+   "desc": "SKILL 本体（skill/tdx-stock-backtest-master）",
+   "n_current": 58,
+   "n_in_manifest": 53,
+   "n_changed": 0,
+   "n_added": 5,
+   "n_added_registered": 5,
+   "n_added_unregistered": 0,
+   "n_missing": 0,
+   "changed": [],
+   "added": [
+    {
+     "key": "skill/dev/step1_crosscheck_offline.py",
+     "path": "skill/dev/step1_crosscheck_offline.py",
+     "sha256": "1fa9334fc9dd34d1062b0cfa0d2e83f33b4ef95981685ec3bdbffb91d3d2abc1",
+     "registered_as": "STEP1 Provider 实测探针脚本（本项目新增，不在 SKILL 冻结基线内）"
+    },
+    {
+     "key": "skill/dev/step1_probe_eastmoney.py",
+     "path": "skill/dev/step1_probe_eastmoney.py",
+     "sha256": "58687b324c62ee99ca8bb4049bf7449147283e29fabbd6ddd0d7f82aa0262bf6",
+     "registered_as": "STEP1 Provider 实测探针脚本（本项目新增，不在 SKILL 冻结基线内）"
+    },
+    {
+     "key": "skill/dev/step1_probe_eastmoney2.py",
+     "path": "skill/dev/step1_probe_eastmoney2.py",
+     "sha256": "95a2b6f568c206750d41c50ddc89a2d0398b98145db60141745f1cb95ec49b6f",
+     "registered_as": "STEP1 Provider 实测探针脚本（本项目新增，不在 SKILL 冻结基线内）"
+    },
+    {
+     "key": "skill/dev/step1_probe_golden.py",
+     "path": "skill/dev/step1_probe_golden.py",
+     "sha256": "cb567e0099637e69dbc6b6c6141a3d48dddc605e2b6b5292249e2e8d91c70ac5",
+     "registered_as": "STEP1 Provider 实测探针脚本（本项目新增，不在 SKILL 冻结基线内）"
+    },
+    {
+     "key": "skill/dev/step1_probe_westock.py",
+     "path": "skill/dev/step1_probe_westock.py",
+     "sha256": "7bef4304826213d4ac920098a528941c97988e91f09249083a6be4d4c7b5850a",
+     "registered_as": "STEP1 Provider 实测探针脚本（本项目新增，不在 SKILL 冻结基线内）"
+    }
+   ],
+   "unregistered_added": [],
+   "missing_sample": [],
+   "mtime_min": "2026-09-20T13:00:18",
+   "mtime_max": "2026-09-20T13:55:22",
+   "verdict": "UNCHANGED",
+   "note": "SKILL 本体 53 个文件（44 py / 2 md / 3 sh / 1 bat / .DS_Store / .gitignore / config.yaml）与基线逐文件 SHA-256 全等；config.yaml 为 Skill 自带路径注入机制（STEP2 已登记）。"
+  },
+  "ui": {
+   "desc": "冻结 UI",
+   "n_current": 2,
+   "n_in_manifest": 1,
+   "n_changed": 0,
+   "n_added": 1,
+   "n_added_registered": 1,
+   "n_added_unregistered": 0,
+   "n_missing": 0,
+   "changed": [],
+   "added": [
+    {
+     "key": "ui/ui_v2.baseline.html",
+     "path": "ui/ui_v2.baseline.html",
+     "sha256": "6f4dc5fa6b99ccf6dcbe9f25d502e77254f05255d8baa88834b4b13ed60b73d3",
+     "registered_as": "冻结 UI 原文备份（6f4dc5fa…，回滚用，见 UI_BASELINE_CHANGE.json）"
+    }
+   ],
+   "unregistered_added": [],
+   "missing_sample": [],
+   "mtime_min": "2026-09-20T13:03:14",
+   "mtime_max": "2026-09-20T17:12:55",
+   "verdict": "UNCHANGED",
+   "note": "ui_v2.html 相对『冻结 UI 原件』存在 1 处已登记变更（sha256 6f4dc5fa… → 4f0fe3ef…，见 UI_BASELINE_CHANGE.json）。本 scope 的 changed=0 含义为『自 INPUT_MANIFEST 生成后未再变化』，不等于『UI 从未被修改』。ui_v2.baseline.html 即变更前原文，可一键回滚。"
+  }
+ },
+ "elapsed_sec": 24.5,
+ "all_unchanged": true
+}

@@ -1,0 +1,119 @@
+{
+ "run_id": "step8_p9_crossplatform",
+ "generated_at": "2026-09-20T17:55:15",
+ "n_files": 28,
+ "files": {
+  "artifacts/verification/p9/collect_win.log": {
+   "size": 1430,
+   "sha256": "e0c3f44a4d389f52fed3a07de5d309b0f80d17fb3ece83114ca7e702b01c7f1b"
+  },
+  "artifacts/verification/p9/listen.txt": {
+   "size": 61,
+   "sha256": "e6eab2678d9ebeb0edde19f7f97bbda95f0655b0c6817723c6e246133834b5a7"
+  },
+  "artifacts/verification/p9/P9_EXCEL_STABILITY.json": {
+   "size": 1863,
+   "sha256": "79ffa3f8758e34d6a5c229aacc88c17b18399a345911b0e5dd9108fd2cfb9cbb"
+  },
+  "artifacts/verification/p9/P9_SELFCHECK.json": {
+   "size": 1061,
+   "sha256": "8c415437d963205b72f881d979b64d4c39c940792251ef2f70aaf25d5de817d1"
+  },
+  "artifacts/verification/p9/restart_record.txt": {
+   "size": 50,
+   "sha256": "7b5ca714471d8bd946928095748716e5367dcba044dd4466342e7a5cc4596998"
+  },
+  "artifacts/verification/p9/selfcheck.log": {
+   "size": 347,
+   "sha256": "c3e1a5fc2b5f9efe3941e1db7154da888b5a61e8563ca3f91fd0df2b52d81056"
+  },
+  "artifacts/verification/p9/server_runtime.log": {
+   "size": 1898,
+   "sha256": "6aac74e2459161b4a81f3f749a47d8ba54958686a1ba231cfabccaf578527f3f"
+  },
+  "artifacts/verification/p9/STEP8_REPORT.md": {
+   "size": 15364,
+   "sha256": "4ff3e4a354e0c3d0d4acfb3745414e7451b7082e2f28004916525dd791c3cea1"
+  },
+  "artifacts/verification/p9/win/ENV_win.json": {
+   "size": 2274,
+   "sha256": "1cb92758c92da73edefb4e3161c7c7ae903ba2a717e883f974623569fd7f4190"
+  },
+  "artifacts/verification/p9/win/EXCEL_win.json": {
+   "size": 764,
+   "sha256": "fd80be4726770ffd0786ee5796da66cde63a66a999d7001e191a34b28f016c42"
+  },
+  "artifacts/verification/p9/win/EXCEL_win_p9_excel_probe.xlsx": {
+   "size": 5053,
+   "sha256": "7579e21f3609516effa7f63724c0f8d99213b627f8b4ffaeb722d2607038388d"
+  },
+  "artifacts/verification/p9/win/INPUT_win_golden.manifest.txt": {
+   "size": 5788,
+   "sha256": "0446d44f745e6dabc244d28619e51e24626046004c10cdb9c461c2b4dc64d1ac"
+  },
+  "artifacts/verification/p9/win/INPUT_win_market_pack.manifest.txt": {
+   "size": 1079015,
+   "sha256": "30b897a84bcd7e9b50235504225b14ccf6832df0b6dacf9646211d1017d75f4b"
+  },
+  "artifacts/verification/p9/win/INPUT_win_skill.manifest.txt": {
+   "size": 4685,
+   "sha256": "49f412e46f13ddd517f70c45c144faf0ce1b4a5ec3bc9f33081cb325d2556dff"
+  },
+  "artifacts/verification/p9/win/INPUTS_win.json": {
+   "size": 2221,
+   "sha256": "a635c535bfe967a590921c8a13153c304488b35b316f18f2f12e4b1a39e1991b"
+  },
+  "artifacts/verification/p9/win/P0_win_CANONICAL.json": {
+   "size": 1223092,
+   "sha256": "915f73f22eb58b9ff4b6ab4d2a4d80cff5f2923a5782b29ca3fe7ce185ed5353"
+  },
+  "artifacts/verification/p9/win/P0_win_VERDICTS.json": {
+   "size": 21646,
+   "sha256": "73095d8dc2192427779d9ee84490becc625f6751266f7b5d9a7a423176a6898b"
+  },
+  "app/p9_evidence.py": {
+   "size": 17930,
+   "sha256": "4a24a5f936024e8ad7cf5678d7c6efc14cb7004f702f1e86484ba3dbe82dc8c9"
+  },
+  "app/p9_compare.py": {
+   "size": 12316,
+   "sha256": "1eb53f18a310233b83b1f05f5e5e8a7ec7160e2cce5145fae31accf4ffe81e96"
+  },
+  "app/p9_selfcheck.py": {
+   "size": 5896,
+   "sha256": "f74efd63e38e589a43066f05521b2f2623050be7b3f5c1f6a290790b3017febe"
+  },
+  "app/p9_excel_stability.py": {
+   "size": 5105,
+   "sha256": "593a695b3c24c5204175919a746b3f92e47a90c5d6453a8c25b9ec4e3037a5e7"
+  },
+  "app/paths.py": {
+   "size": 5785,
+   "sha256": "ab4dcfa4ce41e9506e514e59dc2c71753aed9308d514e30017c2de1a87793a64"
+  },
+  "deploy/bootstrap.sh": {
+   "size": 3149,
+   "sha256": "f241ac951e913f8aeb309d860c06faf5218980ad7f9fb5b6ecf9d280b993422d"
+  },
+  "deploy/requirements.txt": {
+   "size": 1134,
+   "sha256": "771ec8fe196d5000dd8a5916911ffc8de89cba706550237d7e36b1d4bf2fc178"
+  },
+  "deploy/requirements.lock.win.txt": {
+   "size": 819,
+   "sha256": "15c963fbcfcd0dfb42348b956ea74867f0c0427ca814a6712fa8d3310b327712"
+  },
+  "deploy/config.example.yaml": {
+   "size": 1119,
+   "sha256": "dc68df981088f64ed3219e6e3d1286d1c96d07de2dd0170284f87a45443611e6"
+  },
+  "deploy/README_DEPLOY.md": {
+   "size": 6700,
+   "sha256": "9fc9485fd944efab48714c2d4f2be90c404aa622070118e2ff46faabe60b094c"
+  },
+  "ui/ui_v2.html": {
+   "size": 76772,
+   "sha256": "4f0fe3ef16378163547065aa7e8763cc727872d88ba09e53ae5f874a90528250"
+  }
+ }
+}

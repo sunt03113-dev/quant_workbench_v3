@@ -1,0 +1,28 @@
+{
+ "schema": "p9-evidence/1",
+ "label": "win",
+ "collected_at": "2026-09-20T17:51:36",
+ "endpoint": "http://127.0.0.1:8000",
+ "stem": "p9_excel_probe",
+ "backtest_status": "OK",
+ "n_hits": 1,
+ "data_date": "2026-09-18",
+ "excel_bytes": 5053,
+ "excel_sha256": "7579e21f3609516effa7f63724c0f8d99213b627f8b4ffaeb722d2607038388d",
+ "excel_saved": "EXCEL_win_p9_excel_probe.xlsx",
+ "structured_n_rows": 1,
+ "structured_columns": [
+  "股票代码",
+  "股票名称",
+  "D-0日期",
+  "T+0(低/高)",
+  "T+1最高价",
+  "T+2最高价",
+  "T+3最高价",
+  "T+4最高价",
+  "T+5最高价",
+  "T+6最高价"
+ ],
+ "structured_rows_sha256": "cff32a8e14d02fda430fcbb7fc5c435cf607f13f71422d2b9cd3114433297685",
+ "structured_canonical_rows": null
+}

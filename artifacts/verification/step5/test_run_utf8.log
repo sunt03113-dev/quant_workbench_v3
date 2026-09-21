@@ -1,0 +1,19 @@
+沙箱就绪：5 只，截断至 <= 20260916
+PASS T0 雪球源 vs TDX .day 逐字段一致 | sh600519: 比对 14 个交易日; sz300010: 比对 14 个交易日
+  … 本地行情截至 20260916，查询交易日历…
+  … 缺失 2 个交易日，抓取 5 个标的…
+PASS T1a 增量执行 OK | days=[20260917, 20260918] files=5 skipped=0
+PASS T1b 业务字段与 TDX 基线逐字段一致（OHLC/amount/保留位精确；volume ±100股容差）
+PASS T2 复跑 UP_TO_DATE | local_last=20260918
+  预期写失败: 写入失败，已回滚全部追加（历史行情未破坏）: [Errno 13] Permission denied: 'D:\\09work\\quant_workbenc
+PASS T3a 写失败触发回滚 | 写入失败，已回滚全部追加（历史行情未破坏）: [Errno 13] Permission denied: 'D:\\09work\\quant_workbenc
+PASS T3b 回滚后全部文件恢复原尺寸（历史零破坏）
+PASS T4a 坏数据被校验拦截 | skipped=['sh600519.day']
+PASS T4b 其余标的正常入库 | updated=4
+PASS T4c 600519 未被写入坏数据（保持回滚后原状）
+SKIPT5 新股补建 | 东财清单被限流，跳过（不影响核心增量链路）: Remote end closed connection without response
+PASS T6a 线上更新任务完成 | 行情截至 2026-09-18；重跑 0 个模型，1 个模型存在新增命中
+PASS T6b 线上行情文件未变（周末 no-op）
+PASS T6c data_date 保持 2026-09-18
+
+TOTAL: 13 checks, 0 FAIL

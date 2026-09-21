@@ -1,0 +1,170 @@
+{
+  "golden_vipdoc": {
+    "sh": {
+      "dir": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\golden\\vipdoc\\sh\\lday",
+      "exists": true,
+      "file_count": 5900,
+      "top_prefixes": {
+        "600": 875,
+        "880": 660,
+        "603": 624,
+        "688": 617,
+        "881": 468,
+        "000": 336,
+        "113": 270,
+        "601": 231,
+        "501": 121,
+        "888": 120,
+        "110": 116,
+        "605": 113,
+        "900": 97,
+        "512": 92,
+        "560": 87
+      }
+    },
+    "sz": {
+      "dir": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\golden\\vipdoc\\sz\\lday",
+      "exists": true,
+      "file_count": 5804,
+      "top_prefixes": {
+        "300": 978,
+        "002": 973,
+        "159": 742,
+        "000": 504,
+        "301": 466,
+        "399": 463,
+        "123": 273,
+        "160": 220,
+        "161": 179,
+        "128": 146,
+        "001": 121,
+        "127": 114,
+        "162": 100,
+        "163": 82,
+        "200": 69
+      }
+    }
+  },
+  "latest_trade_date_global": "2026-09-18",
+  "samples": {
+    "sh688006": {
+      "file": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\golden\\vipdoc\\sh\\lday\\sh688006.day",
+      "records": 1740,
+      "first_date": "2019-07-22",
+      "last_date": "2026-09-18",
+      "last_3_records": [
+        {
+          "date": "2026-09-16",
+          "open": 20.56,
+          "high": 20.88,
+          "low": 19.95,
+          "close": 20.6,
+          "amount_f32": 162713904.0,
+          "volume_int": 7961474
+        },
+        {
+          "date": "2026-09-17",
+          "open": 20.47,
+          "high": 20.96,
+          "low": 20.45,
+          "close": 20.76,
+          "amount_f32": 123377592.0,
+          "volume_int": 5958205
+        },
+        {
+          "date": "2026-09-18",
+          "open": 20.62,
+          "high": 21.05,
+          "low": 20.62,
+          "close": 20.94,
+          "amount_f32": 115851264.0,
+          "volume_int": 5539341
+        }
+      ]
+    },
+    "sz300010": {
+      "file": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\golden\\vipdoc\\sz\\lday\\sz300010.day",
+      "records": 3760,
+      "first_date": "2009-10-30",
+      "last_date": "2026-09-18",
+      "last_3_records": [
+        {
+          "date": "2026-09-16",
+          "open": 4.6,
+          "high": 4.73,
+          "low": 4.3,
+          "close": 4.59,
+          "amount_f32": 669377024.0,
+          "volume_int": 149082344
+        },
+        {
+          "date": "2026-09-17",
+          "open": 4.58,
+          "high": 5.1,
+          "low": 4.52,
+          "close": 4.94,
+          "amount_f32": 629471296.0,
+          "volume_int": 130430922
+        },
+        {
+          "date": "2026-09-18",
+          "open": 4.99,
+          "high": 5.19,
+          "low": 4.95,
+          "close": 5.09,
+          "amount_f32": 531817184.0,
+          "volume_int": 105212752
+        }
+      ]
+    },
+    "sh600519": {
+      "file": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\golden\\vipdoc\\sh\\lday\\sh600519.day",
+      "records": 6008,
+      "first_date": "2001-08-27",
+      "last_date": "2026-09-18",
+      "last_3_records": [
+        {
+          "date": "2026-09-16",
+          "open": 1273.93,
+          "high": 1274.98,
+          "low": 1254.1,
+          "close": 1258.0,
+          "amount_f32": 3307926528.0,
+          "volume_int": 2623524
+        },
+        {
+          "date": "2026-09-17",
+          "open": 1257.98,
+          "high": 1267.6,
+          "low": 1254.0,
+          "close": 1266.98,
+          "amount_f32": 2217338368.0,
+          "volume_int": 1755380
+        },
+        {
+          "date": "2026-09-18",
+          "open": 1262.99,
+          "high": 1265.88,
+          "low": 1256.1,
+          "close": 1257.12,
+          "amount_f32": 3135849216.0,
+          "volume_int": 2489087
+        }
+      ]
+    }
+  },
+  "pre_close_check": {
+    "sh688006": {
+      "records": 1740,
+      "note": "pre_close = prev row close（TDX .day 无独立昨收字段，需按 symbol 时间序列推导）"
+    },
+    "sz300010": {
+      "records": 3760,
+      "note": "pre_close = prev row close（TDX .day 无独立昨收字段，需按 symbol 时间序列推导）"
+    },
+    "sh600519": {
+      "records": 6008,
+      "note": "pre_close = prev row close（TDX .day 无独立昨收字段，需按 symbol 时间序列推导）"
+    }
+  }
+}

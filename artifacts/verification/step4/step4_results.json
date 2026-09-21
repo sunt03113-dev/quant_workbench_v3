@@ -1,0 +1,84 @@
+{
+ "results": [
+  {
+   "check": "T1a 规则X回测成功",
+   "ok": true,
+   "detail": "n_hits=1"
+  },
+  {
+   "check": "T1b 规则Y回测成功",
+   "ok": true,
+   "detail": "n_hits=7240"
+  },
+  {
+   "check": "T1c current=规则Y结果",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T1d previous=规则X结果",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T1e previous.json 行数=规则X n_hits",
+   "ok": true,
+   "detail": "previous=1 旧current=1"
+  },
+  {
+   "check": "T1f previous.xlsx 存在",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T3 new_hits = current - previous",
+   "ok": true,
+   "detail": "expect=1797 got=1797"
+  },
+  {
+   "check": "T3b new_hits 含股票名称",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T2a 非法plan返回FAILED",
+   "ok": true,
+   "detail": "violations=20"
+  },
+  {
+   "check": "T2b 失败后 current/new_hits 不变",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T2c 确定性复核可拦截坏行",
+   "ok": true,
+   "detail": "violations=1"
+  },
+  {
+   "check": "T4 limit=10 返回10条",
+   "ok": true,
+   "detail": "got=10"
+  },
+  {
+   "check": "T5a export 200",
+   "ok": true,
+   "detail": "380337 bytes"
+  },
+  {
+   "check": "T5b Excel 有效且行数=n_hits",
+   "ok": true,
+   "detail": "rows=7240 n_hits=7240"
+  },
+  {
+   "check": "T6a 落盘含 current+previous",
+   "ok": true,
+   "detail": ""
+  },
+  {
+   "check": "T6b 损坏 state -> 空状态+备份",
+   "ok": true,
+   "detail": ""
+  }
+ ]
+}

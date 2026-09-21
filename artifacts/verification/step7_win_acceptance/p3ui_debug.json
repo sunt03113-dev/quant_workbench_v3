@@ -1,0 +1,19 @@
+{
+ "hasPatch": true,
+ "submitBtnDisplay": "inline-block",
+ "cards": {
+  "mine": {
+   "id": "c1789895655645",
+   "name": "STEP7调试模型",
+   "ruleStem": null,
+   "desc": ""
+  },
+  "total": 56,
+  "raw_len": 3342
+ },
+ "status": " 正在提取数据并回测…",
+ "backtest_responses": [],
+ "errors": [
+  "CONSOLE Failed to load resource: the server responded with a status of 404 (Not Found)"
+ ]
+}

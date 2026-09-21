@@ -1,0 +1,85 @@
+{
+ "schema": "p9-evidence/1",
+ "label": "win",
+ "collected_at": "2026-09-20T17:50:47",
+ "host": {
+  "system": "Windows",
+  "release": "11",
+  "version": "10.0.26200",
+  "machine": "AMD64",
+  "processor": "Intel64 Family 6 Model 154 Stepping 3, GenuineIntel",
+  "node": "XY",
+  "stdlib_platform": "win32"
+ },
+ "python": {
+  "version": "3.13.14",
+  "executable": "C:\\Users\\21412\\.workbuddy\\binaries\\python\\envs\\qwb\\Scripts\\python.exe",
+  "implementation": "CPython",
+  "byteorder": "little"
+ },
+ "packages": {
+  "numpy": "2.5.3",
+  "pandas": "3.0.6",
+  "openpyxl": "3.1.5",
+  "fastapi": "0.141.1",
+  "uvicorn": "0.53.0",
+  "starlette": "1.6.0",
+  "pydantic": "2.13.5",
+  "PyYAML": "6.0.3",
+  "xlsxwriter": null,
+  "python-dateutil": "2.9.0.post0",
+  "pytz": null
+ },
+ "runtime_versions": {
+  "numpy": "2.5.3",
+  "pandas": "3.0.6"
+ },
+ "paths": {
+  "platform": "win32",
+  "config_source": "file:config.yaml",
+  "path_sources": {
+   "appdata": "config:appdata_dir",
+   "skill": "config:skill_dir",
+   "ui": "config:ui_file"
+  },
+  "appdata_dir": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata",
+  "skill_dir": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\skill\\tdx-stock-backtest-master",
+  "ui_file": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\ui\\ui_v2.html",
+  "host": "127.0.0.1",
+  "port": 8000,
+  "market_schema_version": 1,
+  "market_physical_format": "tdx-day-compat-32B",
+  "day_dirs": [
+   "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sh\\lday",
+   "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sz\\lday"
+  ]
+ },
+ "canon_rule": {
+  "canon_version": 2,
+  "value_quantum": 0.0001,
+  "format": "%.4f",
+  "empty_tokens": [
+   "",
+   "N/A",
+   "nan",
+   "NaN",
+   "None",
+   "--"
+  ],
+  "strip_leading_plus": true,
+  "normalize_negative_zero": true,
+  "leading_zero_guard": true,
+  "text_columns": [
+   "股票代码",
+   "股票名称",
+   "交易所",
+   "板块"
+  ],
+  "text_column_substrings": [
+   "日期"
+  ],
+  "row_order": "sorted",
+  "tree_hash_algo": "sha256 over sorted('relpath|sha256\\n')",
+  "manifest_format": "relpath\\tsize\\tsha256"
+ }
+}

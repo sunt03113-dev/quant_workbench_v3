@@ -1,0 +1,1518 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-page-node-id="y9IIsZXyS1oSBvXhdXdAm1">
+<head data-page-node-id="Eg1yihhzMqFICuiK6MYZY5">
+<meta charset="UTF-8" data-page-node-id="HwLFSirHnGgqKB8CcZSXvl">
+<meta name="viewport" content="width=device-width, initial-scale=1.0" data-page-node-id="bbhLvQyDlhkkj6jjGqU16m">
+<title>模型总览</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/font-awesome@4.7.0/css/font-awesome.min.css" data-page-node-id="aZYrgOvJVtftmIFCvRjFfn">
+<style>
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;background:#f4f7f6;color:#1f2a26;overflow:hidden}
+
+/* ===== 绿色主色体系 ===== */
+:root{
+  --green:#2f8a6d; --green-d:#22a576; --green-bg:#eef7f3; --green-border:#dbe6e2;
+  --green-light:#e9f8f2; --green-hover:#b9cbc4;
+  --panel-bg:#fff; --border:#e6ebef; --text-dim:#8c95a5; --text-mid:#46524d;
+}
+
+/* ===== 首页 ===== */
+.app-home{height:100dvh;padding:8px 12px 10px;display:grid;grid-template-rows:40px 1fr;gap:5px}
+.home-header{position:relative;display:flex;align-items:center;justify-content:flex-end}
+.home-title{position:absolute;left:50%;transform:translateX(-50%);font-size:18px;font-weight:760}
+.home-actions{display:flex;gap:8px;align-items:center}
+.btn-ghost{height:31px;border-radius:7px;padding:0 10px;border:1px solid #dce5e1;background:#fff;color:#69736f;font-size:12px;cursor:pointer}
+.btn-ghost:hover{border-color:var(--green);color:var(--green)}
+.btn-ghost.updating{color:#e8753b;border-color:#e8753b;animation:pulse 1s infinite}
+.btn-ghost.done{color:var(--green);border-color:var(--green)}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:.5}}
+.card-more{position:absolute;top:2px;right:2px;width:20px;height:20px;border:0;background:transparent;color:#b8c2bd;font-size:16px;cursor:pointer;display:none;line-height:1;border-radius:4px}
+.card:hover .card-more{display:block}
+.card-more:hover{background:#eef3f0;color:#69736f}
+.card-menu{position:absolute;top:22px;right:4px;background:#fff;border:1px solid #dde5e2;border-radius:6px;box-shadow:0 6px 20px rgba(24,51,42,.1);z-index:30;padding:4px;display:none}
+.card-menu.show{display:block}
+.card-menu button{display:block;width:100%;border:0;background:transparent;text-align:left;padding:5px 10px;border-radius:4px;font-size:12px;color:#46524d;cursor:pointer;white-space:nowrap}
+.card-menu button:hover{background:#f3f7f5}
+.card-menu .danger{color:#f53f3f}
+.card-menu .danger:hover{background:#fff1f0}
+.group-header{position:relative}
+.group-more{position:absolute;top:8px;right:6px;width:20px;height:20px;border:0;background:transparent;color:#b8c2bd;font-size:16px;cursor:pointer;display:none;line-height:1;border-radius:4px}
+.group:hover .group-more{display:block}
+.group-more:hover{background:#eef3f0;color:#69736f}
+.plus-wrap{position:relative}
+.btn-plus{width:32px;height:31px;border:1px solid var(--green);background:var(--green);color:#fff;border-radius:7px;font-size:20px;cursor:pointer;border:0}
+.plus-menu{position:absolute;right:0;top:36px;width:126px;padding:5px;background:#fff;border:1px solid #dde5e2;border-radius:8px;box-shadow:0 10px 30px rgba(24,51,42,.12);display:none;z-index:20}
+.plus-wrap:hover .plus-menu{display:block}
+.plus-menu button{width:100%;border:0;background:transparent;text-align:left;padding:8px 9px;border-radius:5px;font-size:12px;color:#46524d;cursor:pointer}
+.plus-menu button:hover{background:#f3f7f5}
+
+.matrix{min-height:0;display:grid;gap:4px;grid-auto-rows:minmax(0,1fr)}
+.group{min-height:0;display:grid;grid-template-columns:58px 1fr;background:#fff;border:1px solid var(--green-border);overflow:hidden}
+.side{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--green-bg);border-right:1px solid var(--green-border);color:var(--green)}
+.gname{font-size:15px;font-weight:600}
+.count{font-size:10px;color:#a4aea9;margin-top:5px}
+.grid{min-width:0;min-height:0;padding:4px;display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));grid-auto-rows:minmax(36px,1fr);gap:4px}
+.card{position:relative;min-height:0;border-radius:6px;border:1px solid #e2e8e5;background:#fbfcfc;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;text-align:center}
+.card:hover{border-color:var(--green-hover);background:#f9fbfa}
+.card.active{background:#edf8f4;border-color:#79c5aa}
+.rule-name{font-size:17px;font-weight:600;line-height:1.15}
+.rule-stock{font-size:12px;font-weight:400;color:var(--green-d);margin-top:5px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;max-width:100%;padding:0 4px;min-height:15px}
+.rule-stock.empty{color:transparent}
+
+/* ===== 详情页 ===== */
+.app-detail{height:100dvh;padding:14px 20px 16px;display:grid;grid-template-rows:50px 1fr;gap:10px;overflow:hidden}
+.detail-top{position:relative;display:flex;align-items:center;justify-content:space-between}
+.back-link{display:inline-flex;align-items:center;height:34px;padding:0 14px;border:1px solid var(--green);background:var(--green-light);color:var(--green);border-radius:7px;font-size:13px;font-weight:600;cursor:pointer;transition:background .15s}
+.back-link:hover{background:#ddf3e8}
+.detail-title{position:absolute;left:50%;transform:translateX(-50%);font-size:28px;font-weight:800;letter-spacing:.02em}
+.detail-date{font-size:12px;color:var(--text-dim)}
+
+.detail-content{min-height:0;display:grid;grid-template-columns:minmax(0,4fr) minmax(0,6fr);gap:10px;overflow:hidden}
+.panel{min-height:0;background:#fff;border:1px solid var(--border);border-radius:10px;box-shadow:0 3px 16px rgba(23,38,59,.04);overflow:hidden;display:flex;flex-direction:column}
+.panel-head{display:flex;align-items:center;justify-content:space-between;padding:0 16px;height:46px;border-bottom:1px solid #eef1f4;flex-shrink:0}
+.head-left{display:flex;align-items:center;gap:10px}
+.head-icon{width:28px;height:28px;border-radius:7px;background:var(--green-light);color:var(--green);display:grid;place-items:center;font-size:15px}
+.head-title{font-size:15px;font-weight:760}
+.head-note{font-size:11px;color:var(--text-dim)}
+
+/* 左侧规则编辑 */
+.editor-wrap{flex:1;min-height:0;padding:12px 14px 10px;display:flex}
+.editor{width:100%;height:100%;border:1px solid #e1e6ea;background:#fbfcfd;border-radius:8px;padding:14px 15px;font-size:13px;line-height:1.72;color:#2d3a4d;outline:none;overflow:auto;white-space:pre-wrap;resize:none;font-family:inherit}
+.editor:focus{background:#fff;border-color:#a9dcc7;box-shadow:0 0 0 2px rgba(47,138,109,.08)}
+.detail-bottom{padding:0 14px 12px;display:flex;align-items:center;justify-content:space-between;gap:10px;flex-shrink:0}
+.detail-hint{font-size:10.5px;color:#9aa3b0}
+.btn-run{height:36px;padding:0 16px;border:0;border-radius:7px;background:var(--green);color:#fff;font-size:12px;font-weight:700;cursor:pointer}
+.btn-run:hover{background:var(--green-d)}
+.btn-run:disabled{opacity:.5;cursor:default}
+
+/* 板块选择 + 状态 */
+.universe-picker{padding:6px 14px;display:none;align-items:center;gap:8px;flex-shrink:0}
+.universe-picker.show{display:flex}
+.uni-btn{border:1px solid #dce5e1;border-radius:6px;padding:4px 14px;font-size:13px;cursor:pointer;background:#fff;color:var(--text-mid)}
+.uni-btn.sel{border-color:var(--green);background:var(--green-light);color:var(--green);font-weight:600}
+.submit-status{padding:4px 14px;font-size:12px;flex-shrink:0;display:none}
+.submit-status.show{display:block}
+
+/* 右侧数据表 */
+.btn-download{height:31px;padding:0 11px;border:1px solid #8fc5b0;background:#fff;color:var(--green);border-radius:7px;font-size:11px;font-weight:650;cursor:pointer}
+.btn-download:hover{background:var(--green-light)}
+.btn-download:disabled{opacity:.4}
+.table-wrap{flex:1;min-height:0;padding:8px 12px 12px;overflow:auto}
+table{width:100%;border-collapse:collapse;table-layout:auto;font-size:10.5px}
+th,td{border:1px solid #e7ebef;padding:5px;text-align:center;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+th{background:#f7f9fb;font-weight:760;color:#273246}
+td{color:#3b4658}
+tbody tr:hover{background:#fafcfd}
+.red{color:#ff3b30}.green{color:#15a876}
+
+/* ===== 回收箱弹窗 ===== */
+.trash-modal{position:fixed;inset:0;background:rgba(0,0,0,.3);z-index:50;display:none;align-items:flex-start;justify-content:center;padding-top:80px}
+.trash-modal.show{display:flex}
+.trash-box{background:#fff;border-radius:10px;width:600px;max-width:92vw;max-height:70vh;display:flex;flex-direction:column;box-shadow:0 10px 40px rgba(0,0,0,.15)}
+.trash-head{padding:12px 16px;border-bottom:1px solid #eef1f4;display:flex;align-items:center;justify-content:space-between}
+.trash-list{padding:12px;overflow:auto;font-size:13px}
+.trash-item{display:flex;align-items:center;justify-content:space-between;border:1px solid #eef1f4;border-radius:7px;padding:8px 12px;margin-bottom:8px}
+.trash-restore{color:var(--green);font-size:12px;padding:4px 8px;border:1px solid var(--green);border-radius:5px;cursor:pointer;background:#fff}
+.trash-restore:hover{background:var(--green-light)}
+.trash-delete{color:#f53f3f;font-size:12px;padding:4px 8px;border:1px solid #f53f3f;border-radius:5px;cursor:pointer;background:#fff}
+.trash-delete:hover{background:#fff1f0}
+
+/* ===== Toast ===== */
+#toast{position:fixed;top:16px;left:50%;transform:translateX(-50%);z-index:9999;background:#FFF7E8;border:1px solid #F5A64C;color:#8A5B00;padding:10px 18px;border-radius:8px;box-shadow:0 4px 14px rgba(0,0,0,.12);font-size:14px;display:none}
+#toast.ok{background:#EEF9F3;border-color:#79C5AA;color:#1D6B52}
+#toast.err{background:#FFF1F0;border-color:#F5A6A0;color:#A8231B}
+
+/* ===== 歧义澄清 UI（一次集中展示所有高影响歧义）===== */
+.amb-wrap{font-size:12.5px;color:#1f2a26}
+.amb-head{font-size:13px;font-weight:700;color:#8A5B00;margin-bottom:4px}
+.amb-item{border:1px solid #f0e0c0;border-radius:7px;background:#fff;padding:8px 10px;margin-bottom:8px}
+.amb-q{font-weight:600;margin-bottom:2px}
+.amb-loc{font-size:11px;color:#8c95a5;margin-bottom:6px}
+.amb-loc code{background:#fdf3e0;padding:1px 5px;border-radius:4px;color:#a35a00}
+.amb-opt{display:block;margin:4px 0;padding:6px 8px;border:1px solid #ece3d2;border-radius:6px;cursor:pointer;background:#fffdf8}
+.amb-opt:hover{border-color:#e0c894}
+.amb-opt.sel{border-color:#e0a33c;background:#fff6e4}
+.amb-opt input{margin-right:6px}
+.amb-meaning{display:block;font-size:11px;color:#8c95a5;margin-top:3px;padding-left:20px}
+.amb-custom{width:100%;height:30px;margin-top:5px;border:1px solid #dce5e1;border-radius:6px;padding:0 9px;font-size:12px;font-family:inherit;display:none}
+.amb-custom:focus{border-color:#e0a33c;outline:none}
+/* 歧义条目很多时：正文内部滚动，「应用所选解释并继续」始终可见（F 阶段） */
+.amb-body{max-height:340px;overflow-y:auto;overscroll-behavior:contain;padding-right:4px}
+.amb-actions{margin-top:8px;display:flex;gap:8px;align-items:center;position:sticky;bottom:0;background:#fff;padding:8px 0 2px;border-top:1px solid #f0e0c0}
+.btn-amb{height:32px;padding:0 15px;border:0;border-radius:7px;background:#e0a33c;color:#fff;font-size:12.5px;font-weight:700;cursor:pointer}
+.btn-amb:hover{background:#c98d2c}
+.btn-amb:disabled{opacity:.55;cursor:default}
+.amb-hint{font-size:11px;color:#8c95a5}
+
+/* ===== 失败原因分流 ===== */
+.fail-box{border-radius:7px;padding:8px 11px;margin:6px 0;font-size:12.5px;line-height:1.65}
+.fail-box .fail-title{font-weight:700;margin-bottom:3px}
+.fail-box .fail-detail{font-size:11.5px;opacity:.85;margin-top:3px}
+.fail-AMBIGUOUS{background:#FFF8EC;border:1px solid #F0D9A8;color:#8A5B00}
+.fail-MISSING_BUSINESS_ATOM,.fail-MISSING_DATA{background:#EEF4FD;border:1px solid #C7D9F5;color:#24508F}
+.fail-INVALID_PLAN{background:#FFF1F0;border:1px solid #F5BFBB;color:#A8231B}
+.fail-TECHNICAL_FAILURE{background:#F4F5F7;border:1px solid #DDE1E6;color:#4E5969}
+.fail-UNSAFE_UNKNOWN{background:#FFF1F0;border:1px solid #F5BFBB;color:#A8231B}
+
+/* ===== 多规则 ===== */
+.multi-rule{border-top:1px solid var(--green-border);padding:8px 0}
+.multi-rule:first-of-type{border-top:0}
+.multi-title{font-size:13px;font-weight:700;margin-bottom:3px}
+.multi-meta{font-size:11.5px;color:#46524d;margin-bottom:4px}
+.chip{display:inline-block;margin:2px 4px 2px 0;padding:2px 8px;background:#fff;border:1px solid var(--green-border);border-radius:4px;font-size:11.5px}
+
+/* ===== 增加模型弹窗 ===== */
+.add-modal{position:fixed;inset:0;background:rgba(0,0,0,.28);z-index:60;display:none;align-items:center;justify-content:center}
+.add-modal.show{display:flex}
+.add-box{background:#fff;border-radius:12px;width:360px;max-width:92vw;box-shadow:0 10px 40px rgba(0,0,0,.15);overflow:hidden}
+.add-head{padding:14px 18px;border-bottom:1px solid #eef1f4;display:flex;align-items:center;justify-content:space-between}
+.add-title{font-size:15px;font-weight:700;color:#1f2a26}
+.add-close{cursor:pointer;color:#bbb;font-size:16px}
+.add-close:hover{color:#666}
+.add-body{padding:16px 18px;display:flex;flex-direction:column;gap:14px}
+.add-field{display:flex;flex-direction:column;gap:6px}
+.add-label{font-size:12px;font-weight:600;color:#46524d}
+.add-input{height:36px;border:1px solid #dce5e1;border-radius:7px;padding:0 12px;font-size:13px;color:#1f2a26;outline:none;background:#fff;font-family:inherit}
+.add-input:focus{border-color:var(--green);box-shadow:0 0 0 2px rgba(47,138,109,.08)}
+.add-select{height:36px;border:1px solid #dce5e1;border-radius:7px;padding:0 10px;font-size:13px;color:#1f2a26;outline:none;background:#fff;cursor:pointer;font-family:inherit;-webkit-appearance:none;-moz-appearance:none;appearance:none;background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath fill='%23999' d='M6 8L0 0h12z'/%3E%3C/svg%3E");background-repeat:no-repeat;background-position:right 12px center;padding-right:30px}
+.add-select:focus{border-color:var(--green)}
+.new-cat-row{display:none;flex-direction:column;gap:6px}
+.new-cat-row.show{display:flex}
+.add-error{font-size:12px;color:#f53f3f;min-height:16px}
+.add-footer{padding:0 18px 16px;display:flex;justify-content:flex-end;gap:10px}
+.btn-cancel{height:34px;padding:0 16px;border:1px solid #dce5e1;background:#fff;color:#69736f;border-radius:7px;font-size:13px;cursor:pointer}
+.btn-cancel:hover{border-color:#bcc4be}
+.btn-create{height:34px;padding:0 16px;border:0;background:var(--green);color:#fff;border-radius:7px;font-size:13px;font-weight:600;cursor:pointer}
+.btn-create:hover{background:var(--green-d)}
+
+/* ===== 拖拽 ===== */
+.dragging{opacity:.45;box-shadow:0 0 0 2px var(--green)}
+.move-handle{cursor:move;color:#c4cdc9;font-size:12px;margin-left:4px}
+</style>
+</head>
+<body data-page-node-id="LeclTMDdFsUaYyCQOTh2jY">
+
+<!-- ==================== 首页 ==================== -->
+<div id="homePage" class="app-home" data-page-node-id="ZV9yRfyeDlMlhaJA22jiz8">
+  <header class="home-header" data-page-node-id="4rXtwaNlJk9M4GzxRGZInt">
+    <div class="home-title" data-page-node-id="MFFbPNNZtsBnAT8XfxzPOX">模型总览</div>
+    <div class="home-actions" id="homeActions" data-page-node-id="jbc7Njt5VxB5DpwlSklTXr">
+      <button class="btn-ghost" id="updateDataBtn" title="手动触发数据更新与回测" data-page-node-id="ugsFUL1WSjKQHz00a008Jo">↻ 更新数据</button>
+      <button class="btn-ghost" id="trashBtn" data-page-node-id="rwpE7NsaGO8F8zhvLtDTBq">🗑 回收站</button>
+      <div class="plus-wrap" data-page-node-id="P6rgoX03lGhifwV6QrBzcH">
+        <button class="btn-plus" id="addGroupTop" data-page-node-id="XhhJGAnaBRoYrZcGUSGgYn">＋</button>
+        <div class="plus-menu" data-page-node-id="BfEQKyE1fSvMTW6iQWlEGx">
+          <button id="addModelBtn" data-page-node-id="uG2SV8CBnK7vIjyCFZFttX">增加模型</button>
+          <button id="addCategoryBtn" data-page-node-id="EudhzhTgsn2UAAhyyHErzA">增加类别</button>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main class="matrix" id="matrix" data-page-node-id="pVlPZukhXMbiFKzAZ4oJv3"></main>
+</div>
+
+<!-- ==================== 详情页 ==================== -->
+<div id="detailPage" class="app-detail" style="display:none" data-page-node-id="D2Ve2QBdY5Dzen2GdfuYPi">
+  <header class="detail-top" data-page-node-id="lNd5fqQviXFh0zETlCJMCu">
+    <span class="back-link" id="backHome" data-page-node-id="XacyYOYFkKaWqy7VL0OMDE">← 返回首页</span>
+    <div class="detail-title" id="detailTitle" data-page-node-id="vuVGRF6yuq2QhcNfWtl67g">—</div>
+    <div class="detail-date" id="dataFreshChip" data-page-node-id="tFxYZXam7ljFAI5kAyoGtC">数据截至 —</div>
+  </header>
+  <main class="detail-content" data-page-node-id="oaBPuUEzAEfDK1OmhQ3ICq">
+    <!-- 左侧：规则编辑 -->
+    <section class="panel" data-page-node-id="d7OmmhpPLXCxDF4ygRCFso">
+      <div class="panel-head" data-page-node-id="fNBnN455lXvrRhI5iccblI">
+        <div class="head-left" data-page-node-id="2ahubq2C4F6rirpFzQZxBS">
+          <div class="head-icon" data-page-node-id="V40KMUDWlxcQWAGuVW4Ln3">▣</div>
+          <span class="head-title" data-page-node-id="WDF2ArZO8uDiC6lzCHSt5f">规则描述</span>
+        </div>
+        <span class="head-note" data-page-node-id="wFjaqbLjOjDlVI88NqyhPC">自然语言</span>
+      </div>
+      <div class="editor-wrap" data-page-node-id="xY7FGFag2qizyI3J6PwPd3">
+        <textarea class="editor" id="ruleTextarea" spellcheck="false" placeholder="用自然语言描述选股规则。例如：&#10;基准日(D-0)涨停且成交额为近20日最大且最高价非近20日最高；&#10;前1日(D-1)非涨停且成交额非20日最大；前2日(D-2)涨停。"></textarea>
+      </div>
+      <!-- 板块选择（未指明时弹出） -->
+      <div class="universe-picker" id="universePicker" data-page-node-id="cKr4J6ewMYsBqYoxccE2Ao">
+        <span style="font-size:12px;color:#e8753b;font-weight:600" data-page-node-id="ZC9m26pKO4jfa80U5D3rpD">请选择板块（必选）：</span>
+        <button class="uni-btn" data-universe="10cm" data-page-node-id="FrkABAiKTFVAukTIdSUPjU">10cm（沪/深主板）</button>
+        <button class="uni-btn" data-universe="20cm" data-page-node-id="K3woLJ53pCE7ALYDeAC2gm">20cm（创业板/科创板）</button>
+      </div>
+      <!-- 状态提示 -->
+      <div class="submit-status" id="submitStatus" data-page-node-id="0JL4bi6qk6CTonbKYIu02j"></div>
+      <!-- 歧义确认区域 -->
+      <div id="confirmationArea" style="display:none;padding:10px 14px;background:#fffbf0;border:1px solid #f0e0c0;border-radius:8px;margin:6px 0" data-page-node-id="JuvhkFHdfCfkVf1FP2V1wL"></div>
+      <!-- 预览区域 -->
+      <div id="previewArea" style="display:none;padding:10px 14px;background:#eef7f3;border:1px solid var(--green-border);border-radius:8px;margin:6px 0" data-page-node-id="ODLh6BomiFGGzOZ9xo0lLW"></div>
+      <div class="detail-bottom" data-page-node-id="wKjeRo9RhbRIjJXPyMRfld">
+        <span class="detail-hint" data-page-node-id="ymPOXl2SEZJJx2QkLOcqmE">可直接粘贴或编辑已整理好的规则文本</span>
+        <button class="btn-run" id="confirmRuleEdit" data-page-node-id="btlDQlpuJKsW3h9xTEUXQE">提交规则进行识别</button>
+        <button class="btn-run" id="previewSubmitBtn" style="display:none" data-page-node-id="ABu2JNFuhMQSqR7PNnPshN">✓ 确认并回测</button>
+        <button class="btn-run" id="batchRunBtn" style="display:none" data-page-node-id="GEKmZIVbwJ4eAzvU4d5AEF">⇉ 一键全部回测</button>
+      </div>
+    </section>
+
+    <!-- 右侧：示例数据 -->
+    <section class="panel" data-page-node-id="dA2NGI1uxU4kbArc8StlPl">
+      <div class="panel-head" data-page-node-id="Zb0uh3N8bgAatF8CIPJR4c">
+        <div class="head-left" data-page-node-id="b3Sdvx094LpSjFON8oiqtI">
+          <div class="head-icon" data-page-node-id="0em3ByzNjFHmNLFBjafq9m">▥</div>
+          <span class="head-title" data-page-node-id="f0J3eVieOhaWIHOzZXXiBX">示例数据</span>
+          <span class="head-note" data-page-node-id="7Lx2L4byfiVOA3MXZIoePs">最近 10 条</span>
+        </div>
+        <button class="btn-download" id="downloadBtn" data-page-node-id="583J3oUi5fdSmEW08wOS4l">⇩ 下载 Excel</button>
+      </div>
+      <div class="table-wrap" data-page-node-id="NYGXX91wZe8yThG8o9SoSs">
+        <table data-page-node-id="8Vmk4LREEMFkS2AY2fVlcE">
+          <thead id="candThead" data-page-node-id="1bVSes0iKSOHJWoEjsACMA">
+            <tr data-page-node-id="Ho3r2BhPHDazZOzqPE2yrC"><th data-page-node-id="4gOAnyfTpUuJgtLPD8I8MD">—</th></tr>
+          </thead>
+          <tbody id="candTbody" data-page-node-id="3UHxgZ9vi4MKmdmwKJXbGm">
+            <tr data-page-node-id="raC7fTEfwlz2HeVqN7ScF7"><td style="color:#ccc" data-page-node-id="OGHpq6caeHg6ber6TFD2Io">加载中…</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+</div>
+
+<!-- ==================== 回收箱弹窗 ==================== -->
+<div class="trash-modal" id="trashModal" data-page-node-id="N6dCHYOoEVJOJPHDW0tmRV">
+  <div class="trash-box" data-page-node-id="B1p8fLyACLnQrgnRZp5gRG">
+    <div class="trash-head" data-page-node-id="ORA4f4MUPgWxgPyM0j64Df">
+      <span style="font-weight:600" data-page-node-id="fp7sQ9ntnRmNwqWxWVxUZG">回收站 <span style="font-size:11px;color:#999;font-weight:400;margin-left:4px" data-page-node-id="OSV57BI6oBySRxeLZhDhUf">已删除内容保留 3 个月，可恢复或彻底删除</span></span>
+      <span style="cursor:pointer;color:#999" id="trashClose" data-page-node-id="HdDx8aB49b5zWGSQS2r7DA">✕</span>
+    </div>
+    <div class="trash-list" id="trashList" data-page-node-id="LiYOIeyYZ8lGp4mKpbnuzo"></div>
+  </div>
+</div>
+
+<!-- ==================== 增加模型弹窗 ==================== -->
+<div class="add-modal" id="addModelModal" data-page-node-id="EFPbeCKtnTbGp1dkdBe3BQ">
+  <div class="add-box" data-page-node-id="ktCmNC1mzLc4akIuJSJcK6">
+    <div class="add-head" data-page-node-id="bfsmmbaKmUynKDfPbPI8Au">
+      <span class="add-title" data-page-node-id="zaIKVr0RhCMdn58ufvg0NT">增加模型</span>
+      <span class="add-close" id="addModelClose" data-page-node-id="l7ZaFq8CrHeb0P2VrNc9Jz">✕</span>
+    </div>
+    <div class="add-body" data-page-node-id="GRP8XGMYqDv1W0fhAGAus8">
+      <div class="add-field" data-page-node-id="ij8LeiQSBhGRGQAAjxUSSn">
+        <label class="add-label" for="newModelName" data-page-node-id="a6ruSBd79xi5cvjBQV7oYx">模型名称</label>
+        <input class="add-input" id="newModelName" type="text" placeholder="请输入名称" autocomplete="off" data-page-node-id="ts6UKCTUsoKvuadOw03hw0">
+      </div>
+      <div class="add-field" data-page-node-id="EHRAijzEHywf9RYZcwKEH8">
+        <label class="add-label" for="newModelCategory" data-page-node-id="AtTeHblKU0831QrF5gcBg3">所属类别</label>
+        <select class="add-select" id="newModelCategory" data-page-node-id="HOGeJKET2a2raaoh0w7Mq8"></select>
+      </div>
+      <div class="add-field new-cat-row" id="newCatRow" data-page-node-id="OHChsrrvKlZjrOA9cANh2t">
+        <label class="add-label" for="newCatName" data-page-node-id="SbH5YLydJZXWCJO326VBDC">新类别名称</label>
+        <input class="add-input" id="newCatName" type="text" placeholder="请输入新类别名称" autocomplete="off" data-page-node-id="A6bbZ2GZnQZSNQtowmFyGc">
+      </div>
+      <div class="add-error" id="addModelError" data-page-node-id="JeIUHJ4DJoyf63k38i8Aa3"></div>
+    </div>
+    <div class="add-footer" data-page-node-id="9D5amoSxs80LfaDYS9VVkA">
+      <button class="btn-cancel" id="addModelCancel" data-page-node-id="g7i0gRMZujvSqyReY2Ho0Q">取消</button>
+      <button class="btn-create" id="addModelCreate" data-page-node-id="jEhvMY1T8HRZfPLpHWOEQE">创建模型</button>
+    </div>
+  </div>
+</div>
+
+<script>
+const API = "http://127.0.0.1:8000";
+
+// ===================== 元素引用 =====================
+const homeEl = document.getElementById('homePage');
+const detailEl = document.getElementById('detailPage');
+const matrixEl = document.getElementById('matrix');
+const backBtn = document.getElementById('backHome');
+const homeActions = document.getElementById('homeActions');
+const addGroupTop = document.getElementById('addGroupTop');
+const addModelBtn = document.getElementById('addModelBtn');
+const addCategoryBtn = document.getElementById('addCategoryBtn');
+const addModelModal = document.getElementById('addModelModal');
+const addModelClose = document.getElementById('addModelClose');
+const addModelCancel = document.getElementById('addModelCancel');
+const addModelCreate = document.getElementById('addModelCreate');
+const newModelName = document.getElementById('newModelName');
+const newModelCategory = document.getElementById('newModelCategory');
+const newCatRow = document.getElementById('newCatRow');
+const newCatName = document.getElementById('newCatName');
+const addModelError = document.getElementById('addModelError');
+const trashBtn = document.getElementById('trashBtn');
+const trashModal = document.getElementById('trashModal');
+const trashList = document.getElementById('trashList');
+const trashClose = document.getElementById('trashClose');
+const confirmRuleEdit = document.getElementById('confirmRuleEdit');
+const ruleTextarea = document.getElementById('ruleTextarea');
+const detailTitle = document.getElementById('detailTitle');
+const candThead = document.getElementById('candThead');
+const candTbody = document.getElementById('candTbody');
+const downloadBtn = document.getElementById('downloadBtn');
+const dataFreshChip = document.getElementById('dataFreshChip');
+const universePicker = document.getElementById('universePicker');
+const submitStatus = document.getElementById('submitStatus');
+const confirmationArea = document.getElementById('confirmationArea');
+const previewArea = document.getElementById('previewArea');
+const previewSubmitBtn = document.getElementById('previewSubmitBtn');
+const batchRunBtn = document.getElementById('batchRunBtn');
+
+let currentCard = null;
+let currentRuleStem = null;
+let selectedUniverse = null;
+let currentPreview = null;  // 存储当前 preview 的完整信息（preview_id + hashes）
+let currentGenericPlan = null;  // 通用事件图执行器（Strategy Plan）识别结果
+
+async function apiFetch(path, opts) {
+  const resp = await fetch(API + path, opts);
+  const data = await resp.json().catch(() => ({}));
+  if (!resp.ok) {
+    const msg = typeof data.detail === 'object'
+      ? (data.detail.message || JSON.stringify(data.detail))
+      : (data.detail || resp.statusText);
+    throw new Error(msg);
+  }
+  return data;
+}
+
+// ===================== 状态模型 =====================
+const LS_STATE = 'qw_state_v3';
+const TRASH_KEEP_MS = 90 * 24 * 3600 * 1000;
+
+// 转义函数改为 FLOW CORE 内的函数声明（见下方 FLOW CORE 区块），此处不再重复定义。
+
+function seedState() {
+  const card = c => (typeof c === 'string'
+    ? { id: c, name: c, ruleStem: null, desc: '' } : c);
+  const g = (id, cards) => ({ id, name: id, cards: cards.map(card) });
+  return {
+    groups: [
+      g('1S',  [{ id: '1S1', name: '1S1', ruleStem: 'strategy_10cm_v6', desc: 'strategy_10cm_v6' },
+               '1S2A1', '1S2A2', '1S2A3', '1S2B1', '1S2B2', '1S3A1', '1S3A2',
+               '1S3B1', '1S3B2', '1S4A', '1S4B', '1S4C']),
+      g('1Z',  ['1Z1A', '1Z1B', '1Z1C', '1Z1D', '1Z1E', '1Z1F', '1Z1G', '1Z2', '1Z3']),
+      g('1/2', ['111A', '111B', '121', '211A', '211B1', '211B2']),
+      g('3',   ['3-1A', '3-1B', '3-1C', '3-1D', '3-1E', '3-1F', '311A', '311B', '321', '3111']),
+      g('2S',  [{ id: '2S1', name: '2S1', ruleStem: 'strategy_20cm_v1', desc: 'strategy_20cm_v1' },
+                '2S2A2a', '2S2A2b', '2S2B1', '2S2B2a', '2S2B2b', '2S2C1', '2S2C2a', '2S2C2b',
+                '2S2D1', '2S2D2a', '2S2D2b', '2S2D3', '2S3A', '2S3B', '2S3C', '2S4A']),
+    ],
+    trash: [],
+  };
+}
+
+let state = null;
+function loadState() {
+  try { state = JSON.parse(localStorage.getItem(LS_STATE) || 'null'); } catch { state = null; }
+  if (!state || !Array.isArray(state.groups)) state = seedState();
+  if (!Array.isArray(state.trash)) state.trash = [];
+}
+function saveState() { localStorage.setItem(LS_STATE, JSON.stringify(state)); }
+
+function purgeOldTrash() {
+  const before = state.trash.length;
+  state.trash = state.trash.filter(t => Date.now() - t.deletedAt < TRASH_KEEP_MS);
+  if (state.trash.length !== before) saveState();
+}
+
+// ===================== 首页渲染 =====================
+function renderHome() {
+  matrixEl.innerHTML = '';
+  for (const g of state.groups) matrixEl.appendChild(renderGroup(g));
+}
+
+function renderGroup(g) {
+  const sec = document.createElement('section');
+  sec.className = 'group';
+  sec.dataset.gid = g.id;
+  sec.innerHTML = `
+    <div class="side group-header">
+      <div class="gname">${esc(g.name)}</div>
+      <div class="count">${g.cards.length}</div>
+      <button class="group-more" title="类别管理" data-gid="${esc(g.id)}">⋯</button>
+    </div>
+    <div class="grid group-card-container">
+      ${g.cards.map(c => `
+        <div class="card" data-cid="${esc(c.id)}" data-stem="${esc(c.ruleStem || '')}" draggable="true">
+          <button class="card-more" title="模型管理" data-cid="${esc(c.id)}">⋯</button>
+          <div class="rule-name">${esc(c.name)}</div>
+          <div class="rule-stock empty"></div>
+        </div>`).join('')}
+      ${g.cards.length === 0 ? '<div style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:12px">暂无模型，点击右上角＋新增</div>' : ''}
+    </div>`;
+  attachGroupEvents(sec, g);
+  return sec;
+}
+
+function attachGroupEvents(div, g) {
+  const container = div.querySelector('.group-card-container');
+
+  div.addEventListener('click', (e) => {
+    const cardEl = e.target.closest('.card');
+    if (cardEl) {
+      const card = g.cards.find(c => c.id === cardEl.dataset.cid);
+      if (card) openDetail(card);
+    }
+  });
+
+  // 卡片组内拖拽
+  let dragCard = null;
+  container.addEventListener('dragstart', (e) => {
+    dragCard = e.target.closest('.card');
+    if (!dragCard) return;
+    dragCard.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  container.addEventListener('dragover', (e) => {
+    e.preventDefault();
+    if (!dragCard) return;
+    const target = e.target.closest('.card');
+    if (!target || target === dragCard) return;
+    const rect = target.getBoundingClientRect();
+    const after = (e.clientY - rect.top) > rect.height / 2;
+    container.insertBefore(dragCard, after ? target.nextSibling : target);
+  });
+  container.addEventListener('dragend', () => {
+    if (dragCard) dragCard.classList.remove('dragging');
+    dragCard = null;
+    syncOrderFromDOM();
+  });
+
+  // 组拖拽（页面级）
+  div.draggable = false;
+  div.addEventListener('dragstart', (e) => {
+    if (!div.draggable) { e.preventDefault(); return; }
+    div.classList.add('dragging');
+    e.dataTransfer.effectAllowed = 'move';
+  });
+  div.addEventListener('dragover', (e) => {
+    if (!div.draggable) return;
+    e.preventDefault();
+    const over = e.target.closest('.group');
+    if (!over || over === div || over.parentElement !== matrixEl) return;
+    const rect = over.getBoundingClientRect();
+    const after = (e.clientY - rect.top) > rect.height / 2;
+    matrixEl.insertBefore(div, after ? over.nextSibling : over);
+  });
+  div.addEventListener('dragend', () => {
+    div.classList.remove('dragging');
+    div.draggable = false;
+    syncOrderFromDOM();
+  });
+}
+
+function syncOrderFromDOM() {
+  const domGroups = [...matrixEl.querySelectorAll(':scope > .group')];
+  const ordered = [];
+  for (const dg of domGroups) {
+    const g = state.groups.find(x => x.id === dg.dataset.gid);
+    if (!g) continue;
+    const domCids = [...dg.querySelectorAll('.card')].map(el => el.dataset.cid);
+    const mapped = domCids.map(cid => g.cards.find(c => c.id === cid)).filter(Boolean);
+    for (const c of g.cards) if (!mapped.includes(c)) mapped.push(c);
+    g.cards = mapped;
+    ordered.push(g);
+  }
+  for (const g of state.groups) if (!ordered.includes(g)) ordered.push(g);
+  state.groups = ordered;
+  saveState();
+}
+
+// ===================== ＋ 菜单操作 =====================
+// --- 增加模型：自定义弹窗 ---
+function openAddModelModal() {
+  // 填充类别下拉（动态读取 state）
+  newModelCategory.innerHTML = state.groups.map(g =>
+    `<option value="${esc(g.id)}">${esc(g.name)}</option>`).join('') +
+    '<option value="__new__">＋ 新增类别...</option>';
+  // 默认选第一个
+  newModelCategory.selectedIndex = 0;
+  // 重置表单
+  newModelName.value = '';
+  newCatName.value = '';
+  newCatRow.classList.remove('show');
+  addModelError.textContent = '';
+  // 显示弹窗
+  addModelModal.classList.add('show');
+  setTimeout(() => newModelName.focus(), 50);
+}
+
+addModelBtn.addEventListener('click', openAddModelModal);
+
+addModelClose.addEventListener('click', () => addModelModal.classList.remove('show'));
+addModelCancel.addEventListener('click', () => addModelModal.classList.remove('show'));
+addModelModal.addEventListener('click', (e) => { if (e.target === addModelModal) addModelModal.classList.remove('show'); });
+
+// 类别选择变化：选择"新增类别"时显示新类别输入框
+newModelCategory.addEventListener('change', () => {
+  if (newModelCategory.value === '__new__') {
+    newCatRow.classList.add('show');
+    setTimeout(() => newCatName.focus(), 50);
+  } else {
+    newCatRow.classList.remove('show');
+  }
+  addModelError.textContent = '';
+});
+
+// 创建模型
+addModelCreate.addEventListener('click', () => {
+  const name = newModelName.value.trim();
+  if (!name) { addModelError.textContent = '模型名称不能为空'; newModelName.focus(); return; }
+
+  // 检查模型名是否重复（跨所有类别）
+  const allCards = state.groups.flatMap(g => g.cards);
+  if (allCards.some(c => c.name === name)) {
+    addModelError.textContent = `模型名称「${name}」已存在，请换一个`;
+    newModelName.focus();
+    return;
+  }
+
+  let targetGroup;
+  if (newModelCategory.value === '__new__') {
+    const catName = newCatName.value.trim();
+    if (!catName) { addModelError.textContent = '新类别名称不能为空'; newCatName.focus(); return; }
+    // 检查类别名是否重复
+    if (state.groups.some(g => g.name === catName)) {
+      addModelError.textContent = `类别「${catName}」已存在，请直接从下拉选择`;
+      newCatName.focus();
+      return;
+    }
+    // 创建新类别
+    targetGroup = { id: 'g' + Date.now(), name: catName, cards: [] };
+    state.groups.push(targetGroup);
+  } else {
+    targetGroup = state.groups.find(g => g.id === newModelCategory.value);
+    if (!targetGroup) { addModelError.textContent = '请选择有效的类别'; return; }
+  }
+
+  // 创建模型
+  targetGroup.cards.push({ id: 'c' + Date.now(), name, ruleStem: null, desc: '' });
+  saveState();
+  renderHome();
+  loadCardStocks();
+  addModelModal.classList.remove('show');
+  showToast(`已新增模型【${name}】`, 2500);
+});
+
+// 回车键提交
+newModelName.addEventListener('keydown', (e) => { if (e.key === 'Enter') addModelCreate.click(); });
+newCatName.addEventListener('keydown', (e) => { if (e.key === 'Enter') addModelCreate.click(); });
+
+// --- 增加类别：保留独立入口（prompt 即可，本次只改模型弹窗）---
+addCategoryBtn.addEventListener('click', () => {
+  const name = prompt('请输入新类别名称：');
+  if (!name?.trim()) return;
+  if (state.groups.some(g => g.name === name.trim())) {
+    showToast(`类别「${name.trim()}」已存在`);
+    return;
+  }
+  state.groups.push({ id: 'g' + Date.now(), name: name.trim(), cards: [] });
+  saveState(); renderHome();
+  showToast(`已新增类别【${name.trim()}】`, 2500);
+});
+
+// ===================== 回收箱 =====================
+trashBtn.addEventListener('click', () => { renderTrash(); trashModal.classList.add('show'); });
+trashClose.addEventListener('click', () => trashModal.classList.remove('show'));
+trashModal.addEventListener('click', (e) => { if (e.target === trashModal) trashModal.classList.remove('show'); });
+
+function renderTrash() {
+  if (!state.trash.length) {
+    trashList.innerHTML = '<div style="color:#ccc;font-size:13px">回收站为空</div>';
+    return;
+  }
+  trashList.innerHTML = state.trash.map((t, i) => {
+    const name = t.type === 'group' ? t.group.name : t.card.name;
+    const type = t.type === 'group' ? '类别' : '模型';
+    const extra = t.type === 'card' ? `（原属：${esc(t.fromGroupName)}）` : '';
+    const date = new Date(t.deletedAt).toLocaleDateString('zh-CN');
+    const days = Math.floor((Date.now() - t.deletedAt) / 86400000);
+    return `<div class="trash-item">
+      <span><i class="fa ${t.type === 'group' ? 'fa-folder-open' : 'fa-file-text-o'}" style="color:#ccc;margin-right:6px"></i>
+        <span style="font-weight:500">${esc(name)}</span>
+        <span style="font-size:11px;color:#999;margin-left:4px">${type}${extra} · ${date}（${days}天前）</span></span>
+      <span style="display:flex;gap:6px">
+        <button class="trash-restore" onclick="restoreTrash(${i})">恢复</button>
+        <button class="trash-delete" onclick="deleteTrashForever(${i})">彻底删除</button>
+      </span></div>`;
+  }).join('');
+}
+
+window.restoreTrash = function (i) {
+  const t = state.trash[i];
+  if (!t) return;
+  if (t.type === 'card') {
+    const target = state.groups.find(g => g.id === t.fromGroupId) || state.groups[0];
+    if (!target) { showToast('暂无可用类别，请先创建类别'); return; }
+    target.cards.push({ ...t.card });
+  } else {
+    state.groups.push(JSON.parse(JSON.stringify(t.group)));
+  }
+  state.trash.splice(i, 1);
+  saveState(); renderHome(); renderTrash();
+};
+
+window.deleteTrashForever = function (i) {
+  const t = state.trash[i];
+  if (!t) return;
+  const name = t.type === 'group' ? t.group.name : t.card.name;
+  if (!confirm(`彻底删除【${name}】？此操作不可恢复。`)) return;
+  state.trash.splice(i, 1);
+  saveState(); renderTrash();
+};
+
+// ===================== 详情页 =====================
+// 模型 → 稳定 stem_base：由卡片唯一 ID 推导（小写字母/数字），保证同一模型多次提交
+// 永远落到同一个 strategy_<base>_v1.yaml，不再依赖 LLM 返回的 strategy_id。
+function cardStemBase(card) {
+  const base = (card?.id || '').toLowerCase().replace(/[^a-z0-9]/g, '');
+  return base.length >= 2 ? base : ('m' + Date.now());
+}
+
+function rulesToNL(baseRules) {
+  const dayName = k => {
+    const n = parseInt(k.split('_').pop(), 10);
+    return n === 0 ? '基准日(D-0)' : `前${n}日(D-${n})`;
+  };
+  const condText = c => {
+    const parts = [];
+    if ('limit_up' in c) parts.push(c.limit_up ? '涨停' : '非涨停');
+    if (c.amount_max20) parts.push('成交额为近20日最大');
+    if (c.amount_not_max20) parts.push('成交额非20日最大');
+    if (c.high_max20) parts.push('最高价为近20日最高');
+    if (c.high_not_max20) parts.push('最高价非近20日最高');
+    return parts.join('且');
+  };
+  const days = Object.keys(baseRules).sort((a, b) =>
+    parseInt(b.split('_').pop(), 10) - parseInt(a.split('_').pop(), 10));
+  return days.map(k => `${dayName(k)}${condText(baseRules[k])}`).join('；\n') + '。';
+}
+
+async function openDetail(card) {
+  currentCard = card;
+  currentRuleStem = card.ruleStem || null;
+  selectedUniverse = null;
+  universePicker.classList.remove('show');
+  submitStatus.classList.remove('show');
+  submitStatus.innerHTML = '';
+  if (typeof _resetFlowUI === 'function') _resetFlowUI();
+  if (typeof _setUIState === 'function' && typeof UI_STATES !== 'undefined') {
+    _setUIState(UI_STATES.UNSUBMITTED);
+  }
+  homeActions.style.display = 'none';
+  detailTitle.innerText = card.name;
+  homeEl.style.display = 'none';
+  detailEl.style.display = 'grid';
+
+  if (currentRuleStem) {
+    try {
+      const d = await apiFetch(`/api/rules/${currentRuleStem}`);
+      // 优先回填持久化的规则原文；旧文件无 rule_text 时才从 base_rules 反推
+      ruleTextarea.value = d.strategy.rule_text || rulesToNL(d.strategy.base_rules);
+    } catch (e) { ruleTextarea.value = ''; }
+    loadCandidates(currentRuleStem);
+  } else {
+    ruleTextarea.value = '';
+    downloadBtn.disabled = true;
+    candThead.innerHTML = '<tr><th>提示</th></tr>';
+    candTbody.innerHTML = '<tr><td style="color:#ccc">该模型尚未提交过规则</td></tr>';
+  }
+  loadFreshChip();
+}
+
+backBtn.addEventListener('click', () => {
+  homeEl.style.display = 'grid';
+  detailEl.style.display = 'none';
+  homeActions.style.display = 'flex';
+  renderHome();
+  loadCardStocks();
+});
+
+// ===================== 示例数据（最近 10 条，日期降序） =====================
+async function loadCandidates(stem) {
+  downloadBtn.disabled = false;
+  const modelName = currentCard?.name || stem;
+  downloadBtn.onclick = () => {
+    const a = document.createElement('a');
+    a.href = `${API}/api/backtest/${stem}/candidates/export?model_name=${encodeURIComponent(modelName)}`;
+    a.download = '';
+    document.body.appendChild(a);
+    a.click();
+    a.remove();
+  };
+  candThead.innerHTML = '<tr><th>加载中…</th></tr>';
+  candTbody.innerHTML = '';
+  try {
+    const d = await apiFetch(`/api/backtest/${stem}/candidates?limit=10000`);
+    // 按日期降序，只取最近 10 条
+    const rows = [...d.rows].sort((a, b) =>
+      String(b['D-0日期'] ?? '').localeCompare(String(a['D-0日期'] ?? ''))).slice(0, 10);
+    candThead.innerHTML = '<tr>' +
+      d.columns.map(c => `<th>${esc(c)}</th>`).join('') + '</tr>';
+    candTbody.innerHTML = rows.map(r => '<tr>' +
+      d.columns.map(c => {
+        const v = r[c] ?? '';
+        // 百分比字段红色
+        const isPct = typeof v === 'string' && v.endsWith('%');
+        const cls = isPct ? ' class="red"' : '';
+        return `<td${cls}>${esc(v)}</td>`;
+      }).join('') + '</tr>').join('');
+  } catch (e) {
+    candThead.innerHTML = '<tr><th>提示</th></tr>';
+    candTbody.innerHTML = `<tr><td style="color:#ccc">${esc(e.message)}</td></tr>`;
+  }
+}
+
+// ===================== 数据新鲜度 =====================
+let freshToastTimer = null;
+
+function showToast(msg, ms = 4000, variant = '') {
+  let el = document.getElementById('toast');
+  if (!el) { el = document.createElement('div'); el.id = 'toast'; document.body.appendChild(el); }
+  el.className = variant === 'ok' ? 'ok' : variant === 'err' ? 'err' : '';
+  const icon = variant === 'ok' ? 'fa-check-circle'
+             : variant === 'err' ? 'fa-times-circle' : 'fa-exclamation-circle';
+  el.innerHTML = `<i class="fa ${icon}"></i> ${msg}`;
+  el.style.display = 'block';
+  clearTimeout(freshToastTimer);
+  freshToastTimer = setTimeout(() => { el.style.display = 'none'; }, ms);
+}
+
+async function loadFreshChip() {
+  try {
+    const d = await apiFetch('/api/data/latest');
+    dataFreshChip.innerText = `◉ 数据截至 ${d.latest_date ?? '无数据'}`;
+    if (d.stale) {
+      dataFreshChip.style.color = '#e8753b';
+      showToast(`今日（${d.today}）行情数据尚未入库，当前按库内最新数据（${d.latest_date}）执行`);
+    } else {
+      dataFreshChip.style.color = '';
+    }
+  } catch (e) {
+    dataFreshChip.innerText = '◉ 数据状态未知';
+  }
+}
+
+// ===================== 规则识别 → 澄清 → 确认并回测（统一走 Strategy Plan）=====================
+// 正式识别入口：**Builder → Plan → Validator → Reviewer → Ambiguity Resolver**
+// （POST /api/plan/recognize）。新自然语言规则不再先走 legacy 转译接口，
+// 也不再因为旧 parser / SCL / 模板路径的限制而错误落入「不支持的表达」。
+
+/* ===== FLOW CORE START（纯函数，可独立测试；不得引用 DOM / window）===== */
+
+/** HTML 转义（函数声明会被提升到脚本顶部，全文件可用）。 */
+function esc(s) {
+  return String(s ?? '').replace(/[&<>"']/g, m =>
+    ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[m]));
+}
+
+const UI_STATES = {
+  UNSUBMITTED: 'UNSUBMITTED',   // 从未提交
+  EDITED:      'EDITED',        // 提交过，但规则文本又被修改 → 需重新识别
+  RECOGNIZING: 'RECOGNIZING',   // 识别中（loading / disabled）
+  AMBIGUOUS:   'AMBIGUOUS',     // 存在高影响歧义 → 展示澄清 UI
+  READY:       'READY',         // 已确认可执行 → 只保留「确认并回测」
+  MULTI_RULE:  'MULTI_RULE',    // 多规则文档 → 逐条展示 / 逐条回测
+  FAILED:      'FAILED',        // 识别失败（按真实原因分流）→ 可修改后重新提交
+  RUNNING:     'RUNNING',       // 回测运行中
+};
+
+/** 按钮可见性/可用性的**唯一**决定处：任何状态都不允许同时出现两个提交动作。 */
+function computeActions(state) {
+  const st = state || UI_STATES.UNSUBMITTED;
+  const recognizing = st === UI_STATES.RECOGNIZING;
+  const running = st === UI_STATES.RUNNING;
+  return {
+    // 「提交规则进行识别」只属于识别前状态
+    showRecognize: (st === UI_STATES.UNSUBMITTED || st === UI_STATES.EDITED ||
+                    st === UI_STATES.FAILED || recognizing),
+    recognizeDisabled: recognizing || running,
+    recognizeLabel: recognizing ? '正在识别…' : '提交规则进行识别',
+    // 「✓ 确认并回测」只在 READY 出现
+    showConfirmBacktest: st === UI_STATES.READY,
+    confirmDisabled: running,
+    confirmLabel: running ? '正在回测…' : '✓ 确认并回测',
+    // 澄清 UI 只在 AMBIGUOUS 出现（此时不再显示识别按钮）
+    showAmbiguity: st === UI_STATES.AMBIGUOUS,
+    // 多规则：只显示「一键全部回测」，逐条按钮由 renderMultiRule 渲染
+    showBatchBacktest: st === UI_STATES.MULTI_RULE,
+  };
+}
+
+/** 用户修改规则文本后的状态迁移：READY / AMBIGUOUS / FAILED 一律回到 EDITED。 */
+function stateAfterEdit(state) {
+  const st = state || UI_STATES.UNSUBMITTED;
+  if (st === UI_STATES.RECOGNIZING || st === UI_STATES.RUNNING) return st;
+  if (st === UI_STATES.UNSUBMITTED) return UI_STATES.UNSUBMITTED;
+  return UI_STATES.EDITED;
+}
+
+/** 仅「运行态 → 最终完成态」的**首次**跃迁才提示（成功才响铃）。 */
+function shouldPlayCompletion(prevStatus, curStatus) {
+  return prevStatus === 'running' && curStatus === 'done';
+}
+
+/** 完成提示去重器：同一任务只播一次；页面加载已有结果 / 轮询重复返回都不触发。 */
+class CompletionAnnouncer {
+  constructor() { this._played = new Set(); }
+  shouldPlay(key, prevStatus, curStatus) {
+    if (!shouldPlayCompletion(prevStatus, curStatus)) return false;
+    if (!key) return false;
+    if (this._played.has(key)) return false;
+    this._played.add(key);
+    return true;
+  }
+  reset() { this._played.clear(); }
+}
+
+function completionMessage(nHits) {
+  return `✓ 数据提取及回测完成，共命中 ${Number(nHits ?? 0)} 条`;
+}
+
+function backtestFailureMessage(err) {
+  return `✗ 数据提取/回测失败：${err || '未知错误'}（规则文本已保留，可修改后重试）`;
+}
+
+const FAILURE_ICON = {
+  AMBIGUOUS: 'fa-question-circle',
+  MISSING_BUSINESS_ATOM: 'fa-puzzle-piece',
+  MISSING_DATA: 'fa-database',
+  INVALID_PLAN: 'fa-exclamation-triangle',
+  TECHNICAL_FAILURE: 'fa-refresh',
+  UNSAFE_UNKNOWN: 'fa-times-circle',
+};
+
+/**
+ * 失败按真实原因分流渲染（**没有**任何笼统的『不支持』兜底文案）。
+ * 用户只看到 5 个级别：需要确认 / 规则存在冲突 / 缺少计算能力 / 缺少数据 / 请重试。
+ * 内部表达（validator code、事件序号、AST、skill id、指纹）**一律不渲染**；
+ * 需要点名时只用业务名（缺少能力 / 缺少字段）。
+ */
+function failureHtml(f) {
+  const code = (f && f.code) || 'UNSAFE_UNKNOWN';
+  const title = (f && f.title) || '暂时无法安全理解';
+  const msg = (f && f.message) || '';
+  const hint = (f && f.hint) || '';
+  const frag = (f && f.source_fragment) || '';
+  const icon = FAILURE_ICON[code] || 'fa-times-circle';
+  const d = (f && f.detail) || {};
+  let extra = '';
+  if (code === 'MISSING_BUSINESS_ATOM' && d.missing_skills && d.missing_skills.length) {
+    const names = (d.missing_labels && d.missing_labels.length) ? d.missing_labels : d.missing_skills;
+    extra = `缺少业务能力：${names.join('、')}`;
+  } else if (code === 'MISSING_DATA' && d.missing_fields && d.missing_fields.length) {
+    extra = `缺少数据字段：${d.missing_fields.join('、')}`;
+  }
+  return `<div class="fail-box fail-${code}">` +
+    `<div class="fail-title"><i class="fa ${icon}"></i> ${esc(title)}</div>` +
+    (msg ? `<div>${esc(msg)}</div>` : '') +
+    (hint ? `<div class="fail-detail">${esc(hint)}</div>` : '') +
+    (extra ? `<div class="fail-detail">${esc(extra)}</div>` : '') +
+    (frag ? `<div class="fail-detail">原文片段：「${esc(frag)}」</div>` : '') +
+    (code === 'TECHNICAL_FAILURE'
+      ? '<div class="fail-detail">可直接点击「提交规则进行识别」重试。</div>' : '') +
+    '</div>';
+}
+
+/* ===== FLOW CORE END ===== */
+
+const announcer = new CompletionAnnouncer();
+let uiState = UI_STATES.UNSUBMITTED;
+let currentRecognize = null;      // 最近一次 /api/plan/recognize 的完整响应
+// currentGenericPlan 在文件头部已声明（{plan, rule_text}），此处不重复声明
+
+function _setUIState(st) { uiState = st; _applyActions(); }
+
+function _applyActions() {
+  const a = computeActions(uiState);
+  confirmRuleEdit.style.display = a.showRecognize ? '' : 'none';
+  confirmRuleEdit.disabled = a.recognizeDisabled;
+  confirmRuleEdit.textContent = a.recognizeLabel;
+  previewSubmitBtn.style.display = a.showConfirmBacktest ? 'inline-block' : 'none';
+  previewSubmitBtn.disabled = a.confirmDisabled;
+  previewSubmitBtn.textContent = a.confirmLabel;
+  batchRunBtn.style.display = a.showBatchBacktest ? 'inline-block' : 'none';
+  if (!a.showAmbiguity) {
+    confirmationArea.style.display = 'none';
+    confirmationArea.innerHTML = '';
+  }
+}
+
+function _resetFlowUI() {
+  confirmationArea.style.display = 'none';
+  confirmationArea.innerHTML = '';
+  previewArea.style.display = 'none';
+  previewArea.innerHTML = '';
+  previewSubmitBtn.style.display = 'none';
+  previewSubmitBtn.disabled = false;
+  batchRunBtn.style.display = 'none';
+  batchRunBtn.disabled = false;
+  currentPreview = null;
+  currentGenericPlan = null;
+}
+
+// ---------------- 完成提示音（浏览器禁止自动播放时静默失败，不影响任务）----------------
+let _audioCtx = null;
+function playCompletionSound() {
+  try {
+    const Ctx = window.AudioContext || window.webkitAudioContext;
+    if (!Ctx) return false;
+    if (!_audioCtx) _audioCtx = new Ctx();
+    if (_audioCtx.state === 'suspended' && _audioCtx.resume) {
+      const p = _audioCtx.resume();
+      if (p && p.catch) p.catch(() => {});
+    }
+    const now = _audioCtx.currentTime;
+    [[880, 0], [1318.5, 0.17]].forEach(([freq, at]) => {
+      const osc = _audioCtx.createOscillator();
+      const gain = _audioCtx.createGain();
+      osc.type = 'sine';
+      osc.frequency.value = freq;
+      gain.gain.setValueAtTime(0.0001, now + at);
+      gain.gain.exponentialRampToValueAtTime(0.22, now + at + 0.02);
+      gain.gain.exponentialRampToValueAtTime(0.0001, now + at + 0.30);
+      osc.connect(gain); gain.connect(_audioCtx.destination);
+      osc.start(now + at); osc.stop(now + at + 0.34);
+    });
+    return true;
+  } catch (e) {
+    return false;                 // 自动播放被禁 → 静默，不影响任务完成
+  }
+}
+
+function announceCompletion(key, nHits) {
+  playCompletionSound();
+  showToast(completionMessage(nHits), 5000, 'ok');
+}
+
+// ---------------- 预览渲染 ----------------
+// P0-1：预览只渲染**业务语言**（来自 plan_summary），绝不显示 skill id / 内部序号 / AST。
+function _eventChips(summary) {
+  const s = summary || {};
+  return (s.events || []).map(ev => {
+    const conds = (ev.conditions || []).join('，');
+    const tag = ev.is_condition_event === false ? '（仅输出引用）' : '';
+    return `${ev.id}${conds ? '(' + conds + ')' : ''}${tag}`;
+  });
+}
+
+function _outputChips(summary) {
+  const s = summary || {};
+  return (s.outputs || []).slice();
+}
+
+function _showReadyPlan(plan, review, txt, titleHtml, summary) {
+  currentGenericPlan = { plan, rule_text: txt };
+  const s = summary || {};
+  const sp = plan.strategy_plan || {};
+  const rv = review || {};
+  const covered = (rv.coverage || []).filter(c => c.status === 'covered').length;
+  const total = (rv.coverage || []).length;
+  const mis = rv.possible_misinterpretations || [];
+  previewArea.style.display = 'block';
+  previewArea.innerHTML =
+    `<div style="font-size:14px;font-weight:600;color:var(--green);margin-bottom:6px">` +
+    `<i class="fa fa-check-circle"></i> ${titleHtml || '系统已理解规则'}</div>` +
+    `<div style="font-size:12px;color:#46524d;margin-bottom:4px">板块范围：${esc(s.universe || sp.universe || '—')}</div>` +
+    `<div style="font-size:12px;color:#46524d;margin-bottom:4px">事件结构：</div>` +
+    `<div style="margin-bottom:6px">${_eventChips(s).map(e => `<span class="chip">${esc(e)}</span>`).join('')}</div>` +
+    `<div style="font-size:12px;color:#46524d;margin-bottom:4px">输出字段（含系统默认列）：</div>` +
+    `<div style="margin-bottom:6px">${_outputChips(s).map(o => `<span class="chip">${esc(o)}</span>`).join('')}</div>` +
+    `<div style="font-size:12px;color:#46524d">语义复核：${covered}/${total} 项约束已覆盖` +
+    `${mis.length ? '；提示：' + esc(mis.join('；')) : ''}</div>`;
+  _setUIState(UI_STATES.READY);
+}
+
+// ---------------- 歧义澄清 UI（一次集中展示所有高影响歧义）----------------
+function _renderAmbiguity(d, txt) {
+  const rep = d.ambiguity_report || {};
+  // 同一歧义不重复展示：按 item.id 去重（同一根因只允许问一次）
+  const _seenAmb = new Set();
+  const items = (rep.items || []).filter(function (it) {
+    const k = it && it.id;
+    if (!k || _seenAmb.has(k)) return false;
+    _seenAmb.add(k);
+    return true;
+  });
+  if (!items.length) {
+    submitStatus.classList.add('show');
+    submitStatus.innerHTML = failureHtml(d.failure || { code: 'UNSAFE_UNKNOWN' });
+    _setUIState(UI_STATES.FAILED);
+    return;
+  }
+  submitStatus.classList.add('show');
+  submitStatus.style.color = '#8A5B00';
+  submitStatus.innerHTML = `<i class="fa fa-question-circle"></i> 已识别 ${items.length} 处会影响结果的表述，请一次确认。`;
+
+  confirmationArea.style.display = 'block';
+  confirmationArea.innerHTML =
+    `<div class="amb-wrap"><div class="amb-head">` +
+    `<i class="fa fa-question-circle"></i> 有 ${items.length} 处表述存在多种合理解释` +
+    `</div><div class="amb-hint">不同解释会产生不同的回测结果，请逐项选择（或选「其他 / 自定义」）。</div>` +
+    `<div class="amb-body">` +
+    items.map((it, i) => {
+      const loc = it.location || {};
+      const frag = loc.snippet || loc.raw || it.description || '';
+      const opts = it.candidates.map((c, j) => {
+        const checked = c.id === it.default_candidate_id ? ' checked' : '';
+        const isCustom = c.id === '__custom__';
+        return `<label class="amb-opt${checked ? ' sel' : ''}" data-cand="${esc(c.id)}">` +
+          `<input type="radio" name="amb_${i}" value="${esc(c.id)}"${checked}>` +
+          `<b>${esc(c.label)}</b>` +
+          `<span class="amb-meaning">业务含义：${esc(c.business_meaning)}</span>` +
+          (c.result_impact ? `<span class="amb-meaning">结果影响：${esc(c.result_impact)}</span>` : '') +
+          `</label>` +
+          (isCustom ? `<input type="text" class="amb-custom" data-for="${i}" placeholder="请输入你的解释（例如：只算 D-3 与 D-1 两天）">` : '');
+      }).join('');
+      return `<div class="amb-item" data-item-id="${esc(it.id)}">` +
+        `<div class="amb-q">${i + 1}. ${esc(it.description)}</div>` +
+        (frag ? `<div class="amb-loc">位置：<code>${esc(frag)}</code></div>` : '') +
+        opts +
+        `</div>`;
+    }).join('') +
+    `</div>` +
+    `<div class="amb-actions"><button class="btn-amb" id="ambApplyBtn">应用所选解释并继续</button>` +
+    `<span class="amb-hint">确认后系统直接修订执行计划并复核，不会反复追问。</span></div></div>`;
+
+  confirmationArea.querySelectorAll('.amb-item').forEach(el => {
+    el.querySelectorAll('input[type=radio]').forEach(r => {
+      r.addEventListener('change', () => {
+        el.querySelectorAll('.amb-opt').forEach(o => o.classList.remove('sel'));
+        const lab = r.closest('.amb-opt');
+        if (lab) lab.classList.add('sel');
+        const custom = el.querySelector('.amb-custom');
+        if (custom) {
+          custom.style.display = (r.value === '__custom__') ? 'block' : 'none';
+          if (r.value === '__custom__') custom.focus();
+        }
+      });
+    });
+  });
+  const applyBtn = document.getElementById('ambApplyBtn');
+  if (applyBtn) applyBtn.addEventListener('click', () => _applyAmbiguity(d, txt, applyBtn));
+  _setUIState(UI_STATES.AMBIGUOUS);
+}
+
+async function _applyAmbiguity(d, txt, btn) {
+  const choices = [];
+  let badCustom = false;
+  confirmationArea.querySelectorAll('.amb-item').forEach(el => {
+    const picked = el.querySelector('input[type=radio]:checked');
+    if (!picked) return;
+    const itemId = el.dataset.itemId;
+    if (picked.value === '__custom__') {
+      const v = (el.querySelector('.amb-custom') || {}).value || '';
+      if (!String(v).trim()) { badCustom = true; return; }
+      choices.push({ item_id: itemId, candidate_id: '__custom__', custom_text: String(v).trim() });
+    } else {
+      choices.push({ item_id: itemId, candidate_id: picked.value, custom_text: '' });
+    }
+  });
+  if (badCustom) { showToast('「其他 / 自定义」需要填写具体内容'); return; }
+  if (!choices.length) { showToast('请先选择每项的解释'); return; }
+
+  const old = btn.textContent;
+  btn.disabled = true; btn.textContent = '正在修订并复核…';
+  try {
+    const res = await apiFetch('/api/plan/resolve_ambiguity', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        plan: d.plan_draft || d.plan,
+        rule_text: txt,
+        choices,
+        universe_hint: selectedUniverse || '',
+      }),
+    });
+    confirmationArea.style.display = 'none';
+    if (res.status === 'READY' && res.plan) {
+      submitStatus.style.color = '#2f8a6d';
+      submitStatus.innerHTML = '<i class="fa fa-check"></i> 已按你的解释修订执行计划并通过复核。';
+      _showReadyPlan(res.plan, res.review, txt, null, res.plan_summary);
+    } else {
+      submitStatus.style.color = '#f53f3f';
+      submitStatus.innerHTML = failureHtml({
+        code: 'INVALID_PLAN',
+        title: '修订后仍未通过复核',
+        message: (res.notes || []).join('；') || res.message || '请修改规则描述后重新提交',
+        detail: { errors: res.notes || [] },
+      });
+      _setUIState(UI_STATES.FAILED);
+    }
+  } catch (e) {
+    submitStatus.style.color = '#f53f3f';
+    submitStatus.innerHTML = failureHtml({
+      code: 'TECHNICAL_FAILURE', title: '本次规则识别失败，请重试',
+      message: '本次规则识别失败，请重试', detail: { raw: e.message },
+    });
+    _setUIState(UI_STATES.FAILED);
+  } finally {
+    btn.disabled = false; btn.textContent = old;
+  }
+}
+
+// ---------------- 单条规则结果分发 ----------------
+function _handleSingleRecognize(d, txt) {
+  currentRecognize = d;
+  const st = d.status;
+  if (st === 'READY' && d.plan) {
+    submitStatus.classList.add('show');
+    submitStatus.style.color = '#2f8a6d';
+    submitStatus.innerHTML = '<i class="fa fa-check"></i> 系统已理解规则，确认后即可回测。';
+    _showReadyPlan(d.plan, d.review, txt, null, d.plan_summary);
+    return;
+  }
+  if (st === 'NEED_CONFIRMATION') { _renderAmbiguity(d, txt); return; }
+  // FAILED / PENDING_CAPABILITY：按真实原因分流
+  submitStatus.classList.add('show');
+  submitStatus.innerHTML = failureHtml(d.failure || { code: 'UNSAFE_UNKNOWN' });
+  _setUIState(UI_STATES.FAILED);
+}
+
+// ---------------- 多规则 ----------------
+function _renderMultiRule(d, txt) {
+  currentRecognize = d;
+  const rules = d.rules || [];
+  const ready = rules.filter(r => r.status === 'READY');
+  previewArea.style.display = 'block';
+  previewArea.innerHTML =
+    `<div style="font-size:14px;font-weight:600;color:var(--green);margin-bottom:6px">` +
+    `<i class="fa fa-check-circle"></i> 已识别 ${rules.length} 条规则` +
+    `<span style="font-size:11px;color:#8c95a5;font-weight:400;margin-left:8px">` +
+    `本次逐条独立执行，不合并回测</span></div>` +
+    rules.map((r, i) => {
+      const ok = r.status === 'READY' && r.plan;
+      const label = ok ? '已理解，可执行'
+        : r.status === 'NEED_CONFIRMATION' ? '需要确认（存在歧义）'
+        : r.status === 'PENDING_CAPABILITY' ? '缺少执行能力 / 数据'
+        : '识别失败';
+      const color = ok ? 'var(--green)' : '#e8753b';
+      const detail = ok ? '' : failureHtml(r.failure || { code: 'UNSAFE_UNKNOWN' });
+      const chips = ok ? _outputChips(r.plan_summary).map(o => `<span class="chip">${esc(o)}</span>`).join('') : '';
+      return `<div class="multi-rule" data-idx="${i}">` +
+        `<div class="multi-title" style="color:${color}">${esc(r.rule_name || ('规则' + (i + 1)))} · ${esc(label)}</div>` +
+        (ok ? `<div class="multi-meta">输出字段（含系统默认列）：${chips}</div>` : detail) +
+        (ok ? `<button class="btn-run multi-run" data-idx="${i}" style="margin-top:4px;height:30px;font-size:12px">✓ 确认并回测</button>` : '') +
+        `</div>`;
+    }).join('');
+  previewArea.querySelectorAll('.multi-run').forEach(b => {
+    b.addEventListener('click', async () => {
+      const i = parseInt(b.dataset.idx, 10);
+      const r = rules[i];
+      if (!r || !r.plan) return;
+      b.disabled = true; b.textContent = '正在回测…';
+      try {
+        await _submitGenericPlan(r.plan, r.rule_text || txt, _ruleStem(i));
+      } finally { b.disabled = false; b.textContent = '✓ 确认并回测'; }
+    });
+  });
+  submitStatus.classList.add('show');
+  submitStatus.style.color = '#2f8a6d';
+  submitStatus.innerHTML = `<i class="fa fa-check"></i> 已识别 ${rules.length} 条规则；可逐条确认回测，或一键全部回测。`;
+  _setUIState(UI_STATES.MULTI_RULE);
+}
+
+function _ruleStem(i) {
+  const base = (currentCard ? cardStemBase(currentCard) : 'multi') || 'multi';
+  return currentRuleStem || `strategy_${base}_r${i + 1}_v1`;
+}
+
+async function _runAllRules() {
+  const rules = (currentRecognize && currentRecognize.rules) || [];
+  const ready = rules.filter(r => r.status === 'READY' && r.plan);
+  if (!ready.length) { showToast('没有可执行的规则'); return; }
+  batchRunBtn.disabled = true;
+  _setUIState(UI_STATES.RUNNING);
+  try {
+    for (const r of ready) {
+      try { await _submitGenericPlan(r.plan, r.rule_text || '', _ruleStem(r.rule_index ?? 0), false); }
+      catch (e) { showToast(`「${r.rule_name}」回测失败：${e.message}`, 4000, 'err'); }
+    }
+  } finally {
+    batchRunBtn.disabled = false;
+    _setUIState(UI_STATES.MULTI_RULE);
+  }
+}
+
+// ---------------- 回测提交（单规则 / 逐规则共用，绝不合并 Plan）----------------
+async function _submitGenericPlan(plan, ruleText, stem, persistStem = true) {
+  submitStatus.classList.add('show');
+  submitStatus.style.color = '#2f8a6d';
+  submitStatus.innerHTML = '<i class="fa fa-spinner fa-spin"></i> 正在提取数据并回测…';
+  try {
+    const d = await apiFetch('/api/plan/backtest', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        plan, rule_text: ruleText || '',
+        stem: stem || currentRuleStem || null,
+        with_names: true,
+      }),
+    });
+    const v = d.validation || {};
+    if (d.status === 'OK' && v.valid) {
+      // 用户主动发起 → 运行态首次进入完成态 → 提示**一次**
+      const key = 'plan:' + (stem || currentRuleStem || '') + ':' + Date.now();
+      if (announcer.shouldPlay(key, 'running', 'done')) announceCompletion(key, d.n_hits);
+      submitStatus.style.color = '#22a576';
+      submitStatus.innerHTML = `<i class="fa fa-check-circle"></i> ${esc(completionMessage(d.n_hits))}（已通过确定性复核）`;
+      _renderGenericHits(d.rows || []);
+      if (d.stem) {
+        currentRuleStem = d.stem;
+        // 回写卡片 -> 持久化 stem：保证重启后该模型的规则/结果仍可从卡片打开
+        // （原先只更新内存变量，重载后 ruleStem 仍为 null，见 STEP7 P3 缺陷记录）
+        if (currentCard && persistStem) {
+          currentCard.ruleStem = d.stem;
+          if (!currentCard.desc) currentCard.desc = d.stem;
+          saveState();
+          renderHome();
+        }
+        loadCandidates(d.stem);
+      }
+      return d;
+    }
+    const codes = [...new Set((v.violations || []).map(x => x.code))].join('、');
+    submitStatus.style.color = '#f53f3f';
+    submitStatus.innerHTML = `<i class="fa fa-exclamation-triangle"></i> 回测结果未通过确定性复核（${codes || '未知'}），结果不可信，已保留原文。`;
+    showToast(backtestFailureMessage('结果未通过确定性复核'), 5000, 'err');
+    return d;
+  } catch (e) {
+    submitStatus.style.color = '#f53f3f';
+    submitStatus.innerHTML = `<i class="fa fa-exclamation-triangle"></i> ${esc(backtestFailureMessage(e.message))}`;
+    showToast(backtestFailureMessage(e.message), 5000, 'err');
+    throw e;
+  }
+}
+
+function _renderGenericHits(rows) {
+  if (!rows || !rows.length) return;
+  const keys = Object.keys(rows[0]).filter(k => k !== 'event_rows');
+  const head = keys.map(k => `<th style="padding:4px 8px;text-align:left">${esc(k)}</th>`).join('');
+  const body = rows.slice(0, 20).map(r =>
+    `<tr>${keys.map(k => `<td style="padding:4px 8px">${esc(String(r[k]))}</td>`).join('')}</tr>`).join('');
+  previewArea.style.display = 'block';
+  previewArea.innerHTML +=
+    `<div style="margin-top:10px;font-size:12px;color:#46524d">命中明细（最多 20 条）：</div>` +
+    `<div style="overflow:auto;max-height:260px;margin-top:4px"><table style="border-collapse:collapse;font-size:12px;width:100%">` +
+    `<thead><tr>${head}</tr></thead><tbody>${body}</tbody></table></div>`;
+}
+
+// ---------------- 主入口：识别 ----------------
+async function runRecognize() {
+  const txt = (ruleTextarea.value || '').trim();
+  if (!txt) { showToast('请先输入规则描述'); return; }
+
+  _resetFlowUI();
+  _setUIState(UI_STATES.RECOGNIZING);
+  submitStatus.classList.add('show');
+  submitStatus.style.color = '#2f8a6d';
+  submitStatus.innerHTML = '<i class="fa fa-spinner fa-spin"></i> 正在理解规则…';
+  try {
+    const d = await apiFetch('/api/plan/recognize', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({ natural_text: txt, universe: selectedUniverse || null }),
+    });
+    if ((d.n_rules || 1) > 1) { _renderMultiRule(d, txt); return; }
+    _handleSingleRecognize(d, txt);
+  } catch (e) {
+    submitStatus.classList.add('show');
+    submitStatus.innerHTML = failureHtml({
+      code: 'TECHNICAL_FAILURE', title: '本次规则识别失败，请重试',
+      message: '本次规则识别失败，请重试', detail: { raw: e.message },
+    });
+    _setUIState(UI_STATES.FAILED);
+  }
+}
+
+confirmRuleEdit.addEventListener('click', runRecognize);
+
+previewSubmitBtn.addEventListener('click', async () => {
+  if (!currentGenericPlan) { showToast('请先提交规则进行识别'); return; }
+  _setUIState(UI_STATES.RUNNING);
+  try {
+    await _submitGenericPlan(currentGenericPlan.plan, currentGenericPlan.rule_text,
+                             currentRuleStem || _ruleStem(0));
+  } catch { /* 已在 _submitGenericPlan 内提示 */ }
+  finally { _setUIState(UI_STATES.READY); }
+});
+
+batchRunBtn.addEventListener('click', () => { _runAllRules(); });
+
+// 规则文本被修改 → 状态回到 EDITED：恢复「提交规则进行识别」，隐藏旧的「确认并回测」
+ruleTextarea.addEventListener('input', () => {
+  const next = stateAfterEdit(uiState);
+  if (next !== uiState) {
+    _resetFlowUI();
+    _setUIState(next);
+    submitStatus.classList.remove('show');
+    submitStatus.innerHTML = '';
+  }
+});
+
+universePicker.addEventListener('click', (e) => {
+  const btn = e.target.closest('.uni-btn');
+  if (!btn) return;
+  selectedUniverse = btn.dataset.universe;
+  universePicker.querySelectorAll('.uni-btn').forEach(b =>
+    b.classList.toggle('sel', b === btn));
+  // 已选定板块 → 用同一入口重新识别（板块影响涨停价口径，必须重算）
+  universePicker.classList.remove('show');
+  runRecognize();
+});
+
+// ===================== 加载卡片当日新增股票 =====================
+// 绿色高亮（.card.active）的唯一业务含义：
+//   该 strategy 在 latest_data_date（库内最新交易日）当天存在「新增命中」。
+// 不是「历史有结果 / candidate_count>0 / 模型 active / 过去命中过」。
+// 数据源：后端每日管线持久化的 /api/daily/state（17:05 自动回测或启动补偿写入）。
+async function loadCardStocks() {
+  let state = null;
+  try {
+    state = await apiFetch('/api/daily/state');
+  } catch { /* 后端不可用：卡片保持非高亮，第二行留空 */ }
+  const models = (state && state.models) || {};
+  document.querySelectorAll('.card[data-stem]').forEach(el => {
+    const stem = el.dataset.stem;
+    const stockEl = el.querySelector('.rule-stock');
+    const m = stem ? models[stem] : null;
+    // 当日新增 = 最新交易日新增命中；无新增则留空（不显示 — / 无新增）
+    const isLatestRun = !!m && !!state.data_date && m.data_date === state.data_date;
+    const names = isLatestRun ? (m?.new_hits || []).map(h => h.name).filter(Boolean) : [];
+    // 绿色 = 当天确有新增命中（唯一判据）
+    el.classList.toggle('active', names.length > 0);
+    if (!stockEl) return;
+    if (names.length) {
+      stockEl.textContent = names.slice(0, 2).join('、')
+        + (names.length > 2 ? ` +${names.length - 2}` : '');
+      stockEl.classList.remove('empty');
+      stockEl.title = names.join('、');  // 悬停看完整名单
+    } else {
+      stockEl.textContent = '';
+      stockEl.classList.add('empty');
+      stockEl.title = '';
+    }
+  });
+}
+
+// ===================== 手动更新数据（P1） =====================
+const updateDataBtn = document.getElementById('updateDataBtn');
+let updateJobId = null;
+
+updateDataBtn.addEventListener('click', async () => {
+  if (updateDataBtn.classList.contains('updating')) return;  // 运行期间禁止重复点击
+  updateDataBtn.textContent = '正在更新…';
+  updateDataBtn.classList.add('updating');
+  try {
+    const rep = await apiFetch('/api/daily/run', { method: 'POST' });
+    updateJobId = rep.job_id;
+    // 轮询任务状态
+    const poll = setInterval(async () => {
+      try {
+        const job = await apiFetch(`/api/daily/jobs/${updateJobId}`);
+        if (job.status === 'done') {
+          clearInterval(poll);
+          updateDataBtn.classList.remove('updating');
+          updateDataBtn.classList.add('done');
+          updateDataBtn.textContent = '✓ 更新完成';
+          await loadCardStocks();
+          setTimeout(() => {
+            updateDataBtn.classList.remove('done');
+            updateDataBtn.textContent = '↻ 更新数据';
+          }, 3000);
+        } else if (job.status === 'failed') {
+          clearInterval(poll);
+          updateDataBtn.classList.remove('updating');
+          updateDataBtn.textContent = '更新失败';
+          showToast(job.error || '更新失败', 4000);
+          setTimeout(() => { updateDataBtn.textContent = '↻ 更新数据'; }, 3000);
+        }
+      } catch { clearInterval(poll); }
+    }, 2000);
+  } catch (e) {
+    updateDataBtn.classList.remove('updating');
+    updateDataBtn.textContent = '更新失败';
+    showToast(String(e), 4000);
+    setTimeout(() => { updateDataBtn.textContent = '↻ 更新数据'; }, 3000);
+  }
+});
+
+// ===================== 模型 … 菜单（软删除 / 移入回收站） =====================
+document.addEventListener('click', (e) => {
+  const moreBtn = e.target.closest('.card-more');
+  if (moreBtn) {
+    e.stopPropagation();
+    const cid = moreBtn.dataset.cid;
+    // 关闭其他菜单
+    document.querySelectorAll('.card-menu.show').forEach(m => m.classList.remove('show'));
+    let menu = moreBtn.nextElementSibling;
+    if (!menu || !menu.classList.contains('card-menu')) {
+      menu = document.createElement('div');
+      menu.className = 'card-menu';
+      menu.innerHTML = `<button class="danger" data-action="delete-model">删除模型</button>`;
+      moreBtn.parentNode.appendChild(menu);
+    }
+    menu.classList.toggle('show');
+    menu.querySelector('[data-action="delete-model"]').onclick = () => {
+      menu.classList.remove('show');
+      deleteCard(cid);
+    };
+  } else {
+    document.querySelectorAll('.card-menu.show').forEach(m => m.classList.remove('show'));
+  }
+
+  const groupMore = e.target.closest('.group-more');
+  if (groupMore) {
+    e.stopPropagation();
+    const gid = groupMore.dataset.gid;
+    document.querySelectorAll('.card-menu.show').forEach(m => m.classList.remove('show'));
+    let menu = groupMore.nextElementSibling;
+    if (!menu || !menu.classList.contains('card-menu')) {
+      menu = document.createElement('div');
+      menu.className = 'card-menu';
+      menu.innerHTML = `<button class="danger" data-action="delete-group">删除类别</button>`;
+      groupMore.parentNode.appendChild(menu);
+    }
+    menu.classList.toggle('show');
+    menu.querySelector('[data-action="delete-group"]').onclick = () => {
+      menu.classList.remove('show');
+      deleteGroup(gid);
+    };
+  }
+});
+
+function deleteCard(cid) {
+  for (const g of state.groups) {
+    const idx = g.cards.findIndex(c => c.id === cid);
+    if (idx >= 0) {
+      const card = g.cards[idx];
+      if (!confirm(`确定将模型「${card.name}」移入回收站吗？`)) return;
+      g.cards.splice(idx, 1);
+      state.trash.push({ type: 'card', card, fromGroupId: g.id, fromGroupName: g.name, deletedAt: Date.now() });
+      saveState(); renderHome();
+      showToast(`模型「${card.name}」已移入回收站`, 2500);
+      return;
+    }
+  }
+}
+
+function deleteGroup(gid) {
+  const g = state.groups.find(g => g.id === gid);
+  if (!g) return;
+  if (g.cards.length > 0) {
+    showToast(`该类别下仍有 ${g.cards.length} 个模型，请先移动或删除模型后再删除类别`, 4000);
+    return;
+  }
+  if (!confirm(`确定删除类别「${g.name}」吗？`)) return;
+  state.trash.push({ type: 'group', group: JSON.parse(JSON.stringify(g)), deletedAt: Date.now() });
+  state.groups = state.groups.filter(x => x.id !== gid);
+  saveState(); renderHome();
+  showToast(`类别「${g.name}」已删除`, 2500);
+}
+
+// ===================== 初始化 =====================
+loadState();
+purgeOldTrash();
+renderHome();
+loadCardStocks();
+</script>
+</body>
+</html>

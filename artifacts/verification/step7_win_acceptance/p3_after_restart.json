@@ -1,0 +1,164 @@
+{
+ "daily_state": {
+  "data_date": "2026-09-18",
+  "models": {
+   "strategy_e2etest_v1": {
+    "data_date": "2026-09-18",
+    "n_hits": 1,
+    "new_hits": []
+   },
+   "strategy_c1789894283086_r1_v1": {
+    "data_date": "2026-09-18",
+    "n_hits": 1,
+    "new_hits": [
+     {
+      "code": "300857",
+      "name": "协创数据"
+     }
+    ]
+   }
+  }
+ },
+ "models": {
+  "strategy_e2etest_v1": {
+   "rule": {
+    "strategy": {
+     "rule_text": "E2E 冒烟规则",
+     "base_rules": {
+      "d_2": {
+       "limit_up": true
+      },
+      "d_1": {
+       "limit_up": false,
+       "amount_not_max20": true
+      },
+      "d_0": {
+       "limit_up": true,
+       "amount_max20": true,
+       "high_not_max20": true
+      }
+     },
+     "plan": {
+      "schema_version": 1,
+      "kind": "day_pattern_backward",
+      "strategy_plan": {
+       "universe": "20cm",
+       "days": [
+        {
+         "offset": -2,
+         "limit_up": true
+        },
+        {
+         "offset": -1,
+         "limit_up": false,
+         "amount_max20": false
+        },
+        {
+         "offset": 0,
+         "limit_up": true,
+         "amount_max20": true,
+         "high_max20": false
+        }
+       ],
+       "outputs": [
+        {
+         "atom": "date",
+         "day": 0
+        },
+        {
+         "atom": "t_walk",
+         "t0": 0,
+         "t1": 6
+        }
+       ]
+      }
+     }
+    }
+   },
+   "n_rows": 1,
+   "columns": [
+    "股票代码",
+    "股票名称",
+    "D-0日期",
+    "T+0(低/高)",
+    "T+1最高价",
+    "T+2最高价",
+    "T+3最高价",
+    "T+4最高价",
+    "T+5最高价",
+    "T+6最高价"
+   ],
+   "rows_sha": "b48532567a60b5b045c8cf32455bf65d09fb044c228298fc42190c6f2b42de65"
+  },
+  "strategy_c1789894283086_r1_v1": {
+   "rule": {
+    "strategy": {
+     "rule_text": "【筛选条件】\n基准日(D-0)：涨停，成交额为近20日最大，最高价非近20日最高；\n前1日(D-1)：非涨停，成交额非近20日最大；\n前2日(D-2)：涨停。\n\n【输出指标】\nD-0：日期\nT+0/T+6：价格走势",
+     "base_rules": {
+      "d_2": {
+       "limit_up": true
+      },
+      "d_1": {
+       "limit_up": false,
+       "amount_not_max20": true
+      },
+      "d_0": {
+       "limit_up": true,
+       "amount_max20": true,
+       "high_not_max20": true
+      }
+     },
+     "plan": {
+      "schema_version": 1,
+      "kind": "day_pattern_backward",
+      "strategy_plan": {
+       "universe": "20cm",
+       "days": [
+        {
+         "offset": -2,
+         "limit_up": true
+        },
+        {
+         "offset": -1,
+         "limit_up": false,
+         "amount_max20": false
+        },
+        {
+         "offset": 0,
+         "limit_up": true,
+         "amount_max20": true,
+         "high_max20": false
+        }
+       ],
+       "outputs": [
+        {
+         "atom": "date",
+         "day": 0
+        },
+        {
+         "atom": "t_walk",
+         "t0": 0,
+         "t1": 6
+        }
+       ]
+      }
+     }
+    }
+   },
+   "n_rows": 1,
+   "columns": [
+    "股票代码",
+    "股票名称",
+    "D-0日期",
+    "T+0(低/高)",
+    "T+1最高价",
+    "T+2最高价",
+    "T+3最高价",
+    "T+4最高价",
+    "T+5最高价",
+    "T+6最高价"
+   ],
+   "rows_sha": "b48532567a60b5b045c8cf32455bf65d09fb044c228298fc42190c6f2b42de65"
+  }
+ }
+}

@@ -1,0 +1,283 @@
+{
+ "results": [
+  {
+   "check": "P5a 东财主源实时可用（3/3 标的返回 K 线）",
+   "ok": false,
+   "detail": "0/3"
+  },
+  {
+   "check": "P5b 雪球备源实时可用（3/3 标的返回 K 线）",
+   "ok": true,
+   "detail": "3/3"
+  },
+  {
+   "check": "P5c sh600519 双源 OHLC 与本地逐日一致",
+   "ok": true,
+   "detail": "n_cmp=10 ohlc_diff=0"
+  },
+  {
+   "check": "P5d sh600519 成交额一致(f32容差)",
+   "ok": true,
+   "detail": "diff=0"
+  },
+  {
+   "check": "P5e sh600519 成交量一致(东财±100股容差)",
+   "ok": true,
+   "detail": "diff=0"
+  },
+  {
+   "check": "P5c sz300010 双源 OHLC 与本地逐日一致",
+   "ok": true,
+   "detail": "n_cmp=10 ohlc_diff=0"
+  },
+  {
+   "check": "P5d sz300010 成交额一致(f32容差)",
+   "ok": true,
+   "detail": "diff=0"
+  },
+  {
+   "check": "P5e sz300010 成交量一致(东财±100股容差)",
+   "ok": true,
+   "detail": "diff=0"
+  },
+  {
+   "check": "P5c sz002432 双源 OHLC 与本地逐日一致",
+   "ok": true,
+   "detail": "n_cmp=10 ohlc_diff=0"
+  },
+  {
+   "check": "P5d sz002432 成交额一致(f32容差)",
+   "ok": true,
+   "detail": "diff=0"
+  },
+  {
+   "check": "P5e sz002432 成交量一致(东财±100股容差)",
+   "ok": true,
+   "detail": "diff=0"
+  },
+  {
+   "check": "P5f 交易日历覆盖最近区间",
+   "ok": true,
+   "detail": "20260901~20260918 n=14"
+  },
+  {
+   "check": "P5g Skill 必需字段齐全（open/high/low/close/amount/volume）",
+   "ok": true,
+   "detail": "missing=[]"
+  },
+  {
+   "check": "P5h 证券属性/板块覆盖记录",
+   "ok": true,
+   "detail": "{\"sh600519\": \"沪主板\", \"sz300010\": \"创业板(20cm)\", \"sz002432\": \"深主板\"}"
+  }
+ ],
+ "fetched_at": "2026-09-20T17:21:33",
+ "samples": [
+  [
+   "sh",
+   "600519"
+  ],
+  [
+   "sz",
+   "300010"
+  ],
+  [
+   "sz",
+   "002432"
+  ]
+ ],
+ "raw": {
+  "sh600519_em": {
+   "error": "Remote end closed connection without response"
+  },
+  "sh600519_xq": {
+   "source": "https://stock.xueqiu.com/v5/stock/chart/kline.json?type=normal",
+   "n_records": 14,
+   "tail": [
+    [
+     20260915,
+     128100,
+     128450,
+     127128,
+     127275,
+     1756915149.0,
+     1376172
+    ],
+    [
+     20260916,
+     127393,
+     127498,
+     125410,
+     125800,
+     3307926407.0,
+     2623524
+    ],
+    [
+     20260917,
+     125798,
+     126760,
+     125400,
+     126698,
+     2217338283.0,
+     1755380
+    ],
+    [
+     20260918,
+     126299,
+     126588,
+     125610,
+     125712,
+     3135849108.0,
+     2489087
+    ]
+   ],
+   "unit_note": "雪球 type=normal → 不复权；volume 已是股；amount 元"
+  },
+  "sz300010_em": {
+   "error": "Remote end closed connection without response"
+  },
+  "sz300010_xq": {
+   "source": "https://stock.xueqiu.com/v5/stock/chart/kline.json?type=normal",
+   "n_records": 14,
+   "tail": [
+    [
+     20260915,
+     440,
+     479,
+     435,
+     473,
+     711369595.0,
+     154219728
+    ],
+    [
+     20260916,
+     460,
+     473,
+     430,
+     459,
+     669377014.0,
+     149082344
+    ],
+    [
+     20260917,
+     458,
+     510,
+     452,
+     494,
+     629471312.0,
+     130430922
+    ],
+    [
+     20260918,
+     499,
+     519,
+     495,
+     509,
+     531817196.0,
+     105212750
+    ]
+   ],
+   "unit_note": "雪球 type=normal → 不复权；volume 已是股；amount 元"
+  },
+  "sz002432_em": {
+   "error": "Remote end closed connection without response"
+  },
+  "sz002432_xq": {
+   "source": "https://stock.xueqiu.com/v5/stock/chart/kline.json?type=normal",
+   "n_records": 14,
+   "tail": [
+    [
+     20260915,
+     5941,
+     6055,
+     5927,
+     5936,
+     726598763.0,
+     12130045
+    ],
+    [
+     20260916,
+     5930,
+     6047,
+     5903,
+     5984,
+     664600250.0,
+     11094553
+    ],
+    [
+     20260917,
+     5952,
+     6130,
+     5952,
+     6041,
+     738126737.0,
+     12190318
+    ],
+    [
+     20260918,
+     6066,
+     6252,
+     6030,
+     6212,
+     971322338.0,
+     15839314
+    ]
+   ],
+   "unit_note": "雪球 type=normal → 不复权；volume 已是股；amount 元"
+  }
+ },
+ "crosscheck": {
+  "sh600519": {
+   "file": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sh\\lday\\sh600519.day",
+   "n_cmp": 10,
+   "ohlc_diff": [],
+   "amount_diff": [],
+   "volume_diff": [],
+   "source_used": "em",
+   "em_error": "Remote end closed connection without response"
+  },
+  "sz300010": {
+   "file": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sz\\lday\\sz300010.day",
+   "n_cmp": 10,
+   "ohlc_diff": [],
+   "amount_diff": [],
+   "volume_diff": [],
+   "source_used": "em",
+   "em_error": "Remote end closed connection without response"
+  },
+  "sz002432": {
+   "file": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sz\\lday\\sz002432.day",
+   "n_cmp": 10,
+   "ohlc_diff": [],
+   "amount_diff": [],
+   "volume_diff": [],
+   "source_used": "em",
+   "em_error": "Remote end closed connection without response"
+  }
+ },
+ "calendar": {
+  "n": 14,
+  "first": 20260901,
+  "last": 20260918
+ },
+ "skill_required_fields": {
+  "from": "backtest_common.read_day_file",
+  "fields": [
+   "open",
+   "high",
+   "low",
+   "close",
+   "amount",
+   "volume"
+  ],
+  "missing": []
+ },
+ "security_attributes": {
+  "universe_rule": "STOCK_PREFIXES 仅覆盖沪深股票（主板/创业板/科创板），北交所/基金/债券不在 Skill 回测范围",
+  "samples": {
+   "sh600519": "沪主板",
+   "sz300010": "创业板(20cm)",
+   "sz002432": "深主板"
+  }
+ }
+}

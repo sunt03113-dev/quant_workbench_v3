@@ -1,0 +1,46 @@
+{
+ "schema": "p9-selfcheck/1",
+ "label": "win",
+ "cases": [
+  {
+   "id": "T1",
+   "name": "正向：同源证据自比对",
+   "expect": "PASS",
+   "actual": "PASS",
+   "ok": true,
+   "canonical_diff": 0,
+   "n_rules_compared": 26
+  },
+  {
+   "id": "T2",
+   "name": "负向：篡改一行业务结果",
+   "expect": "FAIL",
+   "actual": "FAIL",
+   "ok": true,
+   "tamper": {
+    "rule": "0818A",
+    "action": "drop_last_row",
+    "n_rows": 221,
+    "rows_after": 220
+   },
+   "located": {
+    "rule": "0818A",
+    "n_only_left": 1,
+    "n_only_right": 0
+   },
+   "canonical_diff": 1
+  },
+  {
+   "id": "T3",
+   "name": "门禁：输入资产哈希不一致",
+   "expect": "ABORT",
+   "actual": "ABORT",
+   "ok": true,
+   "tampered_asset": "market_pack",
+   "orig_tree_hash": "792ba13f1de359b79c652bb1df939cedc47725dc086b00cd4f51d78354e26e59",
+   "gate": "ABORT"
+  }
+ ],
+ "all_ok": true,
+ "conclusion": "比对器可用：能对同源证据判 PASS、能报出业务差异并定位、能在输入不一致时 ABORT"
+}

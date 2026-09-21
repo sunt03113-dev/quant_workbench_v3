@@ -1,0 +1,14 @@
+{
+ "type": "UI baseline change (minimal additive fix)",
+ "reason": "ACCEPTANCE P3 失败：回测成功后 UI 未把 stem 回写卡片，重启后模型无法打开其规则/结果",
+ "change": [
+  "_submitGenericPlan 成功分支：currentCard.ruleStem = d.stem + saveState() + renderHome()",
+  "_submitGenericPlan 增加 persistStem 形参（默认 true）",
+  "_runAllRules 批量路径传 persistStem=false（避免 N 条规则互相覆盖同一卡片）"
+ ],
+ "file": "ui/ui_v2.html",
+ "sha256_before": "6f4dc5fa6b99ccf6dcbe9f25d502e77254f05255d8baa88834b4b13ed60b73d3",
+ "sha256_after": "4f0fe3ef16378163547065aa7e8763cc727872d88ba09e53ae5f874a90528250",
+ "backup": "ui/ui_v2.baseline.html",
+ "recorded_at": "2026-09-20T17:13:06"
+}

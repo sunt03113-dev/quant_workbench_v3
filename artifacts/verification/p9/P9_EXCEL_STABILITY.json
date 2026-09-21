@@ -1,0 +1,53 @@
+{
+ "schema": "p9-excel-stability/1",
+ "generated_at": "2026-09-20T17:52:02",
+ "endpoint": "http://127.0.0.1:8000",
+ "stem": "p9_excel_probe",
+ "n_runs": 4,
+ "runs": [
+  {
+   "run": 1,
+   "excel_sha256": "26c74d71689b3e6d5767f57d617e4c8c4e509662b26a8cdead9f2554d53a5995",
+   "excel_bytes": 5054,
+   "n_hits": 1,
+   "structured_n_rows": 1,
+   "structured_rows_sha256": "cff32a8e14d02fda430fcbb7fc5c435cf607f13f71422d2b9cd3114433297685",
+   "data_date": "2026-09-18"
+  },
+  {
+   "run": 2,
+   "excel_sha256": "9b9f965c7c236ccfe3f99cb4ef2a2c9845c704fc30db50c333235524270359c5",
+   "excel_bytes": 5054,
+   "n_hits": 1,
+   "structured_n_rows": 1,
+   "structured_rows_sha256": "cff32a8e14d02fda430fcbb7fc5c435cf607f13f71422d2b9cd3114433297685",
+   "data_date": "2026-09-18"
+  },
+  {
+   "run": 3,
+   "excel_sha256": "4f6e182cf8931735d01e1a099475740131523147ec43169ec1974192469f7b76",
+   "excel_bytes": 5053,
+   "n_hits": 1,
+   "structured_n_rows": 1,
+   "structured_rows_sha256": "cff32a8e14d02fda430fcbb7fc5c435cf607f13f71422d2b9cd3114433297685",
+   "data_date": "2026-09-18"
+  },
+  {
+   "run": 4,
+   "excel_sha256": "d0ce3ebf8593932f467693299ea5ed2e183f11b302ab52637b09c9490b97b46d",
+   "excel_bytes": 5054,
+   "n_hits": 1,
+   "structured_n_rows": 1,
+   "structured_rows_sha256": "cff32a8e14d02fda430fcbb7fc5c435cf607f13f71422d2b9cd3114433297685",
+   "data_date": "2026-09-18"
+  }
+ ],
+ "summary": {
+  "excel_sha_unique": 4,
+  "excel_sha_stable": false,
+  "excel_bytes_unique": 2,
+  "structured_canon_unique": 1,
+  "structured_canon_stable": true,
+  "conclusion": "实测证实：同一端、同一进程、同一输入，连续导出的 Excel 二进制 SHA-256 并不稳定，而业务 canonical 行哈希稳定。故 P9 以 canonical diff 为判据、Excel 二进制哈希仅作记录，是必要而非可选。"
+ }
+}

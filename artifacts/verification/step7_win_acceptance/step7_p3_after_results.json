@@ -1,0 +1,20 @@
+{
+ "stage": "p3_after",
+ "results": [
+  {
+   "check": "P3a 模型清单一致",
+   "ok": true,
+   "detail": "before=['strategy_c1789894283086_r1_v1', 'strategy_e2etest_v1'] after=['strategy_c1789894283086_r1_v1', 'strategy_e2etest_v1']"
+  },
+  {
+   "check": "P3b 规则/结果逐模型一致",
+   "ok": true,
+   "detail": "全部一致"
+  },
+  {
+   "check": "P3c data_date 一致",
+   "ok": true,
+   "detail": "data_date=2026-09-18"
+  }
+ ]
+}

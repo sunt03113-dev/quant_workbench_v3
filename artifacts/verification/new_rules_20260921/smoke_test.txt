@@ -1,0 +1,23 @@
+INFO StockBacktest_TdxAutoRun: 已加载配置文件：D:\09work\quant_workbench_v3\quant_workbench_package\skill\tdx-stock-backtest-master\config.yaml
+INFO StockBacktest_TdxAutoRun: TDX_BASE=D:\09work\quant_workbench_v3\quant_workbench_package\appdata\market  DATA_CACHE=D:\09work\quant_workbench_v3\quant_workbench_package\appdata\cache\day_xlsx  STOCK_NAMES_FILE=D:\09work\quant_workbench_v3\quant_workbench_package\appdata\stock_names.csv
+INFO qwb.executor: 回测开始: universe=20cm 标的=80 outputs=2 quantifier=-
+INFO qwb.executor: 回测完成: 0 条, 耗时 0.1s
+=== 1. import executor（含 Skill 加载与路径注入）===
+  DAY_DIRS = ['D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sh\\lday', 'D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sz\\lday']
+  PASS: Skill 已指向标准本地行情
+=== 2. 识别器：UI 占位规则 ===
+  plan = {"universe": "20cm", "days": [{"offset": -2, "limit_up": true}, {"offset": -1, "limit_up": false, "amount_max20": false}, {"offset": 0, "limit_up": true, "amount_max20": true, "high_max20": false}], "outputs": [{"atom": "date", "day": 0}, {"atom": "t_walk", "t0": 0, "t1": 6}]}
+  PASS
+=== 3. 识别器：golden 0818A 规则原文 ===
+  atoms = ['date', 'amplitude', 'amplitude', 'range_change', 'range_amplitude', 'amplitude', 'amount_pct', 't_walk']
+  PASS（列名与 Skill 0818A OUTPUT_COLUMNS 一致）
+=== 4. 识别器：无板块 -> NEED_CONFIRMATION ===
+  PASS
+=== 5. 识别器：fail-closed（词汇表外）===
+  PASS
+=== 6. 小样本执行（前 80 只 20cm 标的，规则=UI占位）===
+  rows=0 cols=10 elapsed=0.1s meta={'universe': '20cm', 'n_stocks': 80, 'start_date': '1990-12-19', 'end_date': '2099-12-31'}
+  violations = [] total: 0
+  PASS
+
+SMOKE ALL PASS

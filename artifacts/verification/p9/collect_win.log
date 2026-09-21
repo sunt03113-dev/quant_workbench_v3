@@ -1,0 +1,36 @@
+[p9] out=D:\09work\quant_workbench_v3\quant_workbench_package\artifacts\verification\p9\win
+[p9] env OK: Windows/AMD64 py=3.13.14 numpy=2.5.3 pandas=3.0.6
+[p9] input skill: n=53 bytes=543797 tree=96892acb3b63447b
+[p9] input golden: n=56 bytes=2107499 tree=347fcb1ef0a7dc44
+[p9] input market_pack: n=11704 bytes=930491840 tree=792ba13f1de359b7
+[p9] input stock_names: sha=aa21e8ef9140efee size=171943
+[p9] P0 start (26 rules)...
+  [0814] CAPABILITY_GAP rows=0
+  [0818A] PASS_WITH_KNOWN_T0_CONFLICT rows=221
+  [0818B] PASS_WITH_KNOWN_T0_CONFLICT rows=75
+  [0822] PASS_WITH_KNOWN_T0_CONFLICT rows=562
+  [0824] CONFLICT rows=1979
+  [0827A] CONFLICT rows=869
+  [0827B] PASS_WITH_KNOWN_T0_CONFLICT rows=25
+  [0908] PASS_WITH_KNOWN_T0_CONFLICT rows=74
+  [0908B] PASS_WITH_KNOWN_T0_CONFLICT rows=27
+  [0908C] PASS_WITH_KNOWN_T0_CONFLICT rows=14
+  [0909A] CONFLICT rows=130
+  [0910A] PASS_WITH_KNOWN_T0_CONFLICT rows=124
+  [0911] PASS rows=100
+  [0912] PASS rows=188
+  [0913A] PASS rows=52
+  [0913B] PASS rows=12
+  [0915A] PASS rows=78
+  [0915B] PASS rows=41
+  [0915C] PASS rows=14
+  [0917A] PASS rows=16
+  [0917B] PASS rows=53
+  [0917C] PASS rows=250
+  [0917D] PASS rows=27
+  [0917E] PASS rows=155
+  [0918A] PASS rows=1018
+  [0918B] PASS rows=1488
+[p9] P0 done 38.0s rows=7592
+[p9] excel: 7579e21f3609516e
+[p9] DONE -> D:\09work\quant_workbench_v3\quant_workbench_package\artifacts\verification\p9\win

@@ -1,0 +1,114 @@
+﻿python.exe : INFO:     Started server process [32024]
+所在位置 行:445 字符: 74
++ ... ckage\app"; & "C:\Users\21412\.workbuddy\binaries\python\envs\qwb\Scr ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (INFO:     Started server process [32024]:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:49864 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50885 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50887 - "GET /api/rules/strategy_e2etest_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50889 - "GET /api/backtest/strategy_e2etest_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50891 - "GET /api/rules/strategy_c1789894283086_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50893 - "GET /api/backtest/strategy_c1789894283086_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64460 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58377 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58379 - "POST /api/daily/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58385 - "GET /api/daily/jobs/05c1058a2fe0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58394 - "GET /api/daily/jobs/05c1058a2fe0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51626 - "GET /api/daily/jobs/05c1058a2fe0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51640 - "GET /api/daily/jobs/05c1058a2fe0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51655 - "GET /api/daily/jobs/05c1058a2fe0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49724 - "GET /api/daily/jobs/05c1058a2fe0 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49726 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49729 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49735 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63156 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63159 - "GET /api/backtest/step7_model_a/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60642 - "GET /api/backtest/step7_model_a/candidates/export?model_name=STEP7%E9%AA%8C%E6%94%B6%E6%A8%A1%E5%9E%8B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50182 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50206 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50418 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50113 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:50743 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50118 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50120 - "GET /api/backtest/step7_model_a/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50122 - "GET /api/backtest/step7_model_a/candidates/export?model_name=STEP7%E9%AA%8C%E6%94%B6%E6%A8%A1%E5%9E%8B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50125 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52753 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52755 - "GET /api/rules/step7_model_a HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52474 - "POST /api/daily/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62565 - "GET /api/daily/jobs/20ef0ccbf6e5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62572 - "GET /api/daily/jobs/20ef0ccbf6e5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62925 - "GET /api/daily/jobs/20ef0ccbf6e5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62932 - "GET /api/daily/jobs/20ef0ccbf6e5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60390 - "GET /api/daily/jobs/20ef0ccbf6e5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56911 - "GET /api/daily/jobs/20ef0ccbf6e5 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56915 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56917 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59697 - "POST /api/daily/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64364 - "GET /api/daily/jobs/cac8b8d19702 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53947 - "GET /api/daily/jobs/cac8b8d19702 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62516 - "GET /api/daily/jobs/cac8b8d19702 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62521 - "GET /api/daily/jobs/cac8b8d19702 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54925 - "GET /api/daily/jobs/cac8b8d19702 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62105 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58602 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58602 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58602 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50338 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58602 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58602 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60063 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60063 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60063 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65032 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58314 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58314 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57787 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:51151 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60449 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58555 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52856 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58555 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58555 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52856 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58555 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58555 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55056 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56231 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55056 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55056 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55388 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64321 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64321 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64321 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64321 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56367 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50607 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:58417 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58417 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58417 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58417 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/backtest/strategy_c1789895695594_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60816 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61276 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60816 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61276 - "GET /api/rules/strategy_c1789895695594_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61276 - "GET /api/backtest/strategy_c1789895695594_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51263 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52857 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54291 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49917 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59566 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49917 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61676 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52165 - "GET /api/daily/state HTTP/1.1" 200 OK

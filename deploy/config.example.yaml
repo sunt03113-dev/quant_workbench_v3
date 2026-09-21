@@ -1,0 +1,24 @@
+# Quant Workbench 配置模板（跨平台，无盘符硬编码）
+#
+# 用法（二选一）：
+#   A. 环境变量（推荐，M4 等最终用户环境）—— 无需本文件
+#        QWB_APPDATA_DIR  # 产品数据根（标准行情/状态/结果/名称缓存）
+#        QWB_SKILL_DIR    # tdx-stock-backtest Skill 目录
+#        QWB_UI_FILE      # 冻结 UI 文件
+#        QWB_HOST / QWB_PORT
+#   B. 复制本文件为 app/config.yaml 并按需填写（仅作本机覆盖，勿随分发包传递）
+#
+# 未提供时回退到平台默认应用数据目录：
+#   macOS   ~/Library/Application Support/QuantWorkbench
+#   Windows %LOCALAPPDATA%\QuantWorkbench
+#   Linux   ${XDG_DATA_HOME:-~/.local/share}/QuantWorkbench
+#
+# 例（macOS / M4）：
+#   export QWB_APPDATA_DIR="$HOME/Library/Application Support/QuantWorkbench"
+#   export QWB_SKILL_DIR="/Users/<you>/quant/skill/tdx-stock-backtest-master"
+
+appdata_dir: ""   # 留空 = 平台默认应用数据目录
+skill_dir: ""     # 留空 = <包根>/skill/tdx-stock-backtest-master
+ui_file: ""       # 留空 = <包根>/ui/ui_v2.html
+host: "127.0.0.1"
+port: 8000

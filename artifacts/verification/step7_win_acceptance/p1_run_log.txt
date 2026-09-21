@@ -1,0 +1,8 @@
+08:51:21.873 UI loaded
+08:51:24.099 model created: STEP7验收模型C
+08:51:25.920 detail opened
+08:51:26.001 rule typed, len=107
+08:51:26.037 recognize clicked
+08:51:30.110 ambiguity shown -> apply default candidate
+08:51:35.220 preview submit visible -> click backtest
+08:51:47.316 result table visible after ~9s

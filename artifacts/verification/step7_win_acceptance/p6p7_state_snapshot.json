@@ -1,0 +1,51 @@
+{
+ "before": {
+  "data_date": "2026-09-18",
+  "models": {
+   "strategy_e2etest_v1": {
+    "data_date": "2026-09-18",
+    "n_hits": 1,
+    "new_hits": []
+   },
+   "strategy_c1789894283086_r1_v1": {
+    "data_date": "2026-09-18",
+    "n_hits": 1,
+    "new_hits": [
+     {
+      "code": "300857",
+      "name": "协创数据"
+     }
+    ]
+   }
+  }
+ },
+ "after": {
+  "data_date": "2026-09-18",
+  "models": {
+   "strategy_e2etest_v1": {
+    "data_date": "2026-09-18",
+    "n_hits": 1,
+    "new_hits": []
+   },
+   "strategy_c1789894283086_r1_v1": {
+    "data_date": "2026-09-18",
+    "n_hits": 1,
+    "new_hits": [
+     {
+      "code": "300857",
+      "name": "协创数据"
+     }
+    ]
+   }
+  }
+ },
+ "job": {
+  "status": "done",
+  "started_at": 1789894556.3010051,
+  "error": null,
+  "message": "行情截至 2026-09-18；重跑 0 个模型，1 个模型存在新增命中",
+  "data_date": "2026-09-18",
+  "provider": "UP_TO_DATE"
+ },
+ "checksums_match": true
+}

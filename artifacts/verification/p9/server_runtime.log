@@ -1,0 +1,219 @@
+INFO:     Started server process [32504]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:51600 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51602 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61321 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61331 - "GET /api/backtest/p9_excel_probe/candidates/export HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61333 - "GET /api/backtest/p9_excel_probe/candidates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53380 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54026 - "GET /api/backtest/p9_excel_probe/candidates/export HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54028 - "GET /api/backtest/p9_excel_probe/candidates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59247 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59249 - "GET /api/backtest/p9_excel_probe/candidates/export HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59251 - "GET /api/backtest/p9_excel_probe/candidates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59253 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59181 - "GET /api/backtest/p9_excel_probe/candidates/export HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59183 - "GET /api/backtest/p9_excel_probe/candidates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59185 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59187 - "GET /api/backtest/p9_excel_probe/candidates/export HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59189 - "GET /api/backtest/p9_excel_probe/candidates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59191 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53903 - "GET /api/backtest/p9_excel_probe/candidates/export HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53905 - "GET /api/backtest/p9_excel_probe/candidates HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59559 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51949 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49300 - "GET /api/rules/strategy_20cm_v2 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49300 - "GET /api/backtest/strategy_20cm_v2/candidates?limit=10000 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53007 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56252 - "OPTIONS /api/plan/recognize HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:56252 - "OPTIONS /api/plan/recognize HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:56252 - "OPTIONS /api/plan/recognize HTTP/1.1" 405 Method Not Allowed
+INFO:     127.0.0.1:54157 - "GET /ui/ui_v2.html HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:54159 - "GET /api/health HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53628 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55514 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64101 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60411 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52782 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60411 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60411 - "GET /api/rules/strategy_20cm_v1 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:60411 - "GET /api/backtest/strategy_20cm_v1/candidates?limit=10000 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52782 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52782 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52782 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65316 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56919 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     Started server process [15660]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59053 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59055 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59057 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59010 - "POST /api/plan/backtest HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:59010 - "POST /api/plan/backtest HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:59010 - "POST /api/plan/backtest HTTP/1.1" 400 Bad Request
+INFO:     127.0.0.1:59485 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59485 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59485 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59485 - "GET /api/rules/strategy_20cm_v1 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59485 - "GET /api/backtest/strategy_20cm_v1/candidates?limit=10000 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59485 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50741 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50741 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50741 - "GET /api/backtest/strategy_20cm_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50741 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56635 - "GET /api/backtest/strategy_20cm_v1/candidates/export?model_name=2S1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50414 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50414 - "GET /api/rules/strategy_20cm_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50414 - "GET /api/backtest/strategy_20cm_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50414 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50414 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50414 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60062 - "GET /api/rules/strategy_20cm_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57374 - "GET /api/backtest/strategy_20cm_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57374 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60062 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57183 - "GET /api/rules/strategy_20cm_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57183 - "GET /api/backtest/strategy_20cm_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49181 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "POST /api/daily/run HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/jobs/5bb4c7f32a45 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/jobs/5bb4c7f32a45 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/jobs/5bb4c7f32a45 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/jobs/5bb4c7f32a45 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/jobs/5bb4c7f32a45 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/jobs/5bb4c7f32a45 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/jobs/5bb4c7f32a45 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/jobs/5bb4c7f32a45 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54086 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63209 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51288 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51288 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51288 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51288 - "GET /api/backtest/strategy_1z1a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51288 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:52527 - "GET /api/backtest/strategy_1z1a_r1_v1/candidates/export?model_name=1Z1A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54437 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57862 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57862 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57000 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57000 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58805 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57000 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     Started server process [36424]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:63147 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63149 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/rules/strategy_20cm_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/backtest/strategy_20cm_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52613 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58148 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53538 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58148 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56283 - "GET /api/rules/strategy_10cm_v6 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56283 - "GET /api/backtest/strategy_10cm_v6/candidates?limit=10000 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:55321 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62554 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54498 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59690 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50352 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     Started server process [5472]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:56701 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56703 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56705 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59709 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58578 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59709 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60206 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59709 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59709 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49343 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53151 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54832 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58006 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     Started server process [9196]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     Started server process [16332]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:57269 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57270 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57271 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57272 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57273 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 422 Unprocessable Content
+INFO:     127.0.0.1:61218 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61219 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61220 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61221 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61222 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61223 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56958 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56959 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56960 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56975 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56976 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56977 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62098 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50060 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:63147 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63147 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63147 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63147 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54362 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54362 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54362 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54362 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54362 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:62318 - "GET /api/backtest/strategy_111a_r1_v1/candidates/export?model_name=111A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50781 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50781 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58928 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50781 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50781 - "GET /api/backtest/strategy_111b_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56265 - "GET /api/backtest/strategy_111b_r1_v1/candidates/export?model_name=111B HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50097 - "GET /api/rules/strategy_111a_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50097 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51285 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:51285 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58200 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58200 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58200 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58200 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55542 - "GET /api/backtest/strategy_111a_r1_v1/candidates/export?model_name=111A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/rules/strategy_111b_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/backtest/strategy_111b_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56471 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57566 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57566 - "GET /api/rules/strategy_111b_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57566 - "GET /api/backtest/strategy_111b_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63545 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53701 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53830 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58505 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58505 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58505 - "GET /api/backtest/strategy_2s2a2a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64572 - "GET /api/backtest/strategy_2s2a2a_r1_v1/candidates/export?model_name=2S2A2a HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60449 - "GET /api/rules/strategy_111a_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60449 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64188 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60449 - "GET /api/rules/strategy_111b_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60449 - "GET /api/backtest/strategy_111b_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64188 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50243 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50243 - "GET /api/data/latest HTTP/1.1" 200 OK

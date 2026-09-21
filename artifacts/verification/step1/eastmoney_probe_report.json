@@ -1,0 +1,41 @@
+{
+  "probe_date": "2026-09-20",
+  "checks": {
+    "schema_map": {
+      "trade_date": "2026-09-18",
+      "open": "1262.99",
+      "close": "1257.12",
+      "high": "1265.88",
+      "low": "1256.10",
+      "volume_raw": "24891 (假设:手)",
+      "amount_raw": "3135849108.00 (假设:元)",
+      "amplitude": "0.77",
+      "pct_chg": "-0.78",
+      "chg": "-9.86"
+    },
+    "pre_close_derived": 1266.9799999999998,
+    "prev_day_close": "1266.98",
+    "pre_close_matches_prev_close": true,
+    "fqt0_last_close": "1257.12",
+    "fqt1_last_close": "1257.12",
+    "fqt_differs": false
+  },
+  "meta": {
+    "code": "600519",
+    "name": "贵州茅台",
+    "prePrice_field_present": false
+  },
+  "latest_kline_date": "2026-09-18",
+  "today": "2026-09-20",
+  "security_master_sample": {
+    "code": "600519",
+    "name": "贵州茅台",
+    "listing_date_raw": null,
+    "note": "f26=上市日期(YYYYMMDD)；名称含ST前缀可判ST状态"
+  },
+  "security_master_sample_2": {
+    "code": "300010",
+    "name": "ST豆神",
+    "listing_date_raw": null
+  }
+}

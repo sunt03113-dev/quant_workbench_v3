@@ -1,0 +1,113 @@
+BUTTON id=updateDataBtn class=btn-ghost text=↻ 更新数据
+BUTTON id=trashBtn class=btn-ghost text=🗑 回收站
+BUTTON id=addGroupTop class=btn-plus text=＋
+DIV id=- class=card text=⋯
+          1S1
+DIV id=- class=card text=⋯
+          1S2A1
+DIV id=- class=card text=⋯
+          1S2A2
+DIV id=- class=card text=⋯
+          1S2A3
+DIV id=- class=card text=⋯
+          1S2B1
+DIV id=- class=card text=⋯
+          1S2B2
+DIV id=- class=card text=⋯
+          1S3A1
+DIV id=- class=card text=⋯
+          1S3A2
+DIV id=- class=card text=⋯
+          1S3B1
+DIV id=- class=card text=⋯
+          1S3B2
+DIV id=- class=card text=⋯
+          1S4A
+DIV id=- class=card text=⋯
+          1S4B
+DIV id=- class=card text=⋯
+          1S4C
+DIV id=- class=card text=⋯
+          1Z1A
+DIV id=- class=card text=⋯
+          1Z1B
+DIV id=- class=card text=⋯
+          1Z1C
+DIV id=- class=card text=⋯
+          1Z1D
+DIV id=- class=card text=⋯
+          1Z1E
+DIV id=- class=card text=⋯
+          1Z1F
+DIV id=- class=card text=⋯
+          1Z1G
+DIV id=- class=card text=⋯
+          1Z2
+DIV id=- class=card text=⋯
+          1Z3
+DIV id=- class=card text=⋯
+          111A
+DIV id=- class=card text=⋯
+          111B
+DIV id=- class=card text=⋯
+          121
+DIV id=- class=card text=⋯
+          211A
+DIV id=- class=card text=⋯
+          211B1
+DIV id=- class=card text=⋯
+          211B2
+DIV id=- class=card text=⋯
+          3-1A
+DIV id=- class=card text=⋯
+          3-1B
+DIV id=- class=card text=⋯
+          3-1C
+DIV id=- class=card text=⋯
+          3-1D
+DIV id=- class=card text=⋯
+          3-1E
+DIV id=- class=card text=⋯
+          3-1F
+DIV id=- class=card text=⋯
+          311A
+DIV id=- class=card text=⋯
+          311B
+DIV id=- class=card text=⋯
+          321
+DIV id=- class=card text=⋯
+          3111
+DIV id=- class=card text=⋯
+          2S1
+DIV id=- class=card text=⋯
+          2S2A2a
+DIV id=- class=card text=⋯
+          2S2A2b
+DIV id=- class=card text=⋯
+          2S2B1
+DIV id=- class=card text=⋯
+          2S2B2a
+DIV id=- class=card text=⋯
+          2S2B2b
+DIV id=- class=card text=⋯
+          2S2C1
+DIV id=- class=card text=⋯
+          2S2C2a
+DIV id=- class=card text=⋯
+          2S2C2b
+DIV id=- class=card text=⋯
+          2S2D1
+DIV id=- class=card text=⋯
+          2S2D2a
+DIV id=- class=card text=⋯
+          2S2D2b
+DIV id=- class=card text=⋯
+          2S2D3
+DIV id=- class=card text=⋯
+          2S3A
+DIV id=- class=card text=⋯
+          2S3B
+DIV id=- class=card text=⋯
+          2S3C
+DIV id=- class=card text=⋯
+          2S4A

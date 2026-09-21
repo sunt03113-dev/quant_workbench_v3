@@ -1,0 +1,39 @@
+{
+ "results": [
+  {
+   "check": "T0 测试模型回测落库",
+   "ok": true,
+   "detail": "n_hits=1"
+  },
+  {
+   "check": "T1 数据未变 → 模型 kept 不轮换",
+   "ok": true,
+   "detail": "reran=0 kept=3"
+  },
+  {
+   "check": "T2a 落后模型被重跑",
+   "ok": true,
+   "detail": "reran=1"
+  },
+  {
+   "check": "T2b 轮换正确（previous=旧 current）",
+   "ok": true,
+   "detail": "prev_n=1 旧current=1"
+  },
+  {
+   "check": "T3 重跑失败 → 该模型状态不变（fail-closed）",
+   "ok": true,
+   "detail": "kept=3"
+  },
+  {
+   "check": "T4 _next_run_ts → 未来工作日 17:05",
+   "ok": true,
+   "detail": "2026-09-21 17:05:00"
+  },
+  {
+   "check": "T5 手动更新 API done",
+   "ok": true,
+   "detail": "行情截至 2026-09-18；重跑 1 个模型，1 个模型存在新增命中"
+  }
+ ]
+}

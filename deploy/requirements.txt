@@ -1,0 +1,27 @@
+# Quant Workbench 运行时依赖（跨平台；版本对齐 Windows 验收端）
+#
+# 安装： python3 -m pip install -r deploy/requirements.txt
+# 完整冻结（含传递依赖，Windows 端实测）： deploy/requirements.lock.win.txt
+#
+# ── 直接依赖（app/ 产品代码）──
+numpy==2.5.3
+pandas==3.0.6
+openpyxl==3.1.5
+fastapi==0.141.1
+uvicorn==0.53.0
+pydantic==2.13.5
+PyYAML==6.0.3
+
+# ── Skill 顶层依赖（不可省，否则 executor 无法 import）──
+# backtest_common.py            -> tqdm, pandas
+# 0814_backtest.py              -> pandas, numpy
+# StockBacktest_TdxAutoRun0630.py -> akshare（顶层 import，即使本次调用不取数也会执行）
+tqdm==4.70.1
+akshare==1.18.96
+
+# 说明：
+#  - 未列 qcloud_cos：该模块仅出现在 Skill 自带的分发工具 upload_to_cos.py，
+#    不在产品运行路径上，不需要安装。
+#  - akshare 是纯 Python 包，其传递依赖（lxml / curl_cffi / beautifulsoup4 等）
+#    在 Apple Silicon 上有 arm64 wheel；若 M4 安装失败，见 deploy/README_DEPLOY.md
+#    的「故障排查」章节（不得修改 Skill 源码绕过）。

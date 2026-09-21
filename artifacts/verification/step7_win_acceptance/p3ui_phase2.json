@@ -1,0 +1,13 @@
+{
+ "card_on_home": {
+  "text": "STEP7持久化模型",
+  "stem": "strategy_c1789895695594_r1_v1",
+  "active": false
+ },
+ "rule_persisted": true,
+ "rule_head": "【筛选条件】 基准日(D-0)：涨停，成交额为近20日最大； 前1日(D-1)：非涨停。 【输出指标】 D-0：日期 T+0/T+6：价格走",
+ "thead": "股票代码\t股票名称\tD-0日期\tT+0(低/高)\tT+1最高价\tT+2最高价\tT+3最高价\tT+4最高价\tT+5最高价\tT+6最高价",
+ "rows": 10,
+ "firstRow": "688175 未找到标的 2026-09-18 N/A N/A N/A N/A N/A N/A N/A",
+ "ts": "2026-09-20T09:15:37.713Z"
+}

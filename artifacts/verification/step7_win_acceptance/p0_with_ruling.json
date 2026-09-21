@@ -1,0 +1,267 @@
+{
+ "generated_at": "2026-09-20T17:38:08",
+ "source": "p0_golden_results.json（原始判定，未被本步骤修改）",
+ "comparator_unchanged": true,
+ "golden_unchanged": true,
+ "skill_unchanged": true,
+ "summary": {
+  "total": 26,
+  "PASS": 14,
+  "PASS_WITH_RULED_DELTA_rules": 11,
+  "PASS_WITH_RULED_DELTA_pairs": 14,
+  "rules_with_ruled_delta": [
+   "0818A",
+   "0818B",
+   "0822",
+   "0824",
+   "0827A",
+   "0827B",
+   "0908",
+   "0908B",
+   "0908C",
+   "0909A",
+   "0910A"
+  ],
+  "ruled_delta_by_ruling": {
+   "C1": [
+    "0818A",
+    "0818B",
+    "0822",
+    "0827B",
+    "0908",
+    "0908B",
+    "0908C",
+    "0910A"
+   ],
+   "C2": [
+    "0824",
+    "0827A"
+   ],
+   "C3": [
+    "0909A"
+   ],
+   "C4": [
+    "0824"
+   ],
+   "C5": [
+    "0818B",
+    "0908"
+   ]
+  },
+  "CAPABILITY_GAP": [
+   "0814"
+  ],
+  "UNEXPLAINED": 0
+ },
+ "reclassified": [
+  {
+   "rule": "0814",
+   "verdict_before": "CAPABILITY_GAP",
+   "verdict_after": "CAPABILITY_GAP",
+   "ruling_ids": [
+    "C6"
+   ],
+   "note": "C6：schema v1 不支持，fail-closed 拦截正确"
+  },
+  {
+   "rule": "0818A",
+   "verdict_before": "PASS_WITH_KNOWN_T0_CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C1"
+   ],
+   "note": "差异已裁定并登记：C1"
+  },
+  {
+   "rule": "0818B",
+   "verdict_before": "PASS_WITH_KNOWN_T0_CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C1",
+    "C5"
+   ],
+   "note": "差异已裁定并登记：C1、C5"
+  },
+  {
+   "rule": "0822",
+   "verdict_before": "PASS_WITH_KNOWN_T0_CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C1"
+   ],
+   "note": "差异已裁定并登记：C1"
+  },
+  {
+   "rule": "0824",
+   "verdict_before": "CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C2",
+    "C4"
+   ],
+   "note": "差异已裁定并登记：C2、C4"
+  },
+  {
+   "rule": "0827A",
+   "verdict_before": "CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C2"
+   ],
+   "note": "差异已裁定并登记：C2"
+  },
+  {
+   "rule": "0827B",
+   "verdict_before": "PASS_WITH_KNOWN_T0_CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C1"
+   ],
+   "note": "差异已裁定并登记：C1"
+  },
+  {
+   "rule": "0908",
+   "verdict_before": "PASS_WITH_KNOWN_T0_CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C1",
+    "C5"
+   ],
+   "note": "差异已裁定并登记：C1、C5"
+  },
+  {
+   "rule": "0908B",
+   "verdict_before": "PASS_WITH_KNOWN_T0_CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C1"
+   ],
+   "note": "差异已裁定并登记：C1"
+  },
+  {
+   "rule": "0908C",
+   "verdict_before": "PASS_WITH_KNOWN_T0_CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C1"
+   ],
+   "note": "差异已裁定并登记：C1"
+  },
+  {
+   "rule": "0909A",
+   "verdict_before": "CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C3"
+   ],
+   "note": "差异已裁定并登记：C3"
+  },
+  {
+   "rule": "0910A",
+   "verdict_before": "PASS_WITH_KNOWN_T0_CONFLICT",
+   "verdict_after": "PASS_WITH_RULED_DELTA",
+   "ruling_ids": [
+    "C1"
+   ],
+   "note": "差异已裁定并登记：C1"
+  },
+  {
+   "rule": "0911",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0912",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0913A",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0913B",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0915A",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0915B",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0915C",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0917A",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0917B",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0917C",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0917D",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0917E",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0918A",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  },
+  {
+   "rule": "0918B",
+   "verdict_before": "PASS",
+   "verdict_after": "PASS",
+   "ruling_ids": [],
+   "note": "逐股逐日逐列全等"
+  }
+ ]
+}

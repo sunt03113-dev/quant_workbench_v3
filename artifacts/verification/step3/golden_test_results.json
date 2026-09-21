@@ -1,0 +1,4541 @@
+{
+  "summary": {
+    "total": 26,
+    "by_verdict": {
+      "CAPABILITY_GAP": [
+        "0814"
+      ],
+      "PASS_WITH_KNOWN_T0_CONFLICT": [
+        "0818A",
+        "0818B",
+        "0822",
+        "0827B",
+        "0908",
+        "0908B",
+        "0908C",
+        "0910A"
+      ],
+      "CONFLICT": [
+        "0824",
+        "0827A",
+        "0909A"
+      ],
+      "PASS": [
+        "0911",
+        "0912",
+        "0913A",
+        "0913B",
+        "0915A",
+        "0915B",
+        "0915C",
+        "0917A",
+        "0917B",
+        "0917C",
+        "0917D",
+        "0917E",
+        "0918A",
+        "0918B"
+      ]
+    }
+  },
+  "results": [
+    {
+      "rule": "0814",
+      "recognize": "FAIL_CLOSED",
+      "verdict": "CAPABILITY_GAP",
+      "detail": {
+        "failure": {
+          "code": "MISSING_BUSINESS_ATOM",
+          "title": "存在暂不支持的表达",
+          "message": "以下片段无法映射到已实现的业务能力，请修改表述：",
+          "hint": "当前版本支持「以 D-0 为基准日、向前回看若干交易日」的日条件规则（如：D-0 涨停；D-1 非涨停…），暂不支持带前向窗口/间隔窗口的表达。",
+          "source_fragment": "D+1日：涨停",
+          "detail": {
+            "problems": [
+              {
+                "fragment": "D+1日：涨停",
+                "reason": "当前版本支持「以 D-0 为基准日、向前回看若干交易日」的日条件规则（如：D-0 涨停；D-1 非涨停…），暂不支持带前向窗口/间隔窗口的表达。"
+              },
+              {
+                "fragment": "D+2日：非涨停",
+                "reason": "当前版本支持「以 D-0 为基准日、向前回看若干交易日」的日条件规则（如：D-0 涨停；D-1 非涨停…），暂不支持带前向窗口/间隔窗口的表达。"
+              },
+              {
+                "fragment": "间隔窗口期（D+3 ~ D+14，共间隔3~12个交易日）",
+                "reason": "当前版本支持「以 D-0 为基准日、向前回看若干交易日」的日条件规则（如：D-0 涨停；D-1 非涨停…），暂不支持带前向窗口/间隔窗口的表达。"
+              },
+              {
+                "fragment": "约束：窗口期内每一天成交额都不能是各自20日最大",
+                "reason": "未找到交易日锚点"
+              },
+              {
+                "fragment": "基准日T：窗口期结束后的首个交易日",
+                "reason": "存在暂不支持的条件表述"
+              },
+              {
+                "fragment": "✅ T日成交额为20日最大",
+                "reason": "未找到交易日锚点"
+              },
+              {
+                "fragment": "✅ T日股价为20日最高",
+                "reason": "未找到交易日锚点"
+              },
+              {
+                "fragment": "基准日日期（T）",
+                "reason": "存在暂不支持的条件表述"
+              },
+              {
+                "fragment": "D+1日振幅",
+                "reason": "当前版本支持「以 D-0 为基准日、向前回看若干交易日」的日条件规则（如：D-0 涨停；D-1 非涨停…），暂不支持带前向窗口/间隔窗口的表达。"
+              },
+              {
+                "fragment": "D+2日振幅",
+                "reason": "当前版本支持「以 D-0 为基准日、向前回看若干交易日」的日条件规则（如：D-0 涨停；D-1 非涨停…），暂不支持带前向窗口/间隔窗口的表达。"
+              },
+              {
+                "fragment": "间隔区间（D+3 ~ T前一日）整体区间振幅",
+                "reason": "当前版本支持「以 D-0 为基准日、向前回看若干交易日」的日条件规则（如：D-0 涨停；D-1 非涨停…），暂不支持带前向窗口/间隔窗口的表达。"
+              },
+              {
+                "fragment": "间隔区间整体区间涨幅",
+                "reason": "未找到交易日锚点"
+              },
+              {
+                "fragment": "间隔区间内单日最大振幅",
+                "reason": "未找到交易日锚点"
+              },
+              {
+                "fragment": "基准日T的单日振幅",
+                "reason": "存在暂不支持的条件表述"
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "rule": "0818A",
+      "recognize": "READY",
+      "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+      "detail": {
+        "cutoff_d0": "2026-08-17",
+        "data_end": "20260817-08-17",
+        "run_seconds": 1.9,
+        "our_rows": 221,
+        "hits": {
+          "golden": 221,
+          "ours": 221,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-2振幅": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2/D-1区间涨幅": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2/D-1区间振幅": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-1成交额百分比": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 221,
+            "diff": 220,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "300248",
+                  "2024-10-08"
+                ],
+                "golden": "-16%/-5%(阴)",
+                "ours": "-16%/-6%(阴)"
+              },
+              {
+                "key": [
+                  "300149",
+                  "2022-08-31"
+                ],
+                "golden": "-4%/3%(阴)",
+                "ours": "-4%/2%(阴)"
+              },
+              {
+                "key": [
+                  "300158",
+                  "2022-03-31"
+                ],
+                "golden": "2%/20%(阳)",
+                "ours": "2%/19%(阳)"
+              },
+              {
+                "key": [
+                  "300235",
+                  "2021-06-15"
+                ],
+                "golden": "-9%/-1%(阴)",
+                "ours": "-9%/-2%(阴)"
+              },
+              {
+                "key": [
+                  "300429",
+                  "2024-10-08"
+                ],
+                "golden": "-11%/3%(阴)",
+                "ours": "-11%/2%(阴)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 221,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-2振幅",
+          "D-1振幅",
+          "D-2/D-1区间涨幅",
+          "D-2/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-1成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "T+0(低/高): 220 行取整方向差异（STEP 2 已知冲突）",
+          "T+0(低/高): 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+1最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+2最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+3最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+4最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+5最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+6最高价: 1 行 golden N/A（生成时点差异，时序性豁免）"
+        ]
+      }
+    },
+    {
+      "rule": "0818B",
+      "recognize": "READY",
+      "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+      "detail": {
+        "cutoff_d0": "2026-05-07",
+        "data_end": "20260515-05-15",
+        "run_seconds": 1.2,
+        "our_rows": 75,
+        "hits": {
+          "golden": 75,
+          "ours": 75,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-3振幅": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2涨幅": {
+            "n": 0,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": true,
+            "samples": []
+          },
+          "D-2振幅": {
+            "n": 0,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": true,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间涨幅": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间振幅": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-1成交额百分比": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 75,
+            "diff": 73,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "300270",
+                  "2021-06-11"
+                ],
+                "golden": "1%/20%(阴)",
+                "ours": "1%/19%(阴)"
+              },
+              {
+                "key": [
+                  "300279",
+                  "2026-01-19"
+                ],
+                "golden": "-4%/4%(阴)",
+                "ours": "-4%/3%(阴)"
+              },
+              {
+                "key": [
+                  "300139",
+                  "2024-09-30"
+                ],
+                "golden": "6%/20%(板)",
+                "ours": "6%/19%(板)"
+              },
+              {
+                "key": [
+                  "688662",
+                  "2025-12-11"
+                ],
+                "golden": "0%/15%(阳)",
+                "ours": "0%/14%(阳)"
+              },
+              {
+                "key": [
+                  "300882",
+                  "2023-05-15"
+                ],
+                "golden": "-4%/21%(板)",
+                "ours": "-4%/20%(板)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 75,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-3振幅",
+          "D-1振幅",
+          "D-3/D-1区间涨幅",
+          "D-3/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-1成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "D-2涨幅: 本实现无此列（golden 附加列）",
+          "D-2振幅: 本实现无此列（golden 附加列）",
+          "T+0(低/高): 73 行取整方向差异（STEP 2 已知冲突）"
+        ]
+      }
+    },
+    {
+      "rule": "0822",
+      "recognize": "READY",
+      "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+      "detail": {
+        "cutoff_d0": "2026-08-18",
+        "data_end": "20260818-08-18",
+        "run_seconds": 1.3,
+        "our_rows": 562,
+        "hits": {
+          "golden": 562,
+          "ours": 562,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-1涨幅": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-1成交额百分比": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 562,
+            "diff": 555,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "301085",
+                  "2024-10-08"
+                ],
+                "golden": "-16%/-3%(阴)",
+                "ours": "-16%/-4%(阴)"
+              },
+              {
+                "key": [
+                  "688018",
+                  "2024-10-08"
+                ],
+                "golden": "-7%/6%(阳)",
+                "ours": "-7%/5%(阳)"
+              },
+              {
+                "key": [
+                  "300516",
+                  "2020-10-23"
+                ],
+                "golden": "-3%/9%(阴)",
+                "ours": "-3%/8%(阴)"
+              },
+              {
+                "key": [
+                  "688375",
+                  "2026-01-12"
+                ],
+                "golden": "-16%/14%(阳)",
+                "ours": "-16%/13%(阳)"
+              },
+              {
+                "key": [
+                  "300786",
+                  "2024-12-04"
+                ],
+                "golden": "-16%/-10%(阴)",
+                "ours": "-16%/-11%(阴)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 2,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 562,
+            "diff": 0,
+            "golden_na": 2,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-1涨幅",
+          "D-1振幅",
+          "D-0振幅",
+          "D-0/D-1成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "T+0(低/高): 555 行取整方向差异（STEP 2 已知冲突）",
+          "T+3最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+4最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+5最高价: 2 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+6最高价: 2 行 golden N/A（生成时点差异，时序性豁免）"
+        ]
+      }
+    },
+    {
+      "rule": "0824",
+      "recognize": "READY",
+      "verdict": "CONFLICT",
+      "detail": {
+        "cutoff_d0": "2026-08-19",
+        "data_end": "20260819-08-19",
+        "run_seconds": 3.0,
+        "our_rows": 1979,
+        "hits": {
+          "golden": 1980,
+          "ours": 1979,
+          "missing": [
+            [
+              "000539",
+              "1997-04-29"
+            ],
+            [
+              "000602",
+              "1997-05-07"
+            ],
+            [
+              "000663",
+              "1997-10-29"
+            ],
+            [
+              "000673",
+              "1997-04-25"
+            ]
+          ],
+          "n_missing": 4,
+          "extra": [
+            [
+              "000019",
+              "1997-10-28"
+            ],
+            [
+              "000021",
+              "1997-10-20"
+            ],
+            [
+              "000995",
+              "2020-12-18"
+            ]
+          ],
+          "n_extra": 3
+        },
+        "columns": {
+          "D-2涨幅": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2振幅": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0涨幅": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2~D-0区间振幅": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-2成交额百分比": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-1成交额百分比": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 1976,
+            "diff": 1915,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "600869",
+                  "2014-02-14"
+                ],
+                "golden": "-2%/5%(阳)",
+                "ours": "-2%/4%(阳)"
+              },
+              {
+                "key": [
+                  "000505",
+                  "2015-05-28"
+                ],
+                "golden": "-9%/4%(阳)",
+                "ours": "-9%/3%(阳)"
+              },
+              {
+                "key": [
+                  "603890",
+                  "2026-04-16"
+                ],
+                "golden": "-2%/2%(阳)",
+                "ours": "-2%/1%(阳)"
+              },
+              {
+                "key": [
+                  "000662",
+                  "2013-05-30"
+                ],
+                "golden": "-5%/0%(阴)",
+                "ours": "-5%/-1%(阴)"
+              },
+              {
+                "key": [
+                  "000677",
+                  "2007-03-13"
+                ],
+                "golden": "-4%/5%(阳)",
+                "ours": "-4%/4%(阳)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 2,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 3,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 5,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 1976,
+            "diff": 0,
+            "golden_na": 6,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-2涨幅",
+          "D-2振幅",
+          "D-1振幅",
+          "D-0涨幅",
+          "D-0振幅",
+          "D-2/D-0区间振幅",
+          "D-0/D-2成交额百分比",
+          "D-0/D-1成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "conflicts": [
+          "命中集不一致: 缺失4 多余3"
+        ]
+      }
+    },
+    {
+      "rule": "0827A",
+      "recognize": "READY",
+      "verdict": "CONFLICT",
+      "detail": {
+        "cutoff_d0": "2026-08-26",
+        "data_end": "20260826-08-26",
+        "run_seconds": 2.9,
+        "our_rows": 869,
+        "hits": {
+          "golden": 870,
+          "ours": 869,
+          "missing": [
+            [
+              "000618",
+              "1997-09-12"
+            ]
+          ],
+          "n_missing": 1,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-2振幅": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1涨幅": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0涨幅": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-2成交额百分比": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-1成交额百分比": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 869,
+            "diff": 850,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "600849",
+                  "1998-04-02"
+                ],
+                "golden": "-1%/10%(板)",
+                "ours": "-1%/9%(板)"
+              },
+              {
+                "key": [
+                  "002416",
+                  "2019-06-27"
+                ],
+                "golden": "-3%/1%(阳)",
+                "ours": "-3%/0%(阳)"
+              },
+              {
+                "key": [
+                  "000541",
+                  "2020-05-29"
+                ],
+                "golden": "-3%/2%(阳)",
+                "ours": "-3%/1%(阳)"
+              },
+              {
+                "key": [
+                  "000035",
+                  "2019-06-21"
+                ],
+                "golden": "-4%/2%(阴)",
+                "ours": "-4%/1%(阴)"
+              },
+              {
+                "key": [
+                  "603267",
+                  "2020-08-10"
+                ],
+                "golden": "-2%/4%(阳)",
+                "ours": "-2%/3%(阳)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 869,
+            "diff": 1,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "000612",
+                  "2006-04-26"
+                ],
+                "golden": "22%(板)",
+                "ours": "22%"
+              }
+            ]
+          },
+          "T+3最高价": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 2,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 2,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 2,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 3,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+7最高价": {
+            "n": 869,
+            "diff": 0,
+            "golden_na": 3,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-2振幅",
+          "D-1涨幅",
+          "D-1振幅",
+          "D-0涨幅",
+          "D-0振幅",
+          "D-0/D-2成交额百分比",
+          "D-0/D-1成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价",
+          "T+7最高价"
+        ],
+        "conflicts": [
+          "命中集不一致: 缺失1 多余0",
+          "T+2最高价: 1 行值不一致"
+        ]
+      }
+    },
+    {
+      "rule": "0827B",
+      "recognize": "READY",
+      "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+      "detail": {
+        "cutoff_d0": "2026-08-26",
+        "data_end": "20260826-08-26",
+        "run_seconds": 1.2,
+        "our_rows": 25,
+        "hits": {
+          "golden": 25,
+          "ours": 25,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-4振幅": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2振幅": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-2区间涨幅": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-2区间振幅": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1涨幅": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-2成交额百分比": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 25,
+            "diff": 25,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "300555",
+                  "2020-08-27"
+                ],
+                "golden": "-9%/1%(阴)",
+                "ours": "-9%/0%(阴)"
+              },
+              {
+                "key": [
+                  "300364",
+                  "2023-11-06"
+                ],
+                "golden": "6%/20%(阳)",
+                "ours": "6%/19%(阳)"
+              },
+              {
+                "key": [
+                  "300026",
+                  "2021-12-24"
+                ],
+                "golden": "1%/21%(阳)",
+                "ours": "1%/20%(阳)"
+              },
+              {
+                "key": [
+                  "688711",
+                  "2024-09-30"
+                ],
+                "golden": "14%/20%(板)",
+                "ours": "14%/19%(板)"
+              },
+              {
+                "key": [
+                  "301033",
+                  "2026-06-29"
+                ],
+                "golden": "-5%/3%(阴)",
+                "ours": "-5%/2%(阴)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 25,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-4振幅",
+          "D-2振幅",
+          "D-4/D-2区间涨幅",
+          "D-4/D-2区间振幅",
+          "D-1涨幅",
+          "D-1振幅",
+          "D-0振幅",
+          "D-0/D-2成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "T+0(低/高): 25 行取整方向差异（STEP 2 已知冲突）",
+          "T+2最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+3最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+4最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+5最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+6最高价: 1 行 golden N/A（生成时点差异，时序性豁免）"
+        ]
+      }
+    },
+    {
+      "rule": "0908",
+      "recognize": "READY",
+      "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+      "detail": {
+        "cutoff_d0": "2026-08-25",
+        "data_end": "20260825-08-25",
+        "run_seconds": 1.3,
+        "our_rows": 74,
+        "hits": {
+          "golden": 74,
+          "ours": 74,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-5涨幅": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-5振幅": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-1区间涨幅": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-1区间振幅": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-1区间最大振幅": {
+            "n": 0,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": true,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-5成交额百分比": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 74,
+            "diff": 71,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "300003",
+                  "2026-01-05"
+                ],
+                "golden": "2%/9%(阴)",
+                "ours": "2%/8%(阴)"
+              },
+              {
+                "key": [
+                  "688018",
+                  "2024-06-27"
+                ],
+                "golden": "-2%/1%(阴)",
+                "ours": "-2%/0%(阴)"
+              },
+              {
+                "key": [
+                  "301616",
+                  "2025-08-06"
+                ],
+                "golden": "-5%/9%(阴)",
+                "ours": "-5%/8%(阴)"
+              },
+              {
+                "key": [
+                  "688229",
+                  "2025-02-10"
+                ],
+                "golden": "-2%/10%(阴)",
+                "ours": "-2%/9%(阴)"
+              },
+              {
+                "key": [
+                  "300693",
+                  "2022-07-14"
+                ],
+                "golden": "-4%/2%(阴)",
+                "ours": "-4%/1%(阴)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 74,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-5涨幅",
+          "D-5振幅",
+          "D-4/D-1区间涨幅",
+          "D-4/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-5成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "D-4~D-1区间最大振幅: 本实现无此列（golden 附加列）",
+          "T+0(低/高): 71 行取整方向差异（STEP 2 已知冲突）"
+        ]
+      }
+    },
+    {
+      "rule": "0908B",
+      "recognize": "READY",
+      "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+      "detail": {
+        "cutoff_d0": "2026-05-19",
+        "data_end": "20260527-05-27",
+        "run_seconds": 1.3,
+        "our_rows": 27,
+        "hits": {
+          "golden": 27,
+          "ours": 27,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-6振幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-5振幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-6~D-5区间涨幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-6~D-5区间振幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-1区间涨幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-1区间振幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-1区间最大振幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-5成交额百分比": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 27,
+            "diff": 27,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "300787",
+                  "2022-07-18"
+                ],
+                "golden": "-3%/7%(阴)",
+                "ours": "-3%/6%(阴)"
+              },
+              {
+                "key": [
+                  "301001",
+                  "2024-10-15"
+                ],
+                "golden": "-8%/3%(阴)",
+                "ours": "-8%/2%(阴)"
+              },
+              {
+                "key": [
+                  "300780",
+                  "2026-01-16"
+                ],
+                "golden": "-5%/5%(阳)",
+                "ours": "-5%/4%(阳)"
+              },
+              {
+                "key": [
+                  "300745",
+                  "2020-10-12"
+                ],
+                "golden": "-4%/14%(阳)",
+                "ours": "-4%/13%(阳)"
+              },
+              {
+                "key": [
+                  "301210",
+                  "2023-08-18"
+                ],
+                "golden": "-14%/-3%(阴)",
+                "ours": "-14%/-4%(阴)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-6振幅",
+          "D-5振幅",
+          "D-6/D-5区间涨幅",
+          "D-6/D-5区间振幅",
+          "D-4/D-1区间涨幅",
+          "D-4/D-1区间振幅",
+          "D-4/D-1区间最大振幅",
+          "D-0振幅",
+          "D-0/D-5成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "T+0(低/高): 27 行取整方向差异（STEP 2 已知冲突）"
+        ]
+      }
+    },
+    {
+      "rule": "0908C",
+      "recognize": "READY",
+      "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+      "detail": {
+        "cutoff_d0": "2025-12-29",
+        "data_end": "20260108-01-08",
+        "run_seconds": 1.3,
+        "our_rows": 14,
+        "hits": {
+          "golden": 14,
+          "ours": 14,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-7振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-5振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-7~D-5区间涨幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-7~D-5区间振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-1区间涨幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-1区间振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-1区间最大振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-5成交额百分比": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 14,
+            "diff": 14,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "688246",
+                  "2025-02-14"
+                ],
+                "golden": "8%/21%(阳)",
+                "ours": "8%/20%(阳)"
+              },
+              {
+                "key": [
+                  "300354",
+                  "2021-11-18"
+                ],
+                "golden": "-4%/3%(阴)",
+                "ours": "-4%/2%(阴)"
+              },
+              {
+                "key": [
+                  "300417",
+                  "2023-08-02"
+                ],
+                "golden": "-7%/0%(阴)",
+                "ours": "-7%/-1%(阴)"
+              },
+              {
+                "key": [
+                  "300248",
+                  "2023-04-06"
+                ],
+                "golden": "-7%/0%(阳)",
+                "ours": "-7%/-1%(阳)"
+              },
+              {
+                "key": [
+                  "688090",
+                  "2025-12-29"
+                ],
+                "golden": "-10%/-2%(阴)",
+                "ours": "-10%/-3%(阴)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-7振幅",
+          "D-5振幅",
+          "D-7/D-5区间涨幅",
+          "D-7/D-5区间振幅",
+          "D-4/D-1区间涨幅",
+          "D-4/D-1区间振幅",
+          "D-4/D-1区间最大振幅",
+          "D-0振幅",
+          "D-0/D-5成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "T+0(低/高): 14 行取整方向差异（STEP 2 已知冲突）"
+        ]
+      }
+    },
+    {
+      "rule": "0909A",
+      "recognize": "READY",
+      "verdict": "CONFLICT",
+      "detail": {
+        "cutoff_d0": "2025-09-18",
+        "data_end": "20250926-09-26",
+        "run_seconds": 3.0,
+        "our_rows": 130,
+        "hits": {
+          "golden": 10,
+          "ours": 130,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [
+            [
+              "000004",
+              "2014-02-25"
+            ],
+            [
+              "000006",
+              "2014-03-27"
+            ],
+            [
+              "000021",
+              "2016-06-27"
+            ],
+            [
+              "000025",
+              "2024-01-19"
+            ],
+            [
+              "000040",
+              "2009-02-13"
+            ],
+            [
+              "000159",
+              "2010-03-29"
+            ],
+            [
+              "000420",
+              "2007-01-15"
+            ],
+            [
+              "000534",
+              "2009-12-08"
+            ],
+            [
+              "000559",
+              "1999-04-05"
+            ],
+            [
+              "000563",
+              "1999-05-26"
+            ],
+            [
+              "000593",
+              "2020-12-09"
+            ],
+            [
+              "000630",
+              "2006-02-06"
+            ],
+            [
+              "000686",
+              "2020-07-08"
+            ],
+            [
+              "000693",
+              "2014-11-27"
+            ],
+            [
+              "000703",
+              "2015-06-01"
+            ],
+            [
+              "000703",
+              "2015-11-11"
+            ],
+            [
+              "000757",
+              "2015-05-26"
+            ],
+            [
+              "000782",
+              "2008-11-20"
+            ],
+            [
+              "000815",
+              "2000-02-17"
+            ],
+            [
+              "000838",
+              "2019-04-15"
+            ]
+          ],
+          "n_extra": 120
+        },
+        "columns": {
+          "D-4振幅": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3振幅": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2振幅": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-2区间涨幅": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-2区间振幅": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1涨幅": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-2成交额百分比": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+7最高价": {
+            "n": 10,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-4振幅",
+          "D-3振幅",
+          "D-2振幅",
+          "D-4/D-2区间涨幅",
+          "D-4/D-2区间振幅",
+          "D-1涨幅",
+          "D-1振幅",
+          "D-0振幅",
+          "D-0/D-2成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价",
+          "T+7最高价"
+        ],
+        "conflicts": [
+          "命中集不一致: 缺失0 多余120"
+        ]
+      }
+    },
+    {
+      "rule": "0910A",
+      "recognize": "READY",
+      "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+      "detail": {
+        "cutoff_d0": "2026-08-20",
+        "data_end": "20260820-08-20",
+        "run_seconds": 1.3,
+        "our_rows": 124,
+        "hits": {
+          "golden": 124,
+          "ours": 124,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-3涨幅": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3振幅": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2~D-1区间涨幅": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2~D-1区间振幅": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-3成交额百分比": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 124,
+            "diff": 123,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": [
+              {
+                "key": [
+                  "300913",
+                  "2024-12-16"
+                ],
+                "golden": "-8%/-2%(阳)",
+                "ours": "-8%/-3%(阳)"
+              },
+              {
+                "key": [
+                  "688118",
+                  "2025-07-16"
+                ],
+                "golden": "-6%/-1%(阴)",
+                "ours": "-6%/-2%(阴)"
+              },
+              {
+                "key": [
+                  "301016",
+                  "2025-04-03"
+                ],
+                "golden": "-10%/2%(阴)",
+                "ours": "-10%/1%(阴)"
+              },
+              {
+                "key": [
+                  "688238",
+                  "2025-04-01"
+                ],
+                "golden": "-7%/1%(阴)",
+                "ours": "-7%/0%(阴)"
+              },
+              {
+                "key": [
+                  "300956",
+                  "2024-05-21"
+                ],
+                "golden": "8%/20%(板)",
+                "ours": "8%/19%(板)"
+              }
+            ]
+          },
+          "T+1最高价": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 124,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-3涨幅",
+          "D-3振幅",
+          "D-2/D-1区间涨幅",
+          "D-2/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-3成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "T+0(低/高): 123 行取整方向差异（STEP 2 已知冲突）"
+        ]
+      }
+    },
+    {
+      "rule": "0911",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-08-20",
+        "data_end": "20260820-08-20",
+        "run_seconds": 1.2,
+        "our_rows": 100,
+        "hits": {
+          "golden": 100,
+          "ours": 100,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-4涨幅": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4振幅": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间涨幅": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间振幅": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-4成交额百分比": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 100,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-4涨幅",
+          "D-4振幅",
+          "D-3/D-1区间涨幅",
+          "D-3/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-4成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0912",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-08-19",
+        "data_end": "20260819-08-19",
+        "run_seconds": 1.2,
+        "our_rows": 188,
+        "hits": {
+          "golden": 188,
+          "ours": 188,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-2涨幅": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2振幅": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1涨幅": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-2成交额百分比": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 188,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-2涨幅",
+          "D-2振幅",
+          "D-1涨幅",
+          "D-1振幅",
+          "D-0振幅",
+          "D-0/D-2成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0913A",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-07-15",
+        "data_end": "20260716-07-16",
+        "run_seconds": 1.3,
+        "our_rows": 52,
+        "hits": {
+          "golden": 52,
+          "ours": 52,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-4振幅": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3振幅": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-3区间涨幅": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-3区间振幅": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2~D-1区间涨幅": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2~D-1区间振幅": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-3成交额百分比": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 52,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-4振幅",
+          "D-3振幅",
+          "D-4/D-3区间涨幅",
+          "D-4/D-3区间振幅",
+          "D-2/D-1区间涨幅",
+          "D-2/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-3成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0913B",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-01-05",
+        "data_end": "20260113-01-13",
+        "run_seconds": 1.2,
+        "our_rows": 12,
+        "hits": {
+          "golden": 12,
+          "ours": 12,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-5振幅": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3振幅": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-5~D-3区间涨幅": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-5~D-3区间振幅": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2~D-1区间涨幅": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2~D-1区间振幅": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-3成交额百分比": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 12,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-5振幅",
+          "D-3振幅",
+          "D-5/D-3区间涨幅",
+          "D-5/D-3区间振幅",
+          "D-2/D-1区间涨幅",
+          "D-2/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-3成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0915A",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-08-17",
+        "data_end": "20260817-08-17",
+        "run_seconds": 1.3,
+        "our_rows": 78,
+        "hits": {
+          "golden": 78,
+          "ours": 78,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-3振幅": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2振幅": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-2区间涨幅": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-2区间振幅": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1涨幅": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-2成交额百分比": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 78,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-3振幅",
+          "D-2振幅",
+          "D-3/D-2区间涨幅",
+          "D-3/D-2区间振幅",
+          "D-1涨幅",
+          "D-1振幅",
+          "D-0振幅",
+          "D-0/D-2成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0915B",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-08-20",
+        "data_end": "20260820-08-20",
+        "run_seconds": 1.2,
+        "our_rows": 41,
+        "hits": {
+          "golden": 41,
+          "ours": 41,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-5振幅": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4振幅": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-5~D-4区间涨幅": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-5~D-4区间振幅": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间涨幅": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间振幅": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-4成交额百分比": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 41,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-5振幅",
+          "D-4振幅",
+          "D-5/D-4区间涨幅",
+          "D-5/D-4区间振幅",
+          "D-3/D-1区间涨幅",
+          "D-3/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-4成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0915C",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-06-25",
+        "data_end": "20260703-07-03",
+        "run_seconds": 1.2,
+        "our_rows": 14,
+        "hits": {
+          "golden": 14,
+          "ours": 14,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-6振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-6~D-4区间涨幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-6~D-4区间振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间涨幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-4成交额百分比": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 14,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-6振幅",
+          "D-4振幅",
+          "D-6/D-4区间涨幅",
+          "D-6/D-4区间振幅",
+          "D-3/D-1区间涨幅",
+          "D-3/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-4成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0917A",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-08-26",
+        "data_end": "20260826-08-26",
+        "run_seconds": 1.2,
+        "our_rows": 16,
+        "hits": {
+          "golden": 16,
+          "ours": 16,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-4振幅": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2振幅": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-2区间涨幅": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-4~D-2区间振幅": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1涨幅": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-2成交额百分比": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 16,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-4振幅",
+          "D-2振幅",
+          "D-4/D-2区间涨幅",
+          "D-4/D-2区间振幅",
+          "D-1涨幅",
+          "D-1振幅",
+          "D-0振幅",
+          "D-0/D-2成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0917B",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-05-14",
+        "data_end": "20260522-05-22",
+        "run_seconds": 1.2,
+        "our_rows": 53,
+        "hits": {
+          "golden": 53,
+          "ours": 53,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-3振幅": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-2振幅": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间涨幅": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-3~D-1区间振幅": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-1成交额百分比": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 53,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-3振幅",
+          "D-2振幅",
+          "D-1振幅",
+          "D-3/D-1区间涨幅",
+          "D-3/D-1区间振幅",
+          "D-0振幅",
+          "D-0/D-1成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0917C",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-08-19",
+        "data_end": "20260819-08-19",
+        "run_seconds": 1.3,
+        "our_rows": 250,
+        "hits": {
+          "golden": 250,
+          "ours": 250,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-1振幅": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-1成交额百分比": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 250,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-1振幅",
+          "D-0振幅",
+          "D-0/D-1成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0917D",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-07-24",
+        "data_end": "20260724-07-24",
+        "run_seconds": 1.3,
+        "our_rows": 27,
+        "hits": {
+          "golden": 27,
+          "ours": 27,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-2振幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1涨幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0涨幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-2成交额百分比": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 27,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-2振幅",
+          "D-1涨幅",
+          "D-1振幅",
+          "D-0涨幅",
+          "D-0振幅",
+          "D-0/D-2成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0917E",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-08-19",
+        "data_end": "20260819-08-19",
+        "run_seconds": 1.3,
+        "our_rows": 155,
+        "hits": {
+          "golden": 155,
+          "ours": 155,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-2振幅": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1涨幅": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0涨幅": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-2成交额百分比": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 155,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-2振幅",
+          "D-1涨幅",
+          "D-1振幅",
+          "D-0涨幅",
+          "D-0振幅",
+          "D-0/D-2成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": []
+      }
+    },
+    {
+      "rule": "0918A",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-09-17",
+        "data_end": "20260917-09-17",
+        "run_seconds": 1.4,
+        "our_rows": 1018,
+        "hits": {
+          "golden": 1018,
+          "ours": 1018,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-0涨幅": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0最低价": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0最高价": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-1成交额百分比": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 3,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 1018,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-0涨幅",
+          "D-0振幅",
+          "D-0最低价",
+          "D-0最高价",
+          "D-1振幅",
+          "D-0/D-1成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "T+0(低/高): 3 行 golden N/A（生成时点差异，时序性豁免）"
+        ]
+      }
+    },
+    {
+      "rule": "0918B",
+      "recognize": "READY",
+      "verdict": "PASS",
+      "detail": {
+        "cutoff_d0": "2026-09-17",
+        "data_end": "20260917-09-17",
+        "run_seconds": 1.4,
+        "our_rows": 1488,
+        "hits": {
+          "golden": 1488,
+          "ours": 1488,
+          "missing": [],
+          "n_missing": 0,
+          "extra": [],
+          "n_extra": 0
+        },
+        "columns": {
+          "D-0涨幅": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0振幅": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0最低价": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0最高价": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-1振幅": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "D-0/D-1成交额百分比": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+0(低/高)": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+1最高价": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+2最高价": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 2,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+3最高价": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+4最高价": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+5最高价": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 0,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          },
+          "T+6最高价": {
+            "n": 1488,
+            "diff": 0,
+            "golden_na": 1,
+            "ours_na": 0,
+            "ours_missing_col": false,
+            "samples": []
+          }
+        },
+        "our_columns": [
+          "股票代码",
+          "股票名称",
+          "D-0日期",
+          "D-0涨幅",
+          "D-0振幅",
+          "D-0最低价",
+          "D-0最高价",
+          "D-1振幅",
+          "D-0/D-1成交额百分比",
+          "T+0(低/高)",
+          "T+1最高价",
+          "T+2最高价",
+          "T+3最高价",
+          "T+4最高价",
+          "T+5最高价",
+          "T+6最高价"
+        ],
+        "notes": [
+          "T+0(低/高): 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+2最高价: 2 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+3最高价: 1 行 golden N/A（生成时点差异，时序性豁免）",
+          "T+6最高价: 1 行 golden N/A（生成时点差异，时序性豁免）"
+        ]
+      }
+    }
+  ]
+}
