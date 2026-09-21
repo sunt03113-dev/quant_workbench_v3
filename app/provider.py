@@ -167,7 +167,11 @@ def _fetch_daily_xq(market, code6, beg):
            f"?symbol={symbol}&begin={begin_ms}&period=day&type=normal"
            "&count=250&indicator=kline")  # 正count：从 beg 起向后（覆盖约1年）
     d = _http_json(url)
-    it = d["data"]
+    it = d.get("data") or {}
+    # 退市/无数据标的一律返回 {"data":{},"error_code":0}——必须显式消费该"空"信号
+    # （fail-closed：返回空列表而非抛 KeyError，避免被上层当成"抓取异常"淹没真实原因）
+    if not it.get("column"):
+        return []
     cols = it["column"]
     i = {k: cols.index(k) for k in
          ("timestamp", "volume", "open", "high", "low", "close", "amount")}
@@ -185,6 +189,18 @@ def _fetch_daily_xq(market, code6, beg):
                     float(row[i["amount"]]),
                     int(round(row[i["volume"]]))))  # 雪球 volume 已为股
     return out
+
+
+def _amt_yuan(x):
+    """成交额归一为整数元（向下取整）——与逐只 kline 路径口径对齐。
+
+    逐只 kline 的 amount 为整数元；快照接口（东财 f6 / 雪球 quote.amount）带小数。
+    .day 的 amount 是 f32：1e7 元量级量化间距 1 元、1e8 量级 8 元、1e9 量级 64 元。
+    带小数值与整数值在 f32 下可能落到**相邻**值——实测 30888377.63 与 30888377
+    相差仅 0.63 元却相差 1 ulp（2 元）。统一向下取整可保证「快照快路径」与
+    「逐只 kline 路径」写出的 .day **字节完全一致**，即增量来源可互换而不产生差异。
+    """
+    return float(int(float(x)))
 
 
 def validate_records(recs, last_local_date):
@@ -246,7 +262,7 @@ def fetch_snapshot_day(trade_date, progress_cb=None):
             code6 = str(it.get("f12", "")).zfill(6)
             o, h, low, c = (float(it["f17"]), float(it["f15"]),
                             float(it["f16"]), float(it["f2"]))
-            vol, amt = float(it["f5"]), float(it["f6"])
+            vol, amt = float(it["f5"]), _amt_yuan(it["f6"])
             out[(mkt, code6)] = (
                 trade_date,
                 int(round(o * 100)), int(round(h * 100)),
@@ -259,6 +275,56 @@ def fetch_snapshot_day(trade_date, progress_cb=None):
         pn += 1
         if pn > 200:  # 防御：分页异常终止
             raise RuntimeError(f"快照分页异常：pn={pn} total={total}")
+    return out
+
+
+def _prev_trade_date(cal, trade_date):
+    """交易日历中 trade_date 的前一交易日（无则 None）。"""
+    prev = [d for d in cal if d < trade_date]
+    return max(prev) if prev else None
+
+
+def _fetch_snapshot_xq(files, trade_date, progress_cb=None, batch=100):
+    """雪球批量报价快照（备源快速路径）→ 与 fetch_snapshot_day 同构的 dict。
+
+    东财被整站限流时使用（东财约 56 请求；雪球约 28 请求，200 只/批）。
+    口径：quote.open/high/low/current → 分；volume 已为股（不像东财需 ×100）；amount 元。
+    停牌（无量额）、退市（item 为 null）、非目标交易日行情（时间戳日期不符）一律判缺失，
+    与 kline 路径「当日无 bar 则不写」语义一致。
+    """
+    from datetime import datetime, timezone, timedelta
+    tz8 = timezone(timedelta(hours=8))
+    syms = []
+    for f in files:
+        mkt = f.parent.parent.name          # .../vipdoc/sh/lday
+        syms.append(mkt.upper() + f.stem[2:])
+    out = {}
+    for i in range(0, len(syms), batch):
+        chunk = syms[i:i + batch]
+        url = ("https://stock.xueqiu.com/v5/stock/batch/quote.json"
+               "?symbol=" + ",".join(chunk) + "&extend=detail")
+        d = _http_json(url, timeout=20)
+        for it in ((d.get("data") or {}).get("items")) or []:
+            if not it:
+                continue                    # 退市：item 为 null
+            q = it.get("quote") or {}
+            sym = q.get("symbol") or ""
+            if len(sym) < 8:
+                continue
+            o, h, low, c = q.get("open"), q.get("high"), q.get("low"), q.get("current")
+            vol, amt, ts = q.get("volume"), q.get("amount"), q.get("timestamp")
+            if None in (o, h, low, c, ts) or not vol or not amt:
+                continue                    # 停牌/无成交
+            if int(datetime.fromtimestamp(ts / 1000, tz=tz8)
+                   .strftime("%Y%m%d")) != trade_date:
+                continue                    # 陈旧行情（非目标交易日）
+            out[(sym[:2].lower(), sym[2:])] = (
+                trade_date,
+                int(round(float(o) * 100)), int(round(float(h) * 100)),
+                int(round(float(low) * 100)), int(round(float(c) * 100)),
+                _amt_yuan(amt), int(round(float(vol))))   # 雪球 volume 已为股
+        if progress_cb:
+            progress_cb(f"雪球快照进度 {min(i + batch, len(syms))}/{len(syms)}")
     return out
 
 
@@ -311,10 +377,16 @@ def _kline_plan(files, own_last_of, missing_days, src, force_beg=None,
     return plan, errors
 
 
-def _snapshot_plan(files, own_last_of, trade_date, progress_cb=None):
-    """快照快速路径：单日增量（约 56 页请求）。返回 (plan, errors)。"""
-    snap = fetch_snapshot_day(trade_date, progress_cb=progress_cb)
-    plan, errors, skipped = {}, [], 0
+def _snapshot_plan(files, own_last_of, trade_date, snap, prev_trade_date=None,
+                   progress_cb=None):
+    """快照快速路径：单日增量。返回 (plan, errors, gap_files)。
+
+    gap_files：个股自身水位落后于「前一交易日」的标的（长期停牌/退市/本地缺 bar）。
+    这类标的**不能**直接补今天一根 bar——否则会在 .day 里留下无法自愈的空洞
+    （逐只路径只按 own_last+1 向后补，永不回填水位以下的缺口）。
+    故交由调用方用逐只 kline 路径按个股自身水位补齐，停牌股自然无新增。
+    """
+    plan, errors, skipped, gaps = {}, [], 0, []
     for f in files:
         market = f.parent.parent.name
         code6 = f.stem[2:]
@@ -325,6 +397,9 @@ def _snapshot_plan(files, own_last_of, trade_date, progress_cb=None):
         own_last = own_last_of(f)
         if rec[0] <= own_last:
             continue              # 已有该日数据（不应发生，防御）
+        if prev_trade_date and own_last < prev_trade_date:
+            gaps.append(f)        # 水位落后 → 转逐只路径按自身水位补齐
+            continue
         ok, probs = validate_records([rec], own_last)
         if probs:
             errors.append({"file": f.name, "skipped": True,
@@ -332,8 +407,9 @@ def _snapshot_plan(files, own_last_of, trade_date, progress_cb=None):
         elif ok:
             plan[f] = b"".join(encode_record(r) for r in ok)
     if progress_cb:
-        progress_cb(f"快照完成：有效 {len(plan)}，停牌/缺失 {skipped}")
-    return plan, errors
+        progress_cb(f"快照完成：有效 {len(plan)}，停牌/缺失 {skipped}，"
+                    f"水位落后转逐只 {len(gaps)}")
+    return plan, errors, gaps
 
 
 def update(day_dirs, universe_filter=True, max_workers=6, progress_cb=None,
@@ -342,6 +418,7 @@ def update(day_dirs, universe_filter=True, max_workers=6, progress_cb=None,
 
     返回 summary dict。任何失败保证不破坏既有历史（回滚追加段）。
     """
+    t_start = time.time()
     dirs = [Path(d) for d in day_dirs]
     files = []
     for d in dirs:
@@ -365,6 +442,7 @@ def update(day_dirs, universe_filter=True, max_workers=6, progress_cb=None,
         logger.warning("东财不可用(%s)，整轮切换雪球源", exc)
         src = "xq"
         cal = _trade_dates_xq(beg=local_last)
+    t_cal = time.time()                       # 阶段①：日历就绪
     missing_days = [d for d in cal if d > local_last]
     if force_beg:
         beg = force_beg
@@ -383,20 +461,47 @@ def update(day_dirs, universe_filter=True, max_workers=6, progress_cb=None,
     #    快速路径：单日增量 + 该日=今天 + 已收盘定型 → 全A批量快照（约 56 请求），
     #    替代逐只 kline（5544 请求，东财限流下可达数小时）。快照失败自动回退旧路径。
     own_last_of = _last_date_of
-    plan, errors, used_snapshot = None, [], False
-    if not force_beg and src == "em" and _snapshot_eligible(missing_days):
-        try:
-            plan, errors = _snapshot_plan(files, own_last_of, missing_days[0],
-                                          progress_cb=progress_cb)
-            used_snapshot = True
-        except Exception as exc:
-            logger.warning("快照快速路径失败(%s)，回退逐只 kline", exc)
-            plan = None
+    plan, errors, used_snapshot, gap_files = None, [], "", []
+    t_gap = 0.0
+    if not force_beg and _snapshot_eligible(missing_days):
+        td = missing_days[0]
+        prev_td = _prev_trade_date(cal, td)
+        # 快速路径源优先级：东财快照（主源，约 56 请求）→ 雪球快照（备源，约 28 请求）。
+        # 任一不可用则尝试下一路径；全部失败回退逐只 kline（原慢路径）。
+        tries = []
+        if src == "em":
+            tries.append(("em_snapshot",
+                          lambda: fetch_snapshot_day(td, progress_cb=progress_cb)))
+        tries.append(("xq_snapshot",
+                      lambda: _fetch_snapshot_xq(files, td, progress_cb=progress_cb)))
+        for label, fetch in tries:
+            try:
+                snap = fetch()
+                p, e, g = _snapshot_plan(files, own_last_of, td, snap,
+                                         prev_trade_date=prev_td,
+                                         progress_cb=progress_cb)
+            except Exception as exc:
+                logger.warning("%s 快速路径失败(%s)，尝试下一路径", label, exc)
+                continue
+            plan, errors, gap_files, used_snapshot = p, e, g, label
+            break
     if plan is None:
         plan, errors = _kline_plan(files, own_last_of, missing_days, src,
                                    force_beg=force_beg,
                                    max_workers=max_workers,
                                    progress_cb=progress_cb)
+    elif gap_files:
+        # 水位落后个股按自身水位逐只补齐（停牌/退市自然无新增），避免空洞
+        if progress_cb:
+            progress_cb(f"水位落后 {len(gap_files)} 只，转逐只路径补齐…")
+        _tg = time.time()
+        gplan, gerr = _kline_plan(gap_files, own_last_of, missing_days, src,
+                                  max_workers=max_workers,
+                                  progress_cb=progress_cb)
+        t_gap = time.time() - _tg
+        plan.update(gplan)
+        errors.extend(gerr)
+    t_plan = time.time()          # 阶段②：抓取计划就绪（快照/逐只 + 水位补齐）
 
     # 3) 追加（回滚日志保护）
     journal = []
@@ -419,10 +524,17 @@ def update(day_dirs, universe_filter=True, max_workers=6, progress_cb=None,
         raise RuntimeError(f"写入失败，已回滚全部追加（历史行情未破坏）: {exc}")
 
     new_last = max(_last_date_of(f) for f in plan) if plan else local_last
+    t_end = time.time()           # 阶段③：落盘完成
     return {"status": "OK", "local_last_before": local_last,
             "appended_days": missing_days, "new_last": new_last,
             "updated_files": len(plan),
-            "source": ("em_snapshot" if used_snapshot else src),
+            "source": (used_snapshot or src),
+            "gap_repaired": len(gap_files),
+            "timings": {"calendar_s": round(t_cal - t_start, 1),
+                        "plan_s": round(t_plan - t_cal, 1),
+                        "gap_repair_s": round(t_gap, 1),
+                        "append_s": round(t_end - t_plan, 1),
+                        "total_s": round(t_end - t_start, 1)},
             "skipped": len(errors), "errors": errors[:50]}
 
 
