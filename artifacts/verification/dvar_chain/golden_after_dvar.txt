@@ -1,0 +1,91 @@
+=== 0814 ===
+  -> CAPABILITY_GAP
+=== 0818A ===
+  -> PASS_WITH_KNOWN_T0_CONFLICT
+=== 0818B ===
+  -> PASS_WITH_KNOWN_T0_CONFLICT
+=== 0822 ===
+  -> PASS_WITH_KNOWN_T0_CONFLICT
+=== 0824 ===
+  -> CONFLICT
+=== 0827A ===
+  -> CONFLICT
+=== 0827B ===
+  -> PASS_WITH_KNOWN_T0_CONFLICT
+=== 0908 ===
+  -> PASS_WITH_KNOWN_T0_CONFLICT
+=== 0908B ===
+  -> PASS_WITH_KNOWN_T0_CONFLICT
+=== 0908C ===
+  -> PASS_WITH_KNOWN_T0_CONFLICT
+=== 0909A ===
+  -> CONFLICT
+=== 0910A ===
+  -> PASS_WITH_KNOWN_T0_CONFLICT
+=== 0911 ===
+  -> PASS
+=== 0912 ===
+  -> PASS
+=== 0913A ===
+  -> PASS
+=== 0913B ===
+  -> PASS
+=== 0915A ===
+  -> PASS
+=== 0915B ===
+  -> PASS
+=== 0915C ===
+  -> PASS
+=== 0917A ===
+  -> PASS
+=== 0917B ===
+  -> PASS
+=== 0917C ===
+  -> PASS
+=== 0917D ===
+  -> PASS
+=== 0917E ===
+  -> PASS
+=== 0918A ===
+  -> PASS
+=== 0918B ===
+  -> PASS
+{
+  "total": 26,
+  "by_verdict": {
+    "CAPABILITY_GAP": [
+      "0814"
+    ],
+    "PASS_WITH_KNOWN_T0_CONFLICT": [
+      "0818A",
+      "0818B",
+      "0822",
+      "0827B",
+      "0908",
+      "0908B",
+      "0908C",
+      "0910A"
+    ],
+    "CONFLICT": [
+      "0824",
+      "0827A",
+      "0909A"
+    ],
+    "PASS": [
+      "0911",
+      "0912",
+      "0913A",
+      "0913B",
+      "0915A",
+      "0915B",
+      "0915C",
+      "0917A",
+      "0917B",
+      "0917C",
+      "0917D",
+      "0917E",
+      "0918A",
+      "0918B"
+    ]
+  }
+}

@@ -187,26 +187,21 @@ def _chain_columns(outputs):
     for o in outputs:
         a = o["atom"]
         if a == "chain_date":
-            cols.append(o.get("label") or f"{o['anchor']}日期")
+            cols.append(f"{o['anchor']}日期")
         elif a == "chain_gap":
-            cols.append(o.get("label") or o["var"])
+            cols.append(o["var"])
         elif a == "chain_amplitude":
-            cols.append(o.get("label") or f"{o['anchor']}振幅")
+            cols.append(f"{o['anchor']}振幅")
         elif a == "chain_change":
-            cols.append(o.get("label") or f"{o['anchor']}涨幅")
+            cols.append(f"{o['anchor']}涨幅")
         elif a == "chain_rel_low":
-            cols.append(o.get("label") or f"{o['anchor']}最低价")
+            cols.append(f"{o['anchor']}最低价")
         elif a == "chain_rel_high":
-            cols.append(o.get("label") or f"{o['anchor']}最高价")
+            cols.append(f"{o['anchor']}最高价")
         elif a == "chain_range":
             name = {"change": "区间涨幅", "amplitude": "区间振幅",
                     "max_amplitude": "区间最大振幅"}[o["kind"]]
-            cols.append(o.get("label") or f"{o['anchors'][0]}~{o['anchors'][1]}{name}")
-        elif a == "chain_walk":
-            base = o.get("t0", 1)
-            cols.append(f"D+{base}(低/高)")
-            for kk in range(1, o["t1"] - base + 1):
-                cols.append(f"D+{base + kk}最高价")
+            cols.append(f"{o['anchors'][0]}~{o['anchors'][1]}{name}")
     return cols
 
 
@@ -225,41 +220,40 @@ def _chain_anchor_ok(c, j, limits, is_amtmax, is_highmax):
     return True
 
 
-def _build_chain_row(code, dates, opens, highs, lows, closes, amounts, limits,
-                     js, anchors, outputs, gval):
-    """gval: 间隔变量 -> 数值（相邻间隔取组合值；跨间隔变量取其覆盖间隔之和）。"""
+def _build_chain_row(code, dates, highs, lows, closes, amounts,
+                     js, anchors, outputs, combo, gap_vars):
     row = {"股票代码": code, "股票名称": ""}
     jmap = dict(zip(anchors, js))
     for o in outputs:
         a = o["atom"]
         if a == "chain_date":
-            row[o.get("label") or f"{o['anchor']}日期"] = fmt_date(dates[jmap[o["anchor"]]])
+            row[f"{o['anchor']}日期"] = fmt_date(dates[jmap[o["anchor"]]])
         elif a == "chain_gap":
-            row[o.get("label") or o["var"]] = gval[o["var"]]
+            row[o["var"]] = combo[gap_vars.index(o["var"])]
         elif a == "chain_amplitude":
             j = jmap[o["anchor"]]
-            row[o.get("label") or f"{o['anchor']}振幅"] = (
+            row[f"{o['anchor']}振幅"] = (
                 round(float(daily_amplitude(highs[j], lows[j], closes[j - 1])), 2)
                 if j >= 1 else "N/A")
         elif a == "chain_change":
             j = jmap[o["anchor"]]
-            row[o.get("label") or f"{o['anchor']}涨幅"] = (
+            row[f"{o['anchor']}涨幅"] = (
                 calc_range_increase(float(closes[j]), float(closes[j - 1]))
                 if j >= 1 else "N/A")
         elif a == "chain_rel_low":
             j = jmap[o["anchor"]]
             v = ((lows[j] - closes[j - 1]) / closes[j - 1] * 100.0 if j >= 1 else None)
-            row[o.get("label") or f"{o['anchor']}最低价"] = f"{round(float(v), 2):+.2f}" if v is not None else "N/A"
+            row[f"{o['anchor']}最低价"] = f"{round(float(v), 2):+.2f}" if v is not None else "N/A"
         elif a == "chain_rel_high":
             j = jmap[o["anchor"]]
             v = ((highs[j] - closes[j - 1]) / closes[j - 1] * 100.0 if j >= 1 else None)
-            row[o.get("label") or f"{o['anchor']}最高价"] = f"{round(float(v), 2):+.2f}" if v is not None else "N/A"
+            row[f"{o['anchor']}最高价"] = f"{round(float(v), 2):+.2f}" if v is not None else "N/A"
         elif a == "chain_range":
             ja, jb = jmap[o["anchors"][0]], jmap[o["anchors"][1]]
             base = float(closes[ja - 1]) if ja >= 1 else None
             name = {"change": "区间涨幅", "amplitude": "区间振幅",
                     "max_amplitude": "区间最大振幅"}[o["kind"]]
-            col = o.get("label") or f"{o['anchors'][0]}~{o['anchors'][1]}{name}"
+            col = f"{o['anchors'][0]}~{o['anchors'][1]}{name}"
             if base is None or base <= 0 or jb < ja:
                 row[col] = "N/A"
             elif o["kind"] == "change":
@@ -271,17 +265,6 @@ def _build_chain_row(code, dates, opens, highs, lows, closes, amounts, limits,
                         for j2 in range(ja, jb + 1)]
                 # 区间最大振幅 = 区间内逐日「单日」振幅取最大 -> 单日口径，不带 %（Skill 输出规范）
                 row[col] = round(max(amps), 2)
-        elif a == "chain_walk":
-            # 链式前向走势：与量化路径 t_walk 同口径（T+0 = 信号日后一交易日），
-            # 列名沿用用户 D+ 记号（D+1 对应 T+0）。
-            je = js[-1]
-            base = o.get("t0", 1)
-            t_count = o["t1"] - base + 1
-            t_raw = generate_t_fields(opens, highs, lows, closes, limits,
-                                      base_idx=je, n=len(dates), t_count=t_count)
-            row[f"D+{base}(低/高)"] = t_raw.get("T+0(低/高)", "N/A")
-            for kk in range(1, t_count):
-                row[f"D+{base + kk}最高价"] = t_raw.get(f"T+{kk}最高价", "N/A")
     return row
 
 
@@ -299,7 +282,6 @@ def _run_chain(plan, start_date, end_date, data_end, progress_cb):
     gaps = chain["gaps"]
     acon = chain["anchor_conds"]
     gcon = chain["gap_conds"]
-    spans = chain.get("span_gaps", [])   # 跨间隔和约束：{"var","min","max","gaps":[间隔下标]}
     start_int = int(start_date.replace("-", "")) if start_date else _START_INT
     end_int = int(end_date.replace("-", "")) if end_date else 20991231
     data_end_int = int(data_end.replace("-", "")) if data_end else 20991231
@@ -351,16 +333,6 @@ def _run_chain(plan, start_date, end_date, data_end, progress_cb):
             if not _chain_anchor_ok(c0, i0, limits, is_amtmax, is_highmax):
                 continue
             for combo in _iproduct(*gap_ranges):
-                if spans:
-                    # 跨间隔和约束（如 N1 = N(相邻1)+N(相邻2) ∈ [3,8]）：先廉价过滤
-                    bad = False
-                    for s in spans:
-                        ss = sum(combo[gi] for gi in s["gaps"])
-                        if ss < s["min"] or ss > s["max"]:
-                            bad = True
-                            break
-                    if bad:
-                        continue
                 js = [i0]
                 acc = i0
                 for gv in combo:
@@ -405,11 +377,8 @@ def _run_chain(plan, start_date, end_date, data_end, progress_cb):
                     continue
                 if closes[i0 - 1] <= 0 or closes[je] <= 0:
                     continue
-                gval = {g["var"]: combo[gi] for gi, g in enumerate(gaps)}
-                for s in spans:
-                    gval[s["var"]] = sum(combo[gi] for gi in s["gaps"])
-                rows.append(_build_chain_row(code, dates, opens, highs, lows, closes,
-                                             amounts, limits, js, anchors, outputs, gval))
+                rows.append(_build_chain_row(code, dates, highs, lows, closes, amounts,
+                                             js, anchors, outputs, combo, gap_vars))
     logger.info("链式回测完成: %d 条, 耗时 %.1fs", len(rows), time.time() - t0)
     if rows:
         df = pd.DataFrame(rows)
@@ -759,7 +728,6 @@ def validate_rows(plan, rows, columns):
             gaps = chain["gaps"]
             acon = chain["anchor_conds"]
             gcon = chain["gap_conds"]
-            spans = chain.get("span_gaps", [])
             for r in rws:
                 dcol = f"{anchors[-1]}日期"
                 if dcol not in r:
@@ -775,48 +743,20 @@ def validate_rows(plan, rows, columns):
                     continue
                 gvs = []
                 ok = True
-                # 行内间隔值：直接声明间隔取行值；内部间隔 = 跨间隔和 − 其余已声明间隔
-                rowvals = {}
                 for g in gaps:
-                    if g.get("internal"):
-                        continue
                     gv = r.get(g["var"])
                     if not isinstance(gv, (int, np.integer)):
                         violations.append({"code": "ROW_INVALID",
                                            "detail": f"{code}@{r[dcol]}: 缺少 {g['var']} 数值"})
                         ok = False
                         break
-                    rowvals[g["var"]] = int(gv)
-                if ok:
-                    for s in spans:
-                        sv = r.get(s["var"])
-                        if not isinstance(sv, (int, np.integer)):
-                            violations.append({"code": "ROW_INVALID",
-                                               "detail": f"{code}@{r[dcol]}: 缺少 {s['var']} 数值"})
-                            ok = False
-                            break
-                        rowvals[s["var"]] = int(sv)
-                if ok:
-                    for g in gaps:
-                        if g.get("internal"):
-                            dc = g["decompose"]
-                            gv = rowvals[dc["span"]] - sum(rowvals[m] for m in dc["minus"])
-                        else:
-                            gv = rowvals[g["var"]]
-                        if not (g["min"] <= gv <= g["max"]):
-                            violations.append({"code": "ROW_INVALID",
-                                               "detail": f"{code}@{r[dcol]}: {g['var']}={gv} 超出范围"})
-                            ok = False
-                            break
-                        gvs.append(gv)
-                if ok and spans:
-                    for s in spans:
-                        ss = sum(gvs[gi] for gi in s["gaps"])
-                        if not (s["min"] <= ss <= s["max"]):
-                            violations.append({"code": "SPAN_MISMATCH",
-                                               "detail": f"{code}@{r[dcol]}: {s['var']} 和={ss} 超出范围"})
-                            ok = False
-                            break
+                    gv = int(gv)
+                    if not (g["min"] <= gv <= g["max"]):
+                        violations.append({"code": "ROW_INVALID",
+                                           "detail": f"{code}@{r[dcol]}: {g['var']}={gv} 超出范围"})
+                        ok = False
+                        break
+                    gvs.append(gv)
                 if not ok:
                     continue
                 js = [je]
