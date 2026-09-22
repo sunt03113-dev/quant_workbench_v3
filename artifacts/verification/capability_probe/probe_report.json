@@ -1,0 +1,882 @@
+{
+ "generated_at": "2026-09-22 17:58:52",
+ "query": {
+  "name": "芯源微",
+  "date": 20200117
+ },
+ "steps": [
+  {
+   "step": "Q1a 名称->代码（appdata/stock_names.csv）",
+   "ok": true,
+   "detail": "芯源微 -> 688037",
+   "note": "现有 asset 是 code,name；名称->代码需正向扫表，无专门函数"
+  },
+  {
+   "step": "Q1b 代码->名称（结果表内）",
+   "ok": true,
+   "detail": "结果表含「股票代码/股票名称」两列，可反查；名称->代码需扫 stock_names.csv"
+  },
+  {
+   "step": "Q1c 数据新鲜度（/api/data/latest）",
+   "ok": true,
+   "detail": "latest_date=2026-09-22"
+  },
+  {
+   "step": "Q2a 该股在 both 池内（_collect_stock_files）",
+   "ok": true,
+   "detail": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sh\\lday\\sh688037.day"
+  },
+  {
+   "step": "Q2b 目标日在该股日线内（read_day_file）",
+   "ok": true,
+   "detail": "首条=20191216 末条=20260922 第23条=20200117 共1640条"
+  },
+  {
+   "step": "Q2c 是否落在上市前 5 个交易日（无涨跌幅限制）",
+   "ok": false,
+   "detail": "该股前5个交易日=[20191216, 20191217, 20191218, 20191219, 20191220]；目标日序号=24"
+  },
+  {
+   "step": "Q3a 现有 Skill 判定可用（compute_limit_flags 向量 + 标量）",
+   "ok": true,
+   "detail": "向量判定 limit_up=False；标量 10%=False 20%=False",
+   "vector_limit_up": false,
+   "scalar": {
+    "limit_up_10pct": false,
+    "limit_up_20pct": false
+   }
+  },
+  {
+   "step": "Q4a 判断所用实际数值可获得",
+   "ok": true,
+   "detail": "close=102.8 high=109.8 前收=94.0 涨停价(20%)=112.8 成交额=667301248 20日最大成交额=667301248 is_amtmax=True",
+   "values": {
+    "close": 102.8,
+    "high": 109.8,
+    "prev_close": 94.0,
+    "amount": 667301248.0,
+    "amt_max20": 667301248.0,
+    "amount_is_20d_max": true,
+    "high_max20": 109.8,
+    "high_is_20d_max": true,
+    "prev5_limit_days": [
+     20200116
+    ],
+    "limit_price_20pct": 112.8,
+    "limit_price_10pct": 103.4
+   }
+  }
+ ],
+ "models": [
+  {
+   "stem": "strategy_e2etest_v1",
+   "universe": "20cm",
+   "kind": "fixed",
+   "n_hits": 1,
+   "data_date": "2026-09-22",
+   "rule_text": "E2E 冒烟规则"
+  },
+  {
+   "stem": "strategy_c1789894283086_r1_v1",
+   "universe": "20cm",
+   "kind": "fixed",
+   "n_hits": 1,
+   "data_date": "2026-09-22",
+   "rule_text": "【筛选条件】 基准日(D-0)：涨停，成交额为近20日最大，最高价非近20日最高； 前1日(D-1)：非涨停，成交额非近20日最大； 前2日(D-2)：涨停。  【输出指标】 D-0：日期 T+0/T+6：价格走势"
+  },
+  {
+   "stem": "strategy_c1789895695594_r1_v1",
+   "universe": "20cm",
+   "kind": "fixed",
+   "n_hits": 6344,
+   "data_date": "2026-09-22",
+   "rule_text": "【筛选条件】 基准日(D-0)：涨停，成交额为近20日最大； 前1日(D-1)：非涨停。  【输出指标】 D-0：日期 T+0/T+6：价格走势"
+  },
+  {
+   "stem": "strategy_6f43c4300c_v1",
+   "universe": "20cm",
+   "kind": "fixed",
+   "n_hits": 1490,
+   "data_date": "2026-09-22",
+   "rule_text": "【20cm】  【筛选条件】 D-0: 不涨停, K线为阴 D-1: 涨停, 成交额最大, 股价最高 D-2: 不涨停, 成交额不是最大 D-3: 不涨停, 成交额不是最大 D-4: 不涨停, 成交额不是最大 D-5: "
+  },
+  {
+   "stem": "strategy_20cm_v1",
+   "universe": "20cm",
+   "kind": "fixed",
+   "n_hits": 1490,
+   "data_date": "2026-09-22",
+   "rule_text": "【20cm】   【筛选条件】 D-0：不是涨停，K线为阴 D-1：涨停，成交额最大，股价最高 D-2：不是涨停，成交额不是最大 D-3：不是涨停，成交额不是最大 D-4：不是涨停，成交额不是最大 D-5：不是涨停，成交"
+  },
+  {
+   "stem": "strategy_1z1a_r1_v1",
+   "universe": "10cm",
+   "kind": "fixed",
+   "n_hits": 137,
+   "data_date": "2026-09-22",
+   "rule_text": "【筛选条件】 D-0：涨停，股价最高，成交额最大 D-1：不是涨停，成交额不是最大 D-2：不是涨停，股价最高，成交额最大 D-3：不是涨停，成交额最大 D-4：不是涨停，成交额最大 D-5：不是涨停，成交额不是最大 D"
+  },
+  {
+   "stem": "strategy_13b34ebf3a_v1",
+   "universe": "10cm",
+   "kind": "fixed",
+   "n_hits": 330,
+   "data_date": "2026-09-22",
+   "rule_text": "【10cm】  【筛选条件】 D-0: 不涨停, 成交额最大, 股价最高 D-1: 不涨停, 成交额不是最大, 股价不是最高 D-x: 不涨停, 成交额不是最高, 股价不是最高 D-x+1: 不涨停, 成交额不是最大, "
+  },
+  {
+   "stem": "strategy_f120ccad35_v1",
+   "universe": "10cm",
+   "kind": "fixed",
+   "n_hits": 51,
+   "data_date": "2026-09-22",
+   "rule_text": "0921A 【10cm】 【筛选条件】 D-0：不是涨停，成交额最大，股价最高 D-1：不是涨停，成交额不是最大，股价不是最高 D-x：不是涨停，成交额不是最大，股价不是最高 D-(x+1)：不是涨停，成交额最大，股价最"
+  },
+  {
+   "stem": "strategy_676e25bb91_v1",
+   "universe": "10cm",
+   "kind": "fixed",
+   "n_hits": 51,
+   "data_date": "2026-09-22",
+   "rule_text": "0921A 【10cm】 【筛选条件】 D-0：不是涨停，成交额最大，股价最高 D-1：不是涨停，成交额不是最大，股价不是最高 D-x：不是涨停，成交额不是最大，股价不是最高 D-(x+1)：不是涨停，成交额最大，股价最"
+  },
+  {
+   "stem": "strategy_23e908c510_v1",
+   "universe": "10cm",
+   "kind": "chain",
+   "n_hits": 254,
+   "data_date": "2026-09-22",
+   "rule_text": "【筛选条件】 1. T_0首板，T_0前4日无涨停 2.T_0-T_1间隔N1∈[1,3]、T_1-T_2隔N2∈[1,4]，N1/N2自由组合； 3. T_2的成交额不小于T_0、T_1的成交额； 4. T_2的成交额"
+  },
+  {
+   "stem": "strategy_99b11761e0_v1",
+   "universe": "10cm",
+   "kind": "fixed",
+   "n_hits": 51,
+   "data_date": "2026-09-22",
+   "rule_text": "0921A 【10cm】 【筛选条件】 D-0：不是涨停，成交额最大，股价最高 D-1：不是涨停，成交额不是最大，股价不是最高 D-x：不是涨停，成交额不是最大，股价不是最高 D-(x+1)：不是涨停，成交额最大，股价最"
+  },
+  {
+   "stem": "strategy_ed26408c68_v1",
+   "universe": "10cm",
+   "kind": "chain",
+   "n_hits": 254,
+   "data_date": "2026-09-22",
+   "rule_text": "【筛选条件】 1. T_0首板，T_0前4日无涨停 2.T_0-T_1间隔N1∈[1,3]、T_1-T_2隔N2∈[1,4]，N1/N2自由组合； 3. T_2的成交额不小于T_0、T_1的成交额； 4. T_2的成交额"
+  },
+  {
+   "stem": "strategy_111a_r1_v1",
+   "universe": "10cm",
+   "kind": "chain",
+   "n_hits": 722,
+   "data_date": "2026-09-22",
+   "rule_text": "111A    符号约定：D-n代表D-0往前回溯n个交易日，n数值越大代表时间越早。   【筛选条件】   D-0：涨停   D-x：涨停   D-y：涨停；(20日)成交额最大；(20日)股价最高   D-y与D-x"
+  },
+  {
+   "stem": "strategy_111b_r1_v1",
+   "universe": "10cm",
+   "kind": "chain",
+   "n_hits": 388,
+   "data_date": "2026-09-22",
+   "rule_text": "111B 10cm 【筛选条件】 D-0：涨停；成交额最大；股价最高 D-x：涨停 D-y：涨停 D-y~D-x间隔天数为N1∈[3, 8]，D-x~D-0 间隔天数为N2∈[1, 5]，N1/N2自由组合 D-y~D-"
+  },
+  {
+   "stem": "strategy_2s2a2a_r1_v1",
+   "universe": "20cm",
+   "kind": "fixed",
+   "n_hits": 156,
+   "data_date": "2026-09-22",
+   "rule_text": "【20cm】   【筛选条件】 D-0：不是涨停，成交额最大，股价最高 D-1：不是涨停，成交额最大 D-2：涨停，成交额最大，股价最高 D-3：不是涨停，成交额不是最大 D-4：不是涨停，成交额不是最大 D-5：不是涨"
+  },
+  {
+   "stem": "strategy_121_r1_v1",
+   "universe": "10cm",
+   "kind": "chain",
+   "n_hits": 388,
+   "data_date": "2026-09-22",
+   "rule_text": "10cm 【筛选条件】 D-0：涨停；成交额最大；股价最高 D-x：涨停 D-y：涨停 D-y~D-x间隔天数为N1∈[3, 8]，D-x~D-0 间隔天数为N2∈[1, 5]，N1/N2自由组合 D-y~D-x区间、D"
+  },
+  {
+   "stem": "111B_verify_0922",
+   "universe": "10cm",
+   "kind": "chain",
+   "n_hits": 388,
+   "data_date": "2026-09-22",
+   "rule_text": ""
+  },
+  {
+   "stem": "strategy_10cm_v6",
+   "universe": "10cm",
+   "kind": "fixed",
+   "n_hits": 574,
+   "data_date": "2026-09-22",
+   "rule_text": "【10cm】       【筛选条件】     D-0：不是涨停，成交额最大，股价最高   D-1：不是涨停，成交额不是最大，股价不是最高   D-x：不是涨停，成交额不是最大，股价不是最高   D-(x+1)：不是涨停"
+  }
+ ],
+ "data_latest": {
+  "latest_date": "2026-09-22",
+  "today": "2026-09-22",
+  "stale": false,
+  "file_count": 11704
+ },
+ "bars_around": [
+  {
+   "date": 20200109,
+   "open": 75.5,
+   "high": 83.7,
+   "low": 75.23,
+   "close": 77.55,
+   "amount": 361168576.0
+  },
+  {
+   "date": 20200110,
+   "open": 78.08,
+   "high": 81.44,
+   "low": 76.91,
+   "close": 78.1,
+   "amount": 244094736.0
+  },
+  {
+   "date": 20200113,
+   "open": 78.22,
+   "high": 82.3,
+   "low": 74.0,
+   "close": 81.52,
+   "amount": 330934656.0
+  },
+  {
+   "date": 20200114,
+   "open": 80.6,
+   "high": 83.35,
+   "low": 78.8,
+   "close": 79.16,
+   "amount": 338924320.0
+  },
+  {
+   "date": 20200115,
+   "open": 77.65,
+   "high": 80.29,
+   "low": 76.66,
+   "close": 78.33,
+   "amount": 204023248.0
+  },
+  {
+   "date": 20200116,
+   "open": 78.79,
+   "high": 94.0,
+   "low": 78.79,
+   "close": 94.0,
+   "amount": 642634560.0
+  },
+  {
+   "date": 20200117,
+   "open": 92.0,
+   "high": 109.8,
+   "low": 89.0,
+   "close": 102.8,
+   "amount": 667301248.0
+  },
+  {
+   "date": 20200120,
+   "open": 98.13,
+   "high": 108.78,
+   "low": 93.38,
+   "close": 99.97,
+   "amount": 500884768.0
+  },
+  {
+   "date": 20200121,
+   "open": 95.15,
+   "high": 104.55,
+   "low": 95.1,
+   "close": 98.98,
+   "amount": 352295616.0
+  }
+ ],
+ "values_at_target": {
+  "close": 102.8,
+  "high": 109.8,
+  "prev_close": 94.0,
+  "amount": 667301248.0,
+  "amt_max20": 667301248.0,
+  "amount_is_20d_max": true,
+  "high_max20": 109.8,
+  "high_is_20d_max": true,
+  "prev5_limit_days": [
+   20200116
+  ],
+  "limit_price_20pct": 112.8,
+  "limit_price_10pct": 103.4
+ },
+ "per_model": [
+  {
+   "stem": "strategy_e2etest_v1",
+   "universe": "20cm",
+   "in_pool": true,
+   "kind": "fixed",
+   "single_stock_run": {
+    "n_rows": 0,
+    "columns": [
+     "股票代码",
+     "股票名称",
+     "D-0日期",
+     "T+0(低/高)",
+     "T+1最高价",
+     "T+2最高价",
+     "T+3最高价",
+     "T+4最高价",
+     "T+5最高价",
+     "T+6最高价"
+    ],
+    "hit_dates": [],
+    "n_hit_dates": 0,
+    "recheck_violations": 0,
+    "sample_row": null
+   },
+   "target_date_hit": false,
+   "verdict": "NOT_HIT_BUT_IN_POOL",
+   "result_table": {
+    "n_rows_total": 1,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_c1789894283086_r1_v1",
+   "universe": "20cm",
+   "in_pool": true,
+   "kind": "fixed",
+   "single_stock_run": {
+    "n_rows": 0,
+    "columns": [
+     "股票代码",
+     "股票名称",
+     "D-0日期",
+     "T+0(低/高)",
+     "T+1最高价",
+     "T+2最高价",
+     "T+3最高价",
+     "T+4最高价",
+     "T+5最高价",
+     "T+6最高价"
+    ],
+    "hit_dates": [],
+    "n_hit_dates": 0,
+    "recheck_violations": 0,
+    "sample_row": null
+   },
+   "target_date_hit": false,
+   "verdict": "NOT_HIT_BUT_IN_POOL",
+   "result_table": {
+    "n_rows_total": 1,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_c1789895695594_r1_v1",
+   "universe": "20cm",
+   "in_pool": true,
+   "kind": "fixed",
+   "single_stock_run": {
+    "n_rows": 7,
+    "columns": [
+     "股票代码",
+     "股票名称",
+     "D-0日期",
+     "T+0(低/高)",
+     "T+1最高价",
+     "T+2最高价",
+     "T+3最高价",
+     "T+4最高价",
+     "T+5最高价",
+     "T+6最高价"
+    ],
+    "hit_dates": [
+     "2020-01-16",
+     "2020-01-22",
+     "2021-07-05",
+     "2021-11-11",
+     "2022-02-23",
+     "2024-10-08",
+     "2026-01-07"
+    ],
+    "n_hit_dates": 7,
+    "recheck_violations": 0,
+    "sample_row": {
+     "股票代码": "688037",
+     "股票名称": "芯源微",
+     "D-0日期": "2020-01-16",
+     "T+0(低/高)": "-5%/16%(阳)",
+     "T+1最高价": "15%",
+     "T+2最高价": "11%",
+     "T+3最高价": "26%(板)",
+     "T+4最高价": "46%",
+     "T+5最高价": "38%",
+     "T+6最高价": "51%(板)"
+    }
+   },
+   "target_date_hit": false,
+   "verdict": "NOT_HIT_BUT_IN_POOL",
+   "result_table": {
+    "n_rows_total": 6344,
+    "n_rows_this_stock": 7,
+    "d0_col": "D-0日期",
+    "this_stock_dates": [
+     "2020-01-16",
+     "2020-01-22",
+     "2021-07-05",
+     "2021-11-11",
+     "2022-02-23",
+     "2024-10-08",
+     "2026-01-07"
+    ]
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_6f43c4300c_v1",
+   "universe": "20cm",
+   "in_pool": true,
+   "kind": "fixed",
+   "single_stock_run": {
+    "n_rows": 1,
+    "columns": [
+     "股票代码",
+     "股票名称",
+     "D-0日期",
+     "D-0涨幅",
+     "D-0振幅",
+     "D-0最低价",
+     "D-0最高价",
+     "D-1振幅",
+     "D-0/D-1成交额百分比",
+     "T+0(低/高)",
+     "T+1最高价",
+     "T+2最高价",
+     "T+3最高价",
+     "T+4最高价",
+     "T+5最高价",
+     "T+6最高价"
+    ],
+    "hit_dates": [
+     "2022-02-24"
+    ],
+    "n_hit_dates": 1,
+    "recheck_violations": 0,
+    "sample_row": {
+     "股票代码": "688037",
+     "股票名称": "芯源微",
+     "D-0日期": "2022-02-24",
+     "D-0涨幅": 0.62,
+     "D-0振幅": 7.22,
+     "D-0最低价": "-1.23",
+     "D-0最高价": "+5.98",
+     "D-1振幅": 20.87,
+     "D-0/D-1成交额百分比": "142.16%",
+     "T+0(低/高)": "-1%/5%(阴)",
+     "T+1最高价": "0%",
+     "T+2最高价": "1%",
+     "T+3最高价": "-1%",
+     "T+4最高价": "-1%",
+     "T+5最高价": "0%",
+     "T+6最高价": "-4%"
+    }
+   },
+   "target_date_hit": false,
+   "verdict": "NOT_HIT_BUT_IN_POOL",
+   "result_table": {
+    "n_rows_total": 1490,
+    "n_rows_this_stock": 1,
+    "d0_col": "D-0日期",
+    "this_stock_dates": [
+     "2022-02-24"
+    ]
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_20cm_v1",
+   "universe": "20cm",
+   "in_pool": true,
+   "kind": "fixed",
+   "single_stock_run": {
+    "n_rows": 1,
+    "columns": [
+     "股票代码",
+     "股票名称",
+     "D-0日期",
+     "D-0涨幅",
+     "D-0振幅",
+     "D-0最低价",
+     "D-0最高价",
+     "D-1振幅",
+     "D-0/D-1成交额百分比",
+     "T+0(低/高)",
+     "T+1最高价",
+     "T+2最高价",
+     "T+3最高价",
+     "T+4最高价",
+     "T+5最高价",
+     "T+6最高价"
+    ],
+    "hit_dates": [
+     "2022-02-24"
+    ],
+    "n_hit_dates": 1,
+    "recheck_violations": 0,
+    "sample_row": {
+     "股票代码": "688037",
+     "股票名称": "芯源微",
+     "D-0日期": "2022-02-24",
+     "D-0涨幅": 0.62,
+     "D-0振幅": 7.22,
+     "D-0最低价": "-1.23",
+     "D-0最高价": "+5.98",
+     "D-1振幅": 20.87,
+     "D-0/D-1成交额百分比": "142.16%",
+     "T+0(低/高)": "-1%/5%(阴)",
+     "T+1最高价": "0%",
+     "T+2最高价": "1%",
+     "T+3最高价": "-1%",
+     "T+4最高价": "-1%",
+     "T+5最高价": "0%",
+     "T+6最高价": "-4%"
+    }
+   },
+   "target_date_hit": false,
+   "verdict": "NOT_HIT_BUT_IN_POOL",
+   "result_table": {
+    "n_rows_total": 1490,
+    "n_rows_this_stock": 1,
+    "d0_col": "D-0日期",
+    "this_stock_dates": [
+     "2022-02-24"
+    ]
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_1z1a_r1_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "fixed",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 137,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_13b34ebf3a_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "fixed",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 330,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_f120ccad35_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "fixed",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 51,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_676e25bb91_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "fixed",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 51,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_23e908c510_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "chain",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 254,
+    "n_rows_this_stock": 0,
+    "d0_col": "T_2日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_99b11761e0_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "fixed",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 51,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_ed26408c68_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "chain",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 254,
+    "n_rows_this_stock": 0,
+    "d0_col": "T_2日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_111a_r1_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "chain",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 722,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0的日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_111b_r1_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "chain",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 388,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_2s2a2a_r1_v1",
+   "universe": "20cm",
+   "in_pool": true,
+   "kind": "fixed",
+   "single_stock_run": {
+    "n_rows": 0,
+    "columns": [
+     "股票代码",
+     "股票名称",
+     "D-0日期",
+     "D-2振幅",
+     "D-1涨幅",
+     "D-1振幅",
+     "D-0涨幅",
+     "D-0振幅",
+     "D-0/D-2成交额百分比",
+     "T+0(低/高)",
+     "T+1最高价",
+     "T+2最高价",
+     "T+3最高价",
+     "T+4最高价",
+     "T+5最高价",
+     "T+6最高价"
+    ],
+    "hit_dates": [],
+    "n_hit_dates": 0,
+    "recheck_violations": 0,
+    "sample_row": null
+   },
+   "target_date_hit": false,
+   "verdict": "NOT_HIT_BUT_IN_POOL",
+   "result_table": {
+    "n_rows_total": 156,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_121_r1_v1",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "chain",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 388,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "111B_verify_0922",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "chain",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 388,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  },
+  {
+   "stem": "strategy_10cm_v6",
+   "universe": "10cm",
+   "in_pool": false,
+   "kind": "fixed",
+   "verdict": "NOT_IN_POOL",
+   "why": "universe=10cm 的池子不含 688（_collect_stock_files 板块过滤）",
+   "result_table": {
+    "n_rows_total": 574,
+    "n_rows_this_stock": 0,
+    "d0_col": "D-0日期",
+    "this_stock_dates": []
+   },
+   "rerun_vs_stored": {
+    "rerun_only": [],
+    "stored_only": []
+   },
+   "inconsistency": "NO",
+   "target_row_in_table": false
+  }
+ ],
+ "conclusion": {
+  "Q1 定位股票+日期": "可（stock_names.csv 正扫 + read_day_file 定位到条）",
+  "Q2 使用当前正式规则": "可（store.get_rule -> plan 原文，run_plan 直接执行）",
+  "Q3 使用现有 Skill 判定": "可（compute_limit_flags 向量 + is_limit_up_sealed_decimal 标量，同源）",
+  "Q4 逐条件检查+实际数值": "单股实跑可（run_plan 收窄宇宙后逐行给出全部数值列）；但「某个未命中日期逐条件展开」需自行组织 20 行内联窗口计算（executor 内部循环未暴露成函数）",
+  "Q5 说明哪个条件不满足": "可推（涨停向量 + 窗口最大 + prev5 三件套齐全）",
+  "Q6 全满足却无行的不一致识别": "可（单股实跑结果 vs current.json 行比对）"
+ }
+}

@@ -1,0 +1,90 @@
+{
+ "generated_at": "2026-09-22 22:07:04",
+ "stem": "strategy_c1789895695594_r1_v1",
+ "universe": "20cm",
+ "query": {
+  "code": "688037",
+  "date": 20200116,
+  "name": null
+ },
+ "data_source": "通达信本地 vipdoc 日线（appdata/market/vipdoc）",
+ "in_pool": true,
+ "day_file": {
+  "path": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sh\\lday\\sh688037.day",
+  "first": 20191216,
+  "last": 20260922,
+  "n_bars": 1640
+ },
+ "target_day": {
+  "date": 20200116,
+  "present": true,
+  "bar_index": 22,
+  "in_first_5_nolimit_window": false,
+  "listing_first_day": 20191216
+ },
+ "values_at_date": {
+  "open": 78.79,
+  "high": 94.0,
+  "low": 78.79,
+  "close": 94.0,
+  "prev_close": 78.33,
+  "limit_price_20pct": 94.0,
+  "limit_price_10pct": 86.16,
+  "vector_limit_up": true,
+  "scalar_limit_up_10pct": false,
+  "scalar_limit_up_20pct": true,
+  "amount": 642634560.0,
+  "amt_max20": 642634560.0,
+  "amount_is_20d_max": true,
+  "high_is_20d_max": true,
+  "prev5_limit_days": []
+ },
+ "rerun": {
+  "n_rows": 7,
+  "n_hit_dates": 7,
+  "hit_dates": [
+   "2020-01-16",
+   "2020-01-22",
+   "2021-07-05",
+   "2021-11-11",
+   "2022-02-23",
+   "2024-10-08",
+   "2026-01-07"
+  ],
+  "recheck_violations": 0,
+  "date_col": "D-0日期",
+  "sample_row": {
+   "股票代码": "688037",
+   "股票名称": "芯源微",
+   "D-0日期": "2020-01-16",
+   "T+0(低/高)": "-5%/16%(阳)",
+   "T+1最高价": "15%",
+   "T+2最高价": "11%",
+   "T+3最高价": "26%(板)",
+   "T+4最高价": "46%",
+   "T+5最高价": "38%",
+   "T+6最高价": "51%(板)"
+  }
+ },
+ "stored_table": {
+  "n_rows_total": 6344,
+  "n_rows_this_stock": 7,
+  "this_stock_dates": [
+   "2020-01-16",
+   "2020-01-22",
+   "2021-07-05",
+   "2021-11-11",
+   "2022-02-23",
+   "2024-10-08",
+   "2026-01-07"
+  ]
+ },
+ "target_in_rerun": true,
+ "target_in_stored": true,
+ "diff": {
+  "rerun_only": [],
+  "stored_only": []
+ },
+ "consistency": "OK",
+ "verdict": "当日为封死涨停（收=高=涨停价 94.0）。该股在重跑中命中该日期，已存结果含该行；两者一致。"
+}

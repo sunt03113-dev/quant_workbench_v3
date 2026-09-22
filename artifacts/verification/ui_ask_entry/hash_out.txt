@@ -1,0 +1,7 @@
+﻿{
+ "ui/ui_v2.html (after)": "cbffc3dfecf720948f74dcc447f45f69a359ba7d70c8cb795c77313e31de075b",
+ "ui_v2.before.html": "f63bbad22c2bcd15dbf52813823a0be90c575cf20d40504fa2b06799375c71a6",
+ "capability_probe/ask_model.py": "6d07ed21917179721bee9f213efa8dc35318f71f03deeff3faabec8ae52b6064",
+ "docs/WORKBUDDY_CLARIFIER_SPEC.md": "8f7a05d2b2e630b2d4c8841ccb4fb43c9d9c4b2af115e81eacef18be1daf7d30",
+ "ui_v2.before.sha256 (recorded pre-change)": "f63bbad22c2bcd15dbf52813823a0be90c575cf20d40504fa2b06799375c71a6"
+}

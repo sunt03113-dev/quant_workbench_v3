@@ -1,0 +1,92 @@
+{
+ "generated_at": "2026-09-22 22:09:33",
+ "stem": "strategy_c1789895695594_r1_v1",
+ "universe": "20cm",
+ "query": {
+  "code": "688037",
+  "date": 20200117,
+  "name": null
+ },
+ "data_source": "通达信本地 vipdoc 日线（appdata/market/vipdoc）",
+ "in_pool": true,
+ "day_file": {
+  "path": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc\\sh\\lday\\sh688037.day",
+  "first": 20191216,
+  "last": 20260922,
+  "n_bars": 1640
+ },
+ "target_day": {
+  "date": 20200117,
+  "present": true,
+  "bar_index": 23,
+  "in_first_5_nolimit_window": false,
+  "listing_first_day": 20191216
+ },
+ "values_at_date": {
+  "open": 92.0,
+  "high": 109.8,
+  "low": 89.0,
+  "close": 102.8,
+  "prev_close": 94.0,
+  "limit_price_20pct": 112.8,
+  "limit_price_10pct": 103.4,
+  "vector_limit_up": false,
+  "scalar_limit_up_10pct": false,
+  "scalar_limit_up_20pct": false,
+  "amount": 667301248.0,
+  "amt_max20": 667301248.0,
+  "amount_is_20d_max": true,
+  "high_is_20d_max": true,
+  "prev5_limit_days": [
+   20200116
+  ]
+ },
+ "rerun": {
+  "n_rows": 7,
+  "n_hit_dates": 7,
+  "hit_dates": [
+   "2020-01-16",
+   "2020-01-22",
+   "2021-07-05",
+   "2021-11-11",
+   "2022-02-23",
+   "2024-10-08",
+   "2026-01-07"
+  ],
+  "recheck_violations": 0,
+  "date_col": "D-0日期",
+  "sample_row": {
+   "股票代码": "688037",
+   "股票名称": "芯源微",
+   "D-0日期": "2020-01-16",
+   "T+0(低/高)": "-5%/16%(阳)",
+   "T+1最高价": "15%",
+   "T+2最高价": "11%",
+   "T+3最高价": "26%(板)",
+   "T+4最高价": "46%",
+   "T+5最高价": "38%",
+   "T+6最高价": "51%(板)"
+  }
+ },
+ "stored_table": {
+  "n_rows_total": 6344,
+  "n_rows_this_stock": 7,
+  "this_stock_dates": [
+   "2020-01-16",
+   "2020-01-22",
+   "2021-07-05",
+   "2021-11-11",
+   "2022-02-23",
+   "2024-10-08",
+   "2026-01-07"
+  ]
+ },
+ "target_in_rerun": false,
+ "target_in_stored": false,
+ "diff": {
+  "rerun_only": [],
+  "stored_only": []
+ },
+ "consistency": "OK",
+ "verdict": "当日收盘 102.8 / 最高 109.8，均不等于涨停价（20% 口径 112.8）→ 未封死涨停；对要求「该日为涨停」的条件不成立 → 不是遗漏。；但成交额为近20日最大、最高价为近20日最高、且前5日内有涨停日 [20200116]"
+}

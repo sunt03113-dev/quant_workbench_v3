@@ -1,0 +1,13 @@
+{
+ "generated_at": "2026-09-22 22:07:03",
+ "stem": "strategy_121_r1_v1",
+ "universe": "10cm",
+ "query": {
+  "code": "688037",
+  "date": 20200117,
+  "name": "芯源微"
+ },
+ "data_source": "通达信本地 vipdoc 日线（appdata/market/vipdoc）",
+ "in_pool": false,
+ "verdict": "该股不在本模型宇宙内：universe=10cm 的池子不含该代码（_collect_stock_files 板块过滤），结果中无该股属预期。"
+}

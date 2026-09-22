@@ -1,0 +1,30 @@
+{
+ "generated_at": "2026-09-22T14:13:49.310Z",
+ "results": [
+  {
+   "name": "home_loaded",
+   "ok": true,
+   "detail": "首页加载且存在模型卡片"
+  },
+  {
+   "name": "card_with_stem",
+   "ok": true,
+   "detail": "stem=strategy_10cm_v6"
+  },
+  {
+   "name": "ask_btn_visible",
+   "ok": true,
+   "detail": "详情页「询问模型」按钮可见（stem=strategy_10cm_v6）"
+  },
+  {
+   "name": "prompt_dialog",
+   "ok": true,
+   "detail": "质询对象（可留空）： | 输入「股票代码 日期」，如：688037 20200117 | 日期可只写到月/年，或留空对整个模型提问"
+  },
+  {
+   "name": "clipboard_content",
+   "ok": true,
+   "detail": "含 stem=strategy_10cm_v6 的质询全文已写入剪贴板"
+  }
+ ]
+}

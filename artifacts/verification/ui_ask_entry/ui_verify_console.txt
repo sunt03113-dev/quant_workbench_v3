@@ -1,0 +1,3 @@
+﻿PASS home_loaded: 棣栭〉鍔犺浇涓斿瓨鍦ㄦā鍨嬪崱鐗?PASS card_with_stem: stem=strategy_10cm_v6
+PASS ask_btn_visible: 璇︽儏椤点€岃闂ā鍨嬨€嶆寜閽彲瑙侊紙stem=strategy_10cm_v6锛?FAIL prompt_dialog: 璐ㄨ瀵硅薄锛堝彲鐣欑┖锛夛細 | 杈撳叆銆岃偂绁ㄤ唬鐮?鏃ユ湡銆嶏紝濡傦細688037 20200117 | 鏃ユ湡鍙彧鍐欏埌鏈?骞达紝鎴栫暀绌哄鏁翠釜妯″瀷鎻愰棶
+PASS clipboard_content: 鍚?stem=strategy_10cm_v6 鐨勮川璇㈠叏鏂囧凡鍐欏叆鍓创鏉?

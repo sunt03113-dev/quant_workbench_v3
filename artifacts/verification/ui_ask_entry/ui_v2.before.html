@@ -260,7 +260,6 @@ tbody tr:hover{background:#fafcfd}
           <span class="head-title" data-page-node-id="f0J3eVieOhaWIHOzZXXiBX">示例数据</span>
           <span class="head-note" data-page-node-id="7Lx2L4byfiVOA3MXZIoePs">最近 10 条</span>
         </div>
-        <button class="btn-ghost" id="askModelBtn" title="把「股票代码 + 日期」质询组装成结构化问题，粘贴给 WorkBuddy 核验（只读，不改数据）" style="margin-right:8px;display:none">? 询问模型</button>
         <button class="btn-download" id="downloadBtn" data-page-node-id="583J3oUi5fdSmEW08wOS4l">⇩ 下载 Excel</button>
       </div>
       <div class="table-wrap" data-page-node-id="NYGXX91wZe8yThG8o9SoSs">
@@ -348,7 +347,6 @@ const detailTitle = document.getElementById('detailTitle');
 const candThead = document.getElementById('candThead');
 const candTbody = document.getElementById('candTbody');
 const downloadBtn = document.getElementById('downloadBtn');
-const askModelBtn = document.getElementById('askModelBtn');
 const dataFreshChip = document.getElementById('dataFreshChip');
 const universePicker = document.getElementById('universePicker');
 const submitStatus = document.getElementById('submitStatus');
@@ -716,7 +714,6 @@ async function openDetail(card) {
   } else {
     ruleTextarea.value = '';
     downloadBtn.disabled = true;
-    askModelBtn.style.display = 'none';
     candThead.innerHTML = '<tr><th>提示</th></tr>';
     candTbody.innerHTML = '<tr><td style="color:#ccc">该模型尚未提交过规则</td></tr>';
   }
@@ -734,7 +731,6 @@ backBtn.addEventListener('click', () => {
 // ===================== 示例数据（最近 10 条，日期降序） =====================
 async function loadCandidates(stem) {
   downloadBtn.disabled = false;
-  askModelBtn.style.display = '';
   const modelName = currentCard?.name || stem;
   downloadBtn.onclick = () => {
     const a = document.createElement('a');
@@ -769,39 +765,6 @@ async function loadCandidates(stem) {
     candTbody.innerHTML = `<tr><td style="color:#ccc">${esc(e.message)}</td></tr>`;
   }
 }
-
-// ===================== 询问模型（质询桥：只组装问题，不做任何判定） =====================
-// 铁律（kk 2026-09-22）：判定权在识别器/执行器/Skill，本按钮只把结构化问题交给 WorkBuddy；
-// WorkBuddy 侧用现有 run_plan（收窄宇宙）+ 结果表逐日期比对核验，不一致只报异常，不自行解释。
-function buildAskText(stem, modelName, query) {
-  const rule = (ruleTextarea.value || '').trim();
-  const lines = ['【工作台质询】', `模型：${modelName}`, `stem：${stem}`];
-  if (query) lines.push(`质询对象：${query}`);
-  if (rule) lines.push('规则原文：', rule);
-  lines.push(
-    '核验要求：',
-    '1. 用现有能力核验（单股收窄宇宙后重跑原 run_plan + 与已存结果逐日期比对）；',
-    '2. 返回判定所用的实际数值（收盘/最高/前收/涨停价/成交额/近20日极值等）；',
-    '3. 重跑与已存结果不一致 → 只报异常，不自行解释；',
-    '4. 只读核验，不得改数据、不得改规则、不得改引擎。');
-  return lines.join('\n');
-}
-
-askModelBtn.addEventListener('click', async () => {
-  const stem = currentRuleStem;
-  if (!stem) return;
-  const modelName = currentCard?.name || stem;
-  const query = window.prompt(
-    '质询对象（可留空）：\n输入「股票代码 日期」，如：688037 20200117\n日期可只写到月/年，或留空对整个模型提问', '');
-  if (query === null) return;               // 用户取消
-  const text = buildAskText(stem, modelName, query.trim());
-  try {
-    await navigator.clipboard.writeText(text);
-    showToast('质询已复制到剪贴板，请粘贴给 WorkBuddy 核验', 5000, 'ok');
-  } catch (e) {
-    window.prompt('剪贴板不可用，请手动复制以下质询文本：', text);
-  }
-});
 
 // ===================== 数据新鲜度 =====================
 let freshToastTimer = null;
