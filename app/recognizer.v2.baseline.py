@@ -160,35 +160,6 @@ def _strip_annotations(text):
     return "\n".join(lines)
 
 
-# 说明性/记号约定行（如「符号约定：D-n代表D-0往前回溯n个交易日…」）不是业务条件。
-# 跳过条件从严（fail-closed 不放松）：必须以约定类前缀开头，且整行不含任何业务关键词；
-# 带业务关键词的「注：…」行仍按条件解析，绝不静默吞掉。
-_RE_NOTATION_LINE = re.compile(r"^\s*(?:符号约定|记号约定|记号说明|约定|说明|备注|注)\s*[：:]")
-_RE_BUSINESS_KW = re.compile(r"涨停|跌停|成交额|最高|最低|振幅|涨幅|K线|走势|区间|开盘|收盘|首板|间隔")
-# D 记法下写了变量间隔（如「D-y与D-x间隔交易日天数N1∈[1,5]」）：
-# 变量间隔只在 T_ 链记法实现，给出可执行的改写指引而不是泛泛的"不支持"。
-_CHAIN_REWRITE_HINT = (
-    "变量间隔窗口仅支持 T_ 链记法：把三个交易日改写为锚点 T_0（最早）、T_1、T_2（信号日），"
-    "间隔写成「T_0-T_1间隔N1∈[1,5]，T_1-T_2间隔N2∈[1,5]」，"
-    "区间无涨停写成「T_0与T_1间无涨停」，仅三日涨停写成「仅T_0、T_1、T_2三日涨停」，"
-    "锚点前视无涨停写成「T_0前5日无涨停」。"
-)
-
-
-def _drop_notation_lines(text):
-    lines = [ln for ln in text.splitlines()
-             if not (_RE_NOTATION_LINE.search(ln) and not _RE_BUSINESS_KW.search(ln))]
-    return "\n".join(lines)
-
-
-def _cond_problem_reason(clause, default):
-    """条件子句失败时的 reason；变量间隔写法给出 T_ 链改写指引。"""
-    c = _norm(clause)
-    if "间隔" in c and re.search(r"N\d", c) and not _RE_CHAIN_TRIGGER.search(c):
-        return _CHAIN_REWRITE_HINT
-    return default
-
-
 def _parse_outputs(out_text):
     """解析输出段 -> (outputs, err_fragment)。
 
@@ -415,7 +386,7 @@ def _parse_chain_rule(text, cond_text, out_text, universe_hint):
     # 2) 锚点条件
     anchor_conds = {a: {} for a in anchor_ids}
     gap_conds = {}
-    ctext = _drop_notation_lines(_strip_annotations(text))
+    ctext = _strip_annotations(text)
     for m in _RE_CHAIN_ONLY.finditer(ctext):
         for a in re.findall(r"T_\d+", m.group(1)):
             if a in anchor_conds:
@@ -526,7 +497,7 @@ def _parse_chain_rule(text, cond_text, out_text, universe_hint):
 def parse_single_rule(text, universe_hint=None):
     """解析单条规则文本 -> (plan, plan_summary, problems)。problems 非空 = fail-closed。"""
     sections = text.split("【输出指标】")
-    cond_text = _drop_notation_lines(_strip_annotations(sections[0]))
+    cond_text = _strip_annotations(sections[0])
     out_text = sections[1] if len(sections) > 1 else ""
 
     # 间隔链规则（T_0/T_1/T_2 + N1/N2 组合）走专用解析器
@@ -557,10 +528,9 @@ def parse_single_rule(text, universe_hint=None):
                 continue
             cond = _parse_conditions(rest)
             if cond is None:
-                problems.append({"fragment": clause[:60],
-                                 "reason": _cond_problem_reason(clause, "存在暂不支持的条件表述")})
-            else:
-                var_days.append({"offset_var": off[1], **cond})
+                problems.append({"fragment": clause[:60], "reason": "存在暂不支持的条件表述"})
+                continue
+            var_days.append({"offset_var": off[1], **cond})
             continue
         if off is None:
             problems.append({"fragment": clause[:60], "reason": "交易日锚点无法解析"})
@@ -573,8 +543,7 @@ def parse_single_rule(text, universe_hint=None):
             continue  # 纯锚点行
         cond = _parse_conditions(rest)
         if cond is None:
-            problems.append({"fragment": clause[:60],
-                             "reason": _cond_problem_reason(clause, "存在暂不支持的条件表述")})
+            problems.append({"fragment": clause[:60], "reason": "存在暂不支持的条件表述"})
             continue
         if off in days:
             for k, v in cond.items():
