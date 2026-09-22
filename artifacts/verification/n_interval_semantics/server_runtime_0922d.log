@@ -1,0 +1,9 @@
+INFO:     Started server process [36152]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:59996 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60010 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60011 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60120 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60139 - "GET /api/backtest/111B_verify_0922/candidates HTTP/1.1" 200 OK

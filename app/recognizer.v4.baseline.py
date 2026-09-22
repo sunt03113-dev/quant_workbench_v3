@@ -351,9 +351,7 @@ def _parse_outputs(out_text):
 
 # ===================== 间隔链规则（T_0→T_1→T_2，间隔 N1/N2 自由组合） =====================
 # 111A3 类形态：锚点日 T_0..T_m 依次相邻排布，相邻锚点间隔 N_i 为变量（存在量词），
-# 每个满足的 (N1..Nm) 组合各出一行。
-# kk 口径（2026-09-22 裁定，对齐 Skill）：间隔 N = 两段涨停之间、**不含两端**的 K 线根数；
-# 相邻涨停 N = 0；跨间隔（D-y~D-0 相隔一个中间锚点）N = 各相邻间隔之和 + (中间锚点数)。
+# 每个满足的 (N1..Nm) 组合各出一行（kk 口径，2026-09-21 确认：间隔N=相差N个交易日）。
 
 _RE_CHAIN_TRIGGER = re.compile(r"T[-_]?0")   # T0 / T_0 / T-0 均为链式锚点起点
 _RE_CHAIN_GAP = re.compile(
@@ -725,11 +723,8 @@ def _translate_dvar_chain(text, cond_text, out_text, universe_hint):
             problems.append({"fragment": s["var"],
                              "reason": "跨间隔声明包含多个未直接声明的间隔，无法唯一分解（fail-closed）"})
             continue
-        # 跨间隔 = 各相邻间隔之和 + (中间锚点数)：内部间隔 = span − 已声明间隔 − (k−1)
-        # 口径 kk 2026-09-22：间隔 N = 不含两端的中间 K 线根数（相邻=N=0，故下限 0）
-        mid = len(s["gaps"]) - 1
-        lo_u = max(0, s["min"] - sum(o["max"] for o in pinned) - mid)
-        hi_u = s["max"] - sum(o["min"] for o in pinned) - mid
+        lo_u = max(1, s["min"] - sum(o["max"] for o in pinned))
+        hi_u = s["max"] - sum(o["min"] for o in pinned)
         if lo_u > hi_u:
             problems.append({"fragment": s["var"], "reason": "间隔范围矛盾（跨间隔下限小于其余间隔上限之和）"})
             continue

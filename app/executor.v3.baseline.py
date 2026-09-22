@@ -288,9 +288,7 @@ def _build_chain_row(code, dates, opens, highs, lows, closes, amounts, limits,
 def _run_chain(plan, start_date, end_date, data_end, progress_cb):
     """间隔链回测：T_0 为最早锚点，T_2（末锚点）为信号日。
 
-    口径（kk 2026-09-22 裁定，对齐 Skill）：间隔 N = 两段涨停之间、**不含两端**的
-    K 线根数，即相邻锚点下标差 = N + 1；两日相邻时 N = 0。
-    跨间隔（span，如 D-y~D-0 相隔一个中间锚点）N = 各相邻间隔之和 + (中间锚点数)；
+    口径（kk 2026-09-21 确认）：间隔 N = 相差 N 个交易日（N=1 相邻）；
     每个满足的 (N1..Nk) 组合各出一行，行内带各 N 数值列。
     """
     sp = plan["strategy_plan"]
@@ -309,8 +307,7 @@ def _run_chain(plan, start_date, end_date, data_end, progress_cb):
     prev_need = max([c.get("prev_no_limit", 0) for c in acon.values()] + [0])
     need_window = any(c.get("amount_max20") is not None or c.get("high_max20") is not None
                       for c in acon.values())
-    # 相邻锚点下标差 = 间隔值 + 1（间隔 N = 不含两端的中间 K 线根数）
-    min_total = sum(g["min"] + 1 for g in gaps)
+    min_total = sum(g["min"] for g in gaps)
     gap_ranges = [range(g["min"], g["max"] + 1) for g in gaps]
     gap_vars = [g["var"] for g in gaps]
     gap_pairs = [(anchors.index(g["from"]), anchors.index(g["to"])) for g in gaps]
@@ -355,11 +352,10 @@ def _run_chain(plan, start_date, end_date, data_end, progress_cb):
                 continue
             for combo in _iproduct(*gap_ranges):
                 if spans:
-                    # 跨间隔和约束（如 N1 = D-y~D-0 ∈ [3,8]）：
-                    # span 值 = 各相邻间隔之和 + (中间锚点数)，先廉价过滤
+                    # 跨间隔和约束（如 N1 = N(相邻1)+N(相邻2) ∈ [3,8]）：先廉价过滤
                     bad = False
                     for s in spans:
-                        ss = sum(combo[gi] for gi in s["gaps"]) + (len(s["gaps"]) - 1)
+                        ss = sum(combo[gi] for gi in s["gaps"])
                         if ss < s["min"] or ss > s["max"]:
                             bad = True
                             break
@@ -368,7 +364,7 @@ def _run_chain(plan, start_date, end_date, data_end, progress_cb):
                 js = [i0]
                 acc = i0
                 for gv in combo:
-                    acc += gv + 1
+                    acc += gv
                     js.append(acc)
                 je = js[-1]
                 if je >= n:
@@ -815,7 +811,7 @@ def validate_rows(plan, rows, columns):
                         gvs.append(gv)
                 if ok and spans:
                     for s in spans:
-                        ss = sum(gvs[gi] for gi in s["gaps"]) + (len(s["gaps"]) - 1)
+                        ss = sum(gvs[gi] for gi in s["gaps"])
                         if not (s["min"] <= ss <= s["max"]):
                             violations.append({"code": "SPAN_MISMATCH",
                                                "detail": f"{code}@{r[dcol]}: {s['var']} 和={ss} 超出范围"})
@@ -826,7 +822,7 @@ def validate_rows(plan, rows, columns):
                 js = [je]
                 acc = je
                 for gv in reversed(gvs):
-                    acc -= gv + 1
+                    acc -= gv
                     js.insert(0, acc)
                 i0 = js[0]
                 if i0 < 1 or any(j < 1 or j >= n for j in js):

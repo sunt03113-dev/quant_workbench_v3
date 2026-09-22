@@ -7,7 +7,7 @@
 ## 包内容（两个包必须配套使用，勿混用旧包）
 | 包 | 大小 | sha256 | 内容 |
 |---|---|---|---|
-| `qwb_m4_deploy_20260921.zip` | 5.0 MB / 299 文件 | 见 `dist/SHA256SUMS_20260921.txt` | 代码 + Skill + UI + Golden 结果表 + 部署脚本 + **mac 双击启动器**（不含 `app/config.yaml`，不含任何 `.day`） |
+| `qwb_m4_deploy_20260921.zip` | 5.0 MB / 302 文件 | 见 `dist/SHA256SUMS_20260921.txt` | 代码 + Skill + UI + Golden 结果表 + 部署脚本 + **mac 双击启动器**（不含 `app/config.yaml`，不含任何 `.day`） |
 | `qwb_market_pack_20260921.zip` | 889.5 MB / 11705 文件 | `e4ac139e0c6bcf8f…`（全量见 SHA256SUMS） | 标准本地行情 `appdata/market` + `stock_names.csv` |
 
 > 代码包已在本轮追加 `deploy/mac/`（macOS 双击启动器），**请用新一版代码包**；
@@ -97,4 +97,13 @@ bash deploy/mac/qwb_launch.sh open | status | stop
 ## 版本
 - 代码版本：git `main`（含 2026-09-21 四批改动：区间最大振幅不带 % / 每日增量快照快速路径 /
   雪球备源快照 + 水位落后防空洞 + 成交额 f32 口径归一 / **macOS 双击启动器 `deploy/mac/`**）。
+- **2026-09-22 间隔口径切换（重要）**：间隔 `N1/N2` 统一定义为
+  「两段涨停之间、**不含两端涨停 K 线**的交易日间隔天数」，相邻涨停 `N = 0`；
+  跨间隔 `N = 各相邻间隔之和 + 中间锚点个数`。工作台执行器已改为与 Skill 一致
+  （原先按「相差 N 个交易日」= 不含两端根数 + 1，与 Skill 差 1）。
+  - 定义已写入 `skill/tdx-stock-backtest-master/tdx-stock-backtest.md` 第九节与 `README.md` 数据规约。
+  - 影响：带间隔的规则命中数会变小（实测 `N1∈[3,8]/N2∈[1,5]` 由 1356 → 388，
+    与 Skill 侧 388 行逐字一致；`N1∈[1,3]/N2∈[1,4]` 由 3842 → 254）。
+  - M4 侧部署后如库内已有带间隔模型的旧结果，请重跑一次（`/api/daily/run` 或逐模型重跑），
+    否则界面会一直显示旧口径结果（每日管线只在数据日期变化时才自动重跑）。
 - 行情包 tree_hash 以包内 `appdata/market` 实测为准；两端必须一致（P9 第一道关）。

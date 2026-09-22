@@ -33,6 +33,14 @@ add = [
     "deploy/README_DEPLOY.md",
     "deploy/start_workbench.bat",
     "artifacts/verification/mac_launcher/SELFTEST.md",
+    "artifacts/verification/n_interval_semantics/REPORT.md",
+    # 2026-09-22 间隔口径切换（N = 两段涨停之间不含两端的 K 线根数，对齐 Skill）
+    "app/recognizer.py",
+    "app/executor.py",
+    "app/recognizer.v4.baseline.py",
+    "app/executor.v3.baseline.py",
+    "skill/tdx-stock-backtest-master/tdx-stock-backtest.md",
+    "skill/tdx-stock-backtest-master/README.md",
 ]
 for p in sorted((PKG / "deploy" / "mac").rglob("*")):
     if p.is_file():
