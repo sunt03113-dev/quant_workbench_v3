@@ -537,7 +537,7 @@ _RE_DVAR_GAP = re.compile(
 _RE_DSYM_DAY = re.compile(r"^D-([a-z])\s*[:：]\s*(.+)$")
 _RE_DSYM_BASE = re.compile(r"^(?:基准日(?:\(D-?0\))?|D-0|D0)\s*[:：]\s*(.+)$")
 _RE_DSYM_PREV = re.compile(
-    r"^D-([a-z])\s*(?:稍前|更早一侧紧邻的)\s*(\d+|[一二三四五六七八九十]+)\s*个?交易日?\s*"
+    r"^D-([a-z])\s*(?:稍前|更早一侧紧邻的|之前|往前|前)\s*(\d+|[一二三四五六七八九十]+)\s*个?交易日?\s*"
     r"D-\(\1\+(\d+)\)\s*[~～]\s*D-\(\1\+(\d+)\)\s*全部不是涨停$")
 _RE_DVAR_GAPNOLIMIT = re.compile(
     r"D-([a-z])\s*[~～]\s*(?:D-0|D-([a-z]))\s*(?:整个)?区间(?:内)?")

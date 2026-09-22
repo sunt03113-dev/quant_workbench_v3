@@ -1,0 +1,27 @@
+INFO:     Started server process [21984]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:63040 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63041 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61313 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61313 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:50270 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61313 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64768 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64768 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64768 - "GET /api/rules/strategy_111b_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56690 - "GET /api/backtest/strategy_111b_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56690 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56690 - "GET /api/rules/strategy_111a_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56690 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56690 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56690 - "GET /api/rules/strategy_111a_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56690 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:56690 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63058 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64768 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:52449 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64564 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60637 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57243 - "POST /api/plan/recognize HTTP/1.1" 200 OK
