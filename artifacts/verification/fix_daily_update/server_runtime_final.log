@@ -36,3 +36,23 @@ INFO:     127.0.0.1:49178 - "GET /api/backtest/strategy_20cm_v1/candidates?limit
 INFO:     127.0.0.1:62146 - "GET /api/data/latest HTTP/1.1" 200 OK
 INFO:     127.0.0.1:58241 - "GET /api/daily/state HTTP/1.1" 200 OK
 INFO:     127.0.0.1:55715 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57142 - "GET /api/rules/strategy_111a_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64761 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64761 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64761 - "GET /api/rules/strategy_20cm_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64761 - "GET /api/backtest/strategy_20cm_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61026 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64180 - "GET /api/rules/strategy_10cm_v6 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:64180 - "GET /api/backtest/strategy_10cm_v6/candidates?limit=10000 HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:56564 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57142 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64180 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61502 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64778 - "GET /api/rules/strategy_111a_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64778 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53138 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54308 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54308 - "GET /api/rules/strategy_111b_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53138 - "GET /api/backtest/strategy_111b_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54308 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58737 - "GET /api/daily/state HTTP/1.1" 200 OK

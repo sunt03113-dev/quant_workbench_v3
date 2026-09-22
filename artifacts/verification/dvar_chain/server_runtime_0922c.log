@@ -1,0 +1,17 @@
+INFO:     Started server process [37412]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:53736 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53737 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53742 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53743 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55139 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55139 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55139 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54572 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55139 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54572 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54572 - "GET /api/backtest/strategy_121_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:54572 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53604 - "GET /api/backtest/strategy_121_r1_v1/candidates/export?model_name=121 HTTP/1.1" 200 OK
