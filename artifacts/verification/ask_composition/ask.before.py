@@ -231,7 +231,6 @@ def _result_stats(stem):
     dates = sorted({str(r.get(d0)) for r in rows if r.get(d0)}) if d0 else []
     codes = sorted({str(r.get("股票代码")) for r in rows if r.get("股票代码")})
     return {"n_rows": len(rows), "n_stocks": len(codes),
-            "codes": codes,
             "date_min": dates[0] if dates else None, "date_max": dates[-1] if dates else None,
             "recent_dates": dates[-8:], "columns": list(cur.get("columns") or [])}
 
@@ -248,75 +247,6 @@ _INTENTS = [
 ]
 
 
-_BOARD_WORDS = [("科创板", ["688", "689"]), ("创业板", ["300", "301"]), ("主板", ["600", "000"])]
-
-
-def _detect_prefixes(question):
-    """从问题中提取代码前缀意图：『30开头』/『创业板』等 → ['30']；无 → None。"""
-    q = question or ""
-    m = re.findall(r"(301|300|688|689|605|603|601|600|003|002|001|000|30|60|00|68)开头", q)
-    if m:
-        seen, out = set(), []
-        for x in m:
-            if x not in seen:
-                seen.add(x)
-                out.append(x)
-        return out
-    for word, pref in _BOARD_WORDS:
-        if word in q:
-            return list(pref)
-    return None
-
-
-def _names_map():
-    """code -> name（appdata/stock_names.csv，三源合一产物）。"""
-    out = {}
-    try:
-        for ln in STOCK_NAMES_FILE.read_text(encoding="utf-8", errors="ignore").splitlines():
-            p = ln.strip().split(",")
-            if len(p) >= 2 and re.fullmatch(r"\d{6}", p[0].strip()):
-                out.setdefault(p[0].strip(), p[1].strip())
-    except OSError:
-        pass
-    return out
-
-
-def _answer_composition(universe, question, stats):
-    """结果构成核查：某前缀/板块的股票在不在结果里、为什么。全部确定性取数。"""
-    prefixes = _detect_prefixes(question)
-    pool = dict(executor._collect_stock_files(universe))
-    names = _names_map()
-    rep = {"in_result": {}, "in_pool": {}}
-    paras = []
-    for p in prefixes:
-        in_pool = sorted(c for c in pool if c.startswith(p))
-        in_res = sorted(c for c in (stats["codes"] or []) if c.startswith(p))
-        rep["in_pool"][p] = {"n": len(in_pool), "sample": in_pool[:10]}
-        rep["in_result"][p] = {"n": len(in_res),
-                               "sample": [f"{c}({names.get(c, '?')})" for c in in_res[:10]]}
-        if in_res:
-            paras.append(f"结果中**有** {p} 开头的股票：共 {len(in_res)} 只"
-                         + ("（示例：" + "、".join(rep['in_result'][p]['sample']) + "）" if in_res else "") + "。")
-        elif in_pool:
-            paras.append(f"结果中**没有** {p} 开头的股票，但池内含 {len(in_pool)} 只该前缀股票"
-                         " → 说明该部分从未满足规则条件（不是数据遗漏）；"
-                         "可用「股票代码 日期」质询做逐股核查。")
-        else:
-            paras.append(f"结果中**没有** {p} 开头的股票——属预期而非遗漏："
-                         f"本模型 universe={universe} 的池子不收该前缀（板块过滤），"
-                         "从入口处即被排除。")
-    # 10cm × 创业板：点名已知口径裁定项（事实登记，不擅自改口径）
-    if universe == "10cm" and any(p in ("30", "300", "301") for p in prefixes):
-        paras.append("补充：创业板 2020-08-24 前为 10% 时代，引擎判定函数已按日期分段支持；"
-                     "但当前 10cm 池把 300/301 **整个板块**排除（含 10% 时代）。"
-                     "若要覆盖创业板 10cm 阶段，属口径变更（待裁定事项：池放开 + 信号日 < 2020-08-24 反向门），"
-                     "需裁定后走 golden 重造 → 模型重跑流程，本工作台不擅自改。")
-    rep["verdict"] = "【结果构成核查】"
-    rep["answer"] = paras
-    rep["question"] = question
-    return rep
-
-
 def answer_general(stem, plan, rule_text, universe, question):
     """非个股质询：意图路由 → 确定性回答。绝不编造，答不了的给能力清单。"""
     sp = (plan.get("strategy_plan") or {}) if isinstance(plan, dict) else {}
@@ -328,23 +258,15 @@ def answer_general(stem, plan, rule_text, universe, question):
 
     key = None
     q = question or ""
-    if _detect_prefixes(q):
-        key = "composition"
-    else:
-        for pat, k in _INTENTS:
-            if re.search(pat, q):
-                key = k
-                break
+    for pat, k in _INTENTS:
+        if re.search(pat, q):
+            key = k
+            break
     if not q.strip():
         key = "overview"
 
     paras, ev = [], {}
-    if key == "composition":
-        comp = _answer_composition(universe, q, stats or {"codes": [], "n_rows": 0})
-        paras = comp["answer"]
-        ev.update({"in_result": comp["in_result"], "in_pool": comp["in_pool"],
-                   "n_result_rows": stats["n_rows"] if stats else 0})
-    elif key == "interval":
+    if key == "interval":
         paras = ["间隔 N = 两段涨停之间、**不含两端涨停 K 线**的交易日天数；相邻涨停 N=0；"
                  "跨间隔（中间夹锚点）= 各相邻间隔之和 + 中间锚点个数。",
                  "区间写法 N1∈[a,b] 表示中间 K 线根数落在 a..b（含端点），[0,n] 才含「连续涨停」。"]
@@ -413,13 +335,11 @@ def answer_general(stem, plan, rule_text, universe, question):
         rep["verdict"] = "未能归类该问题（确定性回答不做猜测）。当前可答的问题类型："
         paras = ["① 个股质询：输入「股票代码 日期」，如 688037 20200117（可写中文名）；",
                  "② 口径类：区间涨幅/振幅怎么算、涨停怎么判定、间隔 N 怎么定义、T+0 走势窗口；",
-                 "③ 模型类：这个模型是什么规则、池子范围、命中统计（留空即模型概览）；",
-                 "④ 构成类：结果里有没有 XX 开头/创业板/科创板的股票。"]
+                 "③ 模型类：这个模型是什么规则、池子范围、命中统计（留空即模型概览）。"]
     else:
         titles = {"interval": "间隔定义", "amplitude": "振幅口径", "limit": "涨停判定口径",
                   "change": "涨幅/区间涨幅口径", "walk": "前向走势窗口", "amount": "成交额口径",
-                  "universe": "模型股票池", "stats": "命中统计", "overview": "模型概览",
-                  "composition": "结果构成核查"}
+                  "universe": "模型股票池", "stats": "命中统计", "overview": "模型概览"}
         rep["verdict"] = f"【{titles.get(key, key)}】"
     rep["answer"] = paras
     rep["evidence"] = ev

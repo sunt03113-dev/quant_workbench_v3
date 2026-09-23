@@ -1,0 +1,7 @@
+ask: 新增「结果构成核查」意图——修复「有没有30开头股票」答非所问（kk 09-23）
+
+- /api/ask/row 意图表补构成类：_detect_prefixes（30/688开头、创业板/科创板/主板）
+  + _answer_composition（池内×结果表确定性扫描，三分支：有/在池未满足/不在池属预期）
+- 10cm×创业板特判：点明池整个板块排除（含 10% 时代），覆盖属口径变更待裁定，不擅自改
+- 验收：API 7 用例 + UI 3/3 PASS（111A 用户原句出【结果构成核查】正确回答）
+- 仅 app/ask.py；ui/skill/golden/executor 零改动；证据 artifacts/verification/ask_composition/

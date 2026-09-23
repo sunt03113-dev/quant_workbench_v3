@@ -1,0 +1,65 @@
+{
+ "c1_111A_30": {
+  "ok": true,
+  "verdict": "【结果构成核查】",
+  "type": "general",
+  "in_result_30": 0,
+  "in_result_688": null,
+  "consistency": null,
+  "sec": 0.1
+ },
+ "c2_20cm_30": {
+  "ok": true,
+  "verdict": "【结果构成核查】",
+  "type": "general",
+  "in_result_30": 1294,
+  "in_result_688": null,
+  "consistency": null,
+  "sec": 0.2
+ },
+ "c3_20cm_688": {
+  "ok": true,
+  "verdict": "【结果构成核查】",
+  "type": "general",
+  "in_result_30": null,
+  "in_result_688": 497,
+  "consistency": null,
+  "sec": 0.2
+ },
+ "c4_stat_reg": {
+  "ok": true,
+  "verdict": "【命中统计】",
+  "type": "general",
+  "in_result_30": null,
+  "in_result_688": null,
+  "consistency": null,
+  "sec": 0.0
+ },
+ "c5_limit_reg": {
+  "ok": true,
+  "verdict": "【涨停判定口径】",
+  "type": "general",
+  "in_result_30": null,
+  "in_result_688": null,
+  "consistency": null,
+  "sec": 0.0
+ },
+ "c6_stock_reg": {
+  "ok": true,
+  "verdict": "当日为封死涨停（收=高=涨停价 94.0）。该股",
+  "type": "stock",
+  "in_result_30": null,
+  "in_result_688": null,
+  "consistency": "OK",
+  "sec": 1.7
+ },
+ "c7_unknown": {
+  "ok": true,
+  "verdict": "未能归类该问题（确定性回答不做猜测）。当前可答的",
+  "type": "general",
+  "in_result_30": null,
+  "in_result_688": null,
+  "consistency": null,
+  "sec": 0.1
+ }
+}

@@ -1,0 +1,26 @@
+﻿node.exe : node:internal/process/promises:394
+所在位置 行:445 字符: 159
++ ... e_modules"; & $node "D:\09work\quant_workbench_v3\quant_workbench_pac ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (node:internal/process/promises:39 
+   4:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+    triggerUncaughtException(err, true /* fromPromise */);
+    ^
+
+page.goto: Timeout 30000ms exceeded.
+Call log:
+[2m  - navigating to "http://localhost:8000/", waiting until "domcontentloaded
+"[22m
+
+    at D:\09work\quant_workbench_v3\quant_workbench_package\artifacts\verificat
+ion\ask_composition\debug_fetch.js:9:14 {
+  log: [
+    '  - navigating to "http://localhost:8000/", waiting until "domcontentloade
+d"'
+  ],
+  name: 'TimeoutError'
+}
+
+Node.js v22.22.2

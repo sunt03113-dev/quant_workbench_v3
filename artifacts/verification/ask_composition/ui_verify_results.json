@@ -1,0 +1,14 @@
+{
+ "detail_open": {
+  "ok": true,
+  "note": "详情页与质询面板可见"
+ },
+ "composition_answer": {
+  "ok": true,
+  "note": "【结果构成核查】"
+ },
+ "no_stats_fallback": {
+  "ok": true,
+  "note": "不再掉入命中统计兜底"
+ }
+}
