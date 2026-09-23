@@ -1,0 +1,17 @@
+OUT: add rc 0
+commit rc 0
+[main ce20c1d] chore: 补齐远端状态留证（区间语义修复收尾）
+ 2 files changed, 30 insertions(+)
+ create mode 100644 artifacts/verification/1s1a_bug_0923/git_commit2.txt
+ create mode 100644 artifacts/verification/1s1a_bug_0923/git_remote_state.txt
+
+--- log ---
+ce20c1d chore: 补齐远端状态留证（区间语义修复收尾）
+35447e0 chore: 补齐区间语义修复的提交过程留证（commit msg / staging / 提交诊断）
+9c4e11a interval: 识别层新增「区间条件」语义 —— D-1/D-x 同组条件升级为 D-x~D-1 整段（kk 方案A）
+8d6635c ask: 新增「结果条件核验」质询意图——修复"结果是否满足规则条件"类问题答非所问
+b01ca0e ui: 首页排序二次定稿——类别升序(2S系列垫底)+类别内卡片升序；修复前缀场景比较器不对称（1S1A 曾排到 1S1 前）；重打 M4 代码包（kk 09-23）
+
+remaining: (clean)
+ahead of origin/main: 4
+
