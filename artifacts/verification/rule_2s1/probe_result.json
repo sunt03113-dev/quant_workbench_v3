@@ -1,0 +1,92 @@
+{
+ "status": "READY",
+ "per_line": [
+  {
+   "line": "D-0：不涨停，收/定为阴",
+   "ok": true,
+   "fragments": []
+  },
+  {
+   "line": "D-1：涨停，成交额最大，股价最高",
+   "ok": false,
+   "fragments": [
+    "（全局）"
+   ]
+  },
+  {
+   "line": "D-2：不涨停，成交额不是最大",
+   "ok": false,
+   "fragments": [
+    "（全局）"
+   ]
+  },
+  {
+   "line": "D-3：不涨停，成交额不是最大",
+   "ok": false,
+   "fragments": [
+    "（全局）"
+   ]
+  },
+  {
+   "line": "D-4：不涨停，成交额不是最大",
+   "ok": false,
+   "fragments": [
+    "（全局）"
+   ]
+  },
+  {
+   "line": "D-5：不涨停，成交额不是最大",
+   "ok": false,
+   "fragments": [
+    "（全局）"
+   ]
+  },
+  {
+   "line": "D-6：不涨停，成交额不是最大",
+   "ok": false,
+   "fragments": [
+    "（全局）"
+   ]
+  },
+  {
+   "line": "D-0：日期",
+   "ok": false,
+   "fragments": [
+    "D-0：日期",
+    "（全局）"
+   ]
+  },
+  {
+   "line": "D-0：涨幅；振幅；最低价；最高价",
+   "ok": false,
+   "fragments": [
+    "D-0：涨幅",
+    "（全局）"
+   ]
+  },
+  {
+   "line": "D-1：振幅",
+   "ok": false,
+   "fragments": [
+    "D-1：振幅",
+    "（全局）"
+   ]
+  },
+  {
+   "line": "D-0/D-1：成交额环比",
+   "ok": false,
+   "fragments": [
+    "D-0/D-1：成交额环比",
+    "（全局）"
+   ]
+  },
+  {
+   "line": "T+0~T+6：价格走势",
+   "ok": false,
+   "fragments": [
+    "T+0~T+6：价格走势",
+    "（全局）"
+   ]
+  }
+ ]
+}

@@ -31,13 +31,11 @@ _RE_AMT_MAX_SCOPE = re.compile(r"(?:为)?(?:是)?(?:近)?20日最大|最大")
 _RE_AMT_NOT_SCOPE = re.compile(_NEG + r"(?:为)?(?:是)?(?:近)?(?:20日)?(?:最大|最高)")
 _RE_HIGH_MAX_SCOPE = re.compile(r"(?:为)?(?:是)?(?:近)?20日最高|最高")
 _RE_HIGH_NOT_SCOPE = re.compile(_NEG + r"(?:为)?(?:是)?(?:近)?(?:20日)?最高")
-_RE_CANDLE = re.compile(
-    r"(?:K线为|收盘?为|收定为|收/定为|定为)\s*(阳|阴)(?:线)?"
-    r"|(阳|阴)线|收(阳|阴)")
+_RE_CANDLE = re.compile(r"K线为(阳|阴)")
 _RE_UNIVERSE = re.compile(r"【?\s*(20|10)\s*cm\s*】?", re.IGNORECASE)
 
 _RE_OUT_KEY = re.compile(
-    r"^(D-?\d+|T\+\d+\s*[/~]\s*T\+\d+|D-?\d+\s*/\s*D-?\d+"
+    r"^(D-?\d+|T\+\d+\s*/\s*T\+\d+|D-?\d+\s*/\s*D-?\d+"
     r"|Dx(?:\s*-\s*\d+)?"
     r"|D-\(\s*x(?:\s*[+\-]\s*\d+)?\s*\)"
     r"|D-x(?:\s*[+\-]\s*\d+)?[\s/～~]*D[+\-]\d+"
@@ -46,7 +44,7 @@ _RE_OUT_KEY = re.compile(
 )
 _RE_OUT_DAY = re.compile(r"^D-?(\d+)$")
 _RE_OUT_RANGE = re.compile(r"^D-?(\d+)\s*[/~～]\s*D-?(\d+)$")
-_RE_OUT_T = re.compile(r"^T\+(\d+)\s*[/~]\s*T\+(\d+)$")
+_RE_OUT_T = re.compile(r"^T\+(\d+)\s*/\s*T\+(\d+)$")
 # 组合规则（变量日）输出键：
 #   Dx-2  -> D-(x+2)（kk 确认：减号表示比 D-x 更远 k 天）
 #   Dx    -> D-x
@@ -141,11 +139,7 @@ def _parse_conditions(clause):
             return None
     mc = _RE_CANDLE.search(c)
     if mc:
-        cond["candle"] = next(g for g in mc.groups() if g)
-    elif re.search(r"[阳阴]", c):
-        # 出现阳/阴字样但未匹配任何已知阴/阳线写法 -> fail-closed，
-        # 绝不允许阴/阳线条件被静默丢弃（2S1「收/定为阴」教训）。
-        return None
+        cond["candle"] = mc.group(1)
     return cond if cond else None
 
 
@@ -316,7 +310,7 @@ def _parse_outputs(out_text):
                     outputs.append({"atom": "range_max_amplitude", "days": [a, b], "sep": sep})
                 elif "区间振幅" in itn:
                     outputs.append({"atom": "range_amplitude", "days": [a, b], "sep": sep})
-                elif "成交额百分比" in itn or "成交额环比" in itn:
+                elif "成交额百分比" in itn:
                     outputs.append({"atom": "amount_pct", "days": [a, b], "sep": sep})
                 else:
                     err = clause

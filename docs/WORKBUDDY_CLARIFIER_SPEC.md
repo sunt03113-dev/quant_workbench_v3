@@ -1,6 +1,15 @@
 # WorkBuddy 侧澄清与诊断能力 —— 设计草稿
 
-> ## 定稿摘要（kk 2026-09-22 22:00 确认，以本节为准）
+> ## 修订（kk 2026-09-23 确认，取代下方 09-22 摘要的交互部分）
+> 1. **「用户除维修外，所有使用都在工作台」**：回测后质询从「剪贴板桥 → WorkBuddy」改为 **UI 内问答**——
+>    详情页「询问模型」→ 内联面板提问 → 后端 `POST /api/ask/row`（只读）确定性核验 → 原位展示结论+证据。
+>    该接口是 capability probe（07 能力全通）的收编，**只调原 recognizer/executor/Skill 函数，零新增判定逻辑**；
+>    重跑与已存结果不一致 → 只报异常不解释（铁律不变）。
+> 2. WorkBuddy 角色收缩为：开发/维修/部署支持；M4 机上同一路径可用（venv + app/skill + vipdoc 随包）。
+> 3. 回测前消歧铁律不变：只有 `recognize` READY 才进确认/回测。
+> 4. 实装记录：`artifacts/verification/rule_2s1/CHANGES.md`（2026-09-23）。
+
+> ## 定稿摘要（kk 2026-09-22 22:00；其中交互方式已被上方 09-23 修订取代）
 > 1. **不新增第二个 Agent**、不新增 diagnose API、不新增诊断状态码体系、不新增 clarifier Skill、不改冻结引擎逻辑。
 > 2. 产品层唯一新增：**模型卡片加一个「询问模型」入口**；技术底层尽量不新增业务结构。
 > 3. 底层直接复用 **WorkBuddy 主 Agent + 现有规则 + 现有执行能力**（探针实证七项能力全通，见 `artifacts/verification/capability_probe/REPORT.md`）。

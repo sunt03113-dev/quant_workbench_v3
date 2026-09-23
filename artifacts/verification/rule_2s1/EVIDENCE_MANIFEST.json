@@ -1,0 +1,8 @@
+{
+ "app/recognizer.py (after)": "be3a348387278955f9edf9b37b2ad08eec79a5a2b6cb7a4c8f6d26cbbd90e9f0",
+ "app/server.py (after)": "947a19165cf1ef924b758fdfb204d1a917273aba7e669c4d1b0444b97ed1c0a2",
+ "app/ask.py (new)": "ec328512f3cd9440f05645e2febeb85bb8493dcd3083776ac7d7ee7c95c64fc4",
+ "ui/ui_v2.html (after)": "f492e4a05eff32fbd937461b05b1fa5e5ed29919bbb5de31a19ade6b5f38731a",
+ "ui_before_0923": "cbffc3dfecf720948f74dcc447f45f69a359ba7d70c8cb795c77313e31de075b",
+ "recognizer_before": "ccd1614263a087b628319086794048b2350b193cb781537ad6385d6e360ff306"
+}

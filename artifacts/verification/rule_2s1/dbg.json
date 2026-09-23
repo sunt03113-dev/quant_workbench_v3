@@ -1,0 +1,13 @@
+{
+ "norm": "不涨停，收/定为阴",
+ "parse_conditions": {
+  "limit_up": false,
+  "candle": "阴"
+ },
+ "regex_hit": true,
+ "groups": [
+  "阴",
+  null,
+  null
+ ]
+}

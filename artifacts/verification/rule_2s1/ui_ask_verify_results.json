@@ -1,0 +1,35 @@
+{
+ "generated_at": "2026-09-23T02:10:43.039Z",
+ "results": [
+  {
+   "name": "card_with_stem",
+   "ok": true,
+   "detail": "stem=strategy_20cm_v1"
+  },
+  {
+   "name": "ask_btn_visible",
+   "ok": true,
+   "detail": "详情页按钮可见（stem=strategy_20cm_v1）"
+  },
+  {
+   "name": "panel_opens_inline",
+   "ok": true,
+   "detail": "点击后内联面板展开（无 prompt、无剪贴板）"
+  },
+  {
+   "name": "answer_rendered",
+   "ok": true,
+   "detail": "当日收盘 102.8 / 最高 109.8，均不等于涨停价（20% 口径 112.8）→ 未封死涨停；对要求「该日为涨停」的条件不成立 → 不是遗漏；但成交额为近20日最大、最高价为近20日最高。"
+  },
+  {
+   "name": "evidence_rendered",
+   "ok": true,
+   "detail": "回答区含核验证据（或在池判定即止）"
+  },
+  {
+   "name": "second_query_ok",
+   "ok": true,
+   "detail": "连续第二次质询（涨停日）返回封板结论"
+  }
+ ]
+}

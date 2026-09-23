@@ -1,0 +1,3 @@
+﻿PASS card_with_stem: stem=strategy_20cm_v1
+PASS ask_btn_visible: 璇︽儏椤垫寜閽彲瑙侊紙stem=strategy_20cm_v1锛?PASS panel_opens_inline: 鐐瑰嚮鍚庡唴鑱旈潰鏉垮睍寮€锛堟棤 prompt銆佹棤鍓创鏉匡級
+PASS answer_rendered: 褰撴棩鏀剁洏 102.8 / 鏈€楂?109.8锛屽潎涓嶇瓑浜庢定鍋滀环锛?0% 鍙ｅ緞 112.8锛夆啋 鏈皝姝绘定鍋滐紱瀵硅姹傘€岃鏃ヤ负娑ㄥ仠銆嶇殑鏉′欢涓嶆垚绔?鈫?涓嶆槸閬楁紡锛涗絾鎴愪氦棰濅负杩?0鏃ユ渶澶с€佹渶楂樹环涓鸿繎20鏃ユ渶楂樸€?PASS evidence_rendered: 鍥炵瓟鍖哄惈鏍搁獙璇佹嵁锛堟垨鍦ㄦ睜鍒ゅ畾鍗虫锛?PASS second_query_ok: 杩炵画绗簩娆¤川璇紙娑ㄥ仠鏃ワ級杩斿洖灏佹澘缁撹

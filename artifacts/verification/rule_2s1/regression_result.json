@@ -1,0 +1,177 @@
+{
+ "golden_n": 26,
+ "golden_verdicts": {
+  "0814": "CAPABILITY_GAP",
+  "0818A": "PASS_WITH_KNOWN_T0_CONFLICT",
+  "0818B": "PASS_WITH_KNOWN_T0_CONFLICT",
+  "0822": "PASS_WITH_KNOWN_T0_CONFLICT",
+  "0824": "CONFLICT",
+  "0827A": "CONFLICT",
+  "0827B": "PASS_WITH_KNOWN_T0_CONFLICT",
+  "0908": "PASS_WITH_KNOWN_T0_CONFLICT",
+  "0908B": "PASS_WITH_KNOWN_T0_CONFLICT",
+  "0908C": "PASS_WITH_KNOWN_T0_CONFLICT",
+  "0909A": "CONFLICT",
+  "0910A": "PASS_WITH_KNOWN_T0_CONFLICT",
+  "0911": "PASS",
+  "0912": "PASS",
+  "0913A": "PASS",
+  "0913B": "PASS",
+  "0915A": "PASS",
+  "0915B": "PASS",
+  "0915C": "PASS",
+  "0917A": "PASS",
+  "0917B": "PASS",
+  "0917C": "PASS",
+  "0917D": "PASS",
+  "0917E": "PASS",
+  "0918A": "PASS",
+  "0918B": "PASS"
+ },
+ "golden_match_baseline": true,
+ "neg": {
+  "yang_residue_failclosed": "FAILED",
+  "t_walk_needs_zoushi": "FAILED"
+ },
+ "pos": {
+  "candle_0_K线为阴": {
+   "status": "READY",
+   "candle": "阴"
+  },
+  "candle_1_收盘为阳": {
+   "status": "READY",
+   "candle": "阳"
+  },
+  "candle_2_收为阴": {
+   "status": "READY",
+   "candle": "阴"
+  },
+  "candle_3_定为阴": {
+   "status": "READY",
+   "candle": "阴"
+  },
+  "candle_4_收定为阴线": {
+   "status": "READY",
+   "candle": "阴"
+  },
+  "candle_5_收阳": {
+   "status": "READY",
+   "candle": "阳"
+  },
+  "candle_6_阴线": {
+   "status": "READY",
+   "candle": "阴"
+  },
+  "amt_huanbi_range": {
+   "status": "READY",
+   "atoms": [
+    "amount_pct"
+   ]
+  },
+  "t_wave_tilde": {
+   "status": "READY",
+   "atoms": [
+    "t_walk"
+   ],
+   "strict_pass": true
+  }
+ },
+ "rule_2s1": {
+  "status": "READY",
+  "summary": {
+   "universe": "20cm",
+   "events": [
+    {
+     "id": "D-6",
+     "conditions": [
+      "非涨停",
+      "成交额非20日最大"
+     ],
+     "is_condition_event": true
+    },
+    {
+     "id": "D-5",
+     "conditions": [
+      "非涨停",
+      "成交额非20日最大"
+     ],
+     "is_condition_event": true
+    },
+    {
+     "id": "D-4",
+     "conditions": [
+      "非涨停",
+      "成交额非20日最大"
+     ],
+     "is_condition_event": true
+    },
+    {
+     "id": "D-3",
+     "conditions": [
+      "非涨停",
+      "成交额非20日最大"
+     ],
+     "is_condition_event": true
+    },
+    {
+     "id": "D-2",
+     "conditions": [
+      "非涨停",
+      "成交额非20日最大"
+     ],
+     "is_condition_event": true
+    },
+    {
+     "id": "D-1",
+     "conditions": [
+      "涨停",
+      "成交额20日最大",
+      "最高价20日最高"
+     ],
+     "is_condition_event": true
+    },
+    {
+     "id": "D-0",
+     "conditions": [
+      "非涨停",
+      "K线为阴"
+     ],
+     "is_condition_event": true
+    }
+   ],
+   "outputs": [
+    "date",
+    "change",
+    "amplitude",
+    "rel_low",
+    "rel_high",
+    "amplitude",
+    "amount_pct",
+    "t_walk"
+   ]
+  },
+  "e2e": {
+   "n_rows": 1490,
+   "n_cols": 16,
+   "recheck_violations": 0,
+   "sample": {
+    "股票代码": "688003",
+    "股票名称": "天准科技",
+    "D-0日期": "2026-08-18",
+    "D-0涨幅": -4.85,
+    "D-0振幅": 6.86,
+    "D-0最低价": "-8.03",
+    "D-0最高价": "-1.17",
+    "D-1振幅": 16.2,
+    "D-0/D-1成交额百分比": "83.52%",
+    "T+0(低/高)": "-10%/-3%(阴)",
+    "T+1最高价": "-1%",
+    "T+2最高价": "-1%",
+    "T+3最高价": "-4%",
+    "T+4最高价": "-9%",
+    "T+5最高价": "-8%",
+    "T+6最高价": "-6%"
+   }
+  }
+ }
+}

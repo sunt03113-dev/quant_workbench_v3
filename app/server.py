@@ -24,6 +24,7 @@ from fastapi import FastAPI, HTTPException
 from fastapi.responses import FileResponse, JSONResponse
 from pydantic import BaseModel
 
+import ask
 import executor
 import provider
 import recognizer
@@ -58,6 +59,13 @@ class BacktestReq(BaseModel):
     rule_text: str = ""
     stem: str | None = None
     with_names: bool = True
+
+
+class AskReq(BaseModel):
+    stem: str | None = None
+    code: str | None = None
+    date: str | None = None
+    query: str | None = None
 
 
 # ───────────────────────── 冻结 UI ─────────────────────────
@@ -190,6 +198,21 @@ def candidates(stem: str, limit: int = 10000):
     if res is None:
         raise HTTPException(404, detail="该模型尚无成功回测结果")
     return {"columns": res["columns"], "rows": res["rows"][:limit]}
+
+
+@app.post("/api/ask/row")
+def ask_row(req: AskReq):
+    """只读质询：确定性核验单股单日在某模型下的命中情况（app/ask.py）。
+
+    铁律：只读（不写 current/previous）；结论与数字均来自代码判定；
+    重跑与已存结果不一致时只报异常、不自行解释。
+    """
+    if not (req.stem or req.query):
+        raise HTTPException(422, detail="需要 stem（或 query 中含模型关键词）")
+    try:
+        return ask.ask(req.stem or "", code=req.code, date=req.date, query=req.query)
+    except ValueError as e:
+        raise HTTPException(404, detail=str(e))
 
 
 @app.get("/api/backtest/{stem}/candidates/export")
