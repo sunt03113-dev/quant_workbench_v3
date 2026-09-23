@@ -105,8 +105,11 @@ overlay = [
     "deploy/M4_DEPLOY_INSTRUCTION.md",
 ]
 for p in sorted(ART.iterdir()):
-    # 排除本机安全网备份 zip（非交付物）
-    if p.is_file() and p.suffix != ".zip":
+    # 排除两类：
+    #   1) 本机安全网备份 zip（非交付物，且 3.9MB state 备份会白占体积）
+    #   2) 打包报告 pack_build_phase*.json —— **自引用**：报告里写着包的 sha256，
+    #      而写入报告会让包哈希再变。把它排除后重打即幂等（同一 HEAD 连打两次哈希相同）。
+    if p.is_file() and p.suffix != ".zip" and not p.name.startswith("pack_build_phase"):
         overlay.append(p.relative_to(PKG).as_posix())
 for a in overlay:
     f = PKG / a
@@ -115,11 +118,15 @@ for a in overlay:
 prev_code_sha = sha256(OUT)
 with zipfile.ZipFile(OUT) as z:
     base = set(n for n in z.namelist() if not n.endswith("/"))
+# 旧包里已混入的打包报告（自引用）一次性剔除，避免包内留一份哈希过期的报告
+base = {n for n in base if not Path(n).name.startswith("pack_build_phase")}
 ovset = set(overlay)
 TMP = DIST / "_deploy_new.zip"
 with zipfile.ZipFile(OUT) as zin, zipfile.ZipFile(TMP, "w", zipfile.ZIP_DEFLATED, compresslevel=6) as zout:
     for item in zin.infolist():
         if item.filename.endswith("/"):
+            continue
+        if Path(item.filename).name.startswith("pack_build_phase"):
             continue
         data = (PKG / item.filename).read_bytes() if item.filename in ovset else zin.read(item.filename)
         zi = zipfile.ZipInfo(item.filename, date_time=item.date_time)
