@@ -1,0 +1,7 @@
+[load] current.xlsx rows=274 data_date=2026-09-23
+[load] columns=['股票代码', '股票名称', 'D-0日期', 'D-(x+2)振幅', 'D-(x+1)振幅', 'x', 'D-x~D-1区间涨幅', 'D-x~D-1区间振幅', 'D-x~D-1区间最大振幅', 'D-0振幅', 'D+1(低/高)', 'D+2最高价', 'D+3最高价', 'D+4最高价', 'D+5最高价', 'D+6最高价', 'D+7最高价', 'D+8最高价']
+[A] engine validate_rows violations = 0
+[B] row0 600006 D-0=2024-03-15 x=6 -> OK
+[B] row137 000597 D-0=2020-01-20 x=11 -> OK
+[B] row273 300717 D-0=2020-08-04 x=9 -> OK
+[C] desktop xlsx rows=(274, 18) shape_match=True cols_match=True cell_diffs=1

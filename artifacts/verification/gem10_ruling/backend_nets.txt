@@ -1,0 +1,4 @@
+﻿backend pid=13372
+cpu=212s threads=29 started=09/23/2026 12:57:30
+--- established by remote ---
+127.0.0.1 x2

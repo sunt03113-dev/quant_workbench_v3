@@ -1,0 +1,8 @@
+﻿log size: 93756 bytes, total lines: 1175
+--- distinct job ids polled ---
+a3721e919cdc  (polled x819)
+ae42c6444574  (polled x209)
+b7079ebe1214  (polled x95)
+--- first/last log line with timestamp-ish ---
+first: INFO:     Started server process [13372]
+last:  INFO:     127.0.0.1:52673 - "GET /api/daily/jobs/b7079ebe1214 HTTP/1.1" 200 OK

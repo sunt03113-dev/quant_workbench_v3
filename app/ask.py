@@ -281,6 +281,76 @@ def _names_map():
     return out
 
 
+# ── 结果条件核验（2026-09-23：质询「结果是否满足/包含规则条件」类问题）──────────
+_COND_TRIGGER = re.compile(r"没这个条件|条件吗|满足|符合|核实|核对|逐条|漏了|少了")
+
+
+def _label_day(d):
+    if "offset_var" in d:
+        k = d["offset_var"]
+        return "D-x" if k == 0 else f"D-(x+{k})"
+    return f"D-{abs(d.get('offset', 0))}"
+
+
+def _cond_desc(d):
+    parts = []
+    if d.get("limit_up") is True:
+        parts.append("涨停")
+    elif d.get("limit_up") is False:
+        parts.append("非涨停")
+    if d.get("amount_max20") is True:
+        parts.append("成交额为20日最大")
+    elif d.get("amount_max20") is False:
+        parts.append("成交额非20日最大")
+    if d.get("high_max20") is True:
+        parts.append("股价为20日最高")
+    elif d.get("high_max20") is False:
+        parts.append("股价非20日最高")
+    return "、".join(parts) if parts else "（无该日条件）"
+
+
+_CONDCHECK_CACHE = {}  # (stem, data_date, n_rows) -> violations
+
+
+def _answer_condcheck(stem, plan, universe, question, stats):
+    """条件核验：列出识别计划包含的日条件 + 引擎对已存结果的逐行复核结论。零新增判定。"""
+    sp = (plan.get("strategy_plan") or {}) if isinstance(plan, dict) else {}
+    days = sp.get("days") or []
+    quant = sp.get("quantifier") or {}
+    paras = ["识别计划包含以下日条件（每行命中都必须逐条满足）："]
+    for d in days:
+        paras.append(f"· {_label_day(d)}：{_cond_desc(d)}")
+    if quant:
+        paras.append(f"· 量词：x ∈ [{quant.get('min')}, {quant.get('max')}]"
+                     "（范围内每个 x 单独取一行）")
+    ev = {"conditions": [{"day": _label_day(d),
+                          **{k: d[k] for k in ("limit_up", "amount_max20", "high_max20")
+                             if k in d}} for d in days]}
+    cur = store.load_result(stem, "current")
+    if not cur or not (cur.get("rows")):
+        paras.append("该模型暂无已存结果，无法核验。")
+        return {"answer": paras, "evidence": ev}
+    rows = cur["rows"]
+    columns = list(cur.get("columns") or [])
+    key = (stem, (cur.get("meta") or {}).get("data_date"), len(rows))
+    if key in _CONDCHECK_CACHE:
+        viol = _CONDCHECK_CACHE[key]
+    else:
+        viol = executor.validate_rows(plan, rows, columns)
+        _CONDCHECK_CACHE[key] = viol
+    ev["n_rows_checked"] = len(rows)
+    ev["violations"] = viol[:20]
+    if not viol:
+        paras.append(f"引擎已对全部 {len(rows)} 行已存结果**逐行复核：0 违例**——"
+                     "每行都满足以上全部条件，不存在「满足条件却被漏掉」的行。")
+    else:
+        paras.append(f"引擎逐行复核发现 **{len(viol)} 项违例**（前 20 项见证据）——"
+                     "结果与计划不一致，需排查，请勿使用该结果。")
+    paras.append("口径：「成交额最大/股价最高」= 近 20 个交易日窗口内最大（rolling_max20）；"
+                 "涨停 = 严格相等口径（收盘与最高都等于涨停价）。")
+    return {"answer": paras, "evidence": ev}
+
+
 def _answer_composition(universe, question, stats):
     """结果构成核查：某前缀/板块的股票在不在结果里、为什么。全部确定性取数。"""
     prefixes = _detect_prefixes(question)
@@ -329,6 +399,8 @@ def answer_general(stem, plan, rule_text, universe, question):
     q = question or ""
     if _detect_prefixes(q):
         key = "composition"
+    elif _COND_TRIGGER.search(q):
+        key = "condcheck"
     else:
         for pat, k in _INTENTS:
             if re.search(pat, q):
@@ -343,6 +415,10 @@ def answer_general(stem, plan, rule_text, universe, question):
         paras = comp["answer"]
         ev.update({"in_result": comp["in_result"], "in_pool": comp["in_pool"],
                    "n_result_rows": stats["n_rows"] if stats else 0})
+    elif key == "condcheck":
+        cc = _answer_condcheck(stem, plan, universe, q, stats)
+        paras = cc["answer"]
+        ev.update(cc["evidence"])
     elif key == "interval":
         paras = ["间隔 N = 两段涨停之间、**不含两端涨停 K 线**的交易日天数；相邻涨停 N=0；"
                  "跨间隔（中间夹锚点）= 各相邻间隔之和 + 中间锚点个数。",
@@ -418,7 +494,7 @@ def answer_general(stem, plan, rule_text, universe, question):
         titles = {"interval": "间隔定义", "amplitude": "振幅口径", "limit": "涨停判定口径",
                   "change": "涨幅/区间涨幅口径", "walk": "前向走势窗口", "amount": "成交额口径",
                   "universe": "模型股票池", "stats": "命中统计", "overview": "模型概览",
-                  "composition": "结果构成核查"}
+                  "composition": "结果构成核查", "condcheck": "结果条件核验"}
         rep["verdict"] = f"【{titles.get(key, key)}】"
     rep["answer"] = paras
     rep["evidence"] = ev

@@ -1,0 +1,121 @@
+{
+ "rule_text": "【10cm】\n\n\n【筛选条件】\n\nD-0：涨停，成交额最大，股价最高\nD-1：不是涨停，成交额不是最大，股价不是最高\nD-x：不是涨停，成交额不是最大，股价不是最高\nD-(x+1)：不是涨停，成交额最大，股价最高\nD-(x+2)：涨停，成交额最大，股价最高\nD-(x+3)：不是涨停，成交额不是最大\nD-(x+4)：不是涨停，成交额不是最大\n\n2≤x≤11\n\n【输出指标】\nD-0：日期\n\nD-(x+2)：振幅\nD-(x+1)：振幅\nx：数值\nD-x~D-1：区间涨幅；区间振幅；区间最大振幅\nD-0：振幅\n\nD+1/D+8：价格走势",
+ "plan": {
+  "schema_version": 1,
+  "kind": "day_pattern_backward",
+  "strategy_plan": {
+   "universe": "10cm",
+   "days": [
+    {
+     "offset": -1,
+     "limit_up": false,
+     "amount_max20": false,
+     "high_max20": false
+    },
+    {
+     "offset": 0,
+     "limit_up": true,
+     "amount_max20": true,
+     "high_max20": true
+    },
+    {
+     "offset_var": 0,
+     "limit_up": false,
+     "amount_max20": false,
+     "high_max20": false
+    },
+    {
+     "offset_var": 1,
+     "limit_up": false,
+     "amount_max20": true,
+     "high_max20": true
+    },
+    {
+     "offset_var": 2,
+     "limit_up": true,
+     "amount_max20": true,
+     "high_max20": true
+    },
+    {
+     "offset_var": 3,
+     "limit_up": false,
+     "amount_max20": false
+    },
+    {
+     "offset_var": 4,
+     "limit_up": false,
+     "amount_max20": false
+    }
+   ],
+   "outputs": [
+    {
+     "atom": "date",
+     "day": 0
+    },
+    {
+     "atom": "amplitude",
+     "day_var": 2
+    },
+    {
+     "atom": "amplitude",
+     "day_var": 1
+    },
+    {
+     "atom": "x_value"
+    },
+    {
+     "atom": "range_change",
+     "days": [
+      {
+       "var": 0
+      },
+      -1
+     ],
+     "sep": "~"
+    },
+    {
+     "atom": "range_amplitude",
+     "days": [
+      {
+       "var": 0
+      },
+      -1
+     ],
+     "sep": "~"
+    },
+    {
+     "atom": "range_max_amplitude",
+     "days": [
+      {
+       "var": 0
+      },
+      -1
+     ],
+     "sep": "~"
+    },
+    {
+     "atom": "amplitude",
+     "day": 0
+    },
+    {
+     "atom": "t_walk",
+     "t0": 0,
+     "t1": 7,
+     "day_base": 1
+    }
+   ],
+   "quantifier": {
+    "var": "x",
+    "min": 2,
+    "max": 11
+   }
+  }
+ },
+ "current_result_keys": [
+  "n_hits",
+  "data_date",
+  "columns",
+  "updated_at",
+  "meta"
+ ]
+}
