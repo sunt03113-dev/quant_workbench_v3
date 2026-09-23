@@ -421,14 +421,12 @@ function loadState() {
 }
 function saveState() { localStorage.setItem(LS_STATE, JSON.stringify(state)); }
 
-// ===================== 类别排序规则（kk 2026-09-23 二次定稿） =====================
-// 类别：**升序**（自然升序），「2S」开头系列固定垫底（内部同样升序）；
-// 类别内模型卡片也按名称**升序**（自然排序）。新增类别/卡片按此规则插入。
-// （上一版「数字从大到小」口径已废，见 migrateOrderAsc0923 一次性迁移。）
+// ===================== 类别排序规则（kk 2026-09-23 定稿） =====================
+// 数字从大到小（自然降序），「2S」开头系列固定垫底；新增类别也按此规则插入。
 function is2sName(n) { return /^2S/i.test(String(n || '')); }
 
 function catTokens(name) {
-  // 「N/M」读作 N.M（如 1/2 → 1.2 档位），参与数字排序
+  // 「N/M」读作 N.M（如 1/2 → 1.2 档位），参与数字降序
   const s = String(name || '').replace(/(\d+)\s*\/\s*(\d+)/g, (m, a, b) => `${a}.${b}`);
   const parts = []; let i = 0;
   while (i < s.length) {
@@ -441,48 +439,26 @@ function catTokens(name) {
   return parts;
 }
 
-// 规范化自然**升序**比较器（唯一真源；降序由参数反转导出）。
-// 注意：数字/字符交界的前缀场景（如 1S1 vs 1S1A）必须满足 cmp(a,b) = -cmp(b,a)，
-// 旧版降序实现在该场景不对称（曾致 1S1A 排到 1S1 前面），已修复。
-function cmpNatAsc(a, b) {
+// 降序比较：>0 表示 a 应排在 b 前面
+function cmpCatDesc(a, b) {
   const A = catTokens(a), B = catTokens(b);
   for (let k = 0; k < Math.max(A.length, B.length); k++) {
     const x = A[k], y = B[k];
     if (!x && !y) return 0;
-    if (!x) return -1; // a 先耗尽（更短的前缀）→ a 在前
+    if (!x) return -1;
     if (!y) return 1;
-    if (x.d !== undefined && y.d !== undefined) { if (x.d !== y.d) return x.d - y.d; }
-    else if (x.c !== undefined && y.c !== undefined) { if (x.c !== y.c) return x.c.charCodeAt(0) - y.c.charCodeAt(0); }
-    else if (x.d !== undefined) return -1; // 同位数字 vs 字符：数字在前
+    if (x.d !== undefined && y.d !== undefined) { if (x.d !== y.d) return y.d - x.d; }
+    else if (x.c !== undefined && y.c !== undefined) { if (x.c !== y.c) return y.c.charCodeAt(0) - x.c.charCodeAt(0); }
+    else if (x.d !== undefined) return -1; // 同位数字 vs 字符：字符序列优先
     else return 1;
   }
   return 0;
 }
 
-// 升序比较：<0 表示 a 应排在 b 前面
-function cmpCatAsc(a, b) { return cmpNatAsc(a, b); }
-
-// 降序比较（保留兼容名；>0 表示 a 应排在 b 前面）
-function cmpCatDesc(a, b) { return cmpNatAsc(b, a); }
-
-// 卡片名升序（自然排序；空名排最后）
-function cmpCardAsc(a, b) {
-  const na = String(a?.name || ''), nb = String(b?.name || '');
-  if (!na && !nb) return 0;
-  if (!na) return 1;
-  if (!nb) return -1;
-  return cmpCatAsc(na, nb);
-}
-
-function sortCardsAsc(group) {
-  // Array.prototype.sort 为稳定排序：同名卡片保持原相对顺序
-  group.cards.sort(cmpCardAsc);
-}
-
 function defaultSortGroups(groups) {
-  // 主区升序；2S 系列垫底（内部升序）
-  const main = groups.filter(g => !is2sName(g.name)).sort((a, b) => cmpCatAsc(a.name, b.name));
-  const tail = groups.filter(g => is2sName(g.name)).sort((a, b) => cmpCatAsc(a.name, b.name));
+  const main = groups.filter(g => !is2sName(g.name)).sort((a, b) => cmpCatDesc(a.name, b.name));
+  // 2S 系列垫底，内部保持升序（2S1 在 2S2/2S3 之前，与手工建立顺序一致）
+  const tail = groups.filter(g => is2sName(g.name)).sort((a, b) => cmpCatDesc(b.name, a.name));
   return main.concat(tail);
 }
 
@@ -493,19 +469,9 @@ function insertGroupByRule(g) {
   for (let i = 0; i < state.groups.length; i++) {
     const n = state.groups[i].name;
     if (is2sName(n)) { idx = i; break; }              // 垫底区之前
-    if (cmpCatAsc(g.name, n) < 0) { idx = i; break; } // 升序：插在第一个比它大的前面
+    if (cmpCatDesc(g.name, n) > 0) { idx = i; break; } // 插在第一个比它小的前面
   }
   state.groups.splice(idx, 0, g);
-}
-
-// 新卡片按升序插入（保留用户拖拽结果；空名排最后）
-function insertCardByRule(group, card) {
-  if (!String(card.name || '').trim()) { group.cards.push(card); return; }
-  let idx = group.cards.length;
-  for (let i = 0; i < group.cards.length; i++) {
-    if (cmpCardAsc(card, group.cards[i]) < 0) { idx = i; break; }
-  }
-  group.cards.splice(idx, 0, card);
 }
 
 // 一次性迁移：2S 拆为 2S1 与 2S2/2S3 + 应用默认排序（幂等）
@@ -525,15 +491,6 @@ function migrateState() {
   }
   state.groups = defaultSortGroups(state.groups);
   state.mig2sSplit = true;
-  saveState();
-}
-
-// 一次性迁移：类别升序（2S 垫底）+ 各类别卡片升序（幂等；kk 2026-09-23 二次定稿）
-function migrateOrderAsc0923() {
-  if (state.migOrderAsc0923) return;
-  state.groups = defaultSortGroups(state.groups);
-  state.groups.forEach(sortCardsAsc);
-  state.migOrderAsc0923 = true;
   saveState();
 }
 
@@ -775,8 +732,8 @@ addModelCreate.addEventListener('click', () => {
     if (!targetGroup) { addModelError.textContent = '请选择有效的类别'; return; }
   }
 
-  // 创建模型（按升序规则插入，保持类别内卡片有序）
-  insertCardByRule(targetGroup, { id: 'c' + Date.now(), name, ruleStem: null, desc: '' });
+  // 创建模型
+  targetGroup.cards.push({ id: 'c' + Date.now(), name, ruleStem: null, desc: '' });
   saveState();
   renderHome();
   loadCardStocks();
@@ -1811,7 +1768,6 @@ function deleteGroup(gid) {
 loadState();
 purgeOldTrash();
 migrateState();
-migrateOrderAsc0923();
 renderHome();
 loadCardStocks();
 </script>

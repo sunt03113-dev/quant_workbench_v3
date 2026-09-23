@@ -1,0 +1,8 @@
+script block #1: syntax OK (59725 chars)
+cats ascending+2S-tail: ["1S","1Z","1/2","3S","4S","2S1","2S2/2S3"]
+test1 categories: PASS
+cards asc: ["1S1","1S1A","1S2A1","1S2A2","1S2A3","1S2B1","1S2B2","1S3A1","1S3A2","1S3B1","1S3B2","1S4A","1S4B","1S4C"]
+test2 cards screenshot order: PASS
+test3 insert new card: PASS
+test4 insert new category: PASS
+test5 (visual order sanity) 1S1A position = 1

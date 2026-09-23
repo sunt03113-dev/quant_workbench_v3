@@ -1,0 +1,4 @@
+ui_v2.html before (git 2656704): f350259362d305a6a85d2a15f9a413fce0aec8974af8ce42fa377c77fc326e0d
+ui_v2.html after  (order-asc):    6de4dfc0f051a9d52efd0f6f40b05a31380d86515c3e3b87137153cab09fe4ab
+changes: 类别升序(2S垫底) + 卡片升序 + migrateOrderAsc0923 一次性迁移 + insertCardByRule
+verify: artifacts/verification/ui_order_asc/verify.txt (4/4 PASS, script syntax OK)

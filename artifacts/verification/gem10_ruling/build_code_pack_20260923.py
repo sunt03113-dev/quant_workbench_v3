@@ -20,6 +20,7 @@ STATE = DIST / "qwb_state_pack_20260923.zip"
 overlay = [
     "app/ask.py",
     "app/executor.py",
+    "ui/ui_v2.html",  # 2026-09-23 二次定稿：类别升序(2S垫底) + 卡片升序
     "skill/tdx-stock-backtest-master/0824_backtest.py",
     "skill/tdx-stock-backtest-master/0827A_backtest.py",
     "skill/tdx-stock-backtest-master/0909A_backtest.py",
