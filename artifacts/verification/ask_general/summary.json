@@ -1,0 +1,66 @@
+{
+ "case1_change": {
+  "ok": true,
+  "type": "general",
+  "verdict": "【涨幅/区间涨幅口径】",
+  "in_pool": null,
+  "consistency": null,
+  "sec": 0.0
+ },
+ "case2_interval": {
+  "ok": true,
+  "type": "general",
+  "verdict": "【间隔定义】",
+  "in_pool": null,
+  "consistency": null,
+  "sec": 0.1
+ },
+ "case3_limit": {
+  "ok": true,
+  "type": "general",
+  "verdict": "【涨停判定口径】",
+  "in_pool": null,
+  "consistency": null,
+  "sec": 0.1
+ },
+ "case4_overview": {
+  "ok": true,
+  "type": "general",
+  "verdict": "【模型概览】",
+  "in_pool": null,
+  "consistency": null,
+  "sec": 0.0
+ },
+ "case5_stats": {
+  "ok": true,
+  "type": "general",
+  "verdict": "【命中统计】",
+  "in_pool": null,
+  "consistency": null,
+  "sec": 0.1
+ },
+ "case6_unknown": {
+  "ok": true,
+  "type": "general",
+  "verdict": "未能归类该问题（确定性回答不做猜测）。当前可答的问题类型：",
+  "in_pool": null,
+  "consistency": null,
+  "sec": 0.1
+ },
+ "case7_stock": {
+  "ok": true,
+  "type": "stock",
+  "verdict": "当日为封死涨停（收=高=涨停价 94.0）。该股在重跑中未命中该日期，已存结果不",
+  "in_pool": true,
+  "consistency": "OK",
+  "sec": 1.7
+ },
+ "case8_universe": {
+  "ok": true,
+  "type": "general",
+  "verdict": "【模型股票池】",
+  "in_pool": null,
+  "consistency": null,
+  "sec": 0.2
+ }
+}

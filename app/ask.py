@@ -15,7 +15,9 @@ import numpy as np
 
 import executor
 import store
-from paths import STOCK_NAMES_FILE
+from paths import SKILL_DIR, STOCK_NAMES_FILE
+
+_DOC = SKILL_DIR / "tdx-stock-backtest.md"
 
 
 def find_stem(keyword):
@@ -69,7 +71,8 @@ def ask(stem_kw, code=None, date=None, query=None):
                                         "source": "appdata/stock_names.csv"}
                 break
     if code is None:
-        raise ValueError("未提供股票代码且质询串中无可识别代码/名称")
+        # 无代码/名称 → 通用问答（口径/规则/统计类，确定性回答，不猜）
+        return answer_general(stem, plan, rule_text, universe, query or "")
 
     # 1) 池内判定（_collect_stock_files，禁止"sh 优先"搜索）
     pool = dict((c, f) for c, f in executor._collect_stock_files(universe))
@@ -190,3 +193,154 @@ def _verdict(rep):
     return (f"当日为封死涨停（收=高=涨停价 {lp}）。该股在重跑中{'命中' if rep.get('target_in_rerun') else '未命中'}该日期，"
             f"已存结果{'含' if rep.get('target_in_stored') else '不含'}该行"
             + ("；两者一致。" if rep["consistency"] == "OK" else f"；一致性={rep['consistency']}。"))
+
+
+# ===================== 通用问答（口径/规则/统计，确定性，不猜） =====================
+# 答案三来源，全部随包、可复核：① skill/tdx-stock-backtest.md 原文摘录（口径文档）；
+# ② 当前模型 plan 与已存结果表取数；③ 能力清单（兜底，绝不编造）。
+
+def _doc_excerpt(heading_re, max_lines=45):
+    """从随包口径文档按标题摘录原文（文件缺失/无匹配 → None）。"""
+    try:
+        lines = _DOC.read_text(encoding="utf-8").splitlines()
+    except OSError:
+        return None
+    out, on = [], False
+    for ln in lines:
+        if re.match(r"^#{2,4} ", ln):
+            if on:
+                break
+            on = bool(re.search(heading_re, ln))
+            if on:
+                out.append(ln)
+            continue
+        if on:
+            out.append(ln)
+            if len(out) >= max_lines:
+                break
+    txt = "\n".join(out).strip()
+    return txt or None
+
+
+def _result_stats(stem):
+    cur = store.load_result(stem, "current")
+    if not cur:
+        return None
+    rows = cur.get("rows") or []
+    d0 = next((c for c in cur.get("columns") or [] if c.endswith("日期")), None)
+    dates = sorted({str(r.get(d0)) for r in rows if r.get(d0)}) if d0 else []
+    codes = sorted({str(r.get("股票代码")) for r in rows if r.get("股票代码")})
+    return {"n_rows": len(rows), "n_stocks": len(codes),
+            "date_min": dates[0] if dates else None, "date_max": dates[-1] if dates else None,
+            "recent_dates": dates[-8:], "columns": list(cur.get("columns") or [])}
+
+
+_INTENTS = [
+    (r"间隔|N1|N2", "interval"),
+    (r"振幅", "amplitude"),
+    (r"涨停|封板|封死|涨跌幅限制|_limit", "limit"),
+    (r"涨幅|涨跌|怎么算|如何计算|计算|什么意思|定义", "change"),
+    (r"走势|前向|T\+|窗口", "walk"),
+    (r"成交额|成交量|量能", "amount"),
+    (r"池|宇宙|universe|范围|哪些股票|板块", "universe"),
+    (r"命中|结果|统计|多少|最近", "stats"),
+]
+
+
+def answer_general(stem, plan, rule_text, universe, question):
+    """非个股质询：意图路由 → 确定性回答。绝不编造，答不了的给能力清单。"""
+    sp = (plan.get("strategy_plan") or {}) if isinstance(plan, dict) else {}
+    stats = _result_stats(stem)
+    rep = {"stem": stem, "universe": universe, "type": "general",
+           "question": question or "(未输入问题 → 模型概览)",
+           "rule_text": rule_text,
+           "data_source": "通达信本地 vipdoc 日线（appdata/market/vipdoc）"}
+
+    key = None
+    q = question or ""
+    for pat, k in _INTENTS:
+        if re.search(pat, q):
+            key = k
+            break
+    if not q.strip():
+        key = "overview"
+
+    paras, ev = [], {}
+    if key == "interval":
+        paras = ["间隔 N = 两段涨停之间、**不含两端涨停 K 线**的交易日天数；相邻涨停 N=0；"
+                 "跨间隔（中间夹锚点）= 各相邻间隔之和 + 中间锚点个数。",
+                 "区间写法 N1∈[a,b] 表示中间 K 线根数落在 a..b（含端点），[0,n] 才含「连续涨停」。"]
+        ev["doc_section"] = _doc_excerpt(r"九、间隔")
+    elif key == "amplitude":
+        paras = ["单日振幅 =（最高 − 最低）÷ 前收 × 100，**不带 %**（如 3.45）。",
+                 "区间振幅（多日区间）带 %（如 3.45%）；区间最大振幅 = 逐日单日振幅取最大，不带 %。"]
+        ev["doc_section"] = _doc_excerpt(r"七、振幅与涨幅")
+        ev["formula_fn"] = "backtest_common.daily_amplitude"
+    elif key == "limit":
+        paras = ["涨停判定为**严格相等口径**：收盘价与最高价都必须等于涨停价"
+                 "（涨停价 = 前收 × (1 + 幅度)，四舍五入到分），即「封死」。",
+                 "幅度分段：主板 10%；创业板 2020-08-24 前 10%、之后 20%；科创板 20%（不早于 2019-07-22）。",
+                 "上市初期无涨跌幅限制的日子（如注册制新股前 5 日）不可能满足严格相等，自动剔除。"]
+        ev["doc_section"] = _doc_excerpt(r"五、动态涨跌停判定")
+        ev["impl"] = "executor.compute_limit_flags / backtest_common.is_strong_limit_up"
+    elif key == "change":
+        paras = ["**单日涨幅** =（当日收盘 − 前收）÷ 前收 × 100，带正负号、不带 %（如 +2.50 / -1.30）。",
+                 "**区间涨幅**（多日区间，如 D-2~D-0）=（区间末收盘 − 区间首收盘）÷ 区间首收盘 × 100，**带 %**（如 3.45%）。",
+                 "**T+0/T+n 走势列**：以信号日收盘为基准的百分比变化；T+0 负数直接取整、正数向上取整；"
+                 "T+1~T+7 统一向下取整（即「变大/变小」规则）。"]
+        ev["doc_section"] = _doc_excerpt(r"七、振幅与涨幅")
+        ev["impl"] = "backtest_common.fmt_plus / fmt_t0 / fmt_tn"
+    elif key == "walk":
+        paras = ["前向走势窗口：T+0..T+7 对应规则文本的 D+1..D+8，**T+0 = 信号日的后一交易日**。",
+                 "每格为相对信号日收盘的百分比变化（取整规则见「涨幅」条目）。"]
+        ev["doc_section"] = _doc_excerpt(r"六、T\+n 基准价")
+    elif key == "amount":
+        paras = ["成交额单位为**元**，来源通达信 .day 文件 amount 字段（f32）；"
+                 "与 skill 侧口径一致（向下取整对齐 f32 ulp）。",
+                 "「成交额最大」条件 = 当日成交额为近 20 个交易日最大（rolling_max20）。"]
+    elif key == "universe":
+        n_pool = len(dict(executor._collect_stock_files(universe)))
+        paras = [f"本模型 universe={universe}，池内共 {n_pool} 只股票。",
+                 "10cm = 沪深主板（60/00 开头）；20cm = 创业板 30 开头 + 科创板 688 开头；"
+                 "both = 两者并集（按各自时代口径）。"]
+        ev["n_pool"] = n_pool
+    elif key == "stats" and stats:
+        paras = [f"当前已存结果共 {stats['n_rows']} 行、{stats['n_stocks']} 只股票；"
+                 f"命中日期范围 {stats['date_min']} ~ {stats['date_max']}。",
+                 f"最近命中日期：{'、'.join(stats['recent_dates']) or '—'}。"]
+        ev.update({k: stats[k] for k in ("n_rows", "n_stocks", "date_min", "date_max")})
+    elif key == "overview" or key is None and not q:
+        paras = ["模型规则原文见下方证据；当前已存结果情况见统计。"]
+        key = "overview"
+    else:
+        key = key or "unknown"
+
+    if key == "overview":
+        if stats:
+            paras = paras or []
+            paras.append(f"当前已存结果：{stats['n_rows']} 行 / {stats['n_stocks']} 只股票，"
+                         f"日期 {stats['date_min']} ~ {stats['date_max']}；输出 {len(stats['columns'])} 列。")
+        if not paras:
+            paras = ["该模型暂无已存结果。"]
+        ev["rule_text"] = rule_text
+        ev["strategy_plan_keys"] = sorted(sp.keys())
+
+    if key in ("change", "amplitude", "walk") and stats:
+        cols = [c for c in stats["columns"]
+                if ("幅" in c or "涨" in c or "走势" in c or c.startswith("T+"))]
+        if cols:
+            paras.append(f"本模型输出中的相关列：{'、'.join(cols)}。")
+
+    if key == "unknown":
+        rep["verdict"] = "未能归类该问题（确定性回答不做猜测）。当前可答的问题类型："
+        paras = ["① 个股质询：输入「股票代码 日期」，如 688037 20200117（可写中文名）；",
+                 "② 口径类：区间涨幅/振幅怎么算、涨停怎么判定、间隔 N 怎么定义、T+0 走势窗口；",
+                 "③ 模型类：这个模型是什么规则、池子范围、命中统计（留空即模型概览）。"]
+    else:
+        titles = {"interval": "间隔定义", "amplitude": "振幅口径", "limit": "涨停判定口径",
+                  "change": "涨幅/区间涨幅口径", "walk": "前向走势窗口", "amount": "成交额口径",
+                  "universe": "模型股票池", "stats": "命中统计", "overview": "模型概览"}
+        rep["verdict"] = f"【{titles.get(key, key)}】"
+    rep["answer"] = paras
+    rep["evidence"] = ev
+    return rep

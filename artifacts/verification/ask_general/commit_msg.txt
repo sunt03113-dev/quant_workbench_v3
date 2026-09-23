@@ -1,0 +1,8 @@
+ask: 质询入口意图路由——口径/模型/统计类问题确定性解答（kk 09-23）
+
+- /api/ask/row 分流：个股类走原单股核验（未动）；其余走 ask.answer_general 确定性回答；
+  无法归类给能力清单，绝不猜测
+- 答案来源随包可复核：tdx-stock-backtest.md 按标题摘录（涨停/振幅涨幅/T+n/间隔）+ plan/结果表取数
+- UI：placeholder 提示三类问法，renderAskAnswer 增 general 分支（结论+逐条解答+证据摘录）
+- 验收：8 API 用例 + 3 UI 用例全 PASS（个股路径回归一致）；executor/skill/golden 零改动
+- 证据：artifacts/verification/ask_general/

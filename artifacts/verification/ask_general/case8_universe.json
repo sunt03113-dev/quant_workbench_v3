@@ -1,0 +1,16 @@
+{
+ "stem": "strategy_121_r1_v1",
+ "universe": "10cm",
+ "type": "general",
+ "question": "这个模型的池子范围是什么",
+ "rule_text": "10cm\n【筛选条件】\nD-0：涨停；成交额最大；股价最高\nD-x：涨停\nD-y：涨停\nD-y~D-x间隔天数为N1∈[3, 8]，D-x~D-0 间隔天数为N2∈[1, 5]，N1/N2自由组合\nD-y~D-x区间、D-x~D-0区间内全部不是涨停；D-y~D-0整个区间仅D-y、D-x、D-0三日涨停\nD-y前五个交易日D-(y+1)~D-(y+5)全部不是涨停\n\n【输出指标】\nD-0：日期\n\nN1：数值\nN2：数值\nD-y：振幅\nD-x：振幅\nD-y~D-0：区间涨幅；区间振幅\nD-0：振幅\n\nD+1~D+8：股价走势",
+ "data_source": "通达信本地 vipdoc 日线（appdata/market/vipdoc）",
+ "verdict": "【模型股票池】",
+ "answer": [
+  "本模型 universe=10cm，池内共 3483 只股票。",
+  "10cm = 沪深主板（60/00 开头）；20cm = 创业板 30 开头 + 科创板 688 开头；both = 两者并集（按各自时代口径）。"
+ ],
+ "evidence": {
+  "n_pool": 3483
+ }
+}

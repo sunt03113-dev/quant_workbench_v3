@@ -1,0 +1,17 @@
+[
+ {
+  "name": "Q1_general_answered",
+  "ok": true,
+  "detail": "口径解答 + 本模型相关列"
+ },
+ {
+  "name": "Q2_stock_path_ok",
+  "ok": true,
+  "detail": "个股路径回归正常"
+ },
+ {
+  "name": "Q3_unknown_menu",
+  "ok": true,
+  "detail": "兜底返回能力清单"
+ }
+]

@@ -1,0 +1,4 @@
+﻿PASS Q1_general_answered: 鍙ｅ緞瑙ｇ瓟 + 鏈ā鍨嬬浉鍏冲垪
+PASS Q2_stock_path_ok: 涓偂璺緞鍥炲綊姝ｅ父
+PASS Q3_unknown_menu: 鍏滃簳杩斿洖鑳藉姏娓呭崟
+SUMMARY: 3/3 PASS
