@@ -1,0 +1,18 @@
+{
+  "market": {
+    "name": "qwb_market_pack_20260923.zip",
+    "files": 11705,
+    "raw_mb": 931.2,
+    "zip_mb": 543.37,
+    "sha256": "1eaaf4771a1661e546abc2a9049b76150a4147085c8d672b22a0249ede29c6f1"
+  },
+  "state": {
+    "name": "qwb_state_pack_20260923.zip",
+    "files": 89,
+    "results_files": 88,
+    "raw_mb": 13.04,
+    "zip_mb": 3.91,
+    "sha256": "4ca5a7c122ecb4646f47ad7fcb6a3d08655a8749e3f14e81bde722e4a0847bdb"
+  },
+  "elapsed_s": 64.2
+}

@@ -1,0 +1,249 @@
+keys = ['rule_text', 'plan', 'base_rules', 'updated_at', 'current_result', 'previous_result']
+
+--- rule_text ---
+【10cm】
+
+
+【筛选条件】
+
+D-0：涨停，成交额最大，股价最高
+D-1：不是涨停，成交额不是最大，股价不是最高
+D-x：不是涨停，成交额不是最大，股价不是最高
+D-(x+1)：不是涨停，成交额最大，股价最高
+D-(x+2)：涨停，成交额最大，股价最高
+D-(x+3)：不是涨停，成交额不是最大
+D-(x+4)：不是涨停，成交额不是最大
+
+2≤x≤11
+
+【输出指标】
+D-0：日期
+
+D-(x+2)：振幅
+D-(x+1)：振幅
+x：数值
+D-x~D-1：区间涨幅；区间振幅；区间最大振幅
+D-0：振幅
+
+D+1/D+8：价格走势
+--- plan ---
+{
+ "schema_version": 1,
+ "kind": "day_pattern_backward",
+ "strategy_plan": {
+  "universe": "10cm",
+  "days": [
+   {
+    "offset": -1,
+    "limit_up": false,
+    "amount_max20": false,
+    "high_max20": false
+   },
+   {
+    "offset": 0,
+    "limit_up": true,
+    "amount_max20": true,
+    "high_max20": true
+   },
+   {
+    "offset_var": 0,
+    "limit_up": false,
+    "amount_max20": false,
+    "high_max20": false
+   },
+   {
+    "offset_var": 1,
+    "limit_up": false,
+    "amount_max20": true,
+    "high_max20": true
+   },
+   {
+    "offset_var": 2,
+    "limit_up": true,
+    "amount_max20": true,
+    "high_max20": true
+   },
+   {
+    "offset_var": 3,
+    "limit_up": false,
+    "amount_max20": false
+   },
+   {
+    "offset_var": 4,
+    "limit_up": false,
+    "amount_max20": false
+   }
+  ],
+  "outputs": [
+   {
+    "atom": "date",
+    "day": 0
+   },
+   {
+    "atom": "amplitude",
+    "day_var": 2
+   },
+   {
+    "atom": "amplitude",
+    "day_var": 1
+   },
+   {
+    "atom": "x_value"
+   },
+   {
+    "atom": "range_change",
+    "days": [
+     {
+      "var": 0
+     },
+     -1
+    ],
+    "sep": "~"
+   },
+   {
+    "atom": "range_amplitude",
+    "days": [
+     {
+      "var": 0
+     },
+     -1
+    ],
+    "sep": "~"
+   },
+   {
+    "atom": "range_max_amplitude",
+    "days": [
+     {
+      "var": 0
+     },
+     -1
+    ],
+    "sep": "~"
+   },
+   {
+    "atom": "amplitude",
+    "day": 0
+   },
+   {
+    "atom": "t_walk",
+    "t0": 0,
+    "t1": 7,
+    "day_base": 1
+   }
+  ],
+  "quantifier": {
+   "var": "x",
+   "min": 2,
+   "max": 11
+  }
+ }
+}
+--- base_rules ---
+{
+ "d_1": {
+  "limit_up": false,
+  "amount_not_max20": true,
+  "high_not_max20": true
+ },
+ "d_0": {
+  "limit_up": true,
+  "amount_max20": true,
+  "high_max20": true
+ },
+ "d_x0": {
+  "limit_up": false,
+  "amount_not_max20": true,
+  "high_not_max20": true
+ },
+ "d_x1": {
+  "limit_up": false,
+  "amount_max20": true,
+  "high_max20": true
+ },
+ "d_x2": {
+  "limit_up": true,
+  "amount_max20": true,
+  "high_max20": true
+ },
+ "d_x3": {
+  "limit_up": false,
+  "amount_not_max20": true
+ },
+ "d_x4": {
+  "limit_up": false,
+  "amount_not_max20": true
+ }
+}
+--- updated_at ---
+2026-09-23 16:13:37
+--- current_result ---
+{
+ "n_hits": 274,
+ "data_date": "2026-09-23",
+ "columns": [
+  "股票代码",
+  "股票名称",
+  "D-0日期",
+  "D-(x+2)振幅",
+  "D-(x+1)振幅",
+  "x",
+  "D-x~D-1区间涨幅",
+  "D-x~D-1区间振幅",
+  "D-x~D-1区间最大振幅",
+  "D-0振幅",
+  "D+1(低/高)",
+  "D+2最高价",
+  "D+3最高价",
+  "D+4最高价",
+  "D+5最高价",
+  "D+6最高价",
+  "D+7最高价",
+  "D+8最高价"
+ ],
+ "updated_at": "2026-09-23 16:13:37",
+ "meta": {
+  "universe": "10cm",
+  "n_stocks": 4927,
+  "start_date": "1990-12-19",
+  "end_date": "2026-09-23"
+ }
+}
+--- previous_result ---
+{
+ "n_hits": 274,
+ "data_date": "2026-09-23",
+ "columns": [
+  "股票代码",
+  "股票名称",
+  "D-0日期",
+  "D-(x+2)振幅",
+  "D-(x+1)振幅",
+  "x",
+  "D-x~D-1区间涨幅",
+  "D-x~D-1区间振幅",
+  "D-x~D-1区间最大振幅",
+  "D-0振幅",
+  "D+1(低/高)",
+  "D+2最高价",
+  "D+3最高价",
+  "D+4最高价",
+  "D+5最高价",
+  "D+6最高价",
+  "D+7最高价",
+  "D+8最高价"
+ ],
+ "updated_at": "2026-09-23 15:47:08",
+ "meta": {
+  "universe": "10cm",
+  "n_stocks": 4927,
+  "start_date": "1990-12-19",
+  "end_date": "2026-09-23"
+ }
+}
+
+dir D:\09work\quant_workbench_v3\quant_workbench_package\appdata\state\results\strategy_c1790145091328_r1_v1 exists=True
+   current.json                     124318  09-23 16:13:37
+   current.xlsx                      35106  09-23 16:13:38
+   previous.json                    124318  09-23 15:47:08
+   previous.xlsx                     35106  09-23 15:47:08
+dir D:\09work\quant_workbench_v3\quant_workbench_package\appdata\state\strategy_c1790145091328_r1_v1 exists=False

@@ -1,0 +1,19 @@
+{
+  "app/executor.py": {
+    "size": 47200,
+    "sha256": "31df4675e58699acab4c9a7b8a7246601bfbe61066406cdab86066e82280cc51"
+  },
+  "app/recognizer.py": {
+    "size": 55416,
+    "sha256": "be3a348387278955f9edf9b37b2ad08eec79a5a2b6cb7a4c8f6d26cbbd90e9f0"
+  },
+  "app/ask.py": {
+    "size": 25759,
+    "sha256": "cb7a5b964e88db3425d6d39abac43159490a263e20a3061ff333354392a77d89"
+  },
+  "ui/ui_v2.html": {
+    "size": 91911,
+    "sha256": "6de4dfc0f051a9d52efd0f6f40b05a31380d86515c3e3b87137153cab09fe4ab"
+  },
+  "_at": "2026-09-23 17:42:12"
+}

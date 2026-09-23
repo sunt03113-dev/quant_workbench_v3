@@ -1,14 +1,14 @@
 {
  "schema": "p9-evidence/1",
  "label": "win",
- "collected_at": "2026-09-23T14:02:52",
+ "collected_at": "2026-09-23T18:13:18",
  "endpoint": "http://127.0.0.1:8000",
  "stem": "p9_excel_probe",
  "backtest_status": "OK",
  "n_hits": 1,
- "data_date": "2026-09-22",
+ "data_date": "2026-09-23",
  "excel_bytes": 5053,
- "excel_sha256": "25c57e5e5b7a391798732a43c6208ee8ce5db91af89c7ba044da77e388ef07c1",
+ "excel_sha256": "1bbbff27181a5f12c2268c66920c590eb81ff7220774f3bfd80f7f34d7a3a31e",
  "excel_saved": "EXCEL_win_p9_excel_probe.xlsx",
  "structured_n_rows": 1,
  "structured_columns": [

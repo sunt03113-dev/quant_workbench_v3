@@ -1,0 +1,9 @@
+ app/ask.py                                         |  21 ++
+ app/executor.py                                    | 138 +++++++-
+ app/recognizer.py                                  | 150 ++++++++-
+ .../verification/1s1a_check/server_runtime.log     |  20 ++
+ .../verification/step3/golden_test_results.json    | 365 +++++++++++----------
+ 5 files changed, 502 insertions(+), 192 deletions(-)
+warning: in the working copy of 'app/ask.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/executor.py', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'app/recognizer.py', LF will be replaced by CRLF the next time Git touches it

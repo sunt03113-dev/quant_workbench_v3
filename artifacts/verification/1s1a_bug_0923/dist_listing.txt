@@ -1,0 +1,30 @@
+dist exists True
+  ci_diag.txt                                               2,295 B   1789980621.2454937
+  pack_market_build.txt                                       136 B   1789983995.669282
+  pd_test.txt                                               4,786 B   1789980567.3937602
+  qwb_m4_deploy_20260921.zip                            5,035,992 B   1790060379.3386524
+  qwb_m4_deploy_20260923.zip                            5,746,051 B   1790157663.4069476
+  qwb_market_pack_20260921.zip                        932,702,871 B   1789983994.4673097
+  qwb_market_pack_20260923.zip                        543,374,830 B   1790157616.8621588
+  qwb_state_pack_20260923.zip                           3,913,640 B   1790157618.151368
+  sac_state.txt                                               719 B   1789980686.2629886
+  SHA256SUMS_20260921.txt                                     299 B   1790060380.6047792
+  SHA256SUMS_20260923.txt                                     487 B   1790157664.0202017
+  SHA256SUMS_market_20260923.txt                              139 B   1790157664.5886424
+  smoke_after_provider.txt                                  4,930 B   1789980435.2776318
+  state_after_sac.json                                    341,230 B   1789982240.0098178
+  state_now.json                                          341,230 B   1789979413.9990299
+  sync_diag.txt                                               995 B   1789983466.798071
+
+=== SHA256SUMS_20260923.txt
+# Quant Workbench 2026-09-23 发布包校验（三包配套 · 区间语义方案A 修订）
+# 区间语义(D-1/D-x 同组条件 -> D-x~D-1 整段) + 10cm 口径 + 行情至 09-23 + 工作台状态
+
+b35dcbd1e77562a2bcc8b0df4567f3b98bad9154711e65822de74e6512ab9709  qwb_m4_deploy_20260923.zip
+1eaaf4771a1661e546abc2a9049b76150a4147085c8d672b22a0249ede29c6f1  qwb_market_pack_20260923.zip
+4ca5a7c122ecb4646f47ad7fcb6a3d08655a8749e3f14e81bde722e4a0847bdb  qwb_state_pack_20260923.zip
+
+=== SHA256SUMS_market_20260923.txt
+market pack: 11704 .day, zip 543.37 MB, 数据截止 2026-09-23
+sha256= 1eaaf4771a1661e546abc2a9049b76150a4147085c8d672b22a0249ede29c6f1
+

@@ -1,0 +1,14 @@
+size=9146 lines=150
+--- tail 12 ---
+
+## 1S1A 结果验证 + 质询「条件核验」意图（kk 15:54 问询）
+
+- **1S1A（strategy_c1790145091328_r1_v1，274 行）结果对**：三道独立验证全过——
+  A 引擎 validate_rows 0 违例；B vipdoc 原始 .day 复算 3 行样本（首/中/尾不同 x）逐条件 OK；
+  C 桌面 xlsx 与引擎 current.xlsx 逐位一致（仅 1 格 nan vs '12%' 口径标注，非数值差异）。
+  **抽验脚本两坑**：.day 字段顺序应为 日期/开/高/低/收（解错会全错）；read_day 除过 100 后 check_row 又除一次（双重缩放）；x 列需 int 否则校验器误报「缺少 x 数值」。
+- **质询答非所问已修**：条件满足类提问被「涨停/成交额」关键词截胡返回口径模板 → ask.py 新增
+  condcheck 意图（_COND_TRIGGER + _answer_condcheck：计划条件逐日列出 + validate_rows 复核缓存），
+  路由在构成类后、口径意图前。实机 5 用例验收 PASS（ask_verify2.txt）。提交 8d6635c。
+- **代码包重打**：qwb_m4_deploy_20260923.zip sha256 1f68d54b…（含新 ask.py）；行情/状态包不变。
+- **服务坑**：PowerShell 静默杀进程失败（exit 1 无输出）导致新实例 bind 10048 被挤——重启后端前必须确认端口归属（Get-NetTCPConnection + Stop-Process 分两步，先看输出再动手）。

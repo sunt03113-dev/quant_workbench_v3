@@ -1,0 +1,37 @@
+=== .gitignore ===
+# 行情数据（TDX .day 二进制，与程序分离，不入 Git）
+appdata/
+golden/vipdoc/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+
+# 工作区本地记忆
+.workbuddy/
+
+# 临时
+*.log.orig
+Thumbs.db
+
+=== 1s1a_bug_0923 合计 5.57 MB，>200KB 文件 ===
+   state_backup_before_rerun.zip                    3,856,524 B
+   p9_win_backup_before_0923.zip                      887,866 B
+=== 变更条目 115 ===
+    M app/ask.py
+    M app/executor.py
+    M app/recognizer.py
+    M artifacts/verification/1s1a_check/server_runtime.log
+    M artifacts/verification/p9/win/ENV_win.json
+    M artifacts/verification/p9/win/EXCEL_win.json
+    M artifacts/verification/p9/win/EXCEL_win_p9_excel_probe.xlsx
+    M artifacts/verification/p9/win/INPUTS_win.json
+    M artifacts/verification/p9/win/INPUT_win_market_pack.manifest.txt
+    M artifacts/verification/p9/win/P0_win_CANONICAL.json
+    M artifacts/verification/p9/win/P0_win_VERDICTS.json
+    M artifacts/verification/step3/golden_test_results.json
+    M deploy/M4_DEPLOY_INSTRUCTION.md
+   ?? app/executor.v4.baseline.py
+   ?? app/recognizer.v5.baseline.py
+   ...(1s1a_bug_0923 下共 100 项已省略)

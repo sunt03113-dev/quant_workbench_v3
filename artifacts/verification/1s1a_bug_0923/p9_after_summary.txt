@@ -1,0 +1,138 @@
+[p9] out=D:\09work\quant_workbench_v3\quant_workbench_package\artifacts\verification\p9\win
+[p9] env OK: Windows/AMD64 py=3.13.14 numpy=2.5.3 pandas=3.0.6
+[p9] input skill: n=53 bytes=546814 tree=2443c6208aaf6007
+[p9] input golden: n=58 bytes=2470451 tree=606d714f98042fa7
+[p9] input market_pack: n=11704 bytes=930990720 tree=f078cebce2821944
+[p9] input stock_names: sha=aa21e8ef9140efee size=171943
+[p9] P0 start (26 rules)...
+  [0814] CAPABILITY_GAP rows=0
+  [0818A] PASS_WITH_KNOWN_T0_CONFLICT rows=221
+  [0818B] PASS_WITH_KNOWN_T0_CONFLICT rows=75
+  [0822] PASS_WITH_KNOWN_T0_CONFLICT rows=562
+  [0824] PASS rows=2142
+  [0827A] PASS rows=954
+  [0827B] PASS_WITH_KNOWN_T0_CONFLICT rows=25
+  [0908] PASS_WITH_KNOWN_T0_CONFLICT rows=74
+  [0908B] PASS_WITH_KNOWN_T0_CONFLICT rows=27
+  [0908C] PASS_WITH_KNOWN_T0_CONFLICT rows=14
+  [0909A] PASS rows=139
+  [0910A] PASS_WITH_KNOWN_T0_CONFLICT rows=124
+  [0911] PASS rows=100
+  [0912] PASS rows=188
+  [0913A] PASS rows=52
+  [0913B] PASS rows=12
+  [0915A] PASS rows=78
+  [0915B] PASS rows=41
+  [0915C] PASS rows=14
+  [0917A] PASS rows=16
+  [0917B] PASS rows=53
+  [0917C] PASS rows=250
+  [0917D] PASS rows=27
+  [0917E] PASS rows=155
+  [0918A] PASS rows=1018
+  [0918B] PASS rows=1488
+[p9] P0 done 119.9s rows=7849
+[p9] excel: 1bbbff27181a5f12
+[p9] DONE -> D:\09work\quant_workbench_v3\quant_workbench_package\artifacts\verification\p9\win
+
+================================================================================
+files: ['ENV_win.json', 'EXCEL_win.json', 'EXCEL_win_p9_excel_probe.xlsx', 'INPUTS_win.json', 'INPUT_win_golden.manifest.txt', 'INPUT_win_market_pack.manifest.txt', 'INPUT_win_skill.manifest.txt', 'P0_win_CANONICAL.json', 'P0_win_VERDICTS.json']
+=== INPUTS_win.json
+{
+ "schema": "p9-evidence/1",
+ "label": "win",
+ "collected_at": "2026-09-23T18:10:52",
+ "assets": {
+  "skill": {
+   "label": "tdx-stock-backtest Skill（冻结业务定义）",
+   "role": "business-authority",
+   "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\skill\\tdx-stock-backtest-master",
+   "exists": true,
+   "n_files": 53,
+   "total_bytes": 546814,
+   "tree_hash": "2443c6208aaf6007db2718ba5369ae4c89e2753d8d152afe7bf4ba84c74d552b",
+   "manifest_file": "INPUT_win_skill.manifest.txt",
+   "n_files_scanned": 53,
+   "elapsed_sec": 0.5
+  },
+  "golden": {
+   "label": "Golden：固定自然语言规则 + 期望结果表",
+   "role": "expected-output",
+   "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\golden",
+   "exists": true,
+   "n_files": 58,
+   "total_bytes": 2470451,
+   "tree_hash": "606d714f98042fa7397668eb79112d8e976196fc506f3bbfbd755e5c3564c40c",
+   "manifest_file": "INPUT_win_golden.manifest.txt",
+   "n_files_scanned": 58,
+   "elapsed_sec": 3.3
+  },
+  "market_pack": {
+   "label": "固定测试行情包（标准本地行情，TDX .day 兼容）",
+   "role": "input-market",
+   "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc",
+   "exists": true,
+   "n_files": 11704,
+   "total_bytes": 930990720,
+   "tree_hash": "f078cebce282194431f0593aad8dcfe5ca275edd68bf14af14c127db020e8718",
+   "manifest_file": "INPUT_win_market_pack.manifest.txt",
+   "n_files_scanned": 11704,
+   "elapsed_sec": 21.3,
+   "by_market": {
+    "sh": 5900,
+    "sz": 5804
+   },
+   "index_last_trade_date": "2026-07-16",
+   "schema_version": 1,
+   "schema_fields": [
+    "symbol",
+    "trade_date",
+    "open",
+    "high",
+    "low",
+    "close",
+    "pre_close",
+    "volume",
+    "amount"
+   ],
+   "physical_format": "tdx-day-compat-32B"
+  },
+  "stock_names": {
+   "label": "股票名称缓存（输出列「股票名称」来源）",
+   "role": "input-names",
+   "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\stock_names.csv",
+   "exists": true,
+   "sha256": "aa21e8ef9140efeedbcda33180ca492688c2ee5a1b24984558b892350d269b10",
+   "size": 171943
+  }
+ }
+}
+=== EXCEL_win.json
+{
+ "schema": "p9-evidence/1",
+ "label": "win",
+ "collected_at": "2026-09-23T18:13:18",
+ "endpoint": "http://127.0.0.1:8000",
+ "stem": "p9_excel_probe",
+ "backtest_status": "OK",
+ "n_hits": 1,
+ "data_date": "2026-09-23",
+ "excel_bytes": 5053,
+ "excel_sha256": "1bbbff27181a5f12c2268c66920c590eb81ff7220774f3bfd80f7f34d7a3a31e",
+ "excel_saved": "EXCEL_win_p9_excel_probe.xlsx",
+ "structured_n_rows": 1,
+ "structured_columns": [
+  "股票代码",
+  "股票名称",
+  "D-0日期",
+  "T+0(低/高)",
+  "T+1最高价",
+  "T+2最高价",
+  "T+3最高价",
+  "T+4最高价",
+  "T+5最高价",
+  "T+6最高价"
+ ],
+ "structured_rows_sha256": "cff32a8e14d02fda430fcbb7fc5c435cf607f13f71422d2b9cd3114433297685",
+ "structured_canonical_rows": null
+}

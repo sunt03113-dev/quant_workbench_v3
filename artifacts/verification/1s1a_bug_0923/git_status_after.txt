@@ -1,0 +1,6 @@
+ M app/ask.py
+ M app/executor.py
+ M app/recognizer.py
+ M artifacts/verification/1s1a_check/server_runtime.log
+ M artifacts/verification/step3/golden_test_results.json
+?? artifacts/verification/1s1a_bug_0923/

@@ -1,0 +1,78 @@
+库内带变量量词的模型 6 个
+
+============================================================================================
+### strategy_10cm_v6   rule_text=有
+  universe      : 10cm
+  quantifier    : {'var': 'x', 'min': 2, 'max': 11}
+  days          : [{"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 1, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 2, "limit_up": true, "amount_max20": true, "high_max20": true}, {"offset_var": 3, "limit_up": false, "amount_max20": false}, {"offset_var": 4, "limit_up": false, "amount_max20": false}]
+  ranges        : [{"from": {"var": 0}, "to": -1, "conds": {"limit_up": false, "amount_max20": false, "high_max20": false}, "label": "D-x~D-1"}]
+  outputs       : ["date", "amplitude", "amplitude", "x_value", "range_change", "range_amplitude", "range_max_amplitude", "change", "amplitude", "t_walk"]
+  回执事件      : [{"id": "D-x+4", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+3", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+2", "conditions": ["涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x+1", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x~D-1", "conditions": ["整段区间每一天：非涨停，成交额非20日最大，最高价非20日最高（已按区间语义翻译）"], "is_condition_event": true}, {"id": "D-0", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}]
+  回执 notes    : ["D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"]
+  base_rules    : {"d_0": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x1": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x2": {"limit_up": true, "amount_max20": true, "high_max20": true}, "d_x3": {"limit_up": false, "amount_not_max20": true}, "d_x4": {"limit_up": false, "amount_not_max20": true}, "d_x_range_to_d_1": {"limit_up": false, "amount_not_max20": true, "high_not_max20": true}}
+============================================================================================
+### strategy_13b34ebf3a_v1   rule_text=有
+  universe      : 10cm
+  quantifier    : {'var': 'x', 'min': 2, 'max': 11}
+  days          : [{"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 1, "limit_up": false, "amount_max20": false, "high_max20": false}, {"offset_var": 2, "limit_up": true, "amount_max20": true, "high_max20": false}, {"offset_var": 3, "limit_up": false, "amount_max20": false}, {"offset_var": 4, "limit_up": false, "amount_max20": false}]
+  ranges        : [{"from": {"var": 0}, "to": -1, "conds": {"limit_up": false, "amount_max20": false, "high_max20": false}, "label": "D-x~D-1"}]
+  outputs       : ["date", "amplitude", "amplitude", "x_value", "range_amplitude", "range_max_amplitude", "change", "amplitude", "t_walk"]
+  回执事件      : [{"id": "D-x+4", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+3", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+2", "conditions": ["涨停", "成交额20日最大", "最高价非20日最高"], "is_condition_event": true}, {"id": "D-x+1", "conditions": ["非涨停", "成交额非20日最大", "最高价非20日最高"], "is_condition_event": true}, {"id": "D-x~D-1", "conditions": ["整段区间每一天：非涨停，成交额非20日最大，最高价非20日最高（已按区间语义翻译）"], "is_condition_event": true}, {"id": "D-0", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}]
+  回执 notes    : ["D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"]
+  base_rules    : {"d_0": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x1": {"limit_up": false, "amount_not_max20": true, "high_not_max20": true}, "d_x2": {"limit_up": true, "amount_max20": true, "high_not_max20": true}, "d_x3": {"limit_up": false, "amount_not_max20": true}, "d_x4": {"limit_up": false, "amount_not_max20": true}, "d_x_range_to_d_1": {"limit_up": false, "amount_not_max20": true, "high_not_max20": true}}
+============================================================================================
+### strategy_676e25bb91_v1   rule_text=有
+  universe      : 10cm
+  quantifier    : {'var': 'x', 'min': 2, 'max': 11}
+  days          : [{"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 1, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 2, "limit_up": true, "amount_max20": true, "high_max20": true}, {"offset_var": 3, "limit_up": false, "amount_max20": false}, {"offset_var": 4, "limit_up": false, "amount_max20": false}]
+  ranges        : [{"from": {"var": 0}, "to": -1, "conds": {"limit_up": false, "amount_max20": false, "high_max20": false}, "label": "D-x~D-1"}]
+  outputs       : ["date", "amplitude", "amplitude", "x_value", "range_change", "range_amplitude", "range_max_amplitude", "change", "amplitude", "t_walk"]
+  回执事件      : [{"id": "D-x+4", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+3", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+2", "conditions": ["涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x+1", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x~D-1", "conditions": ["整段区间每一天：非涨停，成交额非20日最大，最高价非20日最高（已按区间语义翻译）"], "is_condition_event": true}, {"id": "D-0", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}]
+  回执 notes    : ["D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"]
+  base_rules    : {"d_0": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x1": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x2": {"limit_up": true, "amount_max20": true, "high_max20": true}, "d_x3": {"limit_up": false, "amount_not_max20": true}, "d_x4": {"limit_up": false, "amount_not_max20": true}, "d_x_range_to_d_1": {"limit_up": false, "amount_not_max20": true, "high_not_max20": true}}
+============================================================================================
+### strategy_99b11761e0_v1   rule_text=有
+  universe      : 10cm
+  quantifier    : {'var': 'x', 'min': 2, 'max': 11}
+  days          : [{"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 1, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 2, "limit_up": true, "amount_max20": true, "high_max20": true}, {"offset_var": 3, "limit_up": false, "amount_max20": false}, {"offset_var": 4, "limit_up": false, "amount_max20": false}]
+  ranges        : [{"from": {"var": 0}, "to": -1, "conds": {"limit_up": false, "amount_max20": false, "high_max20": false}, "label": "D-x~D-1"}]
+  outputs       : ["date", "amplitude", "amplitude", "x_value", "range_change", "range_amplitude", "range_max_amplitude", "change", "amplitude", "t_walk"]
+  回执事件      : [{"id": "D-x+4", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+3", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+2", "conditions": ["涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x+1", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x~D-1", "conditions": ["整段区间每一天：非涨停，成交额非20日最大，最高价非20日最高（已按区间语义翻译）"], "is_condition_event": true}, {"id": "D-0", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}]
+  回执 notes    : ["D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"]
+  base_rules    : {"d_0": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x1": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x2": {"limit_up": true, "amount_max20": true, "high_max20": true}, "d_x3": {"limit_up": false, "amount_not_max20": true}, "d_x4": {"limit_up": false, "amount_not_max20": true}, "d_x_range_to_d_1": {"limit_up": false, "amount_not_max20": true, "high_not_max20": true}}
+============================================================================================
+### strategy_c1790145091328_r1_v1   rule_text=有
+  universe      : 10cm
+  quantifier    : {'var': 'x', 'min': 2, 'max': 11}
+  days          : [{"offset": 0, "limit_up": true, "amount_max20": true, "high_max20": true}, {"offset_var": 1, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 2, "limit_up": true, "amount_max20": true, "high_max20": true}, {"offset_var": 3, "limit_up": false, "amount_max20": false}, {"offset_var": 4, "limit_up": false, "amount_max20": false}]
+  ranges        : [{"from": {"var": 0}, "to": -1, "conds": {"limit_up": false, "amount_max20": false, "high_max20": false}, "label": "D-x~D-1"}]
+  outputs       : ["date", "amplitude", "amplitude", "x_value", "range_change", "range_amplitude", "range_max_amplitude", "amplitude", "t_walk"]
+  回执事件      : [{"id": "D-x+4", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+3", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+2", "conditions": ["涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x+1", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x~D-1", "conditions": ["整段区间每一天：非涨停，成交额非20日最大，最高价非20日最高（已按区间语义翻译）"], "is_condition_event": true}, {"id": "D-0", "conditions": ["涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}]
+  回执 notes    : ["D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"]
+  base_rules    : {"d_0": {"limit_up": true, "amount_max20": true, "high_max20": true}, "d_x1": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x2": {"limit_up": true, "amount_max20": true, "high_max20": true}, "d_x3": {"limit_up": false, "amount_not_max20": true}, "d_x4": {"limit_up": false, "amount_not_max20": true}, "d_x_range_to_d_1": {"limit_up": false, "amount_not_max20": true, "high_not_max20": true}}
+============================================================================================
+### strategy_f120ccad35_v1   rule_text=有
+  universe      : 10cm
+  quantifier    : {'var': 'x', 'min': 2, 'max': 11}
+  days          : [{"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 1, "limit_up": false, "amount_max20": true, "high_max20": true}, {"offset_var": 2, "limit_up": true, "amount_max20": true, "high_max20": true}, {"offset_var": 3, "limit_up": false, "amount_max20": false}, {"offset_var": 4, "limit_up": false, "amount_max20": false}]
+  ranges        : [{"from": {"var": 0}, "to": -1, "conds": {"limit_up": false, "amount_max20": false, "high_max20": false}, "label": "D-x~D-1"}]
+  outputs       : ["date", "amplitude", "amplitude", "x_value", "range_change", "range_amplitude", "range_max_amplitude", "change", "amplitude", "t_walk"]
+  回执事件      : [{"id": "D-x+4", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+3", "conditions": ["非涨停", "成交额非20日最大"], "is_condition_event": true}, {"id": "D-x+2", "conditions": ["涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x+1", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x~D-1", "conditions": ["整段区间每一天：非涨停，成交额非20日最大，最高价非20日最高（已按区间语义翻译）"], "is_condition_event": true}, {"id": "D-0", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}]
+  回执 notes    : ["D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"]
+  base_rules    : {"d_0": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x1": {"limit_up": false, "amount_max20": true, "high_max20": true}, "d_x2": {"limit_up": true, "amount_max20": true, "high_max20": true}, "d_x3": {"limit_up": false, "amount_not_max20": true}, "d_x4": {"limit_up": false, "amount_not_max20": true}, "d_x_range_to_d_1": {"limit_up": false, "amount_not_max20": true, "high_not_max20": true}}
+============================================================================================
+### 合成用例 A：显式区间写法（无 D-1 单列）
+  problems=[]
+  ranges  =[{"from": {"var": 0}, "to": -1, "conds": {"limit_up": false, "amount_max20": false, "high_max20": false}, "label": "D-x~D-1"}]
+  days    =[{"offset": 0, "limit_up": true, "amount_max20": true, "high_max20": true}, {"offset_var": 1, "limit_up": false, "amount_max20": true, "high_max20": true}]
+  events  =[{"id": "D-x+1", "conditions": ["非涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}, {"id": "D-x~D-1", "conditions": ["整段区间每一天：非涨停，成交额非20日最大，最高价非20日最高（已按区间语义翻译）"], "is_condition_event": true}, {"id": "D-0", "conditions": ["涨停", "成交额20日最大", "最高价20日最高"], "is_condition_event": true}]
+============================================================================================
+### 合成用例 B：固定日区间（D-5~D-1，无变量日）
+  problems=[]
+  ranges  =[{"from": -5, "to": -1, "conds": {"limit_up": false, "amount_max20": false}, "label": "D-5~D-1"}]
+  days    =[{"offset": 0, "limit_up": true}]
+============================================================================================
+### 合成用例 C（对照，不该升级）：D-1 与 D-x 条件不同 且 无区间输出
+  problems=[]
+  ranges  =null
+  days    =[{"offset": -1, "limit_up": false, "amount_max20": false}, {"offset": 0, "limit_up": true}, {"offset_var": 0, "limit_up": false}]

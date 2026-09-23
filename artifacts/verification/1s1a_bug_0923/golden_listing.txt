@@ -1,0 +1,28 @@
+﻿DIR 0814_backtest            2 files: 0814_backtest.csv, 0814_backtest.xlsx
+DIR 0818A_backtest           2 files: 0818A_backtest.csv, 0818A_backtest.xlsx
+DIR 0818B_backtest           2 files: 0818B_backtest.csv, 0818B_backtest.xlsx
+DIR 0822_backtest            3 files: 0822.xlsx, 0822b.xlsx, 0822_backtest.csv
+DIR 0824_backtest            3 files: 0824.xlsx, 0824_backtest.csv, 0824_backtest.xlsx
+DIR 0827A_backtest           4 files: 0827A.xlsx, 0827A2.xlsx, 0827A_backtest.csv, 0827A_backtest.xlsx
+DIR 0827B_backtest           3 files: 0827B.xlsx, 0827B2.xlsx, 0827B_backtest.csv
+DIR 0908B_backtest           2 files: 0908B_backtest.csv, 0908B_backtest.xlsx
+DIR 0908C_backtest           2 files: 0908C_backtest.csv, 0908C_backtest.xlsx
+DIR 0908_backtest            2 files: 0908_backtest.csv, 0908_backtest.xlsx
+DIR 0909A_backtest           2 files: 0909A_backtest.csv, 0909A_backtest.xlsx
+DIR 0910A_backtest           2 files: 0910A_backtest.csv, 0910A_backtest.xlsx
+DIR 0911_backtest            2 files: 0911_backtest.csv, 0911_backtest.xlsx
+DIR 0912_backtest            2 files: 0912_backtest.csv, 0912_backtest.xlsx
+DIR 0913A_backtest           2 files: 0913A_backtest.csv, 0913A_backtest.xlsx
+DIR 0913B_backtest           2 files: 0913B_backtest.csv, 0913B_backtest.xlsx
+DIR 0915A_backtest           2 files: 0915A_backtest.csv, 0915A_backtest.xlsx
+DIR 0915B_backtest           2 files: 0915B_backtest.csv, 0915B_backtest.xlsx
+DIR 0915C_backtest           2 files: 0915C_backtest.csv, 0915C_backtest.xlsx
+DIR 0917A_backtest           2 files: 0917A_backtest.csv, 0917A_backtest.xlsx
+DIR 0917B_backtest           2 files: 0917B_backtest.csv, 0917B_backtest.xlsx
+DIR 0917C_backtest           2 files: 0917C_backtest.csv, 0917C_backtest.xlsx
+DIR 0917D_backtest           2 files: 0917D_backtest.csv, 0917D_backtest.xlsx
+DIR 0917E_backtest           2 files: 0917E_backtest.csv, 0917E_backtest.xlsx
+DIR 0918A_backtest           2 files: 0918A_backtest.csv, 0918A_backtest.xlsx
+DIR 0918B_backtest           2 files: 0918B_backtest.csv, 0918B_backtest.xlsx
+DIR vipdoc                   0 files: 
+FILE rule.txt

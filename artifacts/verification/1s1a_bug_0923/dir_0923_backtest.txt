@@ -1,0 +1,21 @@
+﻿dir exists: True
+FILE D:\09work\0923_backtest\0923_backtest.csv  15037 bytes  2026-09-23 16:21:19
+FILE D:\09work\0923_backtest\0923_backtest.xlsx  20332 bytes  2026-09-23 16:21:19
+--- D:\09work 顶层 ---
+0824_backtest  DIR
+0827A_backtest  DIR
+0909A_backtest  DIR
+0918A_backtest  DIR
+0918B_backtest  DIR
+0921A_backtest  DIR
+0923_backtest  DIR
+111A_backtest  DIR
+111B_backtest  DIR
+quant_workbench_V2  DIR
+quant_workbench_v3  DIR
+TRAE_半导体与芯片_图  DIR
+数据提取  DIR
+量化工作台  DIR
+项目  DIR
+tdx-stock-backtest-master.zip  FILE
+量化选股系统_V1_closeout_20260911_1825.zip  FILE

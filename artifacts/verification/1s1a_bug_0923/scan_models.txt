@@ -1,0 +1,76 @@
+A(desktop) vs current.xlsx : identical
+A(desktop) vs previous.xlsx: identical
+current.xlsx vs previous.xlsx: identical
+
+--- A columns ---
+['股票代码', '股票名称', 'D-0日期', 'D-(x+2)振幅', 'D-(x+1)振幅', 'x', 'D-x~D-1区间涨幅', 'D-x~D-1区间振幅', 'D-x~D-1区间最大振幅', 'D-0振幅', 'D+1(低/高)', 'D+2最高价', 'D+3最高价', 'D+4最高价', 'D+5最高价', 'D+6最高价', 'D+7最高价', 'D+8最高价']
+--- B columns ---
+['股票代码', '股票名称', 'D-0日期', 'D-(x+2)振幅', 'D-(x+1)振幅', 'x', 'D-x~D-1区间涨幅', 'D-x~D-1区间振幅', 'D-x~D-1区间最大振幅', 'D-0涨幅', 'D-0振幅', 'D+1(低/高)', 'D+2最高价', 'D+3最高价', 'D+4最高价', 'D+5最高价', 'D+6最高价', 'D+7最高价', 'D+8最高价']
+
+--- 扫描所有模型的 columns / 条件 ---
+strategy_e2etest_v1              n=1      universe=20cm   cols=10
+      cols: ['股票代码', '股票名称', 'D-0日期', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价']
+      cond: -2[limit_up=True] -1[limit_up=False,amount_max20=False] 0[limit_up=True,amount_max20=True,high_max20=False] | quant=None
+strategy_c1789894283086_r1_v1    n=1      universe=20cm   cols=10
+      cols: ['股票代码', '股票名称', 'D-0日期', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价']
+      cond: -2[limit_up=True] -1[limit_up=False,amount_max20=False] 0[limit_up=True,amount_max20=True,high_max20=False] | quant=None
+strategy_c1789895695594_r1_v1    n=6351   universe=20cm   cols=10
+      cols: ['股票代码', '股票名称', 'D-0日期', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价']
+      cond: -1[limit_up=False] 0[limit_up=True,amount_max20=True] | quant=None
+strategy_6f43c4300c_v1           n=1491   universe=20cm   cols=16
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-0涨幅', 'D-0振幅', 'D-0最低价', 'D-0最高价', 'D-1振幅', 'D-0/D-1成交额百分比', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价']
+      cond: -6[limit_up=False,amount_max20=False] -5[limit_up=False,amount_max20=False] -4[limit_up=False,amount_max20=False] -3[limit_up=False,amount_max20=False] -2[limit_up=False,amount_max20=False] -1[limit_up=True,amount_max20=True,high_max20=True] 0[limit_up=False] | quant=None
+strategy_20cm_v1                 n=1491   universe=20cm   cols=16
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-0涨幅', 'D-0振幅', 'D-0最低价', 'D-0最高价', 'D-1振幅', 'D-0/D-1成交额百分比', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价']
+      cond: -6[limit_up=False,amount_max20=False] -5[limit_up=False,amount_max20=False] -4[limit_up=False,amount_max20=False] -3[limit_up=False,amount_max20=False] -2[limit_up=False,amount_max20=False] -1[limit_up=True,amount_max20=True,high_max20=True] 0[limit_up=False] | quant=None
+strategy_1z1a_r1_v1              n=146    universe=10cm   cols=20
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-4振幅', 'D-3振幅', 'D-2振幅', 'D-4/D-2区间涨幅', 'D-4/D-2区间振幅', 'D-1涨幅', 'D-1振幅', 'D-0振幅', 'D-0/D-2成交额百分比', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价', 'T+7最高价']
+      cond: -6[limit_up=False,amount_max20=False] -5[limit_up=False,amount_max20=False] -4[limit_up=False,amount_max20=True] -3[limit_up=False,amount_max20=True] -2[limit_up=False,amount_max20=True,high_max20=True] -1[limit_up=False,amount_max20=False] 0[limit_up=True,amount_max20=True,high_max20=True] | quant=None
+strategy_13b34ebf3a_v1           n=377    universe=10cm   cols=18
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-(x+2)振幅', 'D-(x+1)振幅', 'x', 'D-x/D+1区间振幅', 'D-x/D+1区间最大振幅', 'D-0涨幅', 'D-0振幅', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价', 'T+7最高价']
+      cond: -1[limit_up=False,amount_max20=False,high_max20=False] 0[limit_up=False,amount_max20=True,high_max20=True] 0[limit_up=False,amount_max20=False,high_max20=False] 1[limit_up=False,amount_max20=False,high_max20=False] 2[limit_up=True,amount_max20=True,high_max20=False] 3[limit_up=False,amount_max20=False] 4[limit_up=False,amount_max20=False] | quant={'var': 'x', 'min': 2, 'max': 11}
+strategy_f120ccad35_v1           n=55     universe=10cm   cols=19
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-(x+2)振幅', 'D-(x+1)振幅', 'x', 'D-x/D-1区间涨幅', 'D-x/D-1区间振幅', 'D-x/D-1区间最大振幅', 'D-0涨幅', 'D-0振幅', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价', 'T+7最高价']
+      cond: -4[limit_up=False,amount_max20=False] -3[limit_up=False,amount_max20=False] -2[limit_up=True,amount_max20=True,high_max20=True] -1[limit_up=False,amount_max20=False,high_max20=False] 0[limit_up=False,amount_max20=True,high_max20=True] 0[limit_up=False,amount_max20=False,high_max20=False] | quant={'var': 'x', 'min': 2, 'max': 11}
+strategy_676e25bb91_v1           n=55     universe=10cm   cols=19
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-(x+2)振幅', 'D-(x+1)振幅', 'x', 'D-x/D-1区间涨幅', 'D-x/D-1区间振幅', 'D-x/D-1区间最大振幅', 'D-0涨幅', 'D-0振幅', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价', 'T+7最高价']
+      cond: -4[limit_up=False,amount_max20=False] -3[limit_up=False,amount_max20=False] -2[limit_up=True,amount_max20=True,high_max20=True] -1[limit_up=False,amount_max20=False,high_max20=False] 0[limit_up=False,amount_max20=True,high_max20=True] 0[limit_up=False,amount_max20=False,high_max20=False] | quant={'var': 'x', 'min': 2, 'max': 11}
+strategy_23e908c510_v1           n=297    universe=10cm   cols=8
+      cols: ['股票代码', '股票名称', 'T_2日期', 'N1', 'N2', 'T_0~T_2区间涨幅', 'T_0~T_2区间振幅', 'T_2振幅']
+      cond:  | quant=None
+strategy_99b11761e0_v1           n=55     universe=10cm   cols=19
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-(x+2)振幅', 'D-(x+1)振幅', 'x', 'D-x/D-1区间涨幅', 'D-x/D-1区间振幅', 'D-x/D-1区间最大振幅', 'D-0涨幅', 'D-0振幅', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价', 'T+7最高价']
+      cond: -4[limit_up=False,amount_max20=False] -3[limit_up=False,amount_max20=False] -2[limit_up=True,amount_max20=True,high_max20=True] -1[limit_up=False,amount_max20=False,high_max20=False] 0[limit_up=False,amount_max20=True,high_max20=True] 0[limit_up=False,amount_max20=False,high_max20=False] | quant={'var': 'x', 'min': 2, 'max': 11}
+strategy_ed26408c68_v1           n=297    universe=10cm   cols=8
+      cols: ['股票代码', '股票名称', 'T_2日期', 'N1', 'N2', 'T_0~T_2区间涨幅', 'T_0~T_2区间振幅', 'T_2振幅']
+      cond:  | quant=None
+strategy_111a_r1_v1              n=806    universe=10cm   cols=18
+      cols: ['股票代码', '股票名称', 'D-0的日期', 'N1', 'N2', 'D-y振幅', 'D-x振幅', 'D-y~D-0区间涨幅', 'D-y~D-0区间振幅', 'D-0振幅', 'D+1(低/高)', 'D+2最高价', 'D+3最高价', 'D+4最高价', 'D+5最高价', 'D+6最高价', 'D+7最高价', 'D+8最高价']
+      cond:  | quant=None
+strategy_111b_r1_v1              n=436    universe=10cm   cols=18
+      cols: ['股票代码', '股票名称', 'D-0日期', 'N1', 'N2', 'D-y振幅', 'D-x振幅', 'D-y~D-0区间涨幅', 'D-y~D-0区间振幅', 'D-0振幅', 'D+1(低/高)', 'D+2最高价', 'D+3最高价', 'D+4最高价', 'D+5最高价', 'D+6最高价', 'D+7最高价', 'D+8最高价']
+      cond:  | quant=None
+strategy_2s2a2a_r1_v1            n=156    universe=20cm   cols=16
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-2振幅', 'D-1涨幅', 'D-1振幅', 'D-0涨幅', 'D-0振幅', 'D-0/D-2成交额百分比', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价']
+      cond: -7[limit_up=False,amount_max20=False] -6[limit_up=False,amount_max20=False] -5[limit_up=False,amount_max20=False] -4[limit_up=False,amount_max20=False] -3[limit_up=False,amount_max20=False] -2[limit_up=True,amount_max20=True,high_max20=True] -1[limit_up=False,amount_max20=True] 0[limit_up=False,amount_max20=True,high_max20=True] | quant=None
+strategy_121_r1_v1               n=436    universe=10cm   cols=18
+      cols: ['股票代码', '股票名称', 'D-0日期', 'N1', 'N2', 'D-y振幅', 'D-x振幅', 'D-y~D-0区间涨幅', 'D-y~D-0区间振幅', 'D-0振幅', 'D+1(低/高)', 'D+2最高价', 'D+3最高价', 'D+4最高价', 'D+5最高价', 'D+6最高价', 'D+7最高价', 'D+8最高价']
+      cond:  | quant=None
+111B_verify_0922                 n=436    universe=10cm   cols=18
+      cols: ['股票代码', '股票名称', 'D-0日期', 'N1', 'N2', 'D-y振幅', 'D-x振幅', 'D-y~D-0区间涨幅', 'D-y~D-0区间振幅', 'D-0振幅', 'D+1(低/高)', 'D+2最高价', 'D+3最高价', 'D+4最高价', 'D+5最高价', 'D+6最高价', 'D+7最高价', 'D+8最高价']
+      cond:  | quant=None
+strategy_10cm_v6                 n=622    universe=10cm   cols=19  <== 列名与B完全一致
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-(x+2)振幅', 'D-(x+1)振幅', 'x', 'D-x~D-1区间涨幅', 'D-x~D-1区间振幅', 'D-x~D-1区间最大振幅', 'D-0涨幅', 'D-0振幅', 'D+1(低/高)', 'D+2最高价', 'D+3最高价', 'D+4最高价', 'D+5最高价', 'D+6最高价', 'D+7最高价', 'D+8最高价']
+      cond: -1[limit_up=False,amount_max20=False,high_max20=False] 0[limit_up=False,amount_max20=True,high_max20=True] 0[limit_up=False,amount_max20=False,high_max20=False] 1[limit_up=False,amount_max20=True,high_max20=True] 2[limit_up=True,amount_max20=True,high_max20=True] 3[limit_up=False,amount_max20=False] 4[limit_up=False,amount_max20=False] | quant={'var': 'x', 'min': 2, 'max': 11}
+strategy_2s2a2b_r1_v1            n=156    universe=20cm   cols=16
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-2振幅', 'D-1涨幅', 'D-1振幅', 'D-0涨幅', 'D-0振幅', 'D-0/D-2成交额百分比', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价']
+      cond: -7[limit_up=False,amount_max20=False] -6[limit_up=False,amount_max20=False] -5[limit_up=False,amount_max20=False] -4[limit_up=False,amount_max20=False] -3[limit_up=False,amount_max20=False] -2[limit_up=True,amount_max20=True,high_max20=True] -1[limit_up=False,amount_max20=True] 0[limit_up=False,amount_max20=True,high_max20=True] | quant=None
+strategy_2s2b1_r1_v1             n=1021   universe=20cm   cols=16
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-0涨幅', 'D-0振幅', 'D-0最低价', 'D-0最高价', 'D-1振幅', 'D-0/D-1成交额百分比', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价']
+      cond: -6[limit_up=False,amount_max20=False] -5[limit_up=False,amount_max20=False] -4[limit_up=False,amount_max20=False] -3[limit_up=False,amount_max20=False] -2[limit_up=False,amount_max20=False] -1[limit_up=True,amount_max20=True,high_max20=True] 0[limit_up=False] | quant=None
+p9_excel_probe                   n=1      universe=20cm   cols=10
+      cols: ['股票代码', '股票名称', 'D-0日期', 'T+0(低/高)', 'T+1最高价', 'T+2最高价', 'T+3最高价', 'T+4最高价', 'T+5最高价', 'T+6最高价']
+      cond: -2[limit_up=True] -1[limit_up=False,amount_max20=False] 0[limit_up=True,amount_max20=True,high_max20=False] | quant=None
+strategy_c1790145091328_r1_v1    n=274    universe=10cm   cols=18  <== 列名与A完全一致
+      cols: ['股票代码', '股票名称', 'D-0日期', 'D-(x+2)振幅', 'D-(x+1)振幅', 'x', 'D-x~D-1区间涨幅', 'D-x~D-1区间振幅', 'D-x~D-1区间最大振幅', 'D-0振幅', 'D+1(低/高)', 'D+2最高价', 'D+3最高价', 'D+4最高价', 'D+5最高价', 'D+6最高价', 'D+7最高价', 'D+8最高价']
+      cond: -1[limit_up=False,amount_max20=False,high_max20=False] 0[limit_up=True,amount_max20=True,high_max20=True] 0[limit_up=False,amount_max20=False,high_max20=False] 1[limit_up=False,amount_max20=True,high_max20=True] 2[limit_up=True,amount_max20=True,high_max20=True] 3[limit_up=False,amount_max20=False] 4[limit_up=False,amount_max20=False] | quant={'var': 'x', 'min': 2, 'max': 11}

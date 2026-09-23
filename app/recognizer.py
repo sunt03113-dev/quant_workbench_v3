@@ -70,6 +70,77 @@ def _norm(s):
     return re.sub(r"\s+", "", s)
 
 
+# ===================== 区间条件（整段每一天都要满足） =====================
+# 2026-09-23 kk 裁定「方案A 区间式」：规则原文里 D-1 与 D-x 写同一组条件时，作者意图是
+# 「D-x~D-1 这段整理期内每一天都如此」，而不是只校验两个端点。识别器据此翻译为
+# strategy_plan.ranges（executor 按整段判定；计划语言见 executor._range_pref 注释）。
+# 两种来源：
+#   1) 显式写法：「D-x~D-1：全部不是涨停，成交额不是最大，股价不是最高」
+#   2) 同组条件自动升级：D-1（固定）与 D-x（变量）条件完全相同，且输出段存在以 D-x 为
+#      一端的区间输出 → 合并为区间条件（并在回执显式声明「已按区间语义翻译」）。
+
+
+def _order_endpoints(a, b):
+    """区间端点排序：from = 更深（更早）的一端。"""
+    if isinstance(a, dict) and isinstance(b, dict):
+        return (a, b) if a["var"] >= b["var"] else (b, a)
+    if isinstance(a, dict) or isinstance(b, dict):
+        return (a, b) if isinstance(a, dict) else (b, a)
+    return (a, b) if a <= b else (b, a)
+
+
+def _range_end_label(spec):
+    if isinstance(spec, dict):
+        k = spec["var"]
+        return "D-x" if k == 0 else (f"D-x+{k}" if k > 0 else f"D-x{k}")
+    return f"D-{abs(spec)}" if spec <= 0 else f"D+{spec}"
+
+
+def _parse_range_clause(clause):
+    """显式区间条件子句 -> ({"from","to","conds","label"}, None) 或 (None, 原因)。
+
+    形如「D-x~D-1：全部不是涨停，成交额不是最大，股价不是最高」；
+    分隔符接受 ~ ～ 至 到。端点非区间写法 -> (None, None)（不是区间子句，交回通用分支）。
+    """
+    c = _norm(clause)
+    m1 = _RE_DAY.search(c)
+    if not m1:
+        return None, None
+    sep = re.match(r"^(?:[~～]|至|到)", c[m1.end():])
+    if not sep:
+        return None, None
+    a = _day_offset(m1.group(1), m1)
+    m2 = _RE_DAY.search(c[m1.end() + sep.end():])
+    if not m2 or m2.start() != 0:
+        return None, "区间端点无法解析"
+    b = _day_offset(m2.group(1), m2)
+    if a is None or b is None:
+        return None, "区间端点无法解析"
+    # _day_offset 对变量日返回 ("var", k) 元组；计划语言里统一写成 {"var": k} 字典
+    a = {"var": a[1]} if isinstance(a, tuple) else a
+    b = {"var": b[1]} if isinstance(b, tuple) else b
+    # 前向区间（D+3~D+14 这类）不是「回看区间」，交回通用分支给出标准提示，避免误导性报错
+    if (isinstance(a, int) and a > 0) or (isinstance(b, int) and b > 0):
+        return None, None
+    rest = c[m1.end() + sep.end() + m2.end():]
+    conds = _parse_conditions(rest)
+    if conds is None:
+        return None, "区间条件存在暂不支持的条件表述（fail-closed）"
+    frm, to = _order_endpoints(a, b)
+    return {"from": frm, "to": to, "conds": conds,
+            "label": f"{_range_end_label(frm)}~{_range_end_label(to)}"}, None
+
+
+def _has_var0_interval(outputs):
+    """输出段是否含「以 D-x 为一端」的区间指标（自动升级的佐证条件）。"""
+    for o in outputs:
+        if o.get("atom") in ("range_change", "range_amplitude",
+                             "range_max_amplitude", "amount_pct"):
+            if any(isinstance(x, dict) and x.get("var") == 0 for x in (o.get("days") or [])):
+                return True
+    return False
+
+
 def _day_offset(tok, m):
     t = _norm(tok).lower()
     if t.startswith(("d-x", "d-(")):             # 变量日（读法1 kk 已确认）
@@ -924,10 +995,19 @@ def parse_single_rule(text, universe_hint=None):
     days = {}
     var_days = []      # 符号日：{"offset_var": k, **cond}，深度 = x + k
     quantifier = None  # {"var": "x", "min": a, "max": b}
+    ranges = []        # 区间条件：[{"from","to","conds","label"}]（整段每一天都要满足）
     for clause in _split_clauses(cond_text):
         mq = _RE_QUANT.match(_norm(clause))
         if mq:
             quantifier = {"var": "x", "min": int(mq.group(1)), "max": int(mq.group(2))}
+            continue
+        # 显式区间条件（D-x~D-1：全部…）优先于通用「单日锚点」分支，否则会被当端点式拆解
+        rng, rng_err = _parse_range_clause(clause)
+        if rng_err is not None:
+            problems.append({"fragment": clause[:60], "reason": rng_err})
+            continue
+        if rng is not None:
+            ranges.append(rng)
             continue
         m = _RE_DAY.search(clause)
         if not m:
@@ -981,12 +1061,31 @@ def parse_single_rule(text, universe_hint=None):
         problems.append({"fragment": out_err[:60],
                          "reason": "存在暂不支持的输出指标表述（fail-closed，不猜测）"})
 
+    # —— 方案A 自动升级：D-1 与 D-x 同组条件 -> D-x~D-1 整段区间条件 ——
+    # 触发条件（全部满足，任一不满足即保持端点式）：
+    #   a) 存在变量范围声明 x∈[a,b]； b) 同时声明了固定 D-1 与变量 D-x；
+    #   c) 二者解析出的条件**完全相同且非空**；
+    #   d) 输出段存在以 D-x 为一端的区间指标（佐证作者心中的「整理区间」）。
+    if quantifier is not None and -1 in days:
+        v0 = next((d for d in var_days if d["offset_var"] == 0), None)
+        if v0 is not None:
+            c_fix = dict(days[-1])
+            c_var = {k: v for k, v in v0.items() if k != "offset_var"}
+            if c_fix and c_fix == c_var and _has_var0_interval(outputs):
+                rg = {"from": {"var": 0}, "to": -1, "conds": dict(c_fix), "label": "D-x~D-1"}
+                if not any(r.get("label") == rg["label"] for r in ranges):
+                    ranges.append(rg)
+                del days[-1]
+                var_days = [d for d in var_days if d is not v0]
+
     sp = {
         "universe": universe,
         "days": [{"offset": o, **days[o]} for o in sorted(days)]
                 + sorted(var_days, key=lambda d: d["offset_var"]),
         "outputs": outputs,
     }
+    if ranges:
+        sp["ranges"] = ranges
     if quantifier is not None:
         sp["quantifier"] = quantifier
         # 确定性复核依赖行内 x 数值；用户未显式输出时自动补列
@@ -1019,24 +1118,43 @@ def _cond_text(c):
 
 def _plan_summary(plan):
     sp = plan["strategy_plan"]
-    events = []
+    ranges = sp.get("ranges") or []
+    var_events, fix_events = [], []
 
-    def _day_key(d):
-        return d["offset"] if "offset" in d else -(10**6 + d["offset_var"])
-
-    for d in sorted(sp["days"], key=_day_key):
+    for d in sorted(sp["days"], key=lambda d: d["offset"] if "offset" in d
+                    else -(10**6 + d["offset_var"])):
         conds = _cond_text(d)
         if not conds:
             continue
         if "offset" in d:
             off = d["offset"]
-            eid = f"D-{abs(off)}" if off <= 0 else f"D+{off}"
+            fix_events.append({"id": f"D-{abs(off)}" if off <= 0 else f"D+{off}",
+                               "conditions": conds, "is_condition_event": True})
         else:
             k = d["offset_var"]
-            eid = "D-x" if k == 0 else f"D-x+{k}"
-        events.append({"id": eid, "conditions": conds, "is_condition_event": True})
+            var_events.append({"id": "D-x" if k == 0 else f"D-x+{k}",
+                               "conditions": conds, "is_condition_event": True})
+
+    range_events = []
+    for rg in ranges:
+        conds = _cond_text(rg["conds"])
+        if not conds:
+            continue
+        range_events.append({
+            "id": rg.get("label") or
+                  f"{_range_end_label(rg['from'])}~{_range_end_label(rg['to'])}",
+            "conditions": ["整段区间每一天：" + "，".join(conds) + "（已按区间语义翻译）"],
+            "is_condition_event": True})
+
+    # 顺序：由远及近（更深变量日 -> 区间 -> D-1/D-0）
+    events = var_events + range_events + fix_events
     outs = [o["atom"] for o in sp["outputs"]]
-    return {"universe": sp.get("universe") or "未指明", "events": events, "outputs": outs}
+    summary = {"universe": sp.get("universe") or "未指明", "events": events, "outputs": outs}
+    if ranges:
+        summary["notes"] = [
+            f"{rg.get('label') or _range_end_label(rg['from'])}：已按区间语义翻译"
+            "（整段每一天都需满足该组条件，非仅两端）" for rg in ranges]
+    return summary
 
 
 def plan_to_base_rules(plan):
@@ -1075,6 +1193,23 @@ def plan_to_base_rules(plan):
         elif d.get("high_max20") is False:
             c["high_not_max20"] = True
         br[key] = c
+    # 区间条件：legacy NL 回退展示用（key 末段取区间近端日，等价于「D-近端日」的条件）
+    for rg in plan["strategy_plan"].get("ranges") or []:
+        to = rg["to"]
+        name = f"x{to['var']}" if isinstance(to, dict) else f"d_{abs(to)}"
+        conds = rg["conds"]
+        c = {}
+        if "limit_up" in conds:
+            c["limit_up"] = conds["limit_up"]
+        if conds.get("amount_max20") is True:
+            c["amount_max20"] = True
+        elif conds.get("amount_max20") is False:
+            c["amount_not_max20"] = True
+        if conds.get("high_max20") is True:
+            c["high_max20"] = True
+        elif conds.get("high_max20") is False:
+            c["high_not_max20"] = True
+        br[f"d_x_range_to_{name}"] = c
     return br
 
 

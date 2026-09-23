@@ -1,0 +1,332 @@
+{
+  "strategy_10cm_v6": {
+    "universe": "10cm",
+    "quantifier": {
+      "var": "x",
+      "min": 2,
+      "max": 11
+    },
+    "days": [
+      {
+        "offset": 0,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 1,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 2,
+        "limit_up": true,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 3,
+        "limit_up": false,
+        "amount_max20": false
+      },
+      {
+        "offset_var": 4,
+        "limit_up": false,
+        "amount_max20": false
+      }
+    ],
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "notes": [
+      "D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"
+    ]
+  },
+  "strategy_13b34ebf3a_v1": {
+    "universe": "10cm",
+    "quantifier": {
+      "var": "x",
+      "min": 2,
+      "max": 11
+    },
+    "days": [
+      {
+        "offset": 0,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 1,
+        "limit_up": false,
+        "amount_max20": false,
+        "high_max20": false
+      },
+      {
+        "offset_var": 2,
+        "limit_up": true,
+        "amount_max20": true,
+        "high_max20": false
+      },
+      {
+        "offset_var": 3,
+        "limit_up": false,
+        "amount_max20": false
+      },
+      {
+        "offset_var": 4,
+        "limit_up": false,
+        "amount_max20": false
+      }
+    ],
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "notes": [
+      "D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"
+    ]
+  },
+  "strategy_676e25bb91_v1": {
+    "universe": "10cm",
+    "quantifier": {
+      "var": "x",
+      "min": 2,
+      "max": 11
+    },
+    "days": [
+      {
+        "offset": 0,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 1,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 2,
+        "limit_up": true,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 3,
+        "limit_up": false,
+        "amount_max20": false
+      },
+      {
+        "offset_var": 4,
+        "limit_up": false,
+        "amount_max20": false
+      }
+    ],
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "notes": [
+      "D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"
+    ]
+  },
+  "strategy_99b11761e0_v1": {
+    "universe": "10cm",
+    "quantifier": {
+      "var": "x",
+      "min": 2,
+      "max": 11
+    },
+    "days": [
+      {
+        "offset": 0,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 1,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 2,
+        "limit_up": true,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 3,
+        "limit_up": false,
+        "amount_max20": false
+      },
+      {
+        "offset_var": 4,
+        "limit_up": false,
+        "amount_max20": false
+      }
+    ],
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "notes": [
+      "D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"
+    ]
+  },
+  "strategy_c1790145091328_r1_v1": {
+    "universe": "10cm",
+    "quantifier": {
+      "var": "x",
+      "min": 2,
+      "max": 11
+    },
+    "days": [
+      {
+        "offset": 0,
+        "limit_up": true,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 1,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 2,
+        "limit_up": true,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 3,
+        "limit_up": false,
+        "amount_max20": false
+      },
+      {
+        "offset_var": 4,
+        "limit_up": false,
+        "amount_max20": false
+      }
+    ],
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "notes": [
+      "D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"
+    ]
+  },
+  "strategy_f120ccad35_v1": {
+    "universe": "10cm",
+    "quantifier": {
+      "var": "x",
+      "min": 2,
+      "max": 11
+    },
+    "days": [
+      {
+        "offset": 0,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 1,
+        "limit_up": false,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 2,
+        "limit_up": true,
+        "amount_max20": true,
+        "high_max20": true
+      },
+      {
+        "offset_var": 3,
+        "limit_up": false,
+        "amount_max20": false
+      },
+      {
+        "offset_var": 4,
+        "limit_up": false,
+        "amount_max20": false
+      }
+    ],
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "notes": [
+      "D-x~D-1：已按区间语义翻译（整段每一天都需满足该组条件，非仅两端）"
+    ]
+  }
+}

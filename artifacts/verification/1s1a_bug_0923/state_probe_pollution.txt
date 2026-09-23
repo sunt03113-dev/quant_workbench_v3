@@ -1,0 +1,44 @@
+model count: 25
+probe models: ['p9_excel_probe', 'strategy_zz_probe_no_ranges_v1', 'strategy_zz_probe_endpoint_v1', 'strategy_zz_probe_degraded_v1']
+state.json top keys: ['models', 'schema_version']
+== p9_excel_probe
+   keys: ['base_rules', 'current_result', 'plan', 'previous_result', 'rule_text', 'updated_at']
+   n_hits: 1
+== strategy_zz_probe_no_ranges_v1
+   keys: ['base_rules', 'current_result', 'plan', 'rule_text', 'updated_at']
+   n_hits: 1239
+== strategy_zz_probe_endpoint_v1
+   keys: ['base_rules', 'current_result', 'plan', 'rule_text', 'updated_at']
+   n_hits: 274
+== strategy_zz_probe_degraded_v1
+   keys: ['base_rules', 'current_result', 'plan', 'rule_text', 'updated_at']
+   n_hits: 1239
+--- results dirs ---
+count 27
+   111B_verify_0922
+   p9_excel_probe
+   strategy_10cm_v6
+   strategy_111a_r1_v1
+   strategy_111b_r1_v1
+   strategy_121_r1_v1
+   strategy_13b34ebf3a_v1
+   strategy_1z1a_r1_v1
+   strategy_20cm_v1
+   strategy_20cm_v2
+   strategy_23e908c510_v1
+   strategy_2s2a2a_r1_v1
+   strategy_2s2a2b_r1_v1
+   strategy_2s2b1_r1_v1
+   strategy_31a_v1
+   strategy_676e25bb91_v1
+   strategy_6f43c4300c_v1
+   strategy_99b11761e0_v1
+   strategy_c1789894283086_r1_v1
+   strategy_c1789895695594_r1_v1
+   strategy_c1790145091328_r1_v1
+   strategy_e2etest_v1
+   strategy_ed26408c68_v1
+   strategy_f120ccad35_v1
+   strategy_zz_probe_degraded_v1
+   strategy_zz_probe_endpoint_v1
+   strategy_zz_probe_no_ranges_v1

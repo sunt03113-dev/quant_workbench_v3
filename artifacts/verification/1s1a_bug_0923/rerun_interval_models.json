@@ -1,0 +1,134 @@
+[
+  {
+    "stem": "strategy_c1790145091328_r1_v1",
+    "before": 274,
+    "after": 148,
+    "violations": 0,
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "plan_updated": true,
+    "elapsed_s": 8.9
+  },
+  {
+    "stem": "strategy_10cm_v6",
+    "before": 622,
+    "after": 323,
+    "violations": 0,
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "plan_updated": true,
+    "elapsed_s": 8.3
+  },
+  {
+    "stem": "strategy_13b34ebf3a_v1",
+    "before": 377,
+    "after": 214,
+    "violations": 0,
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "plan_updated": true,
+    "elapsed_s": 7.8
+  },
+  {
+    "stem": "strategy_f120ccad35_v1",
+    "before": 55,
+    "after": 323,
+    "violations": 0,
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "plan_updated": true,
+    "elapsed_s": 8.3
+  },
+  {
+    "stem": "strategy_676e25bb91_v1",
+    "before": 55,
+    "after": 323,
+    "violations": 0,
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "plan_updated": true,
+    "elapsed_s": 8.2
+  },
+  {
+    "stem": "strategy_99b11761e0_v1",
+    "before": 55,
+    "after": 323,
+    "violations": 0,
+    "ranges": [
+      {
+        "from": {
+          "var": 0
+        },
+        "to": -1,
+        "conds": {
+          "limit_up": false,
+          "amount_max20": false,
+          "high_max20": false
+        },
+        "label": "D-x~D-1"
+      }
+    ],
+    "plan_updated": true,
+    "elapsed_s": 8.3
+  }
+]

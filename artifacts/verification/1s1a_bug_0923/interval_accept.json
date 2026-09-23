@@ -1,0 +1,144 @@
+[
+  {
+    "stem": "strategy_c1790145091328_r1_v1",
+    "ref": "0923",
+    "before": 274,
+    "after": 148,
+    "violations": 0,
+    "elapsed_s": 7.9,
+    "boards": {
+      "60沪主板": 67,
+      "00深主板": 64,
+      "300创业": 17
+    },
+    "ref_rows": 131,
+    "both": 131,
+    "only_new": 17,
+    "only_ref": 0,
+    "field_diff": {
+      "D+3最高价": 1,
+      "D+4最高价": 1,
+      "D+5最高价": 1,
+      "D+6最高价": 1,
+      "D+7最高价": 1,
+      "D+8最高价": 1
+    }
+  },
+  {
+    "stem": "strategy_10cm_v6",
+    "ref": "0921A",
+    "before": 622,
+    "after": 323,
+    "violations": 0,
+    "elapsed_s": 6.8,
+    "boards": {
+      "60沪主板": 148,
+      "00深主板": 151,
+      "300创业": 24
+    },
+    "ref_rows": 299,
+    "both": 299,
+    "only_new": 24,
+    "only_ref": 0,
+    "field_diff": {
+      "D-0涨幅": 277,
+      "D+3最高价": 1,
+      "D+4最高价": 1,
+      "D+5最高价": 1,
+      "D+6最高价": 1,
+      "D+7最高价": 1,
+      "D+8最高价": 1
+    }
+  },
+  {
+    "stem": "strategy_f120ccad35_v1",
+    "ref": "0921A",
+    "before": 55,
+    "after": 323,
+    "violations": 0,
+    "elapsed_s": 6.8,
+    "boards": {
+      "60沪主板": 148,
+      "00深主板": 151,
+      "300创业": 24
+    },
+    "ref_rows": 299,
+    "both": 299,
+    "only_new": 24,
+    "only_ref": 0,
+    "field_diff": {
+      "D-0涨幅": 277,
+      "D+3最高价": 1,
+      "D+4最高价": 1,
+      "D+5最高价": 1,
+      "D+6最高价": 1,
+      "D+7最高价": 1,
+      "D+8最高价": 1
+    }
+  },
+  {
+    "stem": "strategy_676e25bb91_v1",
+    "ref": "0921A",
+    "before": 55,
+    "after": 323,
+    "violations": 0,
+    "elapsed_s": 7.0,
+    "boards": {
+      "60沪主板": 148,
+      "00深主板": 151,
+      "300创业": 24
+    },
+    "ref_rows": 299,
+    "both": 299,
+    "only_new": 24,
+    "only_ref": 0,
+    "field_diff": {
+      "D-0涨幅": 277,
+      "D+3最高价": 1,
+      "D+4最高价": 1,
+      "D+5最高价": 1,
+      "D+6最高价": 1,
+      "D+7最高价": 1,
+      "D+8最高价": 1
+    }
+  },
+  {
+    "stem": "strategy_99b11761e0_v1",
+    "ref": "0921A",
+    "before": 55,
+    "after": 323,
+    "violations": 0,
+    "elapsed_s": 6.8,
+    "boards": {
+      "60沪主板": 148,
+      "00深主板": 151,
+      "300创业": 24
+    },
+    "ref_rows": 299,
+    "both": 299,
+    "only_new": 24,
+    "only_ref": 0,
+    "field_diff": {
+      "D-0涨幅": 277,
+      "D+3最高价": 1,
+      "D+4最高价": 1,
+      "D+5最高价": 1,
+      "D+6最高价": 1,
+      "D+7最高价": 1,
+      "D+8最高价": 1
+    }
+  },
+  {
+    "stem": "strategy_13b34ebf3a_v1",
+    "ref": "（无对照）",
+    "before": 377,
+    "after": 214,
+    "violations": 0,
+    "elapsed_s": 6.8,
+    "boards": {
+      "60沪主板": 99,
+      "00深主板": 88,
+      "300创业": 27
+    }
+  }
+]

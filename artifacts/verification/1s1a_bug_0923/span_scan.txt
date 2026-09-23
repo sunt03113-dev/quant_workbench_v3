@@ -1,0 +1,92 @@
+=== golden case 头行（找 x 列） ===
+0814_backtest.csv                                cols=20  含x=False  ['股票代码', '股票名称', 'D0日期', 'D+1日期', 'D+2日期', '基准日T日期', '间隔天数', 'D+1日振幅(%)']
+0818A_backtest.csv                               cols=16  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-2振幅', 'D-1振幅', 'D-0振幅', 'D-2/D-1区间涨幅', 'D-2/D-1区间振幅']
+0818B_backtest.csv                               cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-3振幅', 'D-2涨幅', 'D-2振幅', 'D-1振幅', 'D-0振幅']
+0822_backtest.csv                                cols=14  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-1涨幅', 'D-1振幅', 'D-0振幅', 'D-0/D-1成交额百分比', 'T+0(低/高)']
+0824_backtest.csv                                cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-2涨幅', 'D-2振幅', 'D-1振幅', 'D-0涨幅', 'D-0振幅']
+0827A_backtest.csv                               cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-2振幅', 'D-1涨幅', 'D-1振幅', 'D-0涨幅', 'D-0振幅']
+0827B_backtest.csv                               cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-4振幅', 'D-2振幅', 'D-4~D-2区间涨幅', 'D-4~D-2区间振幅', 'D-1涨幅']
+0908_backtest.csv                                cols=17  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-5涨幅', 'D-5振幅', 'D-4~D-1区间涨幅', 'D-4~D-1区间振幅', 'D-4~D-1区间最大振幅']
+0908B_backtest.csv                               cols=19  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-6振幅', 'D-5振幅', 'D-6~D-5区间涨幅', 'D-6~D-5区间振幅', 'D-4~D-1区间涨幅']
+0908C_backtest.csv                               cols=19  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-7振幅', 'D-5振幅', 'D-7~D-5区间涨幅', 'D-7~D-5区间振幅', 'D-4~D-1区间涨幅']
+0909A_backtest.csv                               cols=20  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-4振幅', 'D-3振幅', 'D-2振幅', 'D-4~D-2区间涨幅', 'D-4~D-2区间振幅']
+0910A_backtest.csv                               cols=16  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-3涨幅', 'D-3振幅', 'D-2~D-1区间涨幅', 'D-2~D-1区间振幅', 'D-0振幅']
+0911_backtest.csv                                cols=16  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-4涨幅', 'D-4振幅', 'D-3~D-1区间涨幅', 'D-3~D-1区间振幅', 'D-0振幅']
+0912_backtest.csv                                cols=16  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-2涨幅', 'D-2振幅', 'D-1涨幅', 'D-1振幅', 'D-0振幅']
+0913A_backtest.csv                               cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-4振幅', 'D-3振幅', 'D-4~D-3区间涨幅', 'D-4~D-3区间振幅', 'D-2~D-1区间涨幅']
+0913B_backtest.csv                               cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-5振幅', 'D-3振幅', 'D-5~D-3区间涨幅', 'D-5~D-3区间振幅', 'D-2~D-1区间涨幅']
+0915A_backtest.csv                               cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-3振幅', 'D-2振幅', 'D-3~D-2区间涨幅', 'D-3~D-2区间振幅', 'D-1涨幅']
+0915B_backtest.csv                               cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-5振幅', 'D-4振幅', 'D-5~D-4区间涨幅', 'D-5~D-4区间振幅', 'D-3~D-1区间涨幅']
+0915C_backtest.csv                               cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-6振幅', 'D-4振幅', 'D-6~D-4区间涨幅', 'D-6~D-4区间振幅', 'D-3~D-1区间涨幅']
+0917A_backtest.csv                               cols=18  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-4振幅', 'D-2振幅', 'D-4~D-2区间涨幅', 'D-4~D-2区间振幅', 'D-1涨幅']
+0917B_backtest.csv                               cols=17  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-3振幅', 'D-2振幅', 'D-1振幅', 'D-3~D-1区间涨幅', 'D-3~D-1区间振幅']
+0917C_backtest.csv                               cols=13  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-1振幅', 'D-0振幅', 'D-0/D-1成交额百分比', 'T+0(低/高)', 'T+1最高价']
+0917D_backtest.csv                               cols=16  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-2振幅', 'D-1涨幅', 'D-1振幅', 'D-0涨幅', 'D-0振幅']
+0917E_backtest.csv                               cols=16  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-2振幅', 'D-1涨幅', 'D-1振幅', 'D-0涨幅', 'D-0振幅']
+0918A_backtest.csv                               cols=16  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-0涨幅', 'D-0振幅', 'D-0最低价', 'D-0最高价', 'D-1振幅']
+0918B_backtest.csv                               cols=16  含x=False  ['股票代码', '股票名称', 'D-0日期', 'D-0涨幅', 'D-0振幅', 'D-0最低价', 'D-0最高价', 'D-1振幅']
+
+=== 含 x 的工作台模型：计划条件 + 区间复核 ===
+------------------------------------------------------------------------------------------
+MODEL strategy_13b34ebf3a_v1  universe=10cm quant={'var': 'x', 'min': 2, 'max': 11} n=377
+    {"offset": -1, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}
+    {"offset_var": 0, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset_var": 1, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset_var": 2, "limit_up": true, "amount_max20": true, "high_max20": false}
+    {"offset_var": 3, "limit_up": false, "amount_max20": false}
+    {"offset_var": 4, "limit_up": false, "amount_max20": false}
+    区间 [D-x, D-1] 共有条件 = {'limit_up': False, 'amount_max20': False, 'high_max20': False}
+    区间复核: OK=214（主板 187/创业板 27）  VIOL=163（主板 143/创业板 20）
+------------------------------------------------------------------------------------------
+MODEL strategy_f120ccad35_v1  universe=10cm quant={'var': 'x', 'min': 2, 'max': 11} n=55
+    {"offset": -4, "limit_up": false, "amount_max20": false}
+    {"offset": -3, "limit_up": false, "amount_max20": false}
+    {"offset": -2, "limit_up": true, "amount_max20": true, "high_max20": true}
+    {"offset": -1, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}
+    {"offset_var": 0, "limit_up": false, "amount_max20": false, "high_max20": false}
+    区间 [D-x, D-1] 共有条件 = {'limit_up': False, 'amount_max20': False, 'high_max20': False}
+    区间复核: OK=0（主板 0/创业板 0）  VIOL=55（主板 51/创业板 4）
+------------------------------------------------------------------------------------------
+MODEL strategy_676e25bb91_v1  universe=10cm quant={'var': 'x', 'min': 2, 'max': 11} n=55
+    {"offset": -4, "limit_up": false, "amount_max20": false}
+    {"offset": -3, "limit_up": false, "amount_max20": false}
+    {"offset": -2, "limit_up": true, "amount_max20": true, "high_max20": true}
+    {"offset": -1, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}
+    {"offset_var": 0, "limit_up": false, "amount_max20": false, "high_max20": false}
+    区间 [D-x, D-1] 共有条件 = {'limit_up': False, 'amount_max20': False, 'high_max20': False}
+    区间复核: OK=0（主板 0/创业板 0）  VIOL=55（主板 51/创业板 4）
+------------------------------------------------------------------------------------------
+MODEL strategy_99b11761e0_v1  universe=10cm quant={'var': 'x', 'min': 2, 'max': 11} n=55
+    {"offset": -4, "limit_up": false, "amount_max20": false}
+    {"offset": -3, "limit_up": false, "amount_max20": false}
+    {"offset": -2, "limit_up": true, "amount_max20": true, "high_max20": true}
+    {"offset": -1, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}
+    {"offset_var": 0, "limit_up": false, "amount_max20": false, "high_max20": false}
+    区间 [D-x, D-1] 共有条件 = {'limit_up': False, 'amount_max20': False, 'high_max20': False}
+    区间复核: OK=0（主板 0/创业板 0）  VIOL=55（主板 51/创业板 4）
+------------------------------------------------------------------------------------------
+MODEL strategy_10cm_v6  universe=10cm quant={'var': 'x', 'min': 2, 'max': 11} n=622
+    {"offset": -1, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset": 0, "limit_up": false, "amount_max20": true, "high_max20": true}
+    {"offset_var": 0, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset_var": 1, "limit_up": false, "amount_max20": true, "high_max20": true}
+    {"offset_var": 2, "limit_up": true, "amount_max20": true, "high_max20": true}
+    {"offset_var": 3, "limit_up": false, "amount_max20": false}
+    {"offset_var": 4, "limit_up": false, "amount_max20": false}
+    区间 [D-x, D-1] 共有条件 = {'limit_up': False, 'amount_max20': False, 'high_max20': False}
+    区间复核: OK=323（主板 299/创业板 24）  VIOL=299（主板 275/创业板 24）
+------------------------------------------------------------------------------------------
+MODEL strategy_c1790145091328_r1_v1  universe=10cm quant={'var': 'x', 'min': 2, 'max': 11} n=274
+    {"offset": -1, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset": 0, "limit_up": true, "amount_max20": true, "high_max20": true}
+    {"offset_var": 0, "limit_up": false, "amount_max20": false, "high_max20": false}
+    {"offset_var": 1, "limit_up": false, "amount_max20": true, "high_max20": true}
+    {"offset_var": 2, "limit_up": true, "amount_max20": true, "high_max20": true}
+    {"offset_var": 3, "limit_up": false, "amount_max20": false}
+    {"offset_var": 4, "limit_up": false, "amount_max20": false}
+    区间 [D-x, D-1] 共有条件 = {'limit_up': False, 'amount_max20': False, 'high_max20': False}
+    区间复核: OK=148（主板 131/创业板 17）  VIOL=126（主板 112/创业板 14）

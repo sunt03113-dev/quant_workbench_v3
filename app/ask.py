@@ -292,6 +292,14 @@ def _label_day(d):
     return f"D-{abs(d.get('offset', 0))}"
 
 
+def _label_range_end(spec):
+    """区间条件端点标签：变量端 {"var":k} -> D-x / D-(x+k)；固定端 int -> D-n / D+n。"""
+    if isinstance(spec, dict):
+        k = spec.get("var", 0)
+        return "D-x" if k == 0 else (f"D-(x+{k})" if k > 0 else f"D-(x{k})")
+    return f"D-{abs(spec)}" if spec <= 0 else f"D+{spec}"
+
+
 def _cond_desc(d):
     parts = []
     if d.get("limit_up") is True:
@@ -317,15 +325,28 @@ def _answer_condcheck(stem, plan, universe, question, stats):
     sp = (plan.get("strategy_plan") or {}) if isinstance(plan, dict) else {}
     days = sp.get("days") or []
     quant = sp.get("quantifier") or {}
+    ranges = sp.get("ranges") or []
     paras = ["识别计划包含以下日条件（每行命中都必须逐条满足）："]
     for d in days:
         paras.append(f"· {_label_day(d)}：{_cond_desc(d)}")
+    for rg in ranges:
+        lb = rg.get("label") or f"{_label_range_end(rg.get('from'))}~{_label_range_end(rg.get('to'))}"
+        paras.append(f"· {lb}（**整段区间**）：{_cond_desc(rg.get('conds') or {})}"
+                     " ——区间内**每一天**都必须满足（2026-09-23 区间语义裁定）")
     if quant:
         paras.append(f"· 量词：x ∈ [{quant.get('min')}, {quant.get('max')}]"
                      "（范围内每个 x 单独取一行）")
     ev = {"conditions": [{"day": _label_day(d),
                           **{k: d[k] for k in ("limit_up", "amount_max20", "high_max20")
                              if k in d}} for d in days]}
+    if ranges:
+        ev["ranges"] = [{"label": (rg.get("label")
+                                   or f"{_label_range_end(rg.get('from'))}"
+                                      f"~{_label_range_end(rg.get('to'))}"),
+                         "per_day_all": True,
+                         **{k: v for k, v in (rg.get("conds") or {}).items()
+                            if k in ("limit_up", "amount_max20", "high_max20")}}
+                        for rg in ranges]
     cur = store.load_result(stem, "current")
     if not cur or not (cur.get("rows")):
         paras.append("该模型暂无已存结果，无法核验。")

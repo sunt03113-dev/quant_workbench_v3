@@ -1,0 +1,45 @@
+=== 输入资产哈希 before -> after ===
+  skill        2443c6208aaf6007  ->  2443c6208aaf6007   same
+  golden       606d714f98042fa7  ->  606d714f98042fa7   same
+  market_pack  7a7d3571891217ef  ->  f078cebce2821944   CHANGED
+  stock_names  aa21e8ef9140efee  ->  aa21e8ef9140efee   same
+  market index_last_trade_date: 2026-07-16 -> 2026-07-16
+
+=== P0 判定 before -> after ===
+type prev: dict keys ['0814', '0818A', '0818B', '0822', '0824']
+type new : dict keys ['0814', '0818A', '0818B', '0822', '0824']
+  0814       CAPABILITY_GAP                   rows=None  ->  CAPABILITY_GAP                   rows=None
+  0818A      PASS_WITH_KNOWN_T0_CONFLICT      rows=None  ->  PASS_WITH_KNOWN_T0_CONFLICT      rows=None
+  0818B      PASS_WITH_KNOWN_T0_CONFLICT      rows=None  ->  PASS_WITH_KNOWN_T0_CONFLICT      rows=None
+  0822       PASS_WITH_KNOWN_T0_CONFLICT      rows=None  ->  PASS_WITH_KNOWN_T0_CONFLICT      rows=None
+  0824       PASS                             rows=None  ->  PASS                             rows=None
+  0827A      PASS                             rows=None  ->  PASS                             rows=None
+  0827B      PASS_WITH_KNOWN_T0_CONFLICT      rows=None  ->  PASS_WITH_KNOWN_T0_CONFLICT      rows=None
+  0908       PASS_WITH_KNOWN_T0_CONFLICT      rows=None  ->  PASS_WITH_KNOWN_T0_CONFLICT      rows=None
+  0908B      PASS_WITH_KNOWN_T0_CONFLICT      rows=None  ->  PASS_WITH_KNOWN_T0_CONFLICT      rows=None
+  0908C      PASS_WITH_KNOWN_T0_CONFLICT      rows=None  ->  PASS_WITH_KNOWN_T0_CONFLICT      rows=None
+  0909A      PASS                             rows=None  ->  PASS                             rows=None
+  0910A      PASS_WITH_KNOWN_T0_CONFLICT      rows=None  ->  PASS_WITH_KNOWN_T0_CONFLICT      rows=None
+  0911       PASS                             rows=None  ->  PASS                             rows=None
+  0912       PASS                             rows=None  ->  PASS                             rows=None
+  0913A      PASS                             rows=None  ->  PASS                             rows=None
+  0913B      PASS                             rows=None  ->  PASS                             rows=None
+  0915A      PASS                             rows=None  ->  PASS                             rows=None
+  0915B      PASS                             rows=None  ->  PASS                             rows=None
+  0915C      PASS                             rows=None  ->  PASS                             rows=None
+  0917A      PASS                             rows=None  ->  PASS                             rows=None
+  0917B      PASS                             rows=None  ->  PASS                             rows=None
+  0917C      PASS                             rows=None  ->  PASS                             rows=None
+  0917D      PASS                             rows=None  ->  PASS                             rows=None
+  0917E      PASS                             rows=None  ->  PASS                             rows=None
+  0918A      PASS                             rows=None  ->  PASS                             rows=None
+  0918B      PASS                             rows=None  ->  PASS                             rows=None
+  差异条目数: 0
+
+=== Excel 探针 before -> after ===
+  backtest_status          OK                         -> OK
+  n_hits                   1                          -> 1
+  data_date                2026-09-22                 -> 2026-09-23
+  excel_bytes              5053                       -> 5053
+  excel_sha256             25c57e5e5b7a391798732a43   -> 1bbbff27181a5f12c2268c66
+  structured_rows_sha256   cff32a8e14d02fda430fcbb7   -> cff32a8e14d02fda430fcbb7

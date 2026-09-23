@@ -1,0 +1,27 @@
+summary 一致: True
+---- 0814  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0818A  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0818B  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0822  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0824  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0827A  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0827B  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0908  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0908B  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0908C  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0909A  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0910A  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0911  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0912  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0913A  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0913B  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0915A  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0915B  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0915C  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0917A  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0917B  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0917C  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0917D  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0917E  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0918A  与 HEAD 完全一致（仅 run_seconds 计时差）
+---- 0918B  与 HEAD 完全一致（仅 run_seconds 计时差）

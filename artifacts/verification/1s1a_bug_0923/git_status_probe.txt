@@ -1,0 +1,112 @@
+git status rc= 0
+changed entries: 100
+    M app/ask.py
+    M app/executor.py
+    M app/recognizer.py
+    M artifacts/verification/1s1a_check/server_runtime.log
+    M artifacts/verification/p9/win/ENV_win.json
+    M artifacts/verification/step3/golden_test_results.json
+    M deploy/M4_DEPLOY_INSTRUCTION.md
+   ?? app/executor.v4.baseline.py
+   ?? app/recognizer.v5.baseline.py
+   ?? artifacts/verification/1s1a_bug_0923/CHANGES.md
+   ?? artifacts/verification/1s1a_bug_0923/ROOT_CAUSE.md
+   ?? artifacts/verification/1s1a_bug_0923/app_files.txt
+   ?? artifacts/verification/1s1a_bug_0923/appfiles_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/before_hashes.json
+   ?? artifacts/verification/1s1a_bug_0923/build_packs_phase1.py
+   ?? artifacts/verification/1s1a_bug_0923/build_packs_phase2.py
+   ?? artifacts/verification/1s1a_bug_0923/compare_AB.py
+   ?? artifacts/verification/1s1a_bug_0923/compare_AB.txt
+   ?? artifacts/verification/1s1a_bug_0923/compare_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/diff_vs_0923_ref.py
+   ?? artifacts/verification/1s1a_bug_0923/diff_vs_0923_ref.txt
+   ?? artifacts/verification/1s1a_bug_0923/dir_0923_backtest.txt
+   ?? artifacts/verification/1s1a_bug_0923/dump_c1790.py
+   ?? artifacts/verification/1s1a_bug_0923/dump_c1790_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/dump_model.py
+   ?? artifacts/verification/1s1a_bug_0923/dump_model_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/gem_breakdown.txt
+   ?? artifacts/verification/1s1a_bug_0923/git_diff_after.txt
+   ?? artifacts/verification/1s1a_bug_0923/git_log_after.txt
+   ?? artifacts/verification/1s1a_bug_0923/git_status_after.txt
+   ?? artifacts/verification/1s1a_bug_0923/golden_after.json
+   ?? artifacts/verification/1s1a_bug_0923/golden_before.json
+   ?? artifacts/verification/1s1a_bug_0923/golden_head_vs_new.py
+   ?? artifacts/verification/1s1a_bug_0923/golden_head_vs_new.txt
+   ?? artifacts/verification/1s1a_bug_0923/golden_json_diff.txt
+   ?? artifacts/verification/1s1a_bug_0923/golden_listing.txt
+   ?? artifacts/verification/1s1a_bug_0923/golden_regression_stdout.txt
+   ?? artifacts/verification/1s1a_bug_0923/inspect.txt
+   ?? artifacts/verification/1s1a_bug_0923/inspect_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/inspect_two.py
+   ?? artifacts/verification/1s1a_bug_0923/interval_10cm_v6.py
+   ?? artifacts/verification/1s1a_bug_0923/interval_10cm_v6.txt
+   ?? artifacts/verification/1s1a_bug_0923/interval_10cm_v6_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/interval_accept.json
+   ?? artifacts/verification/1s1a_bug_0923/interval_accept.py
+   ?? artifacts/verification/1s1a_bug_0923/interval_accept.txt
+   ?? artifacts/verification/1s1a_bug_0923/interval_check.py
+   ?? artifacts/verification/1s1a_bug_0923/interval_check.txt
+   ?? artifacts/verification/1s1a_bug_0923/interval_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/interval_impl_check.py
+   ?? artifacts/verification/1s1a_bug_0923/interval_impl_check.txt
+   ?? artifacts/verification/1s1a_bug_0923/interval_impl_report.json
+   ?? artifacts/verification/1s1a_bug_0923/kk_scripts.txt
+   ?? artifacts/verification/1s1a_bug_0923/live_api_check.json
+   ?? artifacts/verification/1s1a_bug_0923/live_api_check.py
+   ?? artifacts/verification/1s1a_bug_0923/live_api_check.txt
+   ?? artifacts/verification/1s1a_bug_0923/mem_tail.txt
+   ?? artifacts/verification/1s1a_bug_0923/model_c1790_full.txt
+   ?? artifacts/verification/1s1a_bug_0923/model_def.txt
+   ?? artifacts/verification/1s1a_bug_0923/new_strategy_10cm_v6.xlsx
+   ?? artifacts/verification/1s1a_bug_0923/new_strategy_13b34ebf3a_v1.xlsx
+   ?? artifacts/verification/1s1a_bug_0923/new_strategy_676e25bb91_v1.xlsx
+   ?? artifacts/verification/1s1a_bug_0923/new_strategy_99b11761e0_v1.xlsx
+   ?? artifacts/verification/1s1a_bug_0923/new_strategy_c1790145091328_r1_v1.xlsx
+   ?? artifacts/verification/1s1a_bug_0923/new_strategy_f120ccad35_v1.xlsx
+   ?? artifacts/verification/1s1a_bug_0923/numeric_equivalence.py
+   ?? artifacts/verification/1s1a_bug_0923/numeric_equivalence.txt
+   ?? artifacts/verification/1s1a_bug_0923/old274_probe.txt
+   ?? artifacts/verification/1s1a_bug_0923/p9_collect_win_after_interval.log
+   ?? artifacts/verification/1s1a_bug_0923/p9_win_backup_before_0923.zip
+   ?? artifacts/verification/1s1a_bug_0923/pack_build_phase1.json
+   ?? artifacts/verification/1s1a_bug_0923/pack_build_phase2.json
+   ?? artifacts/verification/1s1a_bug_0923/pair_quant.py
+   ?? artifacts/verification/1s1a_bug_0923/pair_quant.txt
+   ?? artifacts/verification/1s1a_bug_0923/pair_quant_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/raw_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/raw_recheck.py
+   ?? artifacts/verification/1s1a_bug_0923/raw_recheck.txt
+   ?? artifacts/verification/1s1a_bug_0923/ref_vs_model.py
+   ?? artifacts/verification/1s1a_bug_0923/ref_vs_model.txt
+   ?? artifacts/verification/1s1a_bug_0923/ref_vs_model_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/rerun_interval_models.json
+   ?? artifacts/verification/1s1a_bug_0923/rerun_interval_models.py
+   ?? artifacts/verification/1s1a_bug_0923/rerun_interval_models.txt
+   ?? artifacts/verification/1s1a_bug_0923/rule_texts.txt
+   ?? artifacts/verification/1s1a_bug_0923/ruletexts_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/scan_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/scan_models.py
+   ?? artifacts/verification/1s1a_bug_0923/scan_models.txt
+   ?? artifacts/verification/1s1a_bug_0923/server_health.txt
+   ?? artifacts/verification/1s1a_bug_0923/server_runtime_after_interval.log
+   ?? artifacts/verification/1s1a_bug_0923/skill3_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/skill3_rules.txt
+   ?? artifacts/verification/1s1a_bug_0923/skill_files.txt
+   ?? artifacts/verification/1s1a_bug_0923/span_scan.py
+   ?? artifacts/verification/1s1a_bug_0923/span_scan.txt
+   ?? artifacts/verification/1s1a_bug_0923/span_scan_console.txt
+   ?? artifacts/verification/1s1a_bug_0923/state_backup_before_rerun.zip
+   ?? artifacts/verification/1s1a_bug_0923/x_distribution.txt
+   ?? artifacts/verification/1s1a_bug_0923/xdist_console.txt
+
+recent commits:
+8d6635c ask: 新增「结果条件核验」质询意图——修复"结果是否满足规则条件"类问题答非所问
+b01ca0e ui: 首页排序二次定稿——类别升序(2S系列垫底)+类别内卡片升序；修复前缀场景比较器不对称（1S1A 曾排到 1S1 前）；重打 M4 代码包（kk 09-23）
+2656704 deploy: 补第三包 qwb_state_pack_20260923（模型定义+结果表，原不在任何包内）+ 部署指令补齐三包与执行顺序
+9e953f7 p9: 09-23 重采 Windows 端证据（P0 26 规则/7849 行/10cm 三例转 PASS）+ 比对器自校验 PASS + M4 基线对照单
+d5aae72 10cm 口径裁定全链路：创业板 10% 时代入池 + 反向门 + golden 重造 + 模型重跑（kk 09-23 方案A）
+
+is evidence dir tracked? rc= 1  error: pathspec 'artifacts/verification/1s1a_bug_0923/ROOT_CAUSE.md' did not match any file(s) known to git
+Did you forget to 'git add'?

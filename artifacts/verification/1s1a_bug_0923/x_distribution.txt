@@ -1,0 +1,14 @@
+x=2   OK=46   VIOL=0   
+x=3   OK=27   VIOL=5   
+x=4   OK=6    VIOL=7   
+x=5   OK=21   VIOL=16  
+x=6   OK=12   VIOL=14  
+x=7   OK=8    VIOL=17  
+x=8   OK=7    VIOL=10  
+x=9   OK=9    VIOL=18  
+x=10  OK=4    VIOL=23  
+x=11  OK=8    VIOL=16  
+
+x=2 出现 VIOL 的行数 = 0 （应为 0）
+x=2 总行数 = 46
+x=2 行在 kk 参考中的命中数 = 44

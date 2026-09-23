@@ -167,6 +167,59 @@ def _mask_for_days(dc, n, limits, is_amtmax, is_highmax, opens, closes):
     return cand
 
 
+# ===================== 区间条件（整段每一天都要满足） =====================
+# 计划语言（2026-09-23 kk 裁定「方案A 区间式」）：
+#   strategy_plan.ranges = [{"from": {"var": k} | int, "to": {"var": k} | int,
+#                            "conds": {...}, "label": "D-x~D-1"}]
+# 语义：对每个 x，令 d_from/d_to 为端点「距 D-0 的深度」（{"var":k} -> x+k；int off -> -off），
+#       区间日 j = i-d_from .. i-d_to（含两端，d_from >= d_to）每一天都必须满足 conds。
+# 为什么需要：规则原文里 D-1 与 D-x 写同一组条件（"不涨停/成交额不是最大/股价不是最高"）时，
+#       作者意图是「D-x~D-1 这段整理期内每一天都如此」，而不是只校验两个端点。
+#       1S1A 只校验端点导致 603156@2026-05-18 这类「整理期内含涨停日」的票被放行（虚增 112 行）。
+# 实现：mid[j] = 第 j 日满足 conds；前缀和 -> 区间判定 O(1)。
+#   fail-closed：区间条件含 20 日窗口原子时，窗口不足 20 日的日子一律判为「不满足」
+#   （不可判定 != 满足），与 kk 参考实现 cand[:x+23]=False 同效。
+
+
+def _range_pref(n, limits, is_amtmax, is_highmax, opens, closes, conds):
+    """区间条件的每日满足掩码前缀和（长度 n+1，与具体 x 无关，可为每个 x 复用）。"""
+    mid = np.ones(n, dtype=bool)
+    if "limit_up" in conds:
+        mid &= limits if conds["limit_up"] else ~limits
+    if conds.get("amount_max20") is not None:
+        mid &= is_amtmax if conds["amount_max20"] else ~is_amtmax
+    if conds.get("high_max20") is not None:
+        mid &= is_highmax if conds["high_max20"] else ~is_highmax
+    if conds.get("candle"):
+        form_ok = (closes > opens) if conds["candle"] == "阳" else (closes <= opens)
+        mid &= form_ok & ~limits
+    if conds.get("amount_max20") is not None or conds.get("high_max20") is not None:
+        mid[:19] = False
+    pref = np.zeros(n + 1, dtype=np.int64)
+    pref[1:] = np.cumsum(mid.astype(np.int64))
+    return pref
+
+
+def _range_depths(rg, xv):
+    """区间端点的「距 D-0 深度」（>=0）：from 更深（更早），to 更浅（更近）。"""
+    def depth(spec):
+        if isinstance(spec, dict):
+            return xv + spec["var"]
+        return -spec
+    return depth(rg["from"]), depth(rg["to"])
+
+
+def _range_ok(n, pref, d_from, d_to):
+    """区间 [i-d_from, i-d_to] 内每一天都满足 -> ok[i]（要求 d_from >= d_to >= 0）。"""
+    ok = np.zeros(n, dtype=bool)
+    if d_from < d_to or d_to < 0 or d_from > n - 1:
+        return ok
+    i = np.arange(d_from, n)
+    cnt = pref[i - d_to + 1] - pref[i - d_from]
+    ok[i] = cnt == (d_from - d_to + 1)
+    return ok
+
+
 def _make_jget(i, xv, n):
     """构造行内日锚解析器：固定日 key=int 偏移；变量日 key=("var", k) 深度 x+k。"""
     cache = {}
@@ -450,8 +503,11 @@ def run_plan(plan, start_date=None, end_date=None, data_end=None, progress_cb=No
     fixed_offs = [d["offset"] for d in days if "offset" in d]
     min_off = min(fixed_offs) if fixed_offs else 0   # 最深回看（负数，仅固定日）
     max_off = max(fixed_offs) if fixed_offs else 0
+    ranges = sp.get("ranges") or []                  # 区间条件（整段每一天都要满足）
     need_window = any(d.get("amount_max20") is not None or d.get("high_max20") is not None
-                      for d in days)
+                      for d in days) or any(
+        rg["conds"].get("amount_max20") is not None or rg["conds"].get("high_max20") is not None
+        for rg in ranges)
     t_count = 0
     for o in outputs:
         if o["atom"] == "t_walk":
@@ -491,6 +547,9 @@ def run_plan(plan, start_date=None, end_date=None, data_end=None, progress_cb=No
             is_highmax = np.zeros(n, dtype=bool)
             is_amtmax[19:] = amounts[19:] == amt_max20[19:]
             is_highmax[19:] = highs[19:] == high_max20[19:]
+        # 区间条件前缀和（与 x 无关，逐股算一次；每个 x 复用）
+        rg_pref = [_range_pref(n, limits, is_amtmax, is_highmax, opens, closes, rg["conds"])
+                   for rg in ranges]
 
         # 候选掩码（对齐 D-0 = i）
         if quant is not None:
@@ -507,6 +566,10 @@ def run_plan(plan, start_date=None, end_date=None, data_end=None, progress_cb=No
                     else:
                         dc.append({**base, "_off": d["offset"]})
                 cand_x = _mask_for_days(dc, n, limits, is_amtmax, is_highmax, opens, closes)
+                # 区间条件：D-x~D-1 整段每一天都要满足（2026-09-23 kk 裁定方案A）
+                for gi, rg in enumerate(ranges):
+                    d_from, d_to = _range_depths(rg, xv)
+                    cand_x &= _range_ok(n, rg_pref[gi], d_from, d_to)
                 offs = [d["_off"] for d in dc]
                 deepest = min(offs)
                 if need_window:
@@ -575,6 +638,14 @@ def run_plan(plan, start_date=None, end_date=None, data_end=None, progress_cb=No
             else:
                 sh2[: n - off] = ok[off:]       # sh2[i] = ok[i + off]
             cand &= sh2
+
+        # 区间条件（固定日规则）：端点必须是固定偏移（无 quantifier 时用变量端点 = 计划矛盾）
+        for gi, rg in enumerate(ranges):
+            for spec in (rg["from"], rg["to"]):
+                if isinstance(spec, dict):
+                    raise ValueError("区间条件含变量端点，但计划未声明变量范围 x")
+            d_from, d_to = _range_depths(rg, 0)
+            cand &= _range_ok(n, rg_pref[gi], d_from, d_to)
 
         # 窗口有效性：使用窗口原子的最深日 j = i + min_off 需 >= 19
         if need_window:
@@ -725,6 +796,56 @@ def _build_row(code, dates, opens, highs, lows, closes, amounts, limits,
 
 # ===================== 确定性复核（fail-closed） =====================
 
+def _check_range_scalar(code, label, conds, dates, d_from, d_to, i, n,
+                        amounts, highs, flags):
+    """区间条件标量复核：由 D-0 位置 + x 重建区间，逐日独立重验（不复用向量化掩码）。
+
+    fail-closed：区间含 20 日窗口原子而该日窗口不足 20 日 -> 条件不可判定，计违例。
+    """
+    out = []
+    if d_to < 0 or d_from < d_to:
+        return [{"code": "RANGE_BOUND_INVALID",
+                 "detail": f"{code}@{label}: 区间端点深度非法 (from={d_from}, to={d_to})"}]
+    for j in range(i - d_from, i - d_to + 1):
+        if j < 0 or j >= n:
+            out.append({"code": "RANGE_INDEX_OUT_OF_RANGE",
+                        "detail": f"{code}@{label}: 区间日下标越界"})
+            continue
+        dt = fmt_date(dates[j])
+        if conds.get("limit_up") is not None:
+            actual = bool(flags[j])
+            if actual != conds["limit_up"]:
+                out.append({"code": "RANGE_LIMIT_UP_MISMATCH",
+                            "detail": f"{code}@{label} 区间日 {dt}: 期望"
+                                      f"{'涨停' if conds['limit_up'] else '非涨停'}, "
+                                      f"复核={'涨停' if actual else '非涨停'}"})
+        if conds.get("amount_max20") is not None:
+            if j < 19:
+                out.append({"code": "RANGE_WINDOW_INVALID",
+                            "detail": f"{code}@{label} 区间日 {dt}: 20 日窗口不足，成交额条件不可判定"})
+            else:
+                wmax = float(np.max(amounts[j - 19: j + 1]))
+                actual = abs(float(amounts[j]) - wmax) < 1e-6 * max(1.0, wmax)
+                if actual != conds["amount_max20"]:
+                    out.append({"code": "RANGE_AMOUNT_MAX20_MISMATCH",
+                                "detail": f"{code}@{label} 区间日 {dt}: 期望成交额"
+                                          f"{'为' if conds['amount_max20'] else '非'}20日最大, "
+                                          f"复核={'为' if actual else '非'}"})
+        if conds.get("high_max20") is not None:
+            if j < 19:
+                out.append({"code": "RANGE_WINDOW_INVALID",
+                            "detail": f"{code}@{label} 区间日 {dt}: 20 日窗口不足，最高价条件不可判定"})
+            else:
+                wmax = float(np.max(highs[j - 19: j + 1]))
+                actual = abs(float(highs[j]) - wmax) < 1e-9
+                if actual != conds["high_max20"]:
+                    out.append({"code": "RANGE_HIGH_MAX20_MISMATCH",
+                                "detail": f"{code}@{label} 区间日 {dt}: 期望最高价"
+                                          f"{'为' if conds['high_max20'] else '非'}20日最高, "
+                                          f"复核={'为' if actual else '非'}"})
+    return out
+
+
 def validate_rows(plan, rows, columns):
     """独立重验：每行每个日条件的原子用 Skill 标量口径重算。
 
@@ -735,6 +856,7 @@ def validate_rows(plan, rows, columns):
     days = sp["days"]
     quant = sp.get("quantifier")
     chain = sp.get("chain")
+    ranges = sp.get("ranges") or []
     violations = []
     if not rows:
         return violations
@@ -920,6 +1042,7 @@ def validate_rows(plan, rows, columns):
                                         else d["offset"])}
                             for d in days]
             else:
+                xv = 0
                 eff_days = days
             for dspec in eff_days:
                 j = i + dspec["offset"]
@@ -947,6 +1070,19 @@ def validate_rows(plan, rows, columns):
                         violations.append({
                             "code": "HIGH_MAX20_MISMATCH",
                             "detail": f"{code}@{r[d0_col]} D{dspec['offset']}: 期望最高价{'为' if dspec['high_max20'] else '非'}20日最高, 复核={'为' if actual else '非'}"})
+            # 区间条件复核（整段每一天都要满足；2026-09-23 kk 裁定方案A）
+            for rg in ranges:
+                for spec in (rg["from"], rg["to"]):
+                    if isinstance(spec, dict) and quant is None:
+                        violations.append({
+                            "code": "ROW_INVALID",
+                            "detail": f"{code}@{r[d0_col]}: 区间条件含变量端点但计划未声明变量范围"})
+                d_from, d_to = _range_depths(rg, xv)
+                violations.extend(_check_range_scalar(
+                    code, r[d0_col], rg["conds"], dates, d_from, d_to, i, n,
+                    amounts, highs, flags))
+                if len(violations) > 50:
+                    break
             # 涨跌幅口径抽验（2026-09-23 kk 裁定：20cm 生效日起；10cm 创业板反向门）
             if universe == "20cm":
                 if code.startswith(("300", "301")) and dates[i] < GEM_20CM_DATE:
