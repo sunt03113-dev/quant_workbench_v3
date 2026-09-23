@@ -1,0 +1,17 @@
+add commit_msg.txt rc 0
+add git_commit_diag.txt rc 0
+add git_staging.txt rc 0
+commit rc= 0
+[main 35447e0] chore: 补齐区间语义修复的提交过程留证（commit msg / staging / 提交诊断）
+ 3 files changed, 73 insertions(+)
+ create mode 100644 artifacts/verification/1s1a_bug_0923/commit_msg.txt
+ create mode 100644 artifacts/verification/1s1a_bug_0923/git_commit_diag.txt
+ create mode 100644 artifacts/verification/1s1a_bug_0923/git_staging.txt
+
+STDERR 
+--- log ---
+35447e0 chore: 补齐区间语义修复的提交过程留证（commit msg / staging / 提交诊断）
+9c4e11a interval: 识别层新增「区间条件」语义 —— D-1/D-x 同组条件升级为 D-x~D-1 整段（kk 方案A）
+8d6635c ask: 新增「结果条件核验」质询意图——修复"结果是否满足规则条件"类问题答非所问
+
+remaining: ?? artifacts/verification/1s1a_bug_0923/git_remote_state.txt

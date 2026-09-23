@@ -1,0 +1,13 @@
+--- untracked/modified ---
+?? artifacts/verification/1s1a_bug_0923/commit_msg.txt
+?? artifacts/verification/1s1a_bug_0923/git_commit_diag.txt
+?? artifacts/verification/1s1a_bug_0923/git_staging.txt
+
+--- remotes ---
+origin	git@github.com:sunt03113-dev/quant_workbench_v3.git (fetch)
+origin	git@github.com:sunt03113-dev/quant_workbench_v3.git (push)
+
+--- origin/main ---
+b01ca0e ui: 首页排序二次定稿——类别升序(2S系列垫底)+类别内卡片升序；修复前缀场景比较器不对称（1S1A 曾排到 1S1 前）；重打 M4 代码包（kk 09-23）
+
+--- 本地领先 origin/main 提交数: 2
