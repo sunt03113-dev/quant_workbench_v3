@@ -1,0 +1,30 @@
+add app/ask.py rc= 0 warning: in the working copy of 'app/ask.py', LF will be replaced by CRLF the next time Git touches it
+add app/executor.py rc= 0 warning: in the working copy of 'app/executor.py', LF will be replaced by CRLF the next time Git touches it
+add app/recognizer.py rc= 0 warning: in the working copy of 'app/recognizer.py', LF will be replaced by CRLF the next time Git touches it
+add app/executor.v4.baseline.py rc= 0 warning: in the working copy of 'app/executor.v4.baseline.py', LF will be replaced by CRLF the next time Git touches it
+add app/recognizer.v5.baseline.py rc= 0 warning: in the working copy of 'app/recognizer.v5.baseline.py', LF will be replaced by CRLF the next time Git touches it
+add deploy/M4_DEPLOY_INSTRUCTION.md rc= 0 warning: in the working copy of 'deploy/M4_DEPLOY_INSTRUCTION.md', LF will be replaced by CRLF the next time Git touches it
+add artifacts/verification/1s1a_bug_0923 rc= 0 warning: in the working copy of 'artifacts/verification/1s1a_bug_0923/CHANGES.md', LF will be replaced by CRLF the next time Git touches it
+warning: in the working copy of 'artifacts/verification/1s1a
+add artifacts/verification/p9/win rc= 0 warning: in the working copy of 'artifacts/verification/p9/win/INPUT_win_market_pack.manifest.txt', LF will be replaced by CRLF the next time Git touches it
+add artifacts/verification/step3/golden_test_results.json rc= 0 
+add artifacts/verification/1s1a_check/server_runtime.log rc= 0 
+staged entries: 116
+   M  app/ask.py
+   M  app/executor.py
+   A  app/executor.v4.baseline.py
+   M  app/recognizer.py
+   A  app/recognizer.v5.baseline.py
+   A  artifacts/verification/1s1a_bug_0923/CHANGES.md
+   A  artifacts/verification/1s1a_bug_0923/ROOT_CAUSE.md
+   A  artifacts/verification/1s1a_bug_0923/app_files.txt
+   ...
+   M  artifacts/verification/p9/win/EXCEL_win.json
+   M  artifacts/verification/p9/win/EXCEL_win_p9_excel_probe.xlsx
+   M  artifacts/verification/p9/win/INPUTS_win.json
+   M  artifacts/verification/p9/win/INPUT_win_market_pack.manifest.txt
+   M  artifacts/verification/p9/win/P0_win_CANONICAL.json
+   M  artifacts/verification/p9/win/P0_win_VERDICTS.json
+   M  artifacts/verification/step3/golden_test_results.json
+   M  deploy/M4_DEPLOY_INSTRUCTION.md
+untracked remaining: 0

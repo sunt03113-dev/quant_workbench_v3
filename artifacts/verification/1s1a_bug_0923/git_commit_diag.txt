@@ -1,0 +1,14 @@
+--- log ---
+9c4e11a interval: 识别层新增「区间条件」语义 —— D-1/D-x 同组条件升级为 D-x~D-1 整段（kk 方案A）
+8d6635c ask: 新增「结果条件核验」质询意图——修复"结果是否满足规则条件"类问题答非所问
+b01ca0e ui: 首页排序二次定稿——类别升序(2S系列垫底)+类别内卡片升序；修复前缀场景比较器不对称（1S1A 曾排到 1S1 前）；重打 M4 代码包（kk 09-23）
+
+--- staged/unstaged (tracked only) count = 0
+
+--- hooks (non-sample) ---
+--- commit.gpgsign = 
+--- core.hooksPath = 
+--- user.name = kk
+--- HEAD ---
+9c4e11a9451a5913bf5b05a639901539f1bc0f54 interval: 识别层新增「区间条件」语义 —— D-1/D-x 同组条件升级为 D-x~D-1 整段（kk 方案A）
+
