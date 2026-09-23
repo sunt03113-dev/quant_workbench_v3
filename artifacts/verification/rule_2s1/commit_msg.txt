@@ -1,0 +1,9 @@
+recognizer+质询: 2S1 识别修复（阴线/环比/T波浪键）+ 质询回到工作台内问答（kk 09-23 口径）
+
+- recognizer：阴/阳线写法扩展（收/定为阴 等七种）+ 阳/阴残留 fail-closed（堵静默丢弃）；
+  输出 T 键接受波浪号（_RE_OUT_KEY/_RE_OUT_T 同步）；成交额环比=成交额百分比别名（三分支）
+- 2S1 原文 READY → 端到端 1490 行/16 列/复核 0 违例；golden 26/26 与基线逐条一致；负例全 FAILED
+- 新增 app/ask.py（capability probe 收编，原 run_plan 收窄单股，只读零新判定）+ 只读 POST /api/ask/row
+- ui_v2.html：询问模型改内联问答面板（结论+数值表+命中日期+一致性+JSON 证据），废除剪贴板桥
+- UI before/after 哈希与浏览器验收 6/6 PASS 见 artifacts/verification/{rule_2s1,ui_ask_entry}/
+- skill/golden/executor 零改动

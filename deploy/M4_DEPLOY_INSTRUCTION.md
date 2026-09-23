@@ -7,22 +7,22 @@
 ## 包内容（两个包必须配套使用，勿混用旧包）
 | 包 | 大小 | sha256 | 内容 |
 |---|---|---|---|
-| `qwb_m4_deploy_20260921.zip` | 5.0 MB / 302 文件 | 见 `dist/SHA256SUMS_20260921.txt` | 代码 + Skill + UI + Golden 结果表 + 部署脚本 + **mac 双击启动器**（不含 `app/config.yaml`，不含任何 `.day`） |
-| `qwb_market_pack_20260921.zip` | 889.5 MB / 11705 文件 | `e4ac139e0c6bcf8f…`（全量见 SHA256SUMS） | 标准本地行情 `appdata/market` + `stock_names.csv` |
+| `qwb_m4_deploy_20260923.zip` | 见 SHA256SUMS | 见 `dist/SHA256SUMS_20260923.txt` | 代码 + Skill + UI + Golden 结果表 + 部署脚本 + mac 双击启动器（不含 `app/config.yaml`，不含任何 `.day`） |
+| `qwb_market_pack_20260923.zip` | 932.9 MB / 11705 文件 | `c7f8d78d9cca9c93c671a99c0ac2d2a5c6ad9ca027822da384dcba9fd804afd8` | 标准本地行情 `appdata/market` + `stock_names.csv` |
 
-> 代码包已在本轮追加 `deploy/mac/`（macOS 双击启动器），**请用新一版代码包**；
-> 行情包未变，可继续用上一版。以 `sha256` 全量校验为准。
+> **2026-09-23 版（当前唯一有效版本）**：代码包与行情包均已更新。
+> 旧 `*_20260921.zip` 两包**作废**——代码包内 10cm 池/golden 口径过时，行情包止于 09-21。
+> 以 `sha256` 全量校验为准。
 
-**行情数据截止 2026-09-21**（5197 只个股当日有成交；其余为退市/停牌标的）。
-两端行情必须**完全一致**，否则 P9 第一道关（输入资产哈希）会直接 ABORT —— 因此请使用本页
-列出的这一版行情包，不要用更早的副本。
+**行情数据截止 2026-09-22**。两端行情必须**完全一致**，否则 P9 第一道关（输入资产哈希）
+会直接 ABORT —— 因此请使用本页列出的这一版行情包，不要用更早的副本。
 
 ## 部署步骤
 ```bash
 # 1. 解压两个包到同一目录（保持相对结构）
 mkdir -p ~/quant_workbench_package && cd ~/quant_workbench_package
-unzip -q ~/Downloads/qwb_m4_deploy_20260921.zip -d .
-unzip -q ~/Downloads/qwb_market_pack_20260921.zip -d .   # 解出 appdata/market 与 stock_names.csv
+unzip -q ~/Downloads/qwb_m4_deploy_20260923.zip -d .
+unzip -q ~/Downloads/qwb_market_pack_20260923.zip -d .   # 解出 appdata/market 与 stock_names.csv
 
 # 2. 环境变量指路（不要创建 app/config.yaml；开发机配置不得随包传递）
 export QWB_APPDATA_DIR="$PWD/appdata"
@@ -106,4 +106,9 @@ bash deploy/mac/qwb_launch.sh open | status | stop
     与 Skill 侧 388 行逐字一致；`N1∈[1,3]/N2∈[1,4]` 由 3842 → 254）。
   - M4 侧部署后如库内已有带间隔模型的旧结果，请重跑一次（`/api/daily/run` 或逐模型重跑），
     否则界面会一直显示旧口径结果（每日管线只在数据日期变化时才自动重跑）。
+- **2026-09-23 10cm 口径裁定（重要，kk 定稿）**：10cm 池纳入**创业板 300/301 的 10% 时代**
+  （信号日 < 2020-08-24，含反向门）；688 不进 10cm；`both` = 各板块全时代并集（无门槛）。
+  skill 与 app 双实现同步改，golden 0824/0827A/0909A 三例已按新口径重造（gold_test 全 PASS），
+  12 个 10cm 模型已重跑（行数全部增加，复核 0 违例）。
+  证据与明细：包内 `artifacts/verification/gem10_ruling/CHANGES.md`。
 - 行情包 tree_hash 以包内 `appdata/market` 实测为准；两端必须一致（P9 第一道关）。

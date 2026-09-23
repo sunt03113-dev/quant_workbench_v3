@@ -1,0 +1,86 @@
+total=302
+.gitignore: 1
+ACCEPTANCE.md: 1
+BUSINESS.md: 1
+CONSTRAINTS.md: 1
+DATA.md: 1
+PACKAGE_MANIFEST.md: 1
+PRODUCT.md: 1
+WORKBUDDY_INSTRUCTION.md: 1
+app: 29
+artifacts: 134
+deploy: 11
+docs: 1
+golden: 56
+skill: 58
+source_assets: 2
+ui: 3
+--- golden entries ---
+golden/rule.txt
+golden/0814_backtest/0814_backtest.csv
+golden/0814_backtest/0814_backtest.xlsx
+golden/0818A_backtest/0818A_backtest.csv
+golden/0818A_backtest/0818A_backtest.xlsx
+golden/0818B_backtest/0818B_backtest.csv
+golden/0818B_backtest/0818B_backtest.xlsx
+golden/0822_backtest/0822.xlsx
+golden/0822_backtest/0822b.xlsx
+golden/0822_backtest/0822_backtest.csv
+golden/0824_backtest/0824.xlsx
+golden/0824_backtest/0824_backtest.csv
+golden/0827A_backtest/0827A.xlsx
+golden/0827A_backtest/0827A2.xlsx
+golden/0827A_backtest/0827A_backtest.csv
+golden/0827B_backtest/0827B.xlsx
+golden/0827B_backtest/0827B2.xlsx
+golden/0827B_backtest/0827B_backtest.csv
+golden/0908B_backtest/0908B_backtest.csv
+golden/0908B_backtest/0908B_backtest.xlsx
+golden/0908C_backtest/0908C_backtest.csv
+golden/0908C_backtest/0908C_backtest.xlsx
+golden/0908_backtest/0908_backtest.csv
+golden/0908_backtest/0908_backtest.xlsx
+golden/0909A_backtest/0909A_backtest.csv
+golden/0909A_backtest/0909A_backtest.xlsx
+golden/0910A_backtest/0910A_backtest.csv
+golden/0910A_backtest/0910A_backtest.xlsx
+golden/0911_backtest/0911_backtest.csv
+golden/0911_backtest/0911_backtest.xlsx
+golden/0912_backtest/0912_backtest.csv
+golden/0912_backtest/0912_backtest.xlsx
+golden/0913A_backtest/0913A_backtest.csv
+golden/0913A_backtest/0913A_backtest.xlsx
+golden/0913B_backtest/0913B_backtest.csv
+golden/0913B_backtest/0913B_backtest.xlsx
+golden/0915A_backtest/0915A_backtest.csv
+golden/0915A_backtest/0915A_backtest.xlsx
+golden/0915B_backtest/0915B_backtest.csv
+golden/0915B_backtest/0915B_backtest.xlsx
+golden/0915C_backtest/0915C_backtest.csv
+golden/0915C_backtest/0915C_backtest.xlsx
+golden/0917A_backtest/0917A_backtest.csv
+golden/0917A_backtest/0917A_backtest.xlsx
+golden/0917B_backtest/0917B_backtest.csv
+golden/0917B_backtest/0917B_backtest.xlsx
+golden/0917C_backtest/0917C_backtest.csv
+golden/0917C_backtest/0917C_backtest.xlsx
+golden/0917D_backtest/0917D_backtest.csv
+golden/0917D_backtest/0917D_backtest.xlsx
+golden/0917E_backtest/0917E_backtest.csv
+golden/0917E_backtest/0917E_backtest.xlsx
+golden/0918A_backtest/0918A_backtest.csv
+golden/0918A_backtest/0918A_backtest.xlsx
+golden/0918B_backtest/0918B_backtest.csv
+golden/0918B_backtest/0918B_backtest.xlsx
+--- deploy entries ---
+deploy/bootstrap.sh
+deploy/config.example.yaml
+deploy/requirements.lock.win.txt
+deploy/requirements.txt
+deploy/M4_DEPLOY_INSTRUCTION.md
+deploy/README_DEPLOY.md
+deploy/start_workbench.bat
+deploy/mac/install_mac_launcher.sh
+deploy/mac/qwb_launch.sh
+deploy/mac/README_MAC_LAUNCHER.md
+deploy/mac/start_workbench_mac.command

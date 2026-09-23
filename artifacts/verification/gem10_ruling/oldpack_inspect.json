@@ -1,0 +1,11 @@
+{
+ "total": 11705,
+ "stock": [
+  "appdata/stock_names.csv"
+ ],
+ "first3": [
+  "appdata/market/vipdoc/sh/lday/sh000001.day",
+  "appdata/market/vipdoc/sh/lday/sh000002.day",
+  "appdata/market/vipdoc/sh/lday/sh000003.day"
+ ]
+}

@@ -1,0 +1,14 @@
+﻿archive	1
+ci_diag.txt	2295
+pack_market_build.txt	136
+pd_test.txt	4786
+qwb_m4_deploy_20260921.zip	5035992
+qwb_market_pack_20260921.zip	932702871
+qwb_market_pack_20260923.zip	932869143
+sac_state.txt	719
+SHA256SUMS_20260921.txt	299
+SHA256SUMS_market_20260923.txt	135
+smoke_after_provider.txt	4930
+state_after_sac.json	341230
+state_now.json	341230
+sync_diag.txt	995

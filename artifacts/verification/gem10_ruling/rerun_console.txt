@@ -1,0 +1,15 @@
+﻿data_date=2026-09-22  10cm 妯″瀷 12 涓? ['strategy_1z1a_r1_v1', 'strategy_13b34ebf3a_v1', 'strategy_f120ccad35_v1', 'strategy_676e25bb91_v1', 'strategy_23e908c510_v1', 'strategy_99b11761e0_v1', 'strategy_ed26408c68_v1', 'strategy_111a_r1_v1', 'strategy_111b_r1_v1', 'strategy_121_r1_v1', '111B_verify_0922', 'strategy_10cm_v6']
+
+strategy_1z1a_r1_v1              137 -> 146 琛? 澶嶆牳 0 杩濅緥  4.4s
+strategy_13b34ebf3a_v1           330 -> 377 琛? 澶嶆牳 0 杩濅緥  7.3s
+strategy_f120ccad35_v1           51 -> 55 琛? 澶嶆牳 0 杩濅緥  5.9s
+strategy_676e25bb91_v1           51 -> 55 琛? 澶嶆牳 0 杩濅緥  5.9s
+strategy_23e908c510_v1           254 -> 297 琛? 澶嶆牳 0 杩濅緥  8.8s
+strategy_99b11761e0_v1           51 -> 55 琛? 澶嶆牳 0 杩濅緥  5.8s
+strategy_ed26408c68_v1           254 -> 297 琛? 澶嶆牳 0 杩濅緥  8.9s
+strategy_111a_r1_v1              722 -> 805 琛? 澶嶆牳 0 杩濅緥  9.6s
+strategy_111b_r1_v1              388 -> 436 琛? 澶嶆牳 0 杩濅緥  11.3s
+strategy_121_r1_v1               388 -> 436 琛? 澶嶆牳 0 杩濅緥  11.3s
+111B_verify_0922                 388 -> 436 琛? 澶嶆牳 0 杩濅緥  11.4s
+strategy_10cm_v6                 574 -> 622 琛? 澶嶆牳 0 杩濅緥  7.7s
+report saved

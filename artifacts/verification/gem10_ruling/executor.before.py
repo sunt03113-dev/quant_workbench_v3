@@ -59,9 +59,7 @@ def _collect_stock_files(universe):
                 code.startswith(("000", "001", "002", "003"))
             if universe == "20cm" and is20:
                 out.append((code, f))
-            elif universe == "10cm" and (is10 or (not sh and code.startswith(("300", "301")))):
-                # 2026-09-23 kk 裁定：10cm 池纳入创业板 10% 时代（sz300/301，信号日 < 2020-08-24，
-                # 反向门在各执行路径施加）；688 仍不进 10cm。
+            elif universe == "10cm" and is10:
                 out.append((code, f))
             elif universe == "both" and (is20 or is10):
                 out.append((code, f))
@@ -378,15 +376,11 @@ def _run_chain(plan, start_date, end_date, data_end, progress_cb):
                 d_sig = int(dates[je])
                 if d_sig < start_int or d_sig > end_int:
                     continue
-                # 板块涨跌幅口径过滤（2026-09-23 kk 裁定，作用于末锚点信号日）
-                if universe == "20cm":
+                if universe in ("20cm", "both"):
                     if code.startswith("688") and d_sig < STAR_20CM_DATE:
                         continue
                     if code.startswith(("300", "301")) and d_sig < GEM_20CM_DATE:
                         continue
-                elif universe == "10cm" and code.startswith(("300", "301")) \
-                        and d_sig >= GEM_20CM_DATE:
-                    continue
                 ok = True
                 for a_name, j in zip(anchors[1:], js[1:]):
                     if not _chain_anchor_ok(acon.get(a_name, {}), j,
@@ -523,15 +517,12 @@ def run_plan(plan, start_date=None, end_date=None, data_end=None, progress_cb=No
             cand = np.zeros(n, dtype=bool)
             for _, _, cand_x in per_x:
                 cand |= cand_x
-            # 板块涨跌幅口径过滤（2026-09-23 kk 裁定：20cm 维持生效日起；10cm 纳入创业板
-            # 10% 时代=300/301 信号日须 < GEM_20CM_DATE；both=各板块全时代并集，不加门槛）
-            if universe == "20cm":
+            # 板块涨跌幅生效日过滤 + 日期范围（与固定路径同口径，作用于 D-0 = i）
+            if universe in ("20cm", "both"):
                 if code.startswith("688"):
                     cand &= dates >= STAR_20CM_DATE
                 elif code.startswith(("300", "301")):
                     cand &= dates >= GEM_20CM_DATE
-            elif universe == "10cm" and code.startswith(("300", "301")):
-                cand &= dates < GEM_20CM_DATE
             cand &= (dates >= start_int) & (dates <= end_int)
             for i in np.nonzero(cand)[0]:
                 i = int(i)
@@ -584,14 +575,13 @@ def run_plan(plan, start_date=None, end_date=None, data_end=None, progress_cb=No
         # 前向日（t_walk 不受限；仅当 days 含前向时已 fail-closed）
         if max_off > 0:
             cand[n - max_off:] = False
-        # 板块涨跌幅口径过滤（2026-09-23 kk 裁定，与变量日路径同口径）
-        if universe == "20cm":
-            if code.startswith("688"):
+        # 板块涨跌幅生效日过滤（按 D-0 日期，Skill 口径）
+        if universe in ("20cm", "both"):
+            code6 = code
+            if code6.startswith("688"):
                 cand &= dates >= STAR_20CM_DATE
-            elif code.startswith(("300", "301")):
+            elif code6.startswith(("300", "301")):
                 cand &= dates >= GEM_20CM_DATE
-        elif universe == "10cm" and code.startswith(("300", "301")):
-            cand &= dates < GEM_20CM_DATE
         cand &= (dates >= start_int) & (dates <= end_int)
 
         idxs = np.nonzero(cand)[0]
@@ -947,15 +937,12 @@ def validate_rows(plan, rows, columns):
                         violations.append({
                             "code": "HIGH_MAX20_MISMATCH",
                             "detail": f"{code}@{r[d0_col]} D{dspec['offset']}: 期望最高价{'为' if dspec['high_max20'] else '非'}20日最高, 复核={'为' if actual else '非'}"})
-            # 涨跌幅口径抽验（2026-09-23 kk 裁定：20cm 生效日起；10cm 创业板反向门）
-            if universe == "20cm":
+            # 涨跌幅生效日抽验（20cm 板块前置过滤）
+            if universe in ("20cm",):
                 if code.startswith(("300", "301")) and dates[i] < GEM_20CM_DATE:
                     violations.append({"code": "BOARD_DATE_FILTER", "detail": f"{code}@{r[d0_col]}"})
                 if code.startswith("688") and dates[i] < STAR_20CM_DATE:
                     violations.append({"code": "BOARD_DATE_FILTER", "detail": f"{code}@{r[d0_col]}"})
-            elif universe == "10cm" and code.startswith(("300", "301")) \
-                    and dates[i] >= GEM_20CM_DATE:
-                violations.append({"code": "BOARD_DATE_FILTER", "detail": f"{code}@{r[d0_col]}"})
         if len(violations) > 50:
             break
     return violations

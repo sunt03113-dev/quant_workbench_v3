@@ -1,29 +1,30 @@
 # -*- coding: utf-8 -*-
 """
-规则0824 筛选 —— 10cm（沪深主板 + 创业板 10% 时代 sz300/301，反向门=信号日<2020-08-24；kk 2026-09-23 裁定）
+规则0909A 筛选 —— 10cm（沪市主板 600/601/603/605 + 深市主板 000/001/002/003）
 
 时间线（D-0 为基准日 i，向前回看历史）：
-  D-4 (i-4) : 非涨停；成交额非 20 日最大
-  D-3 (i-3) : 非涨停；成交额非 20 日最大
+  D-6 (i-6) : 非涨停；成交额非 20 日最大
+  D-5 (i-5) : 非涨停；成交额非 20 日最大
+  D-4 (i-4) : 非涨停；成交额为 20 日最大
+  D-3 (i-3) : 非涨停；成交额为 20 日最大
   D-2 (i-2) : 非涨停；成交额为 20 日最大；最高价为 20 日最高
-  D-1 (i-1) : 涨停；成交额为 20 日最大；最高价为 20 日最高
-  D-0 (i)   : 非涨停；成交额为 20 日最大；最高价为 20 日最高（基准日）
+  D-1 (i-1) : 非涨停；成交额非 20 日最大
+  D-0 (i)   : 涨停；成交额为 20 日最大；最高价为 20 日最高（基准日）
 
-输出：
+输出（20 列）：
   1. D-0 日期
-  2. D-2 单日涨幅（数值不带 %，如 9.8）
-  3. D-2 单日振幅（数值不带 %）
-  4. D-1 单日振幅（数值不带 %）
-  5. D-0 单日涨幅（数值不带 %）
-  6. D-0 单日振幅（数值不带 %）
-  7. D-2~D-0 区间振幅（数值带 %，如 14.52%）
-  8. D-0/D-2 成交额百分比（数值带 %）
-  9. D-0/D-1 成交额百分比（数值带 %）
- 10. T+0~T+6 价格走势（基准价 = D-0 收盘价）
+  2. D-4 单日振幅（数值不带 %）
+  3. D-3 单日振幅（数值不带 %）
+  4. D-2 单日振幅（数值不带 %）
+  5. D-4~D-2 区间涨幅（数值带 %）
+  6. D-4~D-2 区间振幅（数值带 %）
+  7. D-1 单日涨幅（数值不带 %）
+  8. D-1 单日振幅（数值不带 %）
+  9. D-0 单日振幅（数值不带 %）
+ 10. D-0/D-2 成交额百分比（数值带 %）
+ 11-18. T+0~T+7 价格走势（基准价 = D-0 收盘价）
 
-注意：单日涨幅/振幅数值不带 %；区间振幅与成交额百分比数值带 %。
-
-数据源：本地通达信 .day 二进制（D:\\05_software\\02_programs\\TDx\\vipdoc\\sh 与 sz）
+数据源：本地通达信 .day 二进制
 """
 import sys
 import time
@@ -40,13 +41,12 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from backtest_common import (
     DAY_DIRS, fmt_date, output_excel, check_data_freshness,
     generate_t_fields,
-    compute_limit_flags, normalize_code,
-    DEFAULT_START, DEFAULT_END, GEM_20CM_DATE,
+    compute_limit_flags,
+    DEFAULT_START, DEFAULT_END,
 )
 
 
 def attach_stock_names(df):
-    """直接通过 akshare 匹配股票名称（一次拉取全 A 股代码名称表）。失败则留空。"""
     try:
         import akshare as ak
         name_df = ak.stock_info_a_code_name()
@@ -61,29 +61,26 @@ def attach_stock_names(df):
     return df
 
 
-RULE_NAME = "0824"
-OUTPUT_DIR = Path(r"D:\09work\0824_backtest")
+RULE_NAME = "0909A"
+OUTPUT_DIR = Path(r"D:\09work\0909A_backtest")
 
-# 日期阈值（整数 YYYYMMDD）
 LIMIT_START = 19961216          # 1996-12-16 起 A 股涨跌停限制
 
 OUTPUT_COLUMNS = [
     "股票代码", "股票名称", "D-0日期",
+    # 单日振幅（数值不带 %）
+    "D-4振幅", "D-3振幅", "D-2振幅",
+    # D-4~D-2 区间（数值带 %）
+    "D-4~D-2区间涨幅", "D-4~D-2区间振幅",
     # 单日涨幅/振幅（数值不带 %）
-    "D-2涨幅", "D-2振幅", "D-1振幅", "D-0涨幅", "D-0振幅",
-    # 区间指标（数值带 %）
-    "D-2~D-0区间振幅",
+    "D-1涨幅", "D-1振幅", "D-0振幅",
     # 成交额百分比（数值带 %）
-    "D-0/D-2成交额百分比", "D-0/D-1成交额百分比",
-    # ── D-0 之后的 T+0~T+6 价格走势（基准价 = D-0 收盘价）──
+    "D-0/D-2成交额百分比",
+    # ── T+0~T+7 价格走势（基准价 = D-0 收盘价）──
     "T+0(低/高)", "T+1最高价", "T+2最高价", "T+3最高价",
-    "T+4最高价", "T+5最高价", "T+6最高价",
+    "T+4最高价", "T+5最高价", "T+6最高价", "T+7最高价",
 ]
 
-# generate_t_fields 直接以 D-0 为基准，产出键名与输出键一致，无需重命名
-
-
-# ===================== .day 读取（保留整数分） =====================
 
 _DT = np.dtype([
     ("d", "<i4"), ("o", "<i4"), ("h", "<i4"), ("l", "<i4"),
@@ -92,7 +89,6 @@ _DT = np.dtype([
 
 
 def read_day_raw(filepath):
-    """读取 .day 二进制，返回整数分价格 + 浮点价格 + 成交额。"""
     raw = np.fromfile(filepath, dtype=np.uint8)
     if len(raw) == 0:
         return None
@@ -113,37 +109,23 @@ def read_day_raw(filepath):
     return dates, opens, highs, lows, closes, amounts, close_c, high_c
 
 
-# ===================== 向量化涨停判定（整数分，与 Decimal 等价） =====================
+def compute_limits(dates, close_c, high_c):
+    """严格封死涨停（10cm 主板：收盘==涨停价 且 最高==涨停价）；权威实现见 backtest_common.compute_limit_flags。"""
+    return compute_limit_flags(dates, close_c, high_c, None)
 
-def compute_limits(dates, close_c, high_c, code):
-    """严格封死涨停（收盘==涨停价 且 最高==涨停价）；权威实现见 backtest_common.compute_limit_flags。
-
-    2026-09-23 kk 裁定：传入 code 使 300/301 按日期分段（<2020-08-24 为 10%、之后 20%），
-    保证反向门前后的 T+n「板」标注与工作台执行器一致。
-    """
-    return compute_limit_flags(dates, close_c, high_c, code)
-
-
-# ===================== 20 日滚动最大值 =====================
 
 def rolling_max20(arr):
-    """返回 max20[i] = max(arr[i-19:i+1])，i<19 为 NaN。"""
     n = len(arr)
     out = np.full(n, np.nan, dtype=np.float64)
     if n < 20:
         return out
-    swv = sliding_window_view(arr, 20)  # shape (n-19, 20)
+    swv = sliding_window_view(arr, 20)
     out[19:] = swv.max(axis=1)
     return out
 
 
-# ===================== 标的文件收集（10cm 过滤） =====================
-
 def collect_stock_files():
-    """收集 10cm 标的（沪市主板 600/601/603/605 + 深市主板 000/001/002/003 + 创业板 10% 时代 300/301）.day 文件。
-
-    2026-09-23 kk 裁定：10cm 池纳入 sz300/301（仅 2020-08-24 前的 10% 时代，反向门见 screen_one）。
-    """
+    """收集 10cm 主板标的（沪市 600/601/603/605 + 深市 000/001/002/003）。"""
     out = []
     for d in DAY_DIRS:
         p = Path(d)
@@ -153,18 +135,14 @@ def collect_stock_files():
             stem = f.stem.lower()
             if stem.startswith("sh"):
                 code = stem[2:].zfill(6)
-                if code.startswith(("600", "601", "603", "605")):  # 沪市主板 10cm
+                if code.startswith(("600", "601", "603", "605")):
                     out.append((code, f))
             elif stem.startswith("sz"):
                 code = stem[2:].zfill(6)
-                if code.startswith(("000", "001", "002", "003")):  # 深市主板 10cm
-                    out.append((code, f))
-                elif code.startswith(("300", "301")):               # 创业板（10% 时代，反向门过滤）
+                if code.startswith(("000", "001", "002", "003")):
                     out.append((code, f))
     return out
 
-
-# ===================== 单股筛选 =====================
 
 def screen_one(code, day_file, start_int, end_int):
     result = read_day_raw(day_file)
@@ -172,17 +150,13 @@ def screen_one(code, day_file, start_int, end_int):
         return []
     dates, opens, highs, lows, closes, amounts, close_c, high_c = result
     n = len(dates)
-    if n < 24:  # 至少 20 日窗口 + 4 天回看（D-4）
+    if n < 26:  # 20 日窗口 + 6 天回看（D-6）
         return []
 
-    # 涨停标记（300/301 按日期分段：<2020-08-24 为 10%、之后 20%；主板 10%）
-    limits = compute_limits(dates, close_c, high_c, code)
-
-    # 20 日最大成交额 / 最高价
+    limits = compute_limits(dates, close_c, high_c)
     amt_max20 = rolling_max20(amounts)
     high_max20 = rolling_max20(highs)
 
-    # is_max：当日值 == 其 20 日窗口最大值（含自身，故 == 即为最大，允许并列）
     with np.errstate(invalid="ignore"):
         is_amtmax = np.zeros(n, dtype=bool)
         is_highmax = np.zeros(n, dtype=bool)
@@ -192,31 +166,32 @@ def screen_one(code, day_file, start_int, end_int):
     not_limit = ~limits
 
     # —— 候选掩码（对齐 D-0=i）——
-    # D-0(i): 非涨停 + 成交额 20 日最大 + 最高价 20 日最高
-    d0_ok = not_limit & is_amtmax & is_highmax
-    # D-1(i-1): 涨停 + 成交额 20 日最大 + 最高价 20 日最高
+    # D-0(i): 涨停 + 成交额 20 日最大 + 最高价 20 日最高
+    d0_ok = limits & is_amtmax & is_highmax
+    # D-1(i-1): 非涨停 + 成交额非 20 日最大
     d1_ok = np.zeros(n, dtype=bool)
-    d1_ok[1:] = limits[:-1] & is_amtmax[:-1] & is_highmax[:-1]
+    d1_ok[1:] = not_limit[:-1] & (~is_amtmax[:-1])
     # D-2(i-2): 非涨停 + 成交额 20 日最大 + 最高价 20 日最高
     d2_ok = np.zeros(n, dtype=bool)
     d2_ok[2:] = not_limit[:-2] & is_amtmax[:-2] & is_highmax[:-2]
-    # D-3(i-3): 非涨停 + 成交额非 20 日最大
+    # D-3(i-3): 非涨停 + 成交额 20 日最大（无最高价条件）
     d3_ok = np.zeros(n, dtype=bool)
-    d3_ok[3:] = not_limit[:-3] & (~is_amtmax[:-3])
-    # D-4(i-4): 非涨停 + 成交额非 20 日最大
+    d3_ok[3:] = not_limit[:-3] & is_amtmax[:-3]
+    # D-4(i-4): 非涨停 + 成交额 20 日最大（无最高价条件）
     d4_ok = np.zeros(n, dtype=bool)
-    d4_ok[4:] = not_limit[:-4] & (~is_amtmax[:-4])
+    d4_ok[4:] = not_limit[:-4] & is_amtmax[:-4]
+    # D-5(i-5): 非涨停 + 成交额非 20 日最大
+    d5_ok = np.zeros(n, dtype=bool)
+    d5_ok[5:] = not_limit[:-5] & (~is_amtmax[:-5])
+    # D-6(i-6): 非涨停 + 成交额非 20 日最大
+    d6_ok = np.zeros(n, dtype=bool)
+    d6_ok[6:] = not_limit[:-6] & (~is_amtmax[:-6])
 
-    cand = d0_ok & d1_ok & d2_ok & d3_ok & d4_ok
-    # 有效 i 范围：i-4>=19（D-4 的 20 日窗口起点），即 i>=23
-    # 后续 T+0~T+6 不足时由 generate_t_fields 自动返回 N/A，不在此处截断
-    cand[:23] = False
+    cand = d0_ok & d1_ok & d2_ok & d3_ok & d4_ok & d5_ok & d6_ok
+    # 有效 i：i-6>=19 → i>=25；T+0~T+7 不足由 generate_t_fields 返回 N/A
+    cand[:25] = False
 
-    # 日期范围过滤（按 D-0 日期）
     cand &= (dates >= start_int) & (dates <= end_int)
-    # 反向门（kk 2026-09-23 裁定）：300/301 仅保留信号日 < 2020-08-24（10% 时代）
-    if normalize_code(code).startswith(("300", "301")):
-        cand[np.searchsorted(dates, GEM_20CM_DATE):] = False
 
     idxs = np.nonzero(cand)[0]
     if idxs.size == 0:
@@ -226,71 +201,65 @@ def screen_one(code, day_file, start_int, end_int):
     for i in idxs:
         i = int(i)
 
-        # —— 输出指标 ——
-        # 前收定义：D-k 的前一日收盘 = closes[i-k-1]
-        #   D-2 前收 = D-3 收盘 = closes[i-3]
-        #   D-1 前收 = D-2 收盘 = closes[i-2]
-        #   D-0 前收 = D-1 收盘 = closes[i-1]
+        # —— 前收（区间基收）定义 ——
+        #   D-4 振幅前收 = D-5 收 = closes[i-5]
+        #   D-3 振幅前收 = D-4 收 = closes[i-4]
+        #   D-2 振幅前收 = D-3 收 = closes[i-3]
+        #   D-1 涨幅/振幅前收 = D-2 收 = closes[i-2]
+        #   D-0 振幅前收 = D-1 收 = closes[i-1]
+        #   D-4~D-2 区间基收 = D-5 收 = closes[i-5]；末收 = D-2 收 = closes[i-2]
+        d5_close = closes[i - 5]
+        d4_close = closes[i - 4]
         d3_close = closes[i - 3]
         d2_close = closes[i - 2]
         d1_close = closes[i - 1]
         d0_close = closes[i]
-        # 防御性除零
-        if d3_close <= 0 or d2_close <= 0 or d1_close <= 0 or d0_close <= 0:
+        if d5_close <= 0 or d4_close <= 0 or d3_close <= 0 or d2_close <= 0 or d1_close <= 0 or d0_close <= 0:
             continue
 
-        # 单日涨幅 = (今收 - 前收) / 前收 * 100（输出时不带 %）
-        # D-2 涨幅：今收 = D-2 收盘 = closes[i-2]，前收 = D-3 收盘 = closes[i-3]
-        gain_d2 = (d2_close - d3_close) / d3_close * 100.0
-        # D-0 涨幅：今收 = D-0 收盘 = closes[i]，前收 = D-1 收盘 = closes[i-1]
-        gain_d0 = (d0_close - d1_close) / d1_close * 100.0
-
-        # 单日振幅 = (高 - 低) / 前收 * 100（输出时不带 %）
+        # 单日振幅（数值不带 %）
+        amp_d4 = (highs[i - 4] - lows[i - 4]) / d5_close * 100.0
+        amp_d3 = (highs[i - 3] - lows[i - 3]) / d4_close * 100.0
         amp_d2 = (highs[i - 2] - lows[i - 2]) / d3_close * 100.0
         amp_d1 = (highs[i - 1] - lows[i - 1]) / d2_close * 100.0
         amp_d0 = (highs[i] - lows[i]) / d1_close * 100.0
 
-        # D-2~D-0 区间：[i-2, i]，区间前一日 = D-3 = closes[i-3]
-        rng_highs = highs[i - 2 : i + 1]   # D-2, D-1, D-0 三日的最高价
-        rng_lows = lows[i - 2 : i + 1]      # D-2, D-1, D-0 三日的最低价
-        range_amp = (rng_highs.max() - rng_lows.min()) / d3_close * 100.0
+        # D-1 单日涨幅（数值不带 %）
+        gain_d1 = (d1_close - d2_close) / d2_close * 100.0
 
-        # D-0/D-2 成交额百分比 = D-0成交额 / D-2成交额 * 100
+        # D-4~D-2 区间（三日：i-4, i-3, i-2）
+        rng_highs = highs[i - 4 : i - 1]    # slice 上界 i-1 不含 → [i-4, i-3, i-2]
+        rng_lows = lows[i - 4 : i - 1]
+        range_amp = (rng_highs.max() - rng_lows.min()) / d5_close * 100.0
+        range_gain = (d2_close - d5_close) / d5_close * 100.0
+
+        # D-0/D-2 成交额百分比
         amt_d2 = amounts[i - 2]
-        if amt_d2 > 0:
-            amt_pct_d0_d2 = amounts[i] / amt_d2 * 100.0
-        else:
-            amt_pct_d0_d2 = 0.0
+        amt_pct = (amounts[i] / amt_d2 * 100.0) if amt_d2 > 0 else 0.0
 
-        # D-0/D-1 成交额百分比 = D-0成交额 / D-1成交额 * 100
-        amt_d1 = amounts[i - 1]
-        if amt_d1 > 0:
-            amt_pct_d0_d1 = amounts[i] / amt_d1 * 100.0
-        else:
-            amt_pct_d0_d1 = 0.0
-
-        # ── D-0 之后的 T+0~T+6 价格走势（基准价 = D-0 收盘价）──
-        # generate_t_fields 以 base_idx 为基准，产出 T+0(低/高) ~ T+6最高价，键名与输出键一致
+        # T+0~T+7
         t_raw = generate_t_fields(
             opens, highs, lows, closes, limits,
-            base_idx=i, n=n, t_count=7,
+            base_idx=i, n=n, t_count=8,
         )
 
         rows.append({
             "股票代码": code,
             "股票名称": "",
             "D-0日期": fmt_date(dates[i]),
-            # 单日涨幅/振幅：数值不带 %（如 9.8）
-            "D-2涨幅": round(float(gain_d2), 2),
+            # 单日振幅：数值不带 %
+            "D-4振幅": round(float(amp_d4), 2),
+            "D-3振幅": round(float(amp_d3), 2),
             "D-2振幅": round(float(amp_d2), 2),
+            # 区间指标：数值带 %
+            "D-4~D-2区间涨幅": f"{round(float(range_gain), 2)}%",
+            "D-4~D-2区间振幅": f"{round(float(range_amp), 2)}%",
+            # 单日涨幅/振幅：数值不带 %
+            "D-1涨幅": round(float(gain_d1), 2),
             "D-1振幅": round(float(amp_d1), 2),
-            "D-0涨幅": round(float(gain_d0), 2),
             "D-0振幅": round(float(amp_d0), 2),
-            # 区间指标：数值带 %（如 14.52%）
-            "D-2~D-0区间振幅": f"{round(float(range_amp), 2)}%",
-            # 成交额百分比：数值带 %（如 240.14%）
-            "D-0/D-2成交额百分比": f"{round(float(amt_pct_d0_d2), 2)}%",
-            "D-0/D-1成交额百分比": f"{round(float(amt_pct_d0_d1), 2)}%",
+            # 成交额百分比：数值带 %
+            "D-0/D-2成交额百分比": f"{round(float(amt_pct), 2)}%",
             "T+0(低/高)": t_raw.get("T+0(低/高)", "N/A"),
             "T+1最高价": t_raw.get("T+1最高价", "N/A"),
             "T+2最高价": t_raw.get("T+2最高价", "N/A"),
@@ -298,19 +267,17 @@ def screen_one(code, day_file, start_int, end_int):
             "T+4最高价": t_raw.get("T+4最高价", "N/A"),
             "T+5最高价": t_raw.get("T+5最高价", "N/A"),
             "T+6最高价": t_raw.get("T+6最高价", "N/A"),
+            "T+7最高价": t_raw.get("T+7最高价", "N/A"),
         })
 
     return rows
 
 
-# ===================== 入口 =====================
-
 def main():
     parser = argparse.ArgumentParser(description=f"规则{RULE_NAME} 涨停形态筛选（10cm）")
     parser.add_argument("--start", type=str, default=DEFAULT_START)
     parser.add_argument("--end", type=str, default=DEFAULT_END)
-    parser.add_argument("--limit", type=int, default=0,
-                        help="仅处理前 N 只标的（0=全部），用于小样本验证")
+    parser.add_argument("--limit", type=int, default=0)
     args = parser.parse_args()
     start_int = int(args.start.replace("-", ""))
     end_int = int(args.end.replace("-", ""))
@@ -319,7 +286,7 @@ def main():
     print(f"规则: {RULE_NAME}")
     print(f"数据源最新日期: {latest_date}（共 {file_count} 个 .day 文件）")
     print(f"日期范围: {args.start} ~ {args.end}")
-    print(f"适用标的: 10cm（沪市主板 600/601/603/605 + 深市主板 000/001/002/003 + 创业板10%时代 300/301）")
+    print(f"适用标的: 10cm（沪市主板 600/601/603/605 + 深市主板 000/001/002/003）")
     print(f"输出目录: {OUTPUT_DIR}\n")
 
     print("===== 阶段1: 收集 10cm 标的 .day 文件 =====")
@@ -358,7 +325,6 @@ def main():
     df.reindex(columns=OUTPUT_COLUMNS).to_csv(csv_path, index=False, encoding="utf-8-sig")
     print(f"  CSV: {csv_path}")
 
-    # 简要统计
     print(f"\n===== 统计 =====")
     print(f"  命中样本: {len(df)}")
     if len(df):

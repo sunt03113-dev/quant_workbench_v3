@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-规则0827A 筛选 —— 10cm（沪市主板 600/601/603/605 + 深市主板 000/001/002/003）
+规则0827A 筛选 —— 10cm（沪深主板 + 创业板 10% 时代 sz300/301，反向门=信号日<2020-08-24；kk 2026-09-23 裁定）
 
 时间线（D-0 为基准日 i，向前回看历史）：
   D-4 (i-4) : 非涨停；成交额非 20 日最大
@@ -39,8 +39,8 @@ sys.path.insert(0, str(SCRIPT_DIR))
 from backtest_common import (
     DAY_DIRS, fmt_date, output_excel, check_data_freshness,
     generate_t_fields,
-    compute_limit_flags,
-    DEFAULT_START, DEFAULT_END,
+    compute_limit_flags, normalize_code,
+    DEFAULT_START, DEFAULT_END, GEM_20CM_DATE,
 )
 
 
@@ -112,9 +112,12 @@ def read_day_raw(filepath):
 
 # ===================== 向量化涨停判定（整数分，与 Decimal 等价） =====================
 
-def compute_limits(dates, close_c, high_c):
-    """严格封死涨停（10cm 主板：收盘==涨停价 且 最高==涨停价）；权威实现见 backtest_common.compute_limit_flags。"""
-    return compute_limit_flags(dates, close_c, high_c, None)
+def compute_limits(dates, close_c, high_c, code):
+    """严格封死涨停（收盘==涨停价 且 最高==涨停价）；权威实现见 backtest_common.compute_limit_flags。
+
+    2026-09-23 kk 裁定：传入 code 使 300/301 按日期分段（<2020-08-24 为 10%、之后 20%）。
+    """
+    return compute_limit_flags(dates, close_c, high_c, code)
 
 
 # ===================== 20 日滚动最大值 =====================
@@ -133,7 +136,7 @@ def rolling_max20(arr):
 # ===================== 标的文件收集（10cm 过滤） =====================
 
 def collect_stock_files():
-    """收集 10cm 主板标的（沪市 600/601/603/605 + 深市 000/001/002/003）.day 文件。"""
+    """收集 10cm 标的（沪深主板 + 创业板 10% 时代 sz300/301）.day 文件（kk 2026-09-23 裁定）。"""
     out = []
     for d in DAY_DIRS:
         p = Path(d)
@@ -149,6 +152,8 @@ def collect_stock_files():
                 code = stem[2:].zfill(6)
                 if code.startswith(("000", "001", "002", "003")):  # 深市主板 10cm
                     out.append((code, f))
+                elif code.startswith(("300", "301")):               # 创业板（10% 时代，反向门过滤）
+                    out.append((code, f))
     return out
 
 
@@ -163,8 +168,8 @@ def screen_one(code, day_file, start_int, end_int):
     if n < 24:  # 至少 20 日窗口 + 4 天回看（D-4）
         return []
 
-    # 涨停标记（10cm 主板，统一 10% 涨跌幅）
-    limits = compute_limits(dates, close_c, high_c)
+    # 涨停标记（300/301 按日期分段：<2020-08-24 为 10%、之后 20%；主板 10%）
+    limits = compute_limits(dates, close_c, high_c, code)
 
     # 20 日最大成交额 / 最高价
     amt_max20 = rolling_max20(amounts)
@@ -202,6 +207,9 @@ def screen_one(code, day_file, start_int, end_int):
 
     # 日期范围过滤（按 D-0 日期）
     cand &= (dates >= start_int) & (dates <= end_int)
+    # 反向门（kk 2026-09-23 裁定）：300/301 仅保留信号日 < 2020-08-24（10% 时代）
+    if normalize_code(code).startswith(("300", "301")):
+        cand[np.searchsorted(dates, GEM_20CM_DATE):] = False
 
     idxs = np.nonzero(cand)[0]
     if idxs.size == 0:
@@ -298,7 +306,7 @@ def main():
     print(f"规则: {RULE_NAME}")
     print(f"数据源最新日期: {latest_date}（共 {file_count} 个 .day 文件）")
     print(f"日期范围: {args.start} ~ {args.end}")
-    print(f"适用标的: 10cm（沪市主板 600/601/603/605 + 深市主板 000/001/002/003）")
+    print(f"适用标的: 10cm（沪深主板 + 创业板10%时代 300/301）")
     print(f"输出目录: {OUTPUT_DIR}\n")
 
     print("===== 阶段1: 收集 10cm 标的 .day 文件 =====")

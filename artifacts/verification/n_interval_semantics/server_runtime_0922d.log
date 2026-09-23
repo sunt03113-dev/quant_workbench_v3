@@ -122,3 +122,16 @@ INFO:     127.0.0.1:62001 - "GET /api/backtest/strategy_20cm_v1/candidates?limit
 INFO:     127.0.0.1:49683 - "GET /api/data/latest HTTP/1.1" 200 OK
 INFO:     127.0.0.1:49683 - "GET /api/data/latest HTTP/1.1" 200 OK
 INFO:     127.0.0.1:49672 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55847 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:60844 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59514 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:59514 - "GET /api/rules/strategy_10cm_v6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59514 - "GET /api/backtest/strategy_10cm_v6/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55376 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:63855 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:57139 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53718 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:53718 - "GET /api/rules/strategy_10cm_v6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53718 - "GET /api/backtest/strategy_10cm_v6/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:59555 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64245 - "GET /api/data/latest HTTP/1.1" 200 OK

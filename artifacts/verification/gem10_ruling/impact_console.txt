@@ -1,0 +1,5 @@
+﻿pool: 涓绘澘 3483 + 鍒涗笟鏉?1444 = 4927
+0824 {"rule": "0824", "end_date": 20260819, "total_rows": 2391, "gem_rows_all": 412, "gem_rows_pre_0824": 163, "gem_rows_post_0824_excluded_by_gate": 249, "gem_stocks_pre": ["300003", "300007", "300010", "
+0827A {"rule": "0827A", "end_date": 20260826, "total_rows": 1117, "gem_rows_all": 248, "gem_rows_pre_0824": 85, "gem_rows_post_0824_excluded_by_gate": 163, "gem_stocks_pre": ["300013", "300017", "300020", "
+0909A {"rule": "0909A", "end_date": 20250918, "total_rows": 152, "gem_rows_all": 22, "gem_rows_pre_0824": 9, "gem_rows_post_0824_excluded_by_gate": 13, "gem_stocks_pre": ["300146", "300212", "300240", "3003
+saved

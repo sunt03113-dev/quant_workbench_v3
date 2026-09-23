@@ -1,0 +1,21 @@
+10cm 口径裁定全链路：创业板 10% 时代入池 + 反向门 + golden 重造 + 模型重跑（kk 09-23 方案A）
+
+裁定（kk 2026-09-23）：
+- 10cm 池纳入 sz300/301，仅限信号日 < 2020-08-24（反向门）；688 不进 10cm
+- both = 各板块全时代并集（无门槛），limit flags 按日期分段
+- 方案A：skill 三脚本 + app executor 双实现同步改，skill 重跑生成新 golden
+
+代码：
+- app/executor.py：collect 收 300/301（10cm）；变量日/固定/链式三路径反向门；
+  validate_rows 加 BOARD_DATE_FILTER 抽验
+- skill/tdx-stock-backtest-master/{0824,0827A,0909A}_backtest.py：
+  compute_limit_flags(code) 分段判定 + collect 收 300/301 + searchsorted 反向门
+- app/ask.py：构成核查 10cm×创业板/universe 文案同步新口径
+
+数据与证据：
+- golden/0824|0827A|0909A：skill 新口径输出替换（旧版备份 gem10_ruling/golden_backup/）
+- golden_test 26 例：三 case 由 CONFLICT 修为 PASS，其余 23 例零变化
+- 12 个 10cm 模型手动重跑 12/12 成功、复核 0 违例（rerun_report.json）
+- M4 发包：qwb_m4_deploy_20260923.zip（306 文件 sha256 35775ab6…）+
+  qwb_market_pack_20260923.zip（行情至 09-22，sha256 c7f8d78d…）
+- 全部证据：artifacts/verification/gem10_ruling/（CHANGES.md 汇总）

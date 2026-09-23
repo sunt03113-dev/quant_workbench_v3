@@ -1,0 +1,41 @@
+﻿瑙勫垯: 0909A
+鏁版嵁婧愭渶鏂版棩鏈? 2026-09-22锛堝叡 11704 涓?.day 鏂囦欢锛?
+鏃ユ湡鑼冨洿: 1990-12-19 ~ 2025-09-18
+閫傜敤鏍囩殑: 10cm锛堟勃娣变富鏉?+ 鍒涗笟鏉?0%鏃朵唬 300/301锛?
+杈撳嚭鐩綍: D:\09work\0909A_backtest
+
+===== 闃舵1: 鏀堕泦 10cm 鏍囩殑 .day 鏂囦欢 =====
+  10cm 鏍囩殑: 4927 涓?
+
+===== 闃舵2: 0909A 绛涢€?=====
+  杩涘害 500/4927  绱鍛戒腑 22  鑰楁椂 0.5s
+  杩涘害 1000/4927  绱鍛戒腑 58  鑰楁椂 0.9s
+  杩涘害 1500/4927  绱鍛戒腑 68  鑰楁椂 1.3s
+  杩涘害 2000/4927  绱鍛戒腑 83  鑰楁椂 1.7s
+  杩涘害 2500/4927  绱鍛戒腑 100  鑰楁椂 2.1s
+  杩涘害 3000/4927  绱鍛戒腑 118  鑰楁椂 2.5s
+  杩涘害 3500/4927  绱鍛戒腑 130  鑰楁椂 2.9s
+python.exe : 
+所在位置 行:445 字符: 90
++ ... est-master; & "C:\Users\21412\.workbuddy\binaries\python\envs\qwb\Scr ...
++                 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  杩涘害 4000/4927  绱鍛戒腑 136  鑰楁椂 3.3s
+  杩涘害 4500/4927  绱鍛戒腑 139  鑰楁椂 3.6s
+
+  绛涢€夊畬鎴? 139 鏉? 鑰楁椂 3.8s
+
+===== 闃舵3: 鑲＄エ鍚嶇О鍖归厤涓庤緭鍑?=====
+  0%|          | 0/18 [00:00<?, ?it/s]
+  6%|鈻?        | 1/18 [00:00<00:08,  2.01it/s]
+  [鍚嶇О鍖归厤澶辫触] HTTPSConnectionPool(host='www.bse.cn', port=443): Max retries exceeded with url: /nqxxController/nqxxCnzq.do (Caused by ProxyError('Unable to connect to proxy', RemoteDisconnected('Remote end closed connection without response')))
+  瀹屾垚: 139 鏉?-> D:\09work\0909A_backtest\0909A_backtest.xlsx
+  CSV: D:\09work\0909A_backtest\0909A_backtest.csv
+
+===== 缁熻 =====
+  鍛戒腑鏍锋湰: 139
+  娑夊強涓偂: 133
+  D-0 鏃ユ湡鑼冨洿: 1998-04-01 ~ 2025-09-18
+                                              

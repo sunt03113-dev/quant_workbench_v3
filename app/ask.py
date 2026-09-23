@@ -305,12 +305,11 @@ def _answer_composition(universe, question, stats):
             paras.append(f"结果中**没有** {p} 开头的股票——属预期而非遗漏："
                          f"本模型 universe={universe} 的池子不收该前缀（板块过滤），"
                          "从入口处即被排除。")
-    # 10cm × 创业板：点名已知口径裁定项（事实登记，不擅自改口径）
+    # 10cm × 创业板：2026-09-23 kk 已裁定——10cm 池含 300/301，仅限 2020-08-24 前 10% 时代
     if universe == "10cm" and any(p in ("30", "300", "301") for p in prefixes):
-        paras.append("补充：创业板 2020-08-24 前为 10% 时代，引擎判定函数已按日期分段支持；"
-                     "但当前 10cm 池把 300/301 **整个板块**排除（含 10% 时代）。"
-                     "若要覆盖创业板 10cm 阶段，属口径变更（待裁定事项：池放开 + 信号日 < 2020-08-24 反向门），"
-                     "需裁定后走 golden 重造 → 模型重跑流程，本工作台不擅自改。")
+        paras.append("补充：2026-09-23 口径裁定后，10cm 池已纳入创业板 300/301 的 **10% 时代**"
+                     "（信号日 < 2020-08-24，含反向门）；2020-08-24 起创业板为 20% 制度，"
+                     "该时段 300/301 仅进入 20cm 池。科创板 688 任何时代都不进 10cm。")
     rep["verdict"] = "【结果构成核查】"
     rep["answer"] = paras
     rep["question"] = question
@@ -379,8 +378,8 @@ def answer_general(stem, plan, rule_text, universe, question):
     elif key == "universe":
         n_pool = len(dict(executor._collect_stock_files(universe)))
         paras = [f"本模型 universe={universe}，池内共 {n_pool} 只股票。",
-                 "10cm = 沪深主板（60/00 开头）；20cm = 创业板 30 开头 + 科创板 688 开头；"
-                 "both = 两者并集（按各自时代口径）。"]
+                 "10cm = 沪深主板（60/00 开头）+ 创业板 300/301 的 10% 时代（信号日 < 2020-08-24，2026-09-23 裁定）；"
+                 "20cm = 创业板 300/301 + 科创板 688；both = 各板块全时代并集（无门槛）。"]
         ev["n_pool"] = n_pool
     elif key == "stats" and stats:
         paras = [f"当前已存结果共 {stats['n_rows']} 行、{stats['n_stocks']} 只股票；"
