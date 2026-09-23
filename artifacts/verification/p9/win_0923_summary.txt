@@ -1,0 +1,6 @@
+market index_last_trade_date = 2026-07-16
+market tree_hash = 7a7d3571891217ef4959b9e4de2572f72cf402ccf88653ab43251f8f6acd9019 (n=11704)
+market schema_version = 1
+skill tree_hash = 2443c6208aaf6007db2718ba5369ae4c89e2753d8d152afe7bf4ba84c74d552b (n=53)
+golden tree_hash = 606d714f98042fa7397668eb79112d8e976196fc506f3bbfbd755e5c3564c40c (n=58)
+assets keys = ['skill', 'golden', 'market_pack', 'stock_names']

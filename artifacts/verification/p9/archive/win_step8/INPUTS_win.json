@@ -1,7 +1,7 @@
 {
  "schema": "p9-evidence/1",
  "label": "win",
- "collected_at": "2026-09-23T14:00:18",
+ "collected_at": "2026-09-20T17:50:47",
  "assets": {
   "skill": {
    "label": "tdx-stock-backtest Skill（冻结业务定义）",
@@ -9,23 +9,23 @@
    "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\skill\\tdx-stock-backtest-master",
    "exists": true,
    "n_files": 53,
-   "total_bytes": 546814,
-   "tree_hash": "2443c6208aaf6007db2718ba5369ae4c89e2753d8d152afe7bf4ba84c74d552b",
+   "total_bytes": 543797,
+   "tree_hash": "96892acb3b63447bfe24b33934e9bf8e5ce109eabc19beb91911b6809c5996c5",
    "manifest_file": "INPUT_win_skill.manifest.txt",
    "n_files_scanned": 53,
-   "elapsed_sec": 0.1
+   "elapsed_sec": 0.0
   },
   "golden": {
    "label": "Golden：固定自然语言规则 + 期望结果表",
    "role": "expected-output",
    "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\golden",
    "exists": true,
-   "n_files": 58,
-   "total_bytes": 2470451,
-   "tree_hash": "606d714f98042fa7397668eb79112d8e976196fc506f3bbfbd755e5c3564c40c",
+   "n_files": 56,
+   "total_bytes": 2107499,
+   "tree_hash": "347fcb1ef0a7dc440294724a0bdacb71e5a97f96576c46caa25b59da560af15f",
    "manifest_file": "INPUT_win_golden.manifest.txt",
-   "n_files_scanned": 58,
-   "elapsed_sec": 1.3
+   "n_files_scanned": 56,
+   "elapsed_sec": 0.8
   },
   "market_pack": {
    "label": "固定测试行情包（标准本地行情，TDX .day 兼容）",
@@ -33,11 +33,11 @@
    "root": "D:\\09work\\quant_workbench_v3\\quant_workbench_package\\appdata\\market\\vipdoc",
    "exists": true,
    "n_files": 11704,
-   "total_bytes": 930824416,
-   "tree_hash": "7a7d3571891217ef4959b9e4de2572f72cf402ccf88653ab43251f8f6acd9019",
+   "total_bytes": 930491840,
+   "tree_hash": "792ba13f1de359b79c652bb1df939cedc47725dc086b00cd4f51d78354e26e59",
    "manifest_file": "INPUT_win_market_pack.manifest.txt",
    "n_files_scanned": 11704,
-   "elapsed_sec": 20.2,
+   "elapsed_sec": 9.6,
    "by_market": {
     "sh": 5900,
     "sz": 5804

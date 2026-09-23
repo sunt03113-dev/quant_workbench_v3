@@ -1,0 +1,7 @@
+[p9] left=win right=win
+[p9] integrity: left=True right=True
+[p9] inputs gate=PASS all_identical=True
+[p9] outputs diff=0/26 rules differing
+[p9] excel=INFO binary_identical=True
+[p9] VERDICT = PASS  (输入资产哈希一致 且 业务输出 canonical diff = 0)
+[p9] -> D:\09work\quant_workbench_v3\quant_workbench_package\artifacts\verification\p9\P9_COMPARE_win_win.json

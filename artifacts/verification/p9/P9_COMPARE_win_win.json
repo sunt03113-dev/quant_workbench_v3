@@ -1,0 +1,1655 @@
+{
+ "schema": "p9-compare/1",
+ "compared_at": "2026-09-23T14:03:14",
+ "left_label": "win",
+ "right_label": "win",
+ "integrity": {
+  "left": {
+   "label": "win",
+   "ok": true,
+   "n_problems": 0,
+   "problems": []
+  },
+  "right": {
+   "label": "win",
+   "ok": true,
+   "n_problems": 0,
+   "problems": []
+  }
+ },
+ "runtime": {
+  "platform": {
+   "left": {
+    "system": "Windows",
+    "machine": "AMD64",
+    "release": "11"
+   },
+   "right": {
+    "system": "Windows",
+    "machine": "AMD64",
+    "release": "11"
+   }
+  },
+  "python": {
+   "left": "3.13.14",
+   "right": "3.13.14",
+   "identical": true
+  },
+  "packages": {
+   "PyYAML": {
+    "left": "6.0.3",
+    "right": "6.0.3",
+    "identical": true
+   },
+   "fastapi": {
+    "left": "0.141.1",
+    "right": "0.141.1",
+    "identical": true
+   },
+   "numpy": {
+    "left": "2.5.3",
+    "right": "2.5.3",
+    "identical": true
+   },
+   "openpyxl": {
+    "left": "3.1.5",
+    "right": "3.1.5",
+    "identical": true
+   },
+   "pandas": {
+    "left": "3.0.6",
+    "right": "3.0.6",
+    "identical": true
+   },
+   "pydantic": {
+    "left": "2.13.5",
+    "right": "2.13.5",
+    "identical": true
+   },
+   "python-dateutil": {
+    "left": "2.9.0.post0",
+    "right": "2.9.0.post0",
+    "identical": true
+   },
+   "pytz": {
+    "left": null,
+    "right": null,
+    "identical": true
+   },
+   "starlette": {
+    "left": "1.6.0",
+    "right": "1.6.0",
+    "identical": true
+   },
+   "uvicorn": {
+    "left": "0.53.0",
+    "right": "0.53.0",
+    "identical": true
+   },
+   "xlsxwriter": {
+    "left": null,
+    "right": null,
+    "identical": true
+   }
+  },
+  "packages_all_identical": true,
+  "canon_rule_identical": true,
+  "schema_identical": true,
+  "note": "依赖版本不同不直接判 FAIL，但若业务 diff 非 0 必须先排除版本因素（数值库舍入/排序实现差异）。"
+ },
+ "inputs": {
+  "assets": {
+   "skill": {
+    "left": {
+     "tree_hash": "2443c6208aaf6007db2718ba5369ae4c89e2753d8d152afe7bf4ba84c74d552b",
+     "n_files": 53,
+     "total_bytes": 546814,
+     "exists": true
+    },
+    "right": {
+     "tree_hash": "2443c6208aaf6007db2718ba5369ae4c89e2753d8d152afe7bf4ba84c74d552b",
+     "n_files": 53,
+     "total_bytes": 546814,
+     "exists": true
+    },
+    "identical": true,
+    "reason": ""
+   },
+   "golden": {
+    "left": {
+     "tree_hash": "606d714f98042fa7397668eb79112d8e976196fc506f3bbfbd755e5c3564c40c",
+     "n_files": 58,
+     "total_bytes": 2470451,
+     "exists": true
+    },
+    "right": {
+     "tree_hash": "606d714f98042fa7397668eb79112d8e976196fc506f3bbfbd755e5c3564c40c",
+     "n_files": 58,
+     "total_bytes": 2470451,
+     "exists": true
+    },
+    "identical": true,
+    "reason": ""
+   },
+   "market_pack": {
+    "left": {
+     "tree_hash": "7a7d3571891217ef4959b9e4de2572f72cf402ccf88653ab43251f8f6acd9019",
+     "n_files": 11704,
+     "total_bytes": 930824416,
+     "exists": true
+    },
+    "right": {
+     "tree_hash": "7a7d3571891217ef4959b9e4de2572f72cf402ccf88653ab43251f8f6acd9019",
+     "n_files": 11704,
+     "total_bytes": 930824416,
+     "exists": true
+    },
+    "identical": true,
+    "reason": ""
+   },
+   "stock_names": {
+    "left": {
+     "sha256": "aa21e8ef9140efeedbcda33180ca492688c2ee5a1b24984558b892350d269b10",
+     "size": 171943,
+     "exists": true
+    },
+    "right": {
+     "sha256": "aa21e8ef9140efeedbcda33180ca492688c2ee5a1b24984558b892350d269b10",
+     "size": 171943,
+     "exists": true
+    },
+    "identical": true,
+    "reason": ""
+   }
+  },
+  "all_identical": true,
+  "gate": "PASS"
+ },
+ "outputs": {
+  "rules": [
+   {
+    "rule": "0814",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "no_rows_both",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "CAPABILITY_GAP",
+     "n_rows": 0,
+     "rows_sha256": null,
+     "columns": null
+    },
+    "right": {
+     "verdict": "CAPABILITY_GAP",
+     "n_rows": 0,
+     "rows_sha256": null,
+     "columns": null
+    },
+    "equal": true
+   },
+   {
+    "rule": "0818A",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 221,
+     "rows_sha256": "8dd8ad2d6bc73d52849441cc4bda1173ce8bd4389d5e799ae776b6b98bdb6e7d",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2振幅",
+      "D-1振幅",
+      "D-2/D-1区间涨幅",
+      "D-2/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 221,
+     "rows_sha256": "8dd8ad2d6bc73d52849441cc4bda1173ce8bd4389d5e799ae776b6b98bdb6e7d",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2振幅",
+      "D-1振幅",
+      "D-2/D-1区间涨幅",
+      "D-2/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0818B",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 75,
+     "rows_sha256": "c97e83da5ec72ad33630f763f5b92d734bc01842a6ad998c36786db136c9461f",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-3振幅",
+      "D-1振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 75,
+     "rows_sha256": "c97e83da5ec72ad33630f763f5b92d734bc01842a6ad998c36786db136c9461f",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-3振幅",
+      "D-1振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0822",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 562,
+     "rows_sha256": "bea74817a7cde07c3100f0bd6a5c239718961855f37f97a959e8a344108e7990",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 562,
+     "rows_sha256": "bea74817a7cde07c3100f0bd6a5c239718961855f37f97a959e8a344108e7990",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0824",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 2142,
+     "rows_sha256": "1dfeb2b669bcf7929c244b6d088824c2c0fa1d676db60c8ca7b709e99aa9f589",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2涨幅",
+      "D-2振幅",
+      "D-1振幅",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-2/D-0区间振幅",
+      "D-0/D-2成交额百分比",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 2142,
+     "rows_sha256": "1dfeb2b669bcf7929c244b6d088824c2c0fa1d676db60c8ca7b709e99aa9f589",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2涨幅",
+      "D-2振幅",
+      "D-1振幅",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-2/D-0区间振幅",
+      "D-0/D-2成交额百分比",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0827A",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 954,
+     "rows_sha256": "14497b4d3b99b4080093aca27238d4b6b72617dfde9ea93743b3a61b56fab718",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价",
+      "T+7最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 954,
+     "rows_sha256": "14497b4d3b99b4080093aca27238d4b6b72617dfde9ea93743b3a61b56fab718",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价",
+      "T+7最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0827B",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 25,
+     "rows_sha256": "4a9be998aa244b766a2025f38cc3420884a5c11e0261a7b7814bd076a24ade66",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4振幅",
+      "D-2振幅",
+      "D-4/D-2区间涨幅",
+      "D-4/D-2区间振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 25,
+     "rows_sha256": "4a9be998aa244b766a2025f38cc3420884a5c11e0261a7b7814bd076a24ade66",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4振幅",
+      "D-2振幅",
+      "D-4/D-2区间涨幅",
+      "D-4/D-2区间振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0908",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 74,
+     "rows_sha256": "b79d9fc50aa5cfcd519456fa64004f226545d6873f04f049ed5c9f5e0eef4adb",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-5涨幅",
+      "D-5振幅",
+      "D-4/D-1区间涨幅",
+      "D-4/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-5成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 74,
+     "rows_sha256": "b79d9fc50aa5cfcd519456fa64004f226545d6873f04f049ed5c9f5e0eef4adb",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-5涨幅",
+      "D-5振幅",
+      "D-4/D-1区间涨幅",
+      "D-4/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-5成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0908B",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 27,
+     "rows_sha256": "7b5482848a7ee60689adf03a39958940069a349db54757f11ad5781d169ec023",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-6振幅",
+      "D-5振幅",
+      "D-6/D-5区间涨幅",
+      "D-6/D-5区间振幅",
+      "D-4/D-1区间涨幅",
+      "D-4/D-1区间振幅",
+      "D-4/D-1区间最大振幅",
+      "D-0振幅",
+      "D-0/D-5成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 27,
+     "rows_sha256": "7b5482848a7ee60689adf03a39958940069a349db54757f11ad5781d169ec023",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-6振幅",
+      "D-5振幅",
+      "D-6/D-5区间涨幅",
+      "D-6/D-5区间振幅",
+      "D-4/D-1区间涨幅",
+      "D-4/D-1区间振幅",
+      "D-4/D-1区间最大振幅",
+      "D-0振幅",
+      "D-0/D-5成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0908C",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 14,
+     "rows_sha256": "e7149770d7f1044eefb66c55bf69adaa666e95327632cdb2f75a0e72f25a179d",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-7振幅",
+      "D-5振幅",
+      "D-7/D-5区间涨幅",
+      "D-7/D-5区间振幅",
+      "D-4/D-1区间涨幅",
+      "D-4/D-1区间振幅",
+      "D-4/D-1区间最大振幅",
+      "D-0振幅",
+      "D-0/D-5成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 14,
+     "rows_sha256": "e7149770d7f1044eefb66c55bf69adaa666e95327632cdb2f75a0e72f25a179d",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-7振幅",
+      "D-5振幅",
+      "D-7/D-5区间涨幅",
+      "D-7/D-5区间振幅",
+      "D-4/D-1区间涨幅",
+      "D-4/D-1区间振幅",
+      "D-4/D-1区间最大振幅",
+      "D-0振幅",
+      "D-0/D-5成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0909A",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 139,
+     "rows_sha256": "20e3d313077f06704b6dff4a88a6435dec1d653a5ad39266522e26abba51412c",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4振幅",
+      "D-3振幅",
+      "D-2振幅",
+      "D-4/D-2区间涨幅",
+      "D-4/D-2区间振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价",
+      "T+7最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 139,
+     "rows_sha256": "20e3d313077f06704b6dff4a88a6435dec1d653a5ad39266522e26abba51412c",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4振幅",
+      "D-3振幅",
+      "D-2振幅",
+      "D-4/D-2区间涨幅",
+      "D-4/D-2区间振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价",
+      "T+7最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0910A",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 124,
+     "rows_sha256": "80ec93d371aa1f65017830f44af946f9d08b45eb63cffc36ed35b53671578f63",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-3涨幅",
+      "D-3振幅",
+      "D-2/D-1区间涨幅",
+      "D-2/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-3成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS_WITH_KNOWN_T0_CONFLICT",
+     "n_rows": 124,
+     "rows_sha256": "80ec93d371aa1f65017830f44af946f9d08b45eb63cffc36ed35b53671578f63",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-3涨幅",
+      "D-3振幅",
+      "D-2/D-1区间涨幅",
+      "D-2/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-3成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0911",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 100,
+     "rows_sha256": "9d85b0ebe2239b4ededee06f8d3bd4927dc9fb6fb473c781dfa36464ab598e0c",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4涨幅",
+      "D-4振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-4成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 100,
+     "rows_sha256": "9d85b0ebe2239b4ededee06f8d3bd4927dc9fb6fb473c781dfa36464ab598e0c",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4涨幅",
+      "D-4振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-4成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0912",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 188,
+     "rows_sha256": "73e2d6b3af3d6687242ff7d2879a480f56f005e5a1f96143b3747b44d0d4c8e8",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2涨幅",
+      "D-2振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 188,
+     "rows_sha256": "73e2d6b3af3d6687242ff7d2879a480f56f005e5a1f96143b3747b44d0d4c8e8",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2涨幅",
+      "D-2振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0913A",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 52,
+     "rows_sha256": "d505dcb99b85059541481bfd5cb60d98d0d8e803639295e9530315aa6ca7fcf8",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4振幅",
+      "D-3振幅",
+      "D-4/D-3区间涨幅",
+      "D-4/D-3区间振幅",
+      "D-2/D-1区间涨幅",
+      "D-2/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-3成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 52,
+     "rows_sha256": "d505dcb99b85059541481bfd5cb60d98d0d8e803639295e9530315aa6ca7fcf8",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4振幅",
+      "D-3振幅",
+      "D-4/D-3区间涨幅",
+      "D-4/D-3区间振幅",
+      "D-2/D-1区间涨幅",
+      "D-2/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-3成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0913B",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 12,
+     "rows_sha256": "d243bde8e8443204a8f6cea538948de48d21abdbe2ef0ed5a821e29ce028e384",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-5振幅",
+      "D-3振幅",
+      "D-5/D-3区间涨幅",
+      "D-5/D-3区间振幅",
+      "D-2/D-1区间涨幅",
+      "D-2/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-3成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 12,
+     "rows_sha256": "d243bde8e8443204a8f6cea538948de48d21abdbe2ef0ed5a821e29ce028e384",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-5振幅",
+      "D-3振幅",
+      "D-5/D-3区间涨幅",
+      "D-5/D-3区间振幅",
+      "D-2/D-1区间涨幅",
+      "D-2/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-3成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0915A",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 78,
+     "rows_sha256": "2ad41f814ab2cf2a2bf4f8d2f08960c9bbd3bac642be95c38ac5ce6ff970e0d0",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-3振幅",
+      "D-2振幅",
+      "D-3/D-2区间涨幅",
+      "D-3/D-2区间振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 78,
+     "rows_sha256": "2ad41f814ab2cf2a2bf4f8d2f08960c9bbd3bac642be95c38ac5ce6ff970e0d0",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-3振幅",
+      "D-2振幅",
+      "D-3/D-2区间涨幅",
+      "D-3/D-2区间振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0915B",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 41,
+     "rows_sha256": "c829583387f9dece63e38e4db148c9b6ff03f892d7f2357c3f974875c2ec0cef",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-5振幅",
+      "D-4振幅",
+      "D-5/D-4区间涨幅",
+      "D-5/D-4区间振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-4成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 41,
+     "rows_sha256": "c829583387f9dece63e38e4db148c9b6ff03f892d7f2357c3f974875c2ec0cef",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-5振幅",
+      "D-4振幅",
+      "D-5/D-4区间涨幅",
+      "D-5/D-4区间振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-4成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0915C",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 14,
+     "rows_sha256": "919f6493e8608a5edcfac31861c0747e1c2943faeafe39df145e1051d24b1d88",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-6振幅",
+      "D-4振幅",
+      "D-6/D-4区间涨幅",
+      "D-6/D-4区间振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-4成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 14,
+     "rows_sha256": "919f6493e8608a5edcfac31861c0747e1c2943faeafe39df145e1051d24b1d88",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-6振幅",
+      "D-4振幅",
+      "D-6/D-4区间涨幅",
+      "D-6/D-4区间振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-4成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0917A",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 16,
+     "rows_sha256": "6006ecc2b7f70b71bb634703001f9a9bd275fd84ffc19bc301aff41a9e0d7c8f",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4振幅",
+      "D-2振幅",
+      "D-4/D-2区间涨幅",
+      "D-4/D-2区间振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 16,
+     "rows_sha256": "6006ecc2b7f70b71bb634703001f9a9bd275fd84ffc19bc301aff41a9e0d7c8f",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-4振幅",
+      "D-2振幅",
+      "D-4/D-2区间涨幅",
+      "D-4/D-2区间振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0917B",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 53,
+     "rows_sha256": "4e15d39f0b389abe5f0fcda6c0ac41a4947029788fbb1969972331428a3d0f20",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-3振幅",
+      "D-2振幅",
+      "D-1振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 53,
+     "rows_sha256": "4e15d39f0b389abe5f0fcda6c0ac41a4947029788fbb1969972331428a3d0f20",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-3振幅",
+      "D-2振幅",
+      "D-1振幅",
+      "D-3/D-1区间涨幅",
+      "D-3/D-1区间振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0917C",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 250,
+     "rows_sha256": "d6ce79cc11cffb51cb5165625beb4839b380e5b34acd8102b7b654d18e97456d",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 250,
+     "rows_sha256": "d6ce79cc11cffb51cb5165625beb4839b380e5b34acd8102b7b654d18e97456d",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-1振幅",
+      "D-0振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0917D",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 27,
+     "rows_sha256": "f7c8691bd3335a09e4c8182561f3c7f3ed28edb5b516e8ae8c71136a3dc5fd10",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 27,
+     "rows_sha256": "f7c8691bd3335a09e4c8182561f3c7f3ed28edb5b516e8ae8c71136a3dc5fd10",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0917E",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 155,
+     "rows_sha256": "f4e486f39095f9bff16f1b750e4c9f33ff2017535e4d525e5028d5211328d9e0",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 155,
+     "rows_sha256": "f4e486f39095f9bff16f1b750e4c9f33ff2017535e4d525e5028d5211328d9e0",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-2振幅",
+      "D-1涨幅",
+      "D-1振幅",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0/D-2成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0918A",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 1018,
+     "rows_sha256": "843876ae2b5ac3a8f70fffebcb3b234c747a7b6c34e67fa3b1316db1a49be0f1",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0最低价",
+      "D-0最高价",
+      "D-1振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 1018,
+     "rows_sha256": "843876ae2b5ac3a8f70fffebcb3b234c747a7b6c34e67fa3b1316db1a49be0f1",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0最低价",
+      "D-0最高价",
+      "D-1振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   },
+   {
+    "rule": "0918B",
+    "columns_equal": true,
+    "rows_equal": true,
+    "rows_state": "computed",
+    "n_rows_equal": true,
+    "verdict_equal": true,
+    "left": {
+     "verdict": "PASS",
+     "n_rows": 1488,
+     "rows_sha256": "1fdb0c25a7355ba2023ee0182ea66b4075a0030a7805fb234e044e25b0b2be03",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0最低价",
+      "D-0最高价",
+      "D-1振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "right": {
+     "verdict": "PASS",
+     "n_rows": 1488,
+     "rows_sha256": "1fdb0c25a7355ba2023ee0182ea66b4075a0030a7805fb234e044e25b0b2be03",
+     "columns": [
+      "股票代码",
+      "股票名称",
+      "D-0日期",
+      "D-0涨幅",
+      "D-0振幅",
+      "D-0最低价",
+      "D-0最高价",
+      "D-1振幅",
+      "D-0/D-1成交额百分比",
+      "T+0(低/高)",
+      "T+1最高价",
+      "T+2最高价",
+      "T+3最高价",
+      "T+4最高价",
+      "T+5最高价",
+      "T+6最高价"
+     ]
+    },
+    "equal": true
+   }
+  ],
+  "n_rules_compared": 26,
+  "n_rules_differing": 0,
+  "rules_only_left": [],
+  "rules_only_right": [],
+  "canonical_diff": 0,
+  "gate": "PASS"
+ },
+ "excel": {
+  "gate": "INFO",
+  "note": "Excel 二进制哈希不参与 PASS/FAIL（容器元数据/时间戳易变），仅记录",
+  "binary_sha256": {
+   "left": "25c57e5e5b7a391798732a43c6208ee8ce5db91af89c7ba044da77e388ef07c1",
+   "right": "25c57e5e5b7a391798732a43c6208ee8ce5db91af89c7ba044da77e388ef07c1",
+   "identical": true
+  },
+  "bytes": {
+   "left": 5053,
+   "right": 5053,
+   "identical": true
+  },
+  "structured_rows_sha256": {
+   "left": "cff32a8e14d02fda430fcbb7fc5c435cf607f13f71422d2b9cd3114433297685",
+   "right": "cff32a8e14d02fda430fcbb7fc5c435cf607f13f71422d2b9cd3114433297685",
+   "identical": true
+  },
+  "structured_n_rows": {
+   "left": 1,
+   "right": 1
+  },
+  "n_hits": {
+   "left": 1,
+   "right": 1
+  },
+  "data_date": {
+   "left": "2026-09-22",
+   "right": "2026-09-22"
+  }
+ },
+ "verdict": "PASS",
+ "verdict_reason": "输入资产哈希一致 且 业务输出 canonical diff = 0"
+}

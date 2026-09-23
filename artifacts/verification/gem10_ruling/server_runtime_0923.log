@@ -1,0 +1,31 @@
+INFO:     Started server process [13372]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8000 (Press CTRL+C to quit)
+INFO:     127.0.0.1:61274 - "GET /api/states HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:61292 - "POST /api/ask/row HTTP/1.1" 200 OK
+INFO:     127.0.0.1:61295 - "POST /api/ask/row HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62275 - "GET / HTTP/1.1" 200 OK
+INFO:     127.0.0.1:62275 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55003 - "GET /api/rules/strategy_111a_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55003 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:55003 - "POST /api/plan/recognize HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64820 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64820 - "POST /api/plan/resolve_ambiguity HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64820 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64820 - "GET /api/backtest/strategy_111a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:64820 - "GET /favicon.ico HTTP/1.1" 404 Not Found
+INFO:     127.0.0.1:49707 - "POST /api/ask/row HTTP/1.1" 200 OK
+INFO:     127.0.0.1:58914 - "GET /api/backtest/strategy_111a_r1_v1/candidates/export?model_name=111A HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65308 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/rules/strategy_1z1a_r1_v1 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/backtest/strategy_1z1a_r1_v1/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/rules/strategy_10cm_v6 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/backtest/strategy_10cm_v6/candidates?limit=10000 HTTP/1.1" 200 OK
+INFO:     127.0.0.1:49671 - "GET /api/daily/state HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65215 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:65215 - "GET /api/data/latest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53237 - "POST /api/plan/backtest HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53627 - "GET /api/backtest/p9_excel_probe/candidates/export HTTP/1.1" 200 OK
+INFO:     127.0.0.1:53629 - "GET /api/backtest/p9_excel_probe/candidates HTTP/1.1" 200 OK
