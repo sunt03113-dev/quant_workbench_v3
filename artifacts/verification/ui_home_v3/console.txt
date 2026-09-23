@@ -1,0 +1,12 @@
+﻿PASS A1_2s_split: 绫诲埆=4,3,1/2,1Z,1S,2S1,2S2/2S3
+PASS A2_split_cards: 2S1=[2S1] 2S2/2S3=[2S2A2a,2S2B1,2S3A]
+PASS A3_desc_order: 椤哄簭=4 鈫?3 鈫?1/2 鈫?1Z 鈫?1S 鈫?2S1 鈫?2S2/2S3
+PASS A4_rulestem_kept: 鎷嗗垎鍚?ruleStem 缁戝畾淇濈暀
+PASS B1_hover_menu_stays: hover鏃舵樉绀?true 绌跨紳鍚庝粛鏄剧ず=true
+PASS B2_menu_item_clickable: 鐐瑰嚮銆屽鍔犳ā鍨嬨€嶅脊鍑烘柊澧炲脊绐?PASS C1_group_rename: 鐐瑰嚮绫诲埆鍚嶉噸鍛藉悕 鈫?4,鏂板簭鍒梄,1/2,1Z,1S,2S1,2S2/2S3
+PASS D1_card_rename: 鐐瑰嚮妯″瀷鍚嶆敼鍚?[1Z1Z] 鏈烦璇︽儏=true
+PASS E1_group_drag: 鎷栨嫿鍓?4,3,1/2,1Z,1S,2S1,2S2/2S3 鎷栨嫿鍚?3,4,1/2,1Z,1S,2S1,2S2/2S3 鎸佷箙鍖?3,4,1/2,1Z,1S,2S1,2S2/2S3
+PASS F1_card_cross_group: 1Z=[] 1S鍚嫋鍏ュ崱鐗?true
+PASS F_state_consistent: 鎸佷箙鍖栫姸鎬佸畬鏁达細3(1) 4(0) 1/2(1) 1Z(0) 1S(4) 2S1(1) 2S2/2S3(3)
+
+SUMMARY: 11/11 PASS

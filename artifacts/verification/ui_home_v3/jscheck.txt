@@ -1,0 +1,19 @@
+﻿node.exe : node:internal/modules/cjs/loader:1386
+所在位置 行:445 字符: 1
++ & "C:\Users\21412\.workbuddy\binaries\node\versions\22.22.2-3\node.ex ...
++ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+    + CategoryInfo          : NotSpecified: (node:internal/modules/cjs/loader: 
+   1386:String) [], RemoteException
+    + FullyQualifiedErrorId : NativeCommandError
+ 
+  throw err;
+  ^
+
+Error: Cannot find module 'C:\Users\21412\AppData\Local\Temp\ui_check.js'
+    at node:internal/modules/cjs/loader:1383:15
+    at node:internal/main/check_syntax:33:20 {
+  code: 'MODULE_NOT_FOUND',
+  requireStack: []
+}
+
+Node.js v22.22.2

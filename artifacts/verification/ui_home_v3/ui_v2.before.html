@@ -42,20 +42,15 @@ body{font-family:Inter,"PingFang SC","Microsoft YaHei",system-ui,sans-serif;back
 .group-more:hover{background:#eef3f0;color:#69736f}
 .plus-wrap{position:relative}
 .btn-plus{width:32px;height:31px;border:1px solid var(--green);background:var(--green);color:#fff;border-radius:7px;font-size:20px;cursor:pointer;border:0}
-.plus-menu{position:absolute;right:0;top:31px;width:126px;padding:5px;background:#fff;border:1px solid #dde5e2;border-radius:8px;box-shadow:0 10px 30px rgba(24,51,42,.12);display:none;z-index:20}
-.plus-menu::before{content:'';position:absolute;left:-6px;right:-6px;top:-8px;height:10px}
-.plus-wrap:hover .plus-menu,.plus-menu.show{display:block}
+.plus-menu{position:absolute;right:0;top:36px;width:126px;padding:5px;background:#fff;border:1px solid #dde5e2;border-radius:8px;box-shadow:0 10px 30px rgba(24,51,42,.12);display:none;z-index:20}
+.plus-wrap:hover .plus-menu{display:block}
 .plus-menu button{width:100%;border:0;background:transparent;text-align:left;padding:8px 9px;border-radius:5px;font-size:12px;color:#46524d;cursor:pointer}
 .plus-menu button:hover{background:#f3f7f5}
 
 .matrix{min-height:0;display:grid;gap:4px;grid-auto-rows:minmax(0,1fr)}
 .group{min-height:0;display:grid;grid-template-columns:58px 1fr;background:#fff;border:1px solid var(--green-border);overflow:hidden}
 .side{display:flex;flex-direction:column;align-items:center;justify-content:center;background:var(--green-bg);border-right:1px solid var(--green-border);color:var(--green)}
-.gname{font-size:15px;font-weight:600;cursor:pointer}
-.gname:hover{text-decoration:underline}
-.group-header{cursor:grab}
-.group-header:active{cursor:grabbing}
-.card .rule-name{cursor:text}
+.gname{font-size:15px;font-weight:600}
 .count{font-size:10px;color:#a4aea9;margin-top:5px}
 .grid{min-width:0;min-height:0;padding:4px;display:grid;grid-template-columns:repeat(auto-fit,minmax(92px,1fr));grid-auto-rows:minmax(36px,1fr);gap:4px}
 .card{position:relative;min-height:0;border-radius:6px;border:1px solid #e2e8e5;background:#fbfcfc;display:flex;flex-direction:column;align-items:center;justify-content:center;cursor:pointer;overflow:hidden;text-align:center}
@@ -399,15 +394,15 @@ function seedState() {
   const g = (id, cards) => ({ id, name: id, cards: cards.map(card) });
   return {
     groups: [
-      g('3',   ['3-1A', '3-1B', '3-1C', '3-1D', '3-1E', '3-1F', '311A', '311B', '321', '3111']),
-      g('1/2', ['111A', '111B', '121', '211A', '211B1', '211B2']),
-      g('1Z',  ['1Z1A', '1Z1B', '1Z1C', '1Z1D', '1Z1E', '1Z1F', '1Z1G', '1Z2', '1Z3']),
       g('1S',  [{ id: '1S1', name: '1S1', ruleStem: 'strategy_10cm_v6', desc: 'strategy_10cm_v6' },
                '1S2A1', '1S2A2', '1S2A3', '1S2B1', '1S2B2', '1S3A1', '1S3A2',
                '1S3B1', '1S3B2', '1S4A', '1S4B', '1S4C']),
-      g('2S1', [{ id: '2S1', name: '2S1', ruleStem: 'strategy_20cm_v1', desc: 'strategy_20cm_v1' }]),
-      g('2S2/2S3', ['2S2A2a', '2S2A2b', '2S2B1', '2S2B2a', '2S2B2b', '2S2C1', '2S2C2a', '2S2C2b',
-                    '2S2D1', '2S2D2a', '2S2D2b', '2S2D3', '2S3A', '2S3B', '2S3C', '2S4A']),
+      g('1Z',  ['1Z1A', '1Z1B', '1Z1C', '1Z1D', '1Z1E', '1Z1F', '1Z1G', '1Z2', '1Z3']),
+      g('1/2', ['111A', '111B', '121', '211A', '211B1', '211B2']),
+      g('3',   ['3-1A', '3-1B', '3-1C', '3-1D', '3-1E', '3-1F', '311A', '311B', '321', '3111']),
+      g('2S',  [{ id: '2S1', name: '2S1', ruleStem: 'strategy_20cm_v1', desc: 'strategy_20cm_v1' },
+                '2S2A2a', '2S2A2b', '2S2B1', '2S2B2a', '2S2B2b', '2S2C1', '2S2C2a', '2S2C2b',
+                '2S2D1', '2S2D2a', '2S2D2b', '2S2D3', '2S3A', '2S3B', '2S3C', '2S4A']),
     ],
     trash: [],
   };
@@ -421,94 +416,11 @@ function loadState() {
 }
 function saveState() { localStorage.setItem(LS_STATE, JSON.stringify(state)); }
 
-// ===================== 类别排序规则（kk 2026-09-23 定稿） =====================
-// 数字从大到小（自然降序），「2S」开头系列固定垫底；新增类别也按此规则插入。
-function is2sName(n) { return /^2S/i.test(String(n || '')); }
-
-function catTokens(name) {
-  // 「N/M」读作 N.M（如 1/2 → 1.2 档位），参与数字降序
-  const s = String(name || '').replace(/(\d+)\s*\/\s*(\d+)/g, (m, a, b) => `${a}.${b}`);
-  const parts = []; let i = 0;
-  while (i < s.length) {
-    const ch = s[i];
-    if (ch >= '0' && ch <= '9') {
-      let j = i; while (j < s.length && ((s[j] >= '0' && s[j] <= '9') || s[j] === '.')) j++;
-      parts.push({ d: parseFloat(s.slice(i, j)) }); i = j;
-    } else { parts.push({ c: ch }); i++; }
-  }
-  return parts;
-}
-
-// 降序比较：>0 表示 a 应排在 b 前面
-function cmpCatDesc(a, b) {
-  const A = catTokens(a), B = catTokens(b);
-  for (let k = 0; k < Math.max(A.length, B.length); k++) {
-    const x = A[k], y = B[k];
-    if (!x && !y) return 0;
-    if (!x) return -1;
-    if (!y) return 1;
-    if (x.d !== undefined && y.d !== undefined) { if (x.d !== y.d) return y.d - x.d; }
-    else if (x.c !== undefined && y.c !== undefined) { if (x.c !== y.c) return y.c.charCodeAt(0) - x.c.charCodeAt(0); }
-    else if (x.d !== undefined) return -1; // 同位数字 vs 字符：字符序列优先
-    else return 1;
-  }
-  return 0;
-}
-
-function defaultSortGroups(groups) {
-  const main = groups.filter(g => !is2sName(g.name)).sort((a, b) => cmpCatDesc(a.name, b.name));
-  // 2S 系列垫底，内部保持升序（2S1 在 2S2/2S3 之前，与手工建立顺序一致）
-  const tail = groups.filter(g => is2sName(g.name)).sort((a, b) => cmpCatDesc(b.name, a.name));
-  return main.concat(tail);
-}
-
-// 新类别按规则插入（不整体重排，保留用户拖拽结果）
-function insertGroupByRule(g) {
-  if (is2sName(g.name)) { state.groups.push(g); return; }
-  let idx = state.groups.length;
-  for (let i = 0; i < state.groups.length; i++) {
-    const n = state.groups[i].name;
-    if (is2sName(n)) { idx = i; break; }              // 垫底区之前
-    if (cmpCatDesc(g.name, n) > 0) { idx = i; break; } // 插在第一个比它小的前面
-  }
-  state.groups.splice(idx, 0, g);
-}
-
-// 一次性迁移：2S 拆为 2S1 与 2S2/2S3 + 应用默认排序（幂等）
-function migrateState() {
-  if (state.mig2sSplit) return;
-  const g2s = state.groups.find(g => g.name === '2S');
-  if (g2s) {
-    let g1 = state.groups.find(g => g.name === '2S1');
-    let g23 = state.groups.find(g => g.name === '2S2/2S3');
-    if (!g1) { g1 = { id: 'g2s1_' + Date.now(), name: '2S1', cards: [] }; state.groups.push(g1); }
-    if (!g23) { g23 = { id: 'g2s23_' + Date.now(), name: '2S2/2S3', cards: [] }; state.groups.push(g23); }
-    for (const c of g2s.cards.slice()) {
-      if (c.name === '2S1' || String(c.name).startsWith('2S1')) g1.cards.push(c);
-      else g23.cards.push(c);
-    }
-    state.groups = state.groups.filter(g => g !== g2s);
-  }
-  state.groups = defaultSortGroups(state.groups);
-  state.mig2sSplit = true;
-  saveState();
-}
-
 function purgeOldTrash() {
   const before = state.trash.length;
   state.trash = state.trash.filter(t => Date.now() - t.deletedAt < TRASH_KEEP_MS);
   if (state.trash.length !== before) saveState();
 }
-
-// ＋ 菜单：hover 之外的点击切换兜底（点外部关闭）
-addGroupTop.addEventListener('click', (e) => {
-  e.stopPropagation();
-  document.querySelector('.plus-menu').classList.toggle('show');
-});
-document.addEventListener('click', (e) => {
-  if (!e.target.closest('.plus-wrap'))
-    document.querySelector('.plus-menu').classList.remove('show');
-});
 
 // ===================== 首页渲染 =====================
 function renderHome() {
@@ -521,8 +433,8 @@ function renderGroup(g) {
   sec.className = 'group';
   sec.dataset.gid = g.id;
   sec.innerHTML = `
-    <div class="side group-header" draggable="true" title="拖动调整类别顺序 · 点击名称重命名">
-      <div class="gname" data-gname="${esc(g.name)}">${esc(g.name)}</div>
+    <div class="side group-header">
+      <div class="gname">${esc(g.name)}</div>
       <div class="count">${g.cards.length}</div>
       <button class="group-more" title="类别管理" data-gid="${esc(g.id)}">⋯</button>
     </div>
@@ -533,7 +445,7 @@ function renderGroup(g) {
           <div class="rule-name">${esc(c.name)}</div>
           <div class="rule-stock empty"></div>
         </div>`).join('')}
-      ${g.cards.length === 0 ? '<div class="empty-hint" style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:12px">暂无模型，点击右上角＋新增（或拖入卡片）</div>' : ''}
+      ${g.cards.length === 0 ? '<div style="grid-column:1/-1;display:flex;align-items:center;justify-content:center;color:#ccc;font-size:12px">暂无模型，点击右上角＋新增</div>' : ''}
     </div>`;
   attachGroupEvents(sec, g);
   return sec;
@@ -541,123 +453,73 @@ function renderGroup(g) {
 
 function attachGroupEvents(div, g) {
   const container = div.querySelector('.group-card-container');
-  const header = div.querySelector('.group-header');
 
   div.addEventListener('click', (e) => {
-    // 「⋯」管理按钮与其菜单上的点击不得触发其他动作
-    if (e.target.closest('.card-more') || e.target.closest('.card-menu') || e.target.closest('.group-more')) return;
-    // 点击类别名 → 重命名
-    const gname = e.target.closest('.gname');
-    if (gname) { renameGroup(g); return; }
+    // 「⋯」管理按钮与其菜单上的点击不得触发进入详情页
+    if (e.target.closest('.card-more') || e.target.closest('.card-menu')) return;
     const cardEl = e.target.closest('.card');
     if (cardEl) {
       const card = g.cards.find(c => c.id === cardEl.dataset.cid);
-      if (!card) return;
-      // 点击模型名 → 重命名；点击卡片其余区域 → 进入详情
-      if (e.target.closest('.rule-name')) { renameCard(g, card); return; }
-      openDetail(card);
+      if (card) openDetail(card);
     }
   });
 
-  // 卡片拖拽（组内排序 + 跨组移动）
+  // 卡片组内拖拽
+  let dragCard = null;
   container.addEventListener('dragstart', (e) => {
-    const el = e.target.closest('.card');
-    if (!el) return;
-    dragCardEl = el; dragFromGroup = g;
-    el.classList.add('dragging');
+    dragCard = e.target.closest('.card');
+    if (!dragCard) return;
+    dragCard.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
   });
   container.addEventListener('dragover', (e) => {
-    if (!dragCardEl) return;
     e.preventDefault();
+    if (!dragCard) return;
     const target = e.target.closest('.card');
-    if (!target || target === dragCardEl) return;
+    if (!target || target === dragCard) return;
     const rect = target.getBoundingClientRect();
     const after = (e.clientY - rect.top) > rect.height / 2;
-    container.insertBefore(dragCardEl, after ? target.nextSibling : target);
+    container.insertBefore(dragCard, after ? target.nextSibling : target);
   });
-  container.addEventListener('dragleave', (e) => {
-    if (!dragCardEl) return;
-    if (!container.contains(e.relatedTarget)) container.appendChild(dragCardEl);
+  container.addEventListener('dragend', () => {
+    if (dragCard) dragCard.classList.remove('dragging');
+    dragCard = null;
+    syncOrderFromDOM();
   });
 
-  // 类别拖拽（把手 = 左侧类别头）
-  header.addEventListener('dragstart', (e) => {
-    dragGroupEl = div;
+  // 组拖拽（页面级）
+  div.draggable = false;
+  div.addEventListener('dragstart', (e) => {
+    if (!div.draggable) { e.preventDefault(); return; }
     div.classList.add('dragging');
     e.dataTransfer.effectAllowed = 'move';
   });
-  header.addEventListener('dragend', () => {
-    if (dragGroupEl === div) {
-      div.classList.remove('dragging');
-      dragGroupEl = null;
-      syncOrderFromDOM();
-    }
+  div.addEventListener('dragover', (e) => {
+    if (!div.draggable) return;
+    e.preventDefault();
+    const over = e.target.closest('.group');
+    if (!over || over === div || over.parentElement !== matrixEl) return;
+    const rect = over.getBoundingClientRect();
+    const after = (e.clientY - rect.top) > rect.height / 2;
+    matrixEl.insertBefore(div, after ? over.nextSibling : over);
   });
-
   div.addEventListener('dragend', () => {
-    if (dragCardEl) {
-      dragCardEl.classList.remove('dragging');
-      dragCardEl = null; dragFromGroup = null;
-      syncOrderFromDOM();
-    }
+    div.classList.remove('dragging');
+    div.draggable = false;
+    syncOrderFromDOM();
   });
 }
-
-let dragCardEl = null, dragFromGroup = null, dragGroupEl = null;
-
-function renameGroup(g) {
-  const name = prompt('重命名类别：', g.name);
-  if (name === null) return;
-  const trimmed = name.trim();
-  if (!trimmed) { showToast('类别名不能为空'); return; }
-  if (trimmed === g.name) return;
-  if (state.groups.some(x => x !== g && x.name === trimmed)) {
-    showToast(`类别「${trimmed}」已存在`); return;
-  }
-  g.name = trimmed;
-  saveState(); renderHome();
-  showToast(`类别已重命名为「${trimmed}」`, 2500);
-}
-
-function renameCard(g, c) {
-  const name = prompt('重命名模型：', c.name);
-  if (name === null) return;
-  const trimmed = name.trim();
-  if (!trimmed) { showToast('模型名不能为空'); return; }
-  if (trimmed === c.name) return;
-  const all = state.groups.flatMap(x => x.cards);
-  if (all.some(x => x !== c && x.name === trimmed)) {
-    showToast(`模型「${trimmed}」已存在`); return;
-  }
-  c.name = trimmed;
-  saveState(); renderHome();
-  showToast(`模型已重命名为「${trimmed}」`, 2500);
-}
-
-// 类别拖拽跨组悬停：插入到目标组之前/之后
-matrixEl.addEventListener('dragover', (e) => {
-  if (!dragGroupEl) return;
-  e.preventDefault();
-  const over = e.target.closest('.group');
-  if (!over || over === dragGroupEl || over.parentElement !== matrixEl) return;
-  const rect = over.getBoundingClientRect();
-  const after = (e.clientY - rect.top) > rect.height / 2;
-  matrixEl.insertBefore(dragGroupEl, after ? over.nextSibling : over);
-});
 
 function syncOrderFromDOM() {
   const domGroups = [...matrixEl.querySelectorAll(':scope > .group')];
   const ordered = [];
-  // 先收集所有卡片对象（支持跨组移动：以 DOM 归属为准重新分组）
-  const allCards = new Map(state.groups.flatMap(g => g.cards.map(c => [c.id, c])));
   for (const dg of domGroups) {
     const g = state.groups.find(x => x.id === dg.dataset.gid);
     if (!g) continue;
-    g.cards = [...dg.querySelectorAll('.card')]
-      .map(el => allCards.get(el.dataset.cid)).filter(Boolean);
-    const hint = dg.querySelector('.empty-hint');
-    if (hint && g.cards.length) hint.remove();
+    const domCids = [...dg.querySelectorAll('.card')].map(el => el.dataset.cid);
+    const mapped = domCids.map(cid => g.cards.find(c => c.id === cid)).filter(Boolean);
+    for (const c of g.cards) if (!mapped.includes(c)) mapped.push(c);
+    g.cards = mapped;
     ordered.push(g);
   }
   for (const g of state.groups) if (!ordered.includes(g)) ordered.push(g);
@@ -724,9 +586,9 @@ addModelCreate.addEventListener('click', () => {
       newCatName.focus();
       return;
     }
-    // 创建新类别（按排序规则插入位置）
+    // 创建新类别
     targetGroup = { id: 'g' + Date.now(), name: catName, cards: [] };
-    insertGroupByRule(targetGroup);
+    state.groups.push(targetGroup);
   } else {
     targetGroup = state.groups.find(g => g.id === newModelCategory.value);
     if (!targetGroup) { addModelError.textContent = '请选择有效的类别'; return; }
@@ -753,7 +615,7 @@ addCategoryBtn.addEventListener('click', () => {
     showToast(`类别「${name.trim()}」已存在`);
     return;
   }
-  insertGroupByRule({ id: 'g' + Date.now(), name: name.trim(), cards: [] });
+  state.groups.push({ id: 'g' + Date.now(), name: name.trim(), cards: [] });
   saveState(); renderHome();
   showToast(`已新增类别【${name.trim()}】`, 2500);
 });
@@ -1679,17 +1541,10 @@ document.addEventListener('click', (e) => {
     if (!menu || !menu.classList.contains('card-menu')) {
       menu = document.createElement('div');
       menu.className = 'card-menu';
-      menu.innerHTML = `<button data-action="rename-model">重命名</button>
-        <button class="danger" data-action="delete-model">删除模型</button>`;
+      menu.innerHTML = `<button class="danger" data-action="delete-model">删除模型</button>`;
       moreBtn.parentNode.appendChild(menu);
     }
     menu.classList.toggle('show');
-    menu.querySelector('[data-action="rename-model"]').onclick = () => {
-      menu.classList.remove('show');
-      const g = state.groups.find(gg => gg.cards.some(c => c.id === cid));
-      const c = g && g.cards.find(c => c.id === cid);
-      if (g && c) renameCard(g, c);
-    };
     menu.querySelector('[data-action="delete-model"]').onclick = () => {
       menu.classList.remove('show');
       deleteCard(cid);
@@ -1707,16 +1562,10 @@ document.addEventListener('click', (e) => {
     if (!menu || !menu.classList.contains('card-menu')) {
       menu = document.createElement('div');
       menu.className = 'card-menu';
-      menu.innerHTML = `<button data-action="rename-group">重命名</button>
-        <button class="danger" data-action="delete-group">删除类别</button>`;
+      menu.innerHTML = `<button class="danger" data-action="delete-group">删除类别</button>`;
       groupMore.parentNode.appendChild(menu);
     }
     menu.classList.toggle('show');
-    menu.querySelector('[data-action="rename-group"]').onclick = () => {
-      menu.classList.remove('show');
-      const g = state.groups.find(gg => gg.id === gid);
-      if (g) renameGroup(g);
-    };
     menu.querySelector('[data-action="delete-group"]').onclick = () => {
       menu.classList.remove('show');
       deleteGroup(gid);
@@ -1756,7 +1605,6 @@ function deleteGroup(gid) {
 // ===================== 初始化 =====================
 loadState();
 purgeOldTrash();
-migrateState();
 renderHome();
 loadCardStocks();
 </script>

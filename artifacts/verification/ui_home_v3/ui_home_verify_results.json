@@ -1,0 +1,57 @@
+[
+ {
+  "name": "A1_2s_split",
+  "ok": true,
+  "detail": "类别=4,3,1/2,1Z,1S,2S1,2S2/2S3"
+ },
+ {
+  "name": "A2_split_cards",
+  "ok": true,
+  "detail": "2S1=[2S1] 2S2/2S3=[2S2A2a,2S2B1,2S3A]"
+ },
+ {
+  "name": "A3_desc_order",
+  "ok": true,
+  "detail": "顺序=4 → 3 → 1/2 → 1Z → 1S → 2S1 → 2S2/2S3"
+ },
+ {
+  "name": "A4_rulestem_kept",
+  "ok": true,
+  "detail": "拆分后 ruleStem 绑定保留"
+ },
+ {
+  "name": "B1_hover_menu_stays",
+  "ok": true,
+  "detail": "hover时显示=true 穿缝后仍显示=true"
+ },
+ {
+  "name": "B2_menu_item_clickable",
+  "ok": true,
+  "detail": "点击「增加模型」弹出新增弹窗"
+ },
+ {
+  "name": "C1_group_rename",
+  "ok": true,
+  "detail": "点击类别名重命名 → 4,新序列X,1/2,1Z,1S,2S1,2S2/2S3"
+ },
+ {
+  "name": "D1_card_rename",
+  "ok": true,
+  "detail": "点击模型名改名=[1Z1Z] 未跳详情=true"
+ },
+ {
+  "name": "E1_group_drag",
+  "ok": true,
+  "detail": "拖拽前=4,3,1/2,1Z,1S,2S1,2S2/2S3 拖拽后=3,4,1/2,1Z,1S,2S1,2S2/2S3 持久化=3,4,1/2,1Z,1S,2S1,2S2/2S3"
+ },
+ {
+  "name": "F1_card_cross_group",
+  "ok": true,
+  "detail": "1Z=[] 1S含拖入卡片=true"
+ },
+ {
+  "name": "F_state_consistent",
+  "ok": true,
+  "detail": "持久化状态完整：3(1) 4(0) 1/2(1) 1Z(0) 1S(4) 2S1(1) 2S2/2S3(3)"
+ }
+]
