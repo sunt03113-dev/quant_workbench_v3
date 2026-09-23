@@ -1,0 +1,7 @@
+state.json: windows-abs-path hits = 0
+models container = dict
+n_models = 21
+sample model keys = ['rule_text', 'plan', 'base_rules', 'updated_at', 'current_result', 'previous_result']
+sample model = {"rule_text": "E2E 冒烟规则", "plan": {"schema_version": 1, "kind": "day_pattern_backward", "strategy_plan": {"universe": "20cm", "days": [{"offset": -2, "limit_up": true}, {"offset": -1, "limit_up": false, "amount_max20": false}, {"offset": 0, "limit_up": true, "amount_max20": true, "high_max20": false}], "outputs": [{"atom": "date", "day": 0}, {"atom": "t_walk", "t0": 0, "t1": 6}]}}, "base_rules": {
+total abs-path hits in results = 0
+sample results files: ['current.json', 'current.xlsx', 'previous.json', 'previous.xlsx', 'current.json', 'current.xlsx', 'current.json', 'current.xlsx']

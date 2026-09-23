@@ -1,0 +1,14 @@
+total entries = 11705
+non-.day files:
+   appdata/stock_names.csv (171943 bytes)
+day files by dir:
+   appdata/market/vipdoc/sh : 5900
+   appdata/market/vipdoc/sz : 5804
+sample sz300:
+   appdata/market/vipdoc/sz/lday/sz300001.day
+   appdata/market/vipdoc/sz/lday/sz300002.day
+   appdata/market/vipdoc/sz/lday/sz300003.day
+sample sh600:
+   appdata/market/vipdoc/sh/lday/sh600000.day
+   appdata/market/vipdoc/sh/lday/sh600001.day
+   appdata/market/vipdoc/sh/lday/sh600002.day

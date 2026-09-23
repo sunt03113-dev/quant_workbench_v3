@@ -14,6 +14,7 @@ PKG = Path(r"D:\09work\quant_workbench_v3\quant_workbench_package")
 SRC = DIST / "qwb_m4_deploy_20260921.zip"
 OUT = DIST / "qwb_m4_deploy_20260923.zip"
 MARKET = DIST / "qwb_market_pack_20260923.zip"
+STATE = DIST / "qwb_state_pack_20260923.zip"
 
 # files replaced/added from current disk (inside-zip relative posix paths)
 overlay = [
@@ -79,11 +80,12 @@ with zipfile.ZipFile(OUT) as z:
     assert not bad, f"overlay mismatch inside zip: {bad}"
 
 lines = [
-    "# Quant Workbench 2026-09-23 发布包校验",
-    "# 10cm 口径裁定（创业板 10% 时代入池 + 反向门）+ 行情至 09-22",
+    "# Quant Workbench 2026-09-23 发布包校验（三包配套）",
+    "# 10cm 口径裁定（创业板 10% 时代入池 + 反向门）+ 行情至 09-22 + 工作台状态",
     "",
     f"{sha256(OUT)}  {OUT.name}",
     f"{sha256(MARKET)}  {MARKET.name}",
+    f"{sha256(STATE)}  {STATE.name}",
 ]
 (DIST / "SHA256SUMS_20260923.txt").write_text("\n".join(lines) + "\n", encoding="utf-8")
 

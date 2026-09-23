@@ -1,0 +1,27 @@
+﻿schema_version: 1
+models type: PSCustomObject  count: 1
+   |  | universe=
+--- results dirs ---
+  111B_verify_0922  (4 files)
+  p9_excel_probe  (2 files)
+  strategy_10cm_v6  (4 files)
+  strategy_111a_r1_v1  (4 files)
+  strategy_111b_r1_v1  (4 files)
+  strategy_121_r1_v1  (4 files)
+  strategy_13b34ebf3a_v1  (4 files)
+  strategy_1z1a_r1_v1  (4 files)
+  strategy_20cm_v1  (4 files)
+  strategy_20cm_v2  (0 files)
+  strategy_23e908c510_v1  (4 files)
+  strategy_2s2a2a_r1_v1  (4 files)
+  strategy_2s2a2b_r1_v1  (4 files)
+  strategy_2s2b1_r1_v1  (2 files)
+  strategy_31a_v1  (0 files)
+  strategy_676e25bb91_v1  (4 files)
+  strategy_6f43c4300c_v1  (4 files)
+  strategy_99b11761e0_v1  (4 files)
+  strategy_c1789894283086_r1_v1  (4 files)
+  strategy_c1789895695594_r1_v1  (4 files)
+  strategy_e2etest_v1  (4 files)
+  strategy_ed26408c68_v1  (4 files)
+  strategy_f120ccad35_v1  (4 files)

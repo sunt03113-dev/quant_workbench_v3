@@ -58,10 +58,19 @@
   sha256 `c7f8d78d9cca9c93c671a99c0ac2d2a5c6ad9ca027822da384dcba9fd804afd8`
   （`dist/SHA256SUMS_market_20260923.txt`）；行情数据截止 **2026-09-22**。
 
-## 发包
-- `dist/qwb_m4_deploy_20260923.zip`（302+ 文件，含本轮 executor/skill/golden/ask 变更与
-  `gem10_ruling/CHANGES.md`）；校验见 `dist/SHA256SUMS_20260923.txt`。
+## 发包（三包配套，2026-09-23 补充第三包）
+- `dist/qwb_m4_deploy_20260923.zip`（306 文件，sha256 `1ec46ae7…`，含本轮 executor/skill/golden/ask 变更与
+  `gem10_ruling/CHANGES.md`）。
+- **`dist/qwb_state_pack_20260923.zip`（81 文件 / 3.52MB，sha256 `2dc35907…`）——交付缺口补齐**：
+  产品的「21 个模型定义 + 80 个结果表文件」存放在 `appdata/state`，此前**不在任何包里**；
+  不带它 M4 打开首页是空工作台。构建脚本 `build_state_pack_20260923.py`；
+  已扫描确认 `state.json` 零绝对路径（可跨机移植）。
+  > UI 的卡片分组/排序/改名/绑定在浏览器 `localStorage['qw_state_v3']`，无法随包交付 →
+  > 部署指令已写明手工迁移方式（开发机 console `copy(...)` → M4 console `setItem(...)`）。
+- 校验 `dist/SHA256SUMS_20260923.txt`（三行：代码/行情/状态）。
 - 旧代码包 `qwb_m4_deploy_20260921.zip` **作废**（其内 golden/池口径已过时）。
+- 部署指令补「执行顺序」硬提示：**先跑 p9 collect，再装 --login 自启**——自启后工作日 15:45
+  自动增量会让 M4 行情领先开发机，P9 输入哈希立即 ABORT。
 
 ## 未做 / 后续
 - git push 需 kk 手动（沙箱拒读 .ssh）；本地积压含 `54ffc1e` `53cb3c1` `eb9f746` + 本轮提交。

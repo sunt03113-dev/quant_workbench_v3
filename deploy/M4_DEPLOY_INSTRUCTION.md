@@ -4,13 +4,19 @@
 请按以下步骤完成部署并回传验收证据。**不要修改 `skill/`、`golden/`（除 vipdoc 外）、
 `ui/ui_v2.html` 的任何内容**——它们是冻结基线。
 
-## 包内容（两个包必须配套使用，勿混用旧包）
+## 包内容（三个包必须配套使用，勿混用旧包）
 | 包 | 大小 | sha256 | 内容 |
 |---|---|---|---|
 | `qwb_m4_deploy_20260923.zip` | 见 SHA256SUMS | 见 `dist/SHA256SUMS_20260923.txt` | 代码 + Skill + UI + Golden 结果表 + 部署脚本 + mac 双击启动器（不含 `app/config.yaml`，不含任何 `.day`） |
-| `qwb_market_pack_20260923.zip` | 932.9 MB / 11705 文件 | `c7f8d78d9cca9c93c671a99c0ac2d2a5c6ad9ca027822da384dcba9fd804afd8` | 标准本地行情 `appdata/market` + `stock_names.csv` |
+| `qwb_market_pack_20260923.zip` | 932.9 MB / 11705 文件 | `c7f8d78d9cca9c93c671a99c0ac2d2a5c6ad9ca027822da384dcba9fd804afd8` | 标准本地行情 `appdata/market`（11704 个 `.day`，截止 **2026-09-22**）+ `stock_names.csv` |
+| `qwb_state_pack_20260923.zip` | 3.5 MB / 81 文件 | `2dc359075c61dae0dc58d1779cc62f722e6be463bdf657d1b41a382d7167825d` | **工作台状态 `appdata/state`**：21 个模型定义 `state.json` + 80 个结果表文件（各模型 `current/previous` 的 `.json`/`.xlsx`） |
 
-> **2026-09-23 版（当前唯一有效版本）**：代码包与行情包均已更新。
+> **`state` 包是「打开就有内容」的关键**：不带它，界面首页是空工作台（只有 golden 期望表，
+> 需自己逐条跑规则）。它只含相对路径、零绝对路径（已扫描确认），可直接跨机使用。
+> 前端**卡片分组/排序/改名**存在浏览器 `localStorage`（键 `qw_state_v3`），不随包交付；
+> 若要与开发机完全一致，需在 M4 浏览器控制台注入（见文末「可选的界面布局迁移」）。
+
+> **2026-09-23 版（当前唯一有效版本）**：三个包均已对齐 09-22 行情与 10cm 新口径。
 > 旧 `*_20260921.zip` 两包**作废**——代码包内 10cm 池/golden 口径过时，行情包止于 09-21。
 > 以 `sha256` 全量校验为准。
 
@@ -19,10 +25,11 @@
 
 ## 部署步骤
 ```bash
-# 1. 解压两个包到同一目录（保持相对结构）
+# 1. 解压三个包到同一目录（保持相对结构）
 mkdir -p ~/quant_workbench_package && cd ~/quant_workbench_package
 unzip -q ~/Downloads/qwb_m4_deploy_20260923.zip -d .
 unzip -q ~/Downloads/qwb_market_pack_20260923.zip -d .   # 解出 appdata/market 与 stock_names.csv
+unzip -q ~/Downloads/qwb_state_pack_20260923.zip -d .    # 解出 appdata/state（模型定义 + 结果表）
 
 # 2. 环境变量指路（不要创建 app/config.yaml；开发机配置不得随包传递）
 export QWB_APPDATA_DIR="$PWD/appdata"
@@ -37,7 +44,11 @@ chmod +x deploy/bootstrap.sh
 ./deploy/bootstrap.sh serve
 #   浏览器打开 http://127.0.0.1:8000
 
-# 5. 装「双击即用」入口（见下方第 5 节；让用户以后不碰终端）
+# 5. 【先做验收，后装自启】P9 右端采集（见下方「部署后验收」第 3 步）
+#    务必在本步完成后再装自启 —— 自启后工作日 15:45 会自动增量更新行情，
+#    行情一旦领先开发机，P9 输入哈希即不一致（ABORT），必须重打行情包才能重验。
+
+# 6. 装「双击即用」入口（见下方第 5 节；让用户以后不碰终端）
 bash deploy/mac/install_mac_launcher.sh --login
 ```
 
@@ -91,6 +102,24 @@ bash deploy/mac/install_mac_launcher.sh --login    # 额外：登录自启（开
 bash deploy/mac/qwb_launch.sh open | status | stop
 ```
 
+## 可选的界面布局迁移（分组/排序/卡片名）
+首页的**分组、排序、卡片重命名、卡片↔模型绑定**存在浏览器 `localStorage['qw_state_v3']`，
+属浏览器本地数据，不随包交付。M4 首次打开会走内置种子布局（种子只预设了少数卡片，
+后端已有的 21 个模型不会自动全部成卡 —— 可在界面里手动新建卡片并绑定模型）。
+
+若要与开发机布局完全一致：在**开发机浏览器**控制台执行
+`copy(localStorage.getItem('qw_state_v3'))` 复制到剪贴板，把内容存成文本随 M4 一起传；
+在 **M4 浏览器**控制台执行 `localStorage.setItem('qw_state_v3', '<粘贴内容>')` 后刷新页面。
+（这一步纯 UI 层，不影响任何业务口径与 P9 判定。）
+
+## 日常使用与数据来源
+- 三包解压后，**历史行情完全离线自足**（11704 个 `.day`，含沪深主板/创业板/科创板/北交所，
+  截止 2026-09-22）：回测、复核、golden 对账都不需要网络。
+- **每天新增的那一根日线需要联网**：工作日 15:45 自动增量（或首页「一键更新」），
+  数据源优先级 东方财富 → 雪球 → 逐只 K 线。若 M4 网络无法访问这两个行情接口，
+  当日数据进不来，需从开发机同步 `appdata/market/vipdoc` 的增量文件（会导致两端行情哈希
+  漂移，之后重跑 P9 须同步重打行情包）。
+
 ## 故障排查
 见 `deploy/README_DEPLOY.md`（含 akshare 硬依赖、行情目录缺失、P9 ABORT/FAIL 的处置）。
 
@@ -111,4 +140,5 @@ bash deploy/mac/qwb_launch.sh open | status | stop
   skill 与 app 双实现同步改，golden 0824/0827A/0909A 三例已按新口径重造（gold_test 全 PASS），
   12 个 10cm 模型已重跑（行数全部增加，复核 0 违例）。
   证据与明细：包内 `artifacts/verification/gem10_ruling/CHANGES.md`。
+- 三包对齐：代码包（10cm 新口径 + mac 启动器）/ 行情包（`.day` 截止 09-22）/ **state 包（21 个模型 + 结果表）**。
 - 行情包 tree_hash 以包内 `appdata/market` 实测为准；两端必须一致（P9 第一道关）。

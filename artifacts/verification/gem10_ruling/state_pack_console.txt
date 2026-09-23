@@ -1,0 +1,4 @@
+out=qwb_state_pack_20260923.zip
+files=81 (results/*=80)
+raw=11.86MB zip=3.52MB
+sha256=2dc359075c61dae0dc58d1779cc62f722e6be463bdf657d1b41a382d7167825d

@@ -1,8 +1,9 @@
 out=qwb_m4_deploy_20260923.zip files=306 size=5.39MB
 overlay=13 verified=all
 
-# Quant Workbench 2026-09-23 发布包校验
-# 10cm 口径裁定（创业板 10% 时代入池 + 反向门）+ 行情至 09-22
+# Quant Workbench 2026-09-23 发布包校验（三包配套）
+# 10cm 口径裁定（创业板 10% 时代入池 + 反向门）+ 行情至 09-22 + 工作台状态
 
-35775ab6f7d773783587143dd45f2cf99166968dc775d99fc2bdbf971da81ee4  qwb_m4_deploy_20260923.zip
+5edbb579942007bccb70e59a1e3fe3b7cea7cd818f41968277ffd709c70a4c35  qwb_m4_deploy_20260923.zip
 c7f8d78d9cca9c93c671a99c0ac2d2a5c6ad9ca027822da384dcba9fd804afd8  qwb_market_pack_20260923.zip
+2dc359075c61dae0dc58d1779cc62f722e6be463bdf657d1b41a382d7167825d  qwb_state_pack_20260923.zip

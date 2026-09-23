@@ -1,0 +1,7 @@
+﻿state dir exists: True
+files: 81  total: 11.31 MB
+--- top level ---
+DIR  results  80 files  11.24 MB
+FILE state.json  78245 bytes
+--- state.json models ---
+keys: schema_version, models

@@ -1,0 +1,7 @@
+temp = C:\Users\21412\AppData\Local\Temp\qwb_state_smoke_q0q6li8y
+models loaded = 21
+models with current_result = 21
+  strategy_e2etest_v1  n_hits=1 data_date=2026-09-22
+  strategy_c1789894283086_r1_v1  n_hits=1 data_date=2026-09-22
+  strategy_c1789895695594_r1_v1  n_hits=6344 data_date=2026-09-22
+models whose current.xlsx missing = 0 []
